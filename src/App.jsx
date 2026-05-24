@@ -152,7 +152,7 @@ function Hero() {
         backgroundImageUrl="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80&auto=format&fit=crop"
         badge="🌅 Youth-led NGO · Baler, Aurora, Philippines"
         title={<>Every child deserves a <span style={{ color: "#F5C200" }}>brighter</span> tomorrow</>}
-        description="Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and sustainable school initiatives — built by youth, for youth."
+        description="Ang pagsikat ay nagsisimula sa pagkilos. Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and creative arts — built by youth, for youth."
         ctaButton={{
           text: "Join as Volunteer",
           onClick: () => document.querySelector("#volunteer")?.scrollIntoView({ behavior: "smooth" }),
@@ -204,11 +204,11 @@ function Programs() {
       img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=190&fit=crop&q=70",
     },
     {
-      color: C.gr, lightBg: "#EDF7EF", tag: "Agriculture",
-      name: "Gulay sa Paaralan",
-      desc: "School gardening documentation showcasing sustainable agriculture practices and the measurable progress across 12 school sites in Aurora Province.",
-      icon: <SproutIcon size={22} color={C.gr} />,
-      img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=190&fit=crop&q=70",
+      color: "#0E6B8C", lightBg: "#E8F4F8", tag: "Arts & Culture",
+      name: "Hiraya",
+      desc: "A creative arts and cultural program nurturing imagination, self-expression, and Filipino heritage among Aurora's youth through workshops, performances, and exhibitions.",
+      icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
+      img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=190&fit=crop&q=70",
     },
     {
       color: "#7b2d8b", lightBg: "#F5EEF8", tag: "Stories",
@@ -343,7 +343,7 @@ function Volunteer() {
   const roles = [
     { icon: "👨‍🏫", title: "Program Facilitator", desc: "Lead afterschool sessions for Ang Batang Kali across Aurora." },
     { icon: "📚", title: "Literacy Coach", desc: "Run reading circles and storytelling sessions for Abot Ko Ang Libro." },
-    { icon: "🌱", title: "Garden Coordinator", desc: "Oversee school garden plots for Gulay sa Paaralan." },
+    { icon: "🎨", title: "Arts Facilitator", desc: "Lead creative workshops and cultural activities for Hiraya." },
     { icon: "📷", title: "Documentation Lead", desc: "Capture field stories, photos, and impact reports." },
   ];
   return (
@@ -396,7 +396,7 @@ function Volunteer() {
                 )
               ))}
               {[
-                ["Role of interest", ["Select a role...", "Program Facilitator", "Literacy Coach", "Garden Coordinator", "Documentation Lead", "General / any role"]],
+                ["Role of interest", ["Select a role...", "Program Facilitator", "Literacy Coach", "Arts Facilitator", "Documentation Lead", "General / any role"]],
                 ["Availability", ["Weekends only", "Weekdays only", "Both weekdays & weekends", "School breaks / summer"]],
               ].map(([label, opts], i) => (
                 <div key={i} style={{ marginBottom: 16 }}>
@@ -438,7 +438,7 @@ function Donate() {
   const impacts = [
     { color: C.or, bg: "#FEF3EC", emoji: "📚", label: "₱250 provides 5 books", sub: "for Abot Ko Ang Libro reading circles" },
     { color: C.bl, bg: "#EEF4FA", emoji: "👦", label: "₱500 funds one child", sub: "through one month of Ang Batang Kali" },
-    { color: C.gr, bg: "#EDF7EF", emoji: "🌱", label: "₱1,000 seeds a school garden", sub: "for an entire semester" },
+    { color: "#0E6B8C", bg: "#E8F4F8", emoji: "🎨", label: "₱1,000 funds a Hiraya workshop", sub: "covering arts materials for one session" },
     { color: "#534AB7", bg: "#F0F0F7", emoji: "🏫", label: "₱5,000 sponsors a site", sub: "covering materials, training & logistics" },
   ];
   return (
@@ -448,7 +448,7 @@ function Donate() {
           <div>
             <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Make a Difference</div>
             <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>Support Our Mission</h2>
-            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 32 }}>Every peso goes directly to a child's education, a book in their hands, or a meal from a school garden. Receipts auto-generated for all donations.</p>
+            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 32 }}>Every peso goes directly to a child's education, a book in their hands, or a creative workshop that sparks their potential. Receipts auto-generated for all donations.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
               {impacts.map((item, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", background: "#fff", borderRadius: 14, border: "1px solid rgba(0,0,0,0.06)", cursor: "pointer", transition: "all .2s" }}
@@ -519,11 +519,11 @@ function Stories() {
       img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=200&fit=crop&q=70",
     },
     {
-      bg: "#EDF7EF", color: C.gr, tag: "Gulay sa Paaralan", date: "Apr 28, 2026",
-      title: "How one school garden fed 80 families last harvest season",
-      excerpt: "What started as a small plot behind Baler Central School has grown into a thriving garden supplying fresh produce to the community.",
+      bg: "#E8F4F8", color: "#0E6B8C", tag: "Hiraya", date: "Apr 28, 2026",
+      title: "How a mural turned one school wall into a community landmark",
+      excerpt: "Twelve students from San Luis spent three weekends painting a mural that now tells the story of Aurora's history — and their own dreams.",
       initials: "MC", author: "Marco Cruz",
-      img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=200&fit=crop&q=70",
+      img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=200&fit=crop&q=70",
     },
     {
       bg: "#FEF3EC", color: C.or, tag: "Ang Batang Kali", date: "Apr 10, 2026",
@@ -606,7 +606,7 @@ function Newsletter() {
 
 function Footer() {
   const cols = [
-    ["Programs", ["Ang Batang Kali", "Abot Ko Ang Libro", "Gulay sa Paaralan", "Impact Blog"]],
+    ["Programs", ["Ang Batang Kali", "Abot Ko Ang Libro", "Hiraya", "Impact Blog"]],
     ["Get Involved", ["Volunteer", "Donate", "Partner with us", "Newsletter"]],
     ["Organization", ["About us", "Transparency Hub", "Contact", "Privacy Policy"]],
   ];
