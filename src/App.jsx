@@ -151,8 +151,8 @@ function Hero() {
       <AnimatedHero
         backgroundImageUrl="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80&auto=format&fit=crop"
         badge="🌅 Youth-led NGO · Baler, Aurora, Philippines"
-        title={<>Every child deserves a <span style={{ color: "#F5C200" }}>brighter</span> tomorrow</>}
-        description="Ang pagsikat ay nagsisimula sa pagkilos. Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and creative arts — built by youth, for youth."
+        title={<>Ang pagsikat ay nagsisimula sa <span style={{ color: "#F5C200" }}>pagkilos</span></>}
+        description="Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and creative arts — built by youth, for youth."
         ctaButton={{
           text: "Join as Volunteer",
           onClick: () => document.querySelector("#volunteer")?.scrollIntoView({ behavior: "smooth" }),
