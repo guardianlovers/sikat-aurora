@@ -97,12 +97,10 @@ function DownloadIcon({ size = 15 }) {
 
 function Navbar() {
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, padding: "0 40px", fontFamily: "'Poppins', sans-serif" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}>
       <div style={{
-        maxWidth: 1280, margin: "16px auto 0",
-        background: "rgba(255,255,255,0.9)", backdropFilter: "blur(20px)",
-        border: "1px solid rgba(0,0,0,0.07)", borderRadius: 20,
-        display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 24px"
+        maxWidth: 1280, margin: "0 auto",
+        display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px"
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 36, height: 36, background: C.or, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -134,7 +132,7 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section id="home" style={{ minHeight: "100vh", background: C.dark, position: "relative", overflow: "hidden", display: "flex", alignItems: "center", paddingTop: 100, fontFamily: "'Poppins', sans-serif" }}>
+    <section id="home" style={{ minHeight: "100vh", background: C.dark, position: "relative", overflow: "hidden", display: "flex", alignItems: "center", paddingTop: 80, fontFamily: "'Poppins', sans-serif" }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: `radial-gradient(circle at 20% 80%, rgba(229,92,20,0.18) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(26,63,92,0.25) 0%, transparent 50%)` }} />
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "80px 40px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", width: "100%", position: "relative", zIndex: 1 }}>
