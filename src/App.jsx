@@ -97,7 +97,7 @@ function DownloadIcon({ size = 15 }) {
 
 function Navbar() {
   return (
-    <nav style={{ position: "fixed", top: 0, width: "100%", zIndex: 999, padding: "0 40px", fontFamily: "'Poppins', sans-serif" }}>
+    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, padding: "0 40px", fontFamily: "'Poppins', sans-serif" }}>
       <div style={{
         maxWidth: 1280, margin: "16px auto 0",
         background: "rgba(255,255,255,0.9)", backdropFilter: "blur(20px)",
