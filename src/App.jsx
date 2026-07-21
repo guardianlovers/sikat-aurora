@@ -111,6 +111,55 @@ function SproutIcon({ size = 20, color = "currentColor" }) {
   );
 }
 
+function TeacherIcon({ size = 20, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+    </svg>
+  );
+}
+
+function PaletteIcon({ size = 20, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.5-.75 1.5-1.5 0-.41-.15-.79-.42-1.08-.27-.29-.43-.68-.43-1.12 0-.9.73-1.63 1.63-1.63h1.85C19.2 16.67 22 13.9 22 10.5 22 5.8 17.5 2 12 2z" />
+      <circle cx="7.5" cy="11.5" r="1" fill={color} />
+      <circle cx="12" cy="7.5" r="1" fill={color} />
+      <circle cx="16.5" cy="11.5" r="1" fill={color} />
+    </svg>
+  );
+}
+
+function CameraIcon({ size = 20, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+      <circle cx="12" cy="13" r="4" />
+    </svg>
+  );
+}
+
+function UserIcon({ size = 20, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  );
+}
+
+function SchoolIcon({ size = 20, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 22v-4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4" />
+      <path d="M18 22V6l-6-4-6 4v16" />
+      <path d="M6 12h12" />
+      <path d="M6 16h12" />
+    </svg>
+  );
+}
+
 function Navbar() {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}>
@@ -149,7 +198,7 @@ function Hero() {
     <section id="home">
       <AnimatedHero
         backgroundImageUrl="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80&auto=format&fit=crop"
-        badge="🌅 Youth-led NGO · Baler, Aurora, Philippines"
+        badge="Youth-led NGO · Baler, Aurora, Philippines"
         title={<>Ang pagsikat ay nagsisimula sa <span style={{ color: "#F5C200" }}>pagkilos</span></>}
         description="Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and creative arts — built by youth, for youth."
         ctaButton={{
@@ -340,10 +389,10 @@ function Volunteer() {
     "Real community impact from Day 1",
   ];
   const roles = [
-    { icon: "👨‍🏫", title: "Program Facilitator", desc: "Lead afterschool sessions for Ang Batang Kali across Aurora." },
-    { icon: "📚", title: "Literacy Coach", desc: "Run reading circles and storytelling sessions for Abot Ko Ang Libro." },
-    { icon: "🎨", title: "Arts Facilitator", desc: "Lead creative workshops and cultural activities for Hiraya." },
-    { icon: "📷", title: "Documentation Lead", desc: "Capture field stories, photos, and impact reports." },
+    { icon: <TeacherIcon size={22} color={C.or} />, title: "Program Facilitator", desc: "Lead afterschool sessions for Ang Batang Kali across Aurora." },
+    { icon: <BookIcon size={22} color={C.bl} />, title: "Literacy Coach", desc: "Run reading circles and storytelling sessions for Abot Ko Ang Libro." },
+    { icon: <PaletteIcon size={22} color="#0E6B8C" />, title: "Arts Facilitator", desc: "Lead creative workshops and cultural activities for Hiraya." },
+    { icon: <CameraIcon size={22} color="#534AB7" />, title: "Documentation Lead", desc: "Capture field stories, photos, and impact reports." },
   ];
   return (
     <section id="volunteer" style={{ padding: "100px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
@@ -356,7 +405,7 @@ function Volunteer() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
               {roles.map((r, i) => (
                 <div key={i} style={{ background: C.bg, borderRadius: 14, padding: "16px 18px", border: "1px solid rgba(0,0,0,0.05)" }}>
-                  <div style={{ fontSize: "1.5rem", marginBottom: 6 }}>{r.icon}</div>
+                  <div style={{ width: 38, height: 38, borderRadius: 10, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 10, border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>{r.icon}</div>
                   <div style={{ fontSize: "0.85rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>{r.title}</div>
                   <div style={{ fontSize: "0.75rem", color: C.mid, lineHeight: 1.6 }}>{r.desc}</div>
                 </div>
@@ -435,10 +484,10 @@ function Donate() {
     { label: "PayPal", logo: "P" },
   ];
   const impacts = [
-    { color: C.or, bg: "#FEF3EC", emoji: "📚", label: "₱250 provides 5 books", sub: "for Abot Ko Ang Libro reading circles" },
-    { color: C.bl, bg: "#EEF4FA", emoji: "👦", label: "₱500 funds one child", sub: "through one month of Ang Batang Kali" },
-    { color: "#0E6B8C", bg: "#E8F4F8", emoji: "🎨", label: "₱1,000 funds a Hiraya workshop", sub: "covering arts materials for one session" },
-    { color: "#534AB7", bg: "#F0F0F7", emoji: "🏫", label: "₱5,000 sponsors a site", sub: "covering materials, training & logistics" },
+    { color: C.or, bg: "#FEF3EC", icon: <BookIcon size={22} color={C.or} />, label: "₱250 provides 5 books", sub: "for Abot Ko Ang Libro reading circles" },
+    { color: C.bl, bg: "#EEF4FA", icon: <UserIcon size={22} color={C.bl} />, label: "₱500 funds one child", sub: "through one month of Ang Batang Kali" },
+    { color: "#0E6B8C", bg: "#E8F4F8", icon: <PaletteIcon size={22} color="#0E6B8C" />, label: "₱1,000 funds a Hiraya workshop", sub: "covering arts materials for one session" },
+    { color: "#534AB7", bg: "#F0F0F7", icon: <SchoolIcon size={22} color="#534AB7" />, label: "₱5,000 sponsors a site", sub: "covering materials, training & logistics" },
   ];
   return (
     <section id="donate" style={{ padding: "100px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
@@ -453,8 +502,8 @@ function Donate() {
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", background: "#fff", borderRadius: 14, border: "1px solid rgba(0,0,0,0.06)", cursor: "pointer", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(229,92,20,0.3)"; e.currentTarget.style.transform = "translateX(4px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(0,0,0,0.06)"; e.currentTarget.style.transform = "none"; }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 10, background: item.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1.3rem" }}>
-                    {item.emoji}
+                  <div style={{ width: 44, height: 44, borderRadius: 10, background: item.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    {item.icon}
                   </div>
                   <div style={{ flex: 1 }}>
                     <strong style={{ display: "block", fontSize: "0.88rem", fontWeight: 700, color: C.dark }}>{item.label}</strong>
