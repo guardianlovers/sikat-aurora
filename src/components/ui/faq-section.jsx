@@ -7,67 +7,52 @@ import { Button } from "@/components/ui/button";
 const FaqSection = React.forwardRef(
   ({ className, title, description, items, contactInfo, ...props }, ref) => {
     return (
-      <section
-        ref={ref}
-        className={cn(
-          "py-14 w-full bg-gradient-to-b from-transparent via-stone-100/60 to-transparent font-sans",
-          className
-        )}
-        {...props}
-      >
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
+      <section ref={ref} className={cn("w-full py-16 font-sans lg:py-20", className)} {...props}>
+        <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-2xl mx-auto text-center mb-12"
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mb-12 max-w-2xl text-center"
           >
-            <div className="text-xs font-semibold uppercase tracking-widest text-[#E55C14] mb-3">
+            <p className="mb-3 flex items-center justify-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary">
+              <span aria-hidden="true" className="h-px w-6 bg-primary/40" />
               FAQ
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 text-[#0D1F2D] tracking-tight">
+            </p>
+            <h2 className="mb-4 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
               {title}
             </h2>
             {description && (
-              <p className="text-base text-slate-600 font-light leading-relaxed">{description}</p>
+              <p className="mx-auto max-w-[54ch] text-sm leading-[1.7] text-ink sm:text-[0.93rem]">{description}</p>
             )}
           </motion.div>
 
-          {/* FAQ Items */}
-          <div className="max-w-3xl mx-auto space-y-3">
+          {/* FAQ items */}
+          <div className="mx-auto max-w-3xl border-t border-navy/15">
             {items.map((item, index) => (
-              <FaqItem
-                key={index}
-                question={item.question}
-                answer={item.answer}
-                index={index}
-              />
+              <FaqItem key={index} question={item.question} answer={item.answer} index={index} />
             ))}
           </div>
 
-          {/* Contact Section */}
+          {/* Contact */}
           {contactInfo && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="max-w-md mx-auto mt-16 p-8 rounded-2xl bg-white border border-stone-200/80 text-center shadow-lg"
+              transition={{ duration: 0.45, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto mt-16 max-w-md rounded-lg border border-navy/10 bg-white p-8 text-center shadow-card"
             >
-              <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#FEF3EC] text-[#E55C14] mb-4">
-                <Mail className="h-5 w-5" />
+              <div className="mb-4 inline-flex items-center justify-center rounded-md bg-primary-soft p-3 text-primary">
+                <Mail className="h-5 w-5" aria-hidden="true" />
               </div>
-              <p className="text-base font-semibold text-[#0D1F2D] mb-1">
-                {contactInfo.title}
-              </p>
-              <p className="text-sm text-slate-500 mb-5 font-light">
-                {contactInfo.description}
-              </p>
+              <p className="mb-1.5 font-display text-[1.2rem] font-semibold text-navy">{contactInfo.title}</p>
+              <p className="mb-6 text-sm leading-relaxed text-ink">{contactInfo.description}</p>
               <Button
                 onClick={contactInfo.onContact}
-                className="bg-[#E55C14] hover:bg-[#cc4f0f] text-white rounded-full px-8 py-2.5 font-semibold text-sm shadow-md"
+                className="rounded-md bg-primary px-7 py-3 text-[0.82rem] font-semibold text-white hover:bg-primary-dark"
               >
                 {contactInfo.buttonText}
               </Button>
@@ -80,84 +65,63 @@ const FaqSection = React.forwardRef(
 );
 FaqSection.displayName = "FaqSection";
 
-// Internal FaqItem component
-const FaqItem = React.forwardRef(
-  ({ question, answer, index }, ref) => {
-    const [isOpen, setIsOpen] = React.useState(false);
+// Internal accordion item — button controls the answer panel via aria-expanded/aria-controls
+const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const panelId = React.useId();
 
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.2, delay: index * 0.08 }}
-        className={cn(
-          "group rounded-2xl border transition-all duration-200 ease-in-out overflow-hidden",
-          isOpen
-            ? "bg-white border-[#E55C14]/40 shadow-md"
-            : "bg-white/80 border-stone-200 hover:bg-white hover:border-stone-300"
-        )}
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.25, delay: Math.min(index * 0.05, 0.25) }}
+      className="group border-b border-navy/10"
+    >
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
       >
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-7 py-5 flex items-center justify-between text-left focus:outline-none transition-colors"
-        >
-          <h3
-            className={cn(
-              "text-base sm:text-lg font-semibold transition-colors duration-200 pr-4",
-              isOpen ? "text-[#E55C14]" : "text-[#0D1F2D] group-hover:text-[#E55C14]"
-            )}
-          >
-            {question}
-          </h3>
-          <motion.div
-            animate={{
-              rotate: isOpen ? 180 : 0,
-              scale: isOpen ? 1.1 : 1,
-            }}
-            transition={{ duration: 0.2 }}
-            className={cn(
-              "p-1.5 rounded-full flex-shrink-0 transition-colors duration-200",
-              isOpen ? "bg-[#FEF3EC] text-[#E55C14]" : "text-stone-400 group-hover:text-stone-600"
-            )}
-          >
-            <ChevronDown className="h-5 w-5" />
-          </motion.div>
-        </button>
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{
-                height: "auto",
-                opacity: 1,
-                transition: { duration: 0.25, ease: "easeOut" },
-              }}
-              exit={{
-                height: 0,
-                opacity: 0,
-                transition: { duration: 0.2, ease: "easeIn" },
-              }}
-            >
-              <div className="px-7 pb-6 pt-1">
-                <motion.p
-                  initial={{ y: -8, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -8, opacity: 0 }}
-                  className="text-sm sm:text-base text-slate-600 leading-relaxed font-light"
-                >
-                  {answer}
-                </motion.p>
-              </div>
-            </motion.div>
+        <h3
+          className={cn(
+            "font-display text-[1.05rem] font-semibold transition-colors duration-200 sm:text-[1.15rem]",
+            isOpen ? "text-primary" : "text-navy group-hover:text-primary"
           )}
-        </AnimatePresence>
-      </motion.div>
-    );
-  }
-);
+        >
+          {question}
+        </h3>
+        <motion.span
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className={cn(
+            "flex-shrink-0 transition-colors duration-200",
+            isOpen ? "text-primary" : "text-ink/50 group-hover:text-primary"
+          )}
+        >
+          <ChevronDown className="h-5 w-5" aria-hidden="true" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1, transition: { duration: 0.25, ease: "easeOut" } }}
+            exit={{ height: 0, opacity: 0, transition: { duration: 0.2, ease: "easeIn" } }}
+          >
+            <p className="max-w-[68ch] pb-6 pr-8 text-sm leading-[1.75] text-ink sm:text-[0.93rem]">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+});
 FaqItem.displayName = "FaqItem";
 
 export { FaqSection };

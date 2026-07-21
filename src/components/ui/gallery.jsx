@@ -121,19 +121,39 @@ export const PhotoGallery = ({
   ];
 
   return (
-    <div className="py-16 relative font-sans overflow-hidden">
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
-        <p className="my-2 text-center text-xs font-semibold uppercase tracking-widest text-[#E55C14]">
+    <div className="relative overflow-hidden py-16 font-sans lg:py-20">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
+        <p className="mb-3 flex items-center justify-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary">
+          <span aria-hidden="true" className="h-px w-6 bg-primary/40" />
           Kwentong Síkat — Visual Stories
         </p>
-        <h3 className="z-20 mx-auto max-w-2xl text-center text-3xl md:text-4xl font-semibold text-[#0D1F2D] mb-3">
-          Moments From <span className="text-[#E55C14]">the Field</span>
+        <h3 className="z-20 mx-auto mb-4 max-w-2xl text-center font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
+          Moments From <span className="text-primary">the Field</span>
         </h3>
-        <p className="text-center text-slate-500 text-sm max-w-md mx-auto mb-10 font-light">
-          Interactive photo gallery from Baler, Maria Aurora, San Luis, and Casiguran. Drag any photo to explore!
+        <p className="mx-auto mb-12 max-w-[46ch] text-center text-sm leading-[1.7] text-ink">
+          Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
+          <span className="hidden lg:inline"> Drag any photo to explore.</span>
         </p>
       </div>
-      <div className="relative mb-12 h-[320px] w-full items-center justify-center lg:flex">
+
+      {/* Small screens: swipeable photo strip (the draggable fan needs a wide viewport) */}
+      <div className="mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 lg:hidden">
+        {photos.map((photo) => (
+          <img
+            key={photo.id}
+            src={photo.src}
+            alt={photo.alt}
+            loading="lazy"
+            className={cn(
+              "h-44 w-44 shrink-0 snap-center rounded-md border-4 border-white object-cover shadow-card-hover",
+              photo.direction === "left" ? "-rotate-1" : "rotate-1"
+            )}
+          />
+        ))}
+      </div>
+
+      {/* Large screens: draggable photo fan */}
+      <div className="relative mb-12 hidden h-[320px] w-full items-center justify-center lg:flex">
         <motion.div
           className="relative mx-auto flex w-full max-w-7xl justify-center"
           initial={{ opacity: 0 }}
@@ -172,8 +192,12 @@ export const PhotoGallery = ({
           </motion.div>
         </motion.div>
       </div>
+
       <div className="flex w-full justify-center">
-        <Button onClick={onViewAll} className="bg-[#E55C14] hover:bg-[#cc4f0f] text-white rounded-full px-8 py-3 font-semibold text-sm shadow-md transition-transform hover:scale-105">
+        <Button
+          onClick={onViewAll}
+          className="rounded-md bg-primary px-7 py-3 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:bg-primary-dark"
+        >
           Read All Kwentong Síkat Stories
         </Button>
       </div>
@@ -196,15 +220,11 @@ export const Photo = ({
   width,
   height,
 }) => {
-  const [rotation, setRotation] = useState(0);
+  const [rotation] = useState(
+    () => getRandomNumberInRange(1, 4) * (direction === "left" ? -1 : 1)
+  );
   const x = useMotionValue(200);
   const y = useMotionValue(200);
-
-  useEffect(() => {
-    const randomRotation =
-      getRandomNumberInRange(1, 4) * (direction === "left" ? -1 : 1);
-    setRotation(randomRotation);
-  }, [direction]);
 
   function handleMouse(event) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -221,14 +241,14 @@ export const Photo = ({
     <motion.div
       drag
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-      whileTap={{ scale: 1.2, zIndex: 9999 }}
+      whileTap={{ scale: 1.08, zIndex: 9999 }}
       whileHover={{
-        scale: 1.1,
+        scale: 1.05,
         rotateZ: 2 * (direction === "left" ? -1 : 1),
         zIndex: 9999,
       }}
       whileDrag={{
-        scale: 1.1,
+        scale: 1.05,
         zIndex: 9999,
       }}
       initial={{ rotate: 0 }}
@@ -253,9 +273,9 @@ export const Photo = ({
       draggable={false}
       tabIndex={0}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-xl border-4 border-white bg-slate-900">
+      <div className="relative h-full w-full overflow-hidden rounded-md border-4 border-white bg-navy shadow-xl">
         <img
-          className={cn("h-full w-full rounded-3xl object-cover pointer-events-none select-none")}
+          className={cn("pointer-events-none h-full w-full select-none rounded-sm object-cover")}
           src={src}
           alt={alt}
           draggable={false}

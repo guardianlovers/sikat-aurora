@@ -1,4 +1,3 @@
-import * as React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,38 +31,29 @@ export const AnimatedHero = ({
   return (
     <div
       className={cn(
-        "relative flex w-full flex-col items-center justify-center overflow-hidden font-sans pt-28 pb-16 min-h-[480px] sm:min-h-[540px]",
+        "relative flex w-full flex-col items-center justify-center overflow-hidden font-sans pt-36 pb-24 min-h-[560px] sm:min-h-[660px]",
         className
       )}
     >
-      {/* Background Image & Overlay */}
+      {/* Background image with a single legibility overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
       >
-        <div className="absolute inset-0 bg-black/65" />
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 80%, rgba(229,92,20,0.25) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(26,63,92,0.3) 0%, transparent 50%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/90 via-navy-deep/70 to-navy-deep/40" />
       </div>
 
-      {/* Hero Content — aligned to exact 1280px grid with 40px padding */}
+      {/* Hero content — aligned to the same 1280px page grid as every section */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 flex flex-col items-start justify-center max-w-[1280px] w-full text-white mx-auto"
-        style={{ paddingLeft: 40, paddingRight: 40 }}
+        className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-start justify-center px-6 text-white md:px-9"
       >
         {badge && (
-          <motion.div variants={itemVariants} className="mb-3">
-            <span
-              className="text-xs font-semibold tracking-wider uppercase bg-[#F5C200]/15 text-[#F5C200] px-3.5 py-1.5 rounded-full border border-[#F5C200]/30 inline-block"
-            >
+          <motion.div variants={itemVariants} className="mb-5">
+            <span className="flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold">
+              <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
               {badge}
             </span>
           </motion.div>
@@ -71,23 +61,23 @@ export const AnimatedHero = ({
 
         <motion.h1
           variants={itemVariants}
-          className="text-2xl sm:text-4xl md:text-[2.75rem] font-bold tracking-tight leading-[1.2] max-w-3xl"
+          className="max-w-[15ch] font-display text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.02em] sm:text-[3.2rem] md:text-[3.75rem]"
         >
           {title}
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
-          className="mt-3.5 max-w-xl text-sm sm:text-base leading-relaxed text-white/80 font-normal"
+          className="mt-6 max-w-[52ch] text-sm leading-[1.75] text-white/75 sm:text-[0.98rem]"
         >
           {description}
         </motion.p>
 
-        <motion.div variants={itemVariants} className="mt-6 flex items-center gap-3 flex-wrap">
+        <motion.div variants={itemVariants} className="mt-9 flex flex-wrap items-center gap-3">
           <Button
             onClick={ctaButton.onClick}
             size="lg"
-            className="bg-[#E55C14] hover:bg-[#cc4f0f] text-white border-0 font-semibold px-6 py-3 text-sm rounded-full shadow-md cursor-pointer transition-all"
+            className="cursor-pointer rounded-md border-0 bg-primary px-7 py-3.5 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:bg-primary-dark active:translate-y-px"
           >
             {ctaButton.text}
           </Button>
@@ -95,7 +85,7 @@ export const AnimatedHero = ({
             <Button
               onClick={secondaryCta.onClick}
               size="lg"
-              className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white/20 font-semibold px-6 py-3 text-sm rounded-full transition-all cursor-pointer"
+              className="cursor-pointer rounded-md border border-white/35 bg-transparent px-7 py-3.5 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-navy active:translate-y-px"
             >
               {secondaryCta.text}
             </Button>
