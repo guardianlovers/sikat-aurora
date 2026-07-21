@@ -313,7 +313,7 @@ function PhotoGrid({ label, photos, className }) {
           <StaggerItem key={p.src}>
             <figure
               onClick={() => setSelectedPhoto(p)}
-              className="group relative cursor-zoom-in overflow-hidden rounded-xl bg-navy/5 shadow-xs transition-all duration-300 hover:shadow-md"
+              className="group relative cursor-pointer overflow-hidden rounded-xl bg-navy/5 shadow-xs transition-all duration-300 hover:shadow-md"
             >
               <img
                 src={p.src}
@@ -321,11 +321,6 @@ function PhotoGrid({ label, photos, className }) {
                 loading="lazy"
                 className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
               />
-              <div className="absolute inset-0 bg-navy/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-navy shadow-sm">
-                  <ZoomIn className="h-4 w-4" />
-                </span>
-              </div>
             </figure>
           </StaggerItem>
         ))}
