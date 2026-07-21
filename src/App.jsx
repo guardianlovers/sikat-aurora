@@ -168,7 +168,7 @@ function HomePage({ onNavigate }) {
         <AnimatedHero
           backgroundImageUrl={heroBanner}
           badge="Ang pagsikat ay nagsisimula sa pagkilos."
-          title={<>Where the sun rises, <span style={{ color: "#F5C200" }}>the youth rise with it.</span></>}
+          title={<>Where the sun rises,<br /><span style={{ color: "#F5C200" }}>the youth rise with it.</span></>}
           description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
           ctaButton={{
             text: "Become a Volunteer",
@@ -178,12 +178,6 @@ function HomePage({ onNavigate }) {
             text: "Donate / Be a Sponsor",
             onClick: () => onNavigate("donate"),
           }}
-          stats={[
-            ["400+", "Youth Volunteers"],
-            ["1,100+", "Learners Reached"],
-            ["18", "Partner Communities"],
-            ["₱1.5M+", "Donations & Grants Raised"],
-          ]}
         />
       </section>
 
