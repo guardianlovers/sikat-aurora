@@ -5,7 +5,104 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Síkat-Aurora | Youth-Led NGO</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Síkat-Aurora Inc. | Youth Volunteerism in Baler, Aurora — Volunteer & Donate</title>
+    <meta name="description" content="Síkat-Aurora Inc. is a youth-led nonprofit in Baler, Aurora, Philippines providing free after-school programs in education, environment, and active citizenship. Volunteer, donate, or sponsor a program today." />
+    <meta name="keywords" content="Síkat-Aurora, Sikat Baler, youth volunteerism Aurora, nonprofit Baler Aurora, volunteer Philippines, Abot Ko Ang Libro, Batang Kali, Hiraya leadership" />
+    <meta name="author" content="Síkat-Aurora Inc." />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Síkat-Aurora Inc. — Ang pagsíkat ay nagsisimula sa pagkilos." />
+    <meta property="og:description" content="The premier platform for youth volunteerism in Aurora. 400+ volunteers, 1,100+ learners, 18 partner communities." />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="og:url" content="https://sikat-aurora.vercel.app" />
+
+    <!-- JSON-LD Structured Data (NGO Schema + FAQPage Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "NGO",
+          "@id": "https://sikat-aurora.vercel.app/#ngo",
+          "name": "Síkat-Aurora Inc.",
+          "alternateName": "Síkat-Baler",
+          "url": "https://sikat-aurora.vercel.app",
+          "logo": "https://sikat-aurora.vercel.app/logo.png",
+          "foundingDate": "2021-08-12",
+          "foundingLocation": {
+            "@type": "Place",
+            "name": "Baler, Aurora, Philippines"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Baler",
+            "addressRegion": "Aurora",
+            "addressCountry": "PH"
+          },
+          "description": "Youth-led and youth-serving nonprofit in Baler, Aurora, Philippines bringing free after-school programs in education, environment, and active citizenship.",
+          "sameAs": [
+            "https://facebook.com"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Síkat-Aurora Inc.?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Síkat-Aurora Inc., formerly Síkat-Baler, is a youth-led, youth-serving nonprofit organization based in Baler, Aurora, Philippines. Established on August 12, 2021 — International Youth Day — it provides free after-school programs in education, environment, and active citizenship, powered by 400+ youth volunteers."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I volunteer with Síkat-Aurora in Baler, Aurora?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Admission is free and open to all youth aged 15–30 in Aurora. Simply follow the Síkat-Aurora Facebook page, signify your interest, then attend at least three (3) events within three months while committing to the organization's principles, rules, and policies."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Síkat-Aurora a registered nonprofit organization?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines — Company Registration No. 2025030194739-03 and Unique Registration Number (URN) YO-2807-021323."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I donate or sponsor a program?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can give through our donation drive or become a program sponsor — every peso translates directly to books, learning kits, and youth training in Aurora. We publish a full transparency report at bit.ly/sikatfinance."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What programs does Síkat-Aurora run?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Batang Kali (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where does Síkat-Aurora operate?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Síkat-Aurora serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
