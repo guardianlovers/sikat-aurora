@@ -76,7 +76,8 @@ export const AnimatedHero = ({
         )}
       </AnimatePresence>
 
-      {/* Dark overlay removed to keep background photos bright and clear */}
+      {/* Focused gradient overlay behind the text area on the left */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/85 via-black/60 to-transparent max-w-4xl pointer-events-none" />
 
       {/* Hero content — aligned to the same 1280px page grid as every section */}
       <motion.div
