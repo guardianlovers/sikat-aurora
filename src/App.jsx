@@ -552,22 +552,27 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
 
 function PageHeader({ eyebrow, title, subtitle }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: EASE }}
-      className="bg-navy pb-16 pt-32 text-white"
-    >
+    <div className="bg-navy pb-16 pt-32 text-white">
       <Container>
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="max-w-[18ch] text-[2.1rem] font-bold leading-[1.1] tracking-[-0.025em] sm:text-[2.9rem]">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="mt-5 max-w-[56ch] text-[0.95rem] leading-[1.7] text-white/75">{subtitle}</p>
-        )}
+        <StaggerContainer stagger={0.08}>
+          {eyebrow && (
+            <StaggerItem>
+              <Eyebrow dark>{eyebrow}</Eyebrow>
+            </StaggerItem>
+          )}
+          <StaggerItem>
+            <h1 className="max-w-[20ch] text-[2.1rem] font-bold leading-[1.1] tracking-[-0.025em] sm:text-[3rem]">
+              {title}
+            </h1>
+          </StaggerItem>
+          {subtitle && (
+            <StaggerItem>
+              <p className="mt-4 max-w-[56ch] text-[0.98rem] leading-[1.75] text-white/75">{subtitle}</p>
+            </StaggerItem>
+          )}
+        </StaggerContainer>
       </Container>
-    </motion.div>
+    </div>
   );
 }
 
@@ -1193,13 +1198,18 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
+      <PageHeader
+        eyebrow="Core Programs"
+        title="Three Programs, One Rising Community"
+        subtitle="Every program is volunteer-driven and free for its learners — built around our three centers of participation."
+      />
       {programs.map((p, i) => (
         <Reveal
           key={p.name}
           className={cn(
             "overflow-hidden",
             i % 2 === 1 ? "bg-cream" : "bg-white",
-            i === 0 ? "pt-24 lg:pt-28" : "border-t border-navy/10"
+            "border-t border-navy/10"
           )}
         >
           <div
@@ -1376,7 +1386,12 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      <Reveal className="bg-white pb-16 pt-28 lg:pb-20 lg:pt-36">
+      <PageHeader
+        eyebrow="Impact & Awards"
+        title="The Premier Platform for Youth Volunteerism in Aurora"
+        subtitle="Official metrics and recognitions as of July 2026."
+      />
+      <Reveal className="bg-white py-16 lg:py-20">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div>
@@ -1522,7 +1537,12 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <Reveal className="bg-white pb-16 pt-28 lg:pb-24 lg:pt-36">
+      <PageHeader
+        eyebrow="Organizational Structure"
+        title="Youth Leaders Behind the Movement"
+        subtitle="Meet the executive committee and directorate driving programs across Aurora Province."
+      />
+      <Reveal className="bg-white py-16 lg:py-20">
         <Container>
           <SectionHeading
             eyebrow="Organizational Structure"
@@ -1754,8 +1774,14 @@ function BlogPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
+      <PageHeader
+        eyebrow="Blog & Stories"
+        title="Kwentong Síkat"
+        subtitle="Stories from the field — written by the volunteers, for the community."
+      />
+
       {/* Lead story */}
-      <Reveal className="border-b border-navy/10 bg-white pb-14 pt-28 lg:pb-16 lg:pt-36">
+      <Reveal className="border-b border-navy/10 bg-white py-14 lg:py-16">
         <Container>
           <a
             href={`#blog/${featured.slug}`}
@@ -1895,8 +1921,12 @@ const OFFICIAL_FAQS = [
 function FAQPage({ onNavigate, onOpenModal }) {
   return (
     <>
+      <PageHeader
+        eyebrow="Frequently Asked Questions"
+        title="Everything You Need to Know About Síkat-Aurora"
+        subtitle="Common questions about our programs, volunteer induction, and financial transparency."
+      />
       <FaqSection
-        className="pt-28 lg:pt-36"
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
@@ -1983,8 +2013,14 @@ function VolunteerPage({ onOpenModal }) {
 
   return (
     <>
+      <PageHeader
+        eyebrow="Join Our Volunteer Movement"
+        title="Where Every Youth Has a Voice & Purpose"
+        subtitle="Admission is 100% free and open to all youth aged 15–30 in Aurora Province."
+      />
+
       {/* CTA banner */}
-      <Reveal className="bg-cream px-6 pb-12 pt-28 md:px-9 lg:pt-36">
+      <Reveal className="bg-cream px-6 py-12 md:px-9">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 rounded-lg border-l-2 border-primary bg-navy p-8 text-white sm:p-10">
           <div>
             <Eyebrow dark>Ready to Make a Difference?</Eyebrow>
@@ -2106,7 +2142,12 @@ function DonatePage() {
 
   return (
     <>
-      <Reveal className="bg-cream pb-16 pt-28 lg:pb-20 lg:pt-36">
+      <PageHeader
+        eyebrow="Donate / Be a Sponsor"
+        title="Every Peso Becomes a Page, a Seedling, a Leader"
+        subtitle="Your donation goes directly to program materials and community sessions."
+      />
+      <Reveal className="bg-cream py-16 lg:py-20">
         <Container>
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             <div>
