@@ -568,7 +568,7 @@ function HomePage({ onNavigate, onOpenModal }) {
           <div>
             <SectionHeading
               eyebrow="Who We Are"
-              title="A new face of youth volunteerism in Baler, Aurora"
+              title="A new face of youth volunteerism in Aurora"
             />
             <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
               <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
