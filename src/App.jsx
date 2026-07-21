@@ -1125,14 +1125,36 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
                   Partner Communities ({p.communities.length})
                 </p>
                 <ul className="flex flex-wrap gap-1.5">
-                  {p.communities.map((c) => (
-                    <li
-                      key={c}
-                      className="inline-flex items-center gap-1 rounded-full border border-navy/10 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy"
-                    >
-                      <MapPin className="h-3 w-3 text-primary" aria-hidden="true" /> {c}
-                    </li>
-                  ))}
+                  {p.communities.map((c) => {
+                    const name = typeof c === "string" ? c : c.name;
+                    const url = typeof c === "object" && c.url ? c.url : null;
+
+                    if (url) {
+                      return (
+                        <li key={name}>
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy transition-all duration-200 hover:border-primary hover:bg-primary-soft hover:text-primary hover:-translate-y-0.5 shadow-xs"
+                          >
+                            <MapPin className="h-3 w-3 text-primary" aria-hidden="true" />
+                            {name}
+                            <ArrowUpRight className="h-3 w-3 opacity-60 ml-0.5" aria-hidden="true" />
+                          </a>
+                        </li>
+                      );
+                    }
+
+                    return (
+                      <li
+                        key={name}
+                        className="inline-flex items-center gap-1 rounded-full border border-navy/10 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy"
+                      >
+                        <MapPin className="h-3 w-3 text-primary" aria-hidden="true" /> {name}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>
