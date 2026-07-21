@@ -591,7 +591,7 @@ function HomePage({ onNavigate, onOpenModal }) {
           <img
             src={homeWhoWeAre}
             alt="Síkat-Aurora volunteers and children at a community assembly"
-            className="w-full rounded-lg object-contain"
+            className="w-full rounded-lg"
             loading="lazy"
           />
         </Container>
