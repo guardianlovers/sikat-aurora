@@ -6,20 +6,26 @@ import whoWeAre2 from "@/assets/about/who-we-are/2.jpg";
 import whoWeAre3 from "@/assets/about/who-we-are/3.jpg";
 import whoWeAre4 from "@/assets/about/who-we-are/4.jpg";
 
-import abkl1 from "@/assets/core-program/abkl-photos/1.jpg";
-import abkl2 from "@/assets/core-program/abkl-photos/2.jpg";
-import abkl3 from "@/assets/core-program/abkl-photos/3.jpg";
-import abkl4 from "@/assets/core-program/abkl-photos/4.jpg";
+import abkl1 from "@/assets/programs/core-program/abkl-photos/1.jpg";
+import abkl2 from "@/assets/programs/core-program/abkl-photos/2.jpg";
+import abkl3 from "@/assets/programs/core-program/abkl-photos/3.jpg";
+import abkl4 from "@/assets/programs/core-program/abkl-photos/4.jpg";
 
-import abkp1 from "@/assets/core-program/abkp-photos/1.jpg";
-import abkp2 from "@/assets/core-program/abkp-photos/2.jpg";
-import abkp3 from "@/assets/core-program/abkp-photos/3.jpg";
-import abkp4 from "@/assets/core-program/abkp-photos/4.jpg";
+import abkp1 from "@/assets/programs/core-program/abkp-photos/1.jpg";
+import abkp2 from "@/assets/programs/core-program/abkp-photos/2.jpg";
+import abkp3 from "@/assets/programs/core-program/abkp-photos/3.jpg";
+import abkp4 from "@/assets/programs/core-program/abkp-photos/4.jpg";
 
-import hiraya1 from "@/assets/core-program/hiraya/1.jpg";
-import hiraya2 from "@/assets/core-program/hiraya/2.jpg";
-import hiraya3 from "@/assets/core-program/hiraya/3.jpg";
-import hiraya4 from "@/assets/core-program/hiraya/4.jpg";
+import hiraya1 from "@/assets/programs/core-program/hiraya/1.jpg";
+import hiraya2 from "@/assets/programs/core-program/hiraya/2.jpg";
+import hiraya3 from "@/assets/programs/core-program/hiraya/3.jpg";
+import hiraya4 from "@/assets/programs/core-program/hiraya/4.jpg";
+
+export const PROGRAM_COVERS = {
+  abkl: "@/assets/programs/core-program/abot-ko-ang-libro.jpg",
+  abkp: "@/assets/programs/core-program/batang-kali.jpg",
+  hiraya: "@/assets/programs/core-program/hiraya.jpg",
+};
 
 export const PHOTOS = {
   communityAssembly: whoWeAre1,

@@ -34,9 +34,9 @@ import impactVolunteersImg from "./assets/home/impact-in-numbers/400-youth-volun
 import impactLearnersImg from "./assets/home/impact-in-numbers/1100-learner-reached.jpg";
 import impactCommunitiesImg from "./assets/home/impact-in-numbers/18-partner-community.jpg";
 import impactDonationsImg from "./assets/home/impact-in-numbers/donation-grant.jpg";
-import coreAbklImg from "./assets/home/core-program/abot-ko-ang-libro.jpg";
-import coreAbkpImg from "./assets/home/core-program/ang-batang-kali.jpg";
-import coreHirayaImg from "./assets/core-program/hiraya.jpg";
+import coreAbklImg from "./assets/programs/core-program/abot-ko-ang-libro.jpg";
+import coreAbkpImg from "./assets/programs/core-program/batang-kali.jpg";
+import coreHirayaImg from "./assets/programs/core-program/hiraya.jpg";
 import howWeStartedImg from "./assets/about/how-we-started/how-we-started.jpg";
 import whoWeAre1 from "./assets/about/who-we-are/1.jpg";
 import whoWeAre2 from "./assets/about/who-we-are/2.jpg";
