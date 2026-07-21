@@ -16,11 +16,13 @@ import {
   Sprout,
   ThumbsUp,
   Trophy,
+  UserRound,
   Users,
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
+import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
@@ -1253,8 +1255,86 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
           </div>
         </Container>
       </Reveal>
+
+      <VolunteerWall onOpenModal={onOpenModal} />
+
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
+  );
+}
+
+// Grid of volunteer portraits. Entries without a photo show their initials,
+// and entries with neither fall back to an empty slot, so the wall stays
+// presentable while photos are still being gathered.
+function VolunteerCard({ volunteer }) {
+  const initials = volunteer.name
+    ? volunteer.name
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : null;
+
+  return (
+    <figure className="group">
+      <div className="relative aspect-square overflow-hidden rounded-2xl border border-navy/10 bg-cream">
+        {volunteer.photo ? (
+          <img
+            src={volunteer.photo}
+            alt={volunteer.name || "Síkat-Aurora volunteer"}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gold/15">
+            {initials ? (
+              <span className="text-[1.6rem] font-bold text-navy/70">{initials}</span>
+            ) : (
+              <UserRound className="h-8 w-8 text-navy/25" aria-hidden="true" />
+            )}
+          </div>
+        )}
+      </div>
+      {volunteer.name && (
+        <figcaption className="mt-3">
+          <p className="text-[0.9rem] font-semibold leading-snug text-navy">{volunteer.name}</p>
+          {volunteer.role && <p className="mt-0.5 text-[0.78rem] text-navy/60">{volunteer.role}</p>}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+function VolunteerWall({ onOpenModal }) {
+  return (
+    <Reveal className="bg-cream py-16 lg:py-24">
+      <Container>
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
+          <SectionHeading
+            eyebrow="Our Volunteers"
+            title="The 400+ behind every program"
+            lead="Síkat-Aurora runs entirely on youth volunteers from across Aurora Province."
+          />
+          <Btn variant="outline" onClick={onOpenModal}>
+            Join Them <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Btn>
+        </div>
+
+        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+          {VOLUNTEERS.map((v) => (
+            <VolunteerCard key={v.id} volunteer={v} />
+          ))}
+        </div>
+
+        {ROSTER_IS_EMPTY && (
+          <p className="mt-8 text-center text-[0.85rem] text-navy/50">
+            Volunteer photos are being collected — this wall fills in as they come in.
+          </p>
+        )}
+      </Container>
+    </Reveal>
   );
 }
 
