@@ -152,7 +152,7 @@ function UserIcon({ size = 20, color = "currentColor" }) {
 function SchoolIcon({ size = 20, color = "currentColor" }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 22v-4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v4" />
+      <path d="M14 22v-4a2 2 0 0 1-2-2v0a2 2 0 0 1-2 2v4" />
       <path d="M18 22V6l-6-4-6 4v16" />
       <path d="M6 12h12" />
       <path d="M6 16h12" />
@@ -160,36 +160,113 @@ function SchoolIcon({ size = 20, color = "currentColor" }) {
   );
 }
 
-function Navbar() {
+function MapPinIcon({ size = 14, color = "currentColor" }) {
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{
-        maxWidth: 1280, margin: "0 auto",
-        display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 38, height: 38, objectFit: "contain" }} />
-          <span style={{ fontSize: "1.05rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.3px" }}>
-            Síkat<span style={{ color: C.or }}>-Aurora</span>
-          </span>
-        </div>
-        <div style={{ display: "flex", gap: 4 }}>
-          {["#programs","#impact","#volunteer","#stories","#donate"].map((h, i) => (
-            <NavLink key={i} href={h}>{h.replace("#","").charAt(0).toUpperCase()+h.slice(2)}</NavLink>
-          ))}
-        </div>
-        <div style={{ display: "flex", gap: 8 }}>
-          <button onClick={() => document.querySelector("#volunteer")?.scrollIntoView({ behavior: "smooth" })}
-            style={{ background: "transparent", border: "1px solid rgba(0,0,0,0.12)", color: C.dark, padding: "8px 18px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}>
-            Volunteer
-          </button>
-          <button onClick={() => document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" })}
-            style={{ background: C.or, border: "none", color: "#fff", padding: "9px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer" }}>
-            Donate now
-          </button>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function MailIcon({ size = 14, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+function MenuIcon({ size = 22, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  );
+}
+
+function XIcon({ size = 22, color = "currentColor" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  );
+}
+
+function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const navItems = [
+    { label: "Programs", href: "#programs" },
+    { label: "Impact", href: "#impact" },
+    { label: "Volunteer", href: "#volunteer" },
+    { label: "Stories", href: "#stories" },
+    { label: "Donate", href: "#donate" },
+  ];
+
+  return (
+    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, fontFamily: "'Poppins', sans-serif" }}>
+      {/* Top Utility Bar */}
+      <div style={{ background: "#080F17", color: "rgba(255,255,255,0.75)", fontSize: "0.75rem", padding: "6px 40px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <MapPinIcon size={13} color={C.or} /> Baler, Aurora, Philippines
+            </span>
+            <span style={{ color: "rgba(255,255,255,0.2)", display: "var(--desktop-only, inline)" }}>|</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <Lock size={12} /> Registered Youth NGO · RA 10173 Compliant
+            </span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <a href="mailto:contact@sikataurora.org" style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.75)"}>
+              <MailIcon size={13} color={C.ye} /> contact@sikataurora.org
+            </a>
+          </div>
         </div>
       </div>
-    </nav>
+
+      {/* Main Glass Navbar */}
+      <nav style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 40px" }}>
+          {/* Logo Branding */}
+          <a href="#home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
+            <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 40, height: 40, objectFit: "contain" }} />
+            <span style={{ fontSize: "1.1rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.4px" }}>
+              Síkat<span style={{ color: C.or }}>-Aurora</span>
+            </span>
+          </a>
+
+          {/* Desktop Navigation Links */}
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="nav-desktop">
+            {navItems.map((item, i) => (
+              <NavLink key={i} href={item.href}>{item.label}</NavLink>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            <button onClick={() => document.querySelector("#volunteer")?.scrollIntoView({ behavior: "smooth" })}
+              style={{ background: "transparent", border: "1px solid rgba(0,0,0,0.15)", color: C.dark, padding: "8px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", transition: "all .2s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#F3F4F6"; e.currentTarget.style.borderColor = C.dark; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(0,0,0,0.15)"; }}>
+              Volunteer
+            </button>
+            <button onClick={() => document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" })}
+              style={{ background: C.or, border: "none", color: "#fff", padding: "9px 22px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", boxShadow: "0 4px 14px rgba(229,92,20,0.3)", transition: "all .2s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#D4500F"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = C.or; e.currentTarget.style.transform = "none"; }}>
+              Donate now
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 }
 
