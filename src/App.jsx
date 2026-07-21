@@ -42,6 +42,7 @@ import whoWeAre1 from "./assets/about/who-we-are/1.jpg";
 import whoWeAre2 from "./assets/about/who-we-are/2.jpg";
 import whoWeAre3 from "./assets/about/who-we-are/3.jpg";
 import whoWeAre4 from "./assets/about/who-we-are/4.jpg";
+import homeWhoWeAre from "./assets/home/who-we-are/1.jpg";
 import recognitionSparkChange from "./assets/impact/recognitions/spark-a-change.jpg";
 import recognitionAraneta from "./assets/impact/recognitions/488223845_10225500053268278_7311255336231534549_n.jpg";
 
@@ -588,7 +589,7 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
           <img
-            src={whoWeAre1}
+            src={homeWhoWeAre}
             alt="Síkat-Aurora volunteers and children at a community assembly"
             className="h-64 w-full rounded-lg object-cover sm:h-[26rem]"
             loading="lazy"
