@@ -75,8 +75,110 @@ function AwardIcon({ size = 20, color = "currentColor" }) {
   );
 }
 
+// Volunteer Modal Form Component
+function VolunteerModal({ isOpen, onClose }) {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      onClose();
+    }, 2200);
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            style={{ position: "absolute", inset: 0, background: "rgba(11, 23, 35, 0.75)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
+          />
+
+          {/* Modal Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            transition={{ type: "spring", stiffness: 380, damping: 28 }}
+            style={{ position: "relative", zIndex: 1, background: "#fff", borderRadius: 28, padding: "36px 40px", maxWidth: 540, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 60px rgba(0,0,0,0.3)", border: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}
+          >
+            <button onClick={onClose} style={{ position: "absolute", top: 20, right: 24, background: C.bg, border: "none", width: 36, height: 36, borderRadius: 100, cursor: "pointer", fontSize: "1.1rem", fontWeight: 600, color: C.mid, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              ✕
+            </button>
+
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 8 }}>
+              Join Síkat-Aurora
+            </div>
+            <h3 style={{ fontSize: "1.5rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>
+              Sign Up & Signify Interest
+            </h3>
+            <p style={{ fontSize: "0.85rem", color: C.mid, marginBottom: 24 }}>
+              Takes 2 minutes — our membership team will reach out within 48 hours.
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 16 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>First name</label>
+                  <input required placeholder="Juan" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Last name</label>
+                  <input required placeholder="Dela Cruz" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Email address</label>
+                <input required type="email" placeholder="juan@gmail.com" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Mobile number</label>
+                <input required type="tel" placeholder="0917 123 4567" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Program of interest</label>
+                <select style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }}>
+                  <option>Select a program...</option>
+                  <option>Abot Ko Ang Libro (Education)</option>
+                  <option>Ang Batang Kali (Environment)</option>
+                  <option>Hiraya (Active Citizenship)</option>
+                  <option>Any program where needed</option>
+                </select>
+              </div>
+
+              <div style={{ marginBottom: 24 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Age Group (15–30 y/o)</label>
+                <select style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }}>
+                  <option>15–18 years old</option>
+                  <option>19–24 years old</option>
+                  <option>25–30 years old</option>
+                </select>
+              </div>
+
+              <button type="submit"
+                style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 15, borderRadius: 14, fontFamily: "inherit", fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 6px 20px rgba(229,92,20,0.3)" }}>
+                {submitted ? <><Check size={18} /> Interest Signified! Welcome to Síkat</> : <>Submit Application <ArrowRight size={16} color="#fff" /></>}
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 // Navigation Bar with Animated Pill Slider
-function Navbar({ activePage, onNavigate }) {
+function Navbar({ activePage, onNavigate, onOpenModal }) {
   const navItems = [
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
@@ -98,7 +200,7 @@ function Navbar({ activePage, onNavigate }) {
             </span>
           </a>
 
-          {/* Nav Items as Separate Pages (Animated Pill Active Highlights) */}
+          {/* Nav Items as Separate Pages */}
           <div style={{ display: "flex", gap: 4, alignItems: "center", background: "#EEF2F7", padding: "5px 6px", borderRadius: 100, position: "relative" }}>
             {navItems.map((item) => {
               const isActive = activePage === item.id;
@@ -143,7 +245,7 @@ function Navbar({ activePage, onNavigate }) {
 
           {/* Action Buttons */}
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <button onClick={() => onNavigate("volunteer")}
+            <button onClick={onOpenModal}
               style={{ background: activePage === "volunteer" ? C.dark : "transparent", border: "1px solid rgba(0,0,0,0.15)", color: activePage === "volunteer" ? "#fff" : C.dark, padding: "9px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", transition: "all .2s" }}>
               Volunteer
             </button>
@@ -177,7 +279,7 @@ function PageHeader({ eyebrow, title, subtitle }) {
 }
 
 // ================= PAGE 1: HOME =================
-function HomePage({ onNavigate }) {
+function HomePage({ onNavigate, onOpenModal }) {
   return (
     <>
       <section id="home">
@@ -188,7 +290,7 @@ function HomePage({ onNavigate }) {
           description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
           ctaButton={{
             text: "Become a Volunteer",
-            onClick: () => onNavigate("volunteer"),
+            onClick: onOpenModal,
           }}
           secondaryCta={{
             text: "Donate / Be a Sponsor",
@@ -334,7 +436,7 @@ function HomePage({ onNavigate }) {
       <FAQSection />
 
       {/* Final CTA Band */}
-      <FinalCTA onNavigate={onNavigate} />
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
 }
@@ -809,24 +911,117 @@ function FAQPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 8: VOLUNTEER / ONBOARDING =================
-function VolunteerPage({ onNavigate }) {
-  const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = () => { setSubmitted(true); setTimeout(() => setSubmitted(false), 3500); };
-
+// ================= PAGE 8: VOLUNTEER GALLERY & EXPERIENCE PAGE =================
+function VolunteerPage({ onNavigate, onOpenModal }) {
   const steps = [
     { num: "01", title: "Signify your interest", desc: "Follow the Síkat-Aurora Facebook page and reach out. Engaging with and sharing posts counts as your first show of support." },
     { num: "02", title: "Attend 3 events", desc: "Join at least three (3) Síkat-Aurora events within three months of signifying interest. Show up, help out, get to know the community." },
     { num: "03", title: "Commit to principles", desc: "Demonstrate willingness to adhere to principles, rules, and policies — including finding a replacement if unavailable for a signed-up program." },
   ];
 
+  const volunteerGalleries = [
+    {
+      title: "Education Volunteers — Abot Ko Ang Libro",
+      desc: "Volunteers rolling mobile book carts into barangays in Baler, Maria Aurora, and Dipaculao to read and teach children ages 2–14.",
+      img: abotKoAngLibroImg,
+      location: "Baler & Maria Aurora",
+      tag: "400+ Active Youth",
+    },
+    {
+      title: "Environmental Stewards — Ang Batang Kali",
+      desc: "Youth leaders conducting river cleanups and environmental life skills for children in Dibut, Zabali, and Sitio Cozo.",
+      img: batangKaliImg,
+      location: "San Luis & Casiguran",
+      tag: "Coastal Care",
+    },
+    {
+      title: "Youth Leaders & Mentors — Hiraya Program",
+      desc: "Mentors facilitating leadership workshops and seed grants for student leaders across 30 public high schools in Central Aurora.",
+      img: hirayaImg,
+      location: "Central Aurora DepEd Schools",
+      tag: "30 Public Schools",
+    },
+    {
+      title: "Community Outreach & All-Hands Assemblies",
+      desc: "Volunteers united across 18 partner communities celebrating International Youth Day and community outreach drives.",
+      img: heroBanner,
+      location: "Province-wide Aurora",
+      tag: "18 Communities",
+    },
+  ];
+
+  const pillars = [
+    { title: "Free Admission", desc: "Open to all youth aged 15–30 in Aurora Province with no registration fees.", icon: "🌱" },
+    { title: "Direct Impact", desc: "Work directly with kids, rivers, and schools in your local community.", icon: "❤️" },
+    { title: "Leadership Growth", desc: "Build real credentials, organize events, and manage community projects.", icon: "🏆" },
+    { title: "Lifelong Community", desc: "Join a family of 400+ passionate volunteers who lift each other up.", icon: "🤝" },
+  ];
+
   return (
     <>
       <PageHeader
-        eyebrow="Join Us"
-        title="Become a Síkat-Aurora Volunteer"
-        subtitle="Admission is free and open to all youth aged 15–30 in Aurora Province."
+        eyebrow="Join Our Volunteer Movement"
+        title="Where Every Youth Has a Voice & Purpose"
+        subtitle="Admission is 100% free and open to all youth aged 15–30 in Aurora Province."
       />
+
+      {/* Hero Action CTA Banner */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+        style={{ padding: "60px 40px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto", background: C.dark, color: "#fff", borderRadius: 28, padding: "48px 56px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 16px 40px rgba(0,0,0,0.1)", flexWrap: "wrap", gap: 24 }}>
+          <div>
+            <span style={{ fontSize: "0.75rem", fontWeight: 600, color: C.ye, textTransform: "uppercase", letterSpacing: "1px" }}>Ready to Make a Difference?</span>
+            <h2 style={{ fontSize: "2.1rem", fontWeight: 600, marginTop: 6, marginBottom: 8 }}>Sign Up to Become a Volunteer</h2>
+            <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.95rem", maxWidth: 600, fontWeight: 300 }}>
+              Takes 2 minutes. Click below to open the application form modal.
+            </p>
+          </div>
+          <button onClick={onOpenModal}
+            style={{ background: C.or, color: "#fff", border: "none", padding: "16px 36px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)", display: "inline-flex", alignItems: "center", gap: 8 }}>
+            Signify Interest Now <ArrowRight size={16} color="#fff" />
+          </button>
+        </div>
+      </motion.section>
+
+      {/* Path from Interested to Inducted */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+        style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Simple Onboarding</div>
+            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Path from Interested to Inducted</h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+            {steps.map((s, i) => (
+              <motion.div
+                key={i}
+                variants={cardHoverVariants}
+                whileHover="hover"
+                style={{ background: "#fff", padding: "36px 30px", borderRadius: 24, border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
+              >
+                <div style={{ width: 52, height: 52, borderRadius: 16, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1.1rem", marginBottom: 20, boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
+                  {s.num}
+                </div>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 10 }}>{s.title}</h3>
+                <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Volunteer Image & Community Gallery Section */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -835,67 +1030,76 @@ function VolunteerPage({ onNavigate }) {
         style={{ padding: "110px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 70, alignItems: "start" }}>
-            <div>
-              <h2 style={{ fontSize: "1.9rem", fontWeight: 600, color: C.dark, marginBottom: 20 }}>Path from Interested to Inducted</h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 32 }}>
-                {steps.map((s, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ x: 6 }}
-                    style={{ display: "flex", gap: 20, background: C.bg, padding: "26px", borderRadius: 22, border: "1px solid rgba(0,0,0,0.05)" }}
-                  >
-                    <div style={{ width: 48, height: 48, borderRadius: 14, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1.05rem", flexShrink: 0, boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
-                      {s.num}
-                    </div>
-                    <div>
-                      <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{s.title}</h3>
-                      <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>{s.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          <div style={{ textAlign: "center", marginBottom: 60 }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Volunteer Action</div>
+            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Our Volunteers in Every Community</h2>
+            <p style={{ color: C.mid, fontSize: "0.95rem", maxWidth: 640, margin: "12px auto 0", fontWeight: 300 }}>
+              Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran.
+            </p>
+          </div>
 
-            <div style={{ background: "#fff", borderRadius: 28, padding: 40, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 12px 36px rgba(0,0,0,0.05)" }}>
-              <h3 style={{ fontSize: "1.3rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Sign Up & Signify Interest</h3>
-              <p style={{ fontSize: "0.85rem", color: C.mid, marginBottom: 28 }}>Takes 2 minutes — we will reach out within 48 hours.</p>
-
-              {[["First name", "Last name"], ["Email address", ""], ["Mobile number", ""]].map((row, ri) => (
-                row[1] ? (
-                  <div key={ri} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 18 }}>
-                    {row.map((label, li) => (
-                      <div key={li}>
-                        <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
-                        <input style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
-                      </div>
-                    ))}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 32 }}>
+            {volunteerGalleries.map((v, i) => (
+              <motion.div
+                key={i}
+                variants={cardHoverVariants}
+                whileHover="hover"
+                style={{ background: C.bg, borderRadius: 28, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}
+              >
+                <img src={v.img} alt={v.title} style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "32px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.72rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100 }}>
+                      📍 {v.location}
+                    </span>
+                    <span style={{ background: C.dark, color: C.ye, fontSize: "0.72rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100 }}>
+                      {v.tag}
+                    </span>
                   </div>
-                ) : (
-                  <div key={ri} style={{ marginBottom: 18 }}>
-                    <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{row[0]}</label>
-                    <input style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
-                  </div>
-                )
-              ))}
-
-              {[
-                ["Program of interest", ["Select a program...", "Abot Ko Ang Libro (Education)", "Ang Batang Kali (Environment)", "Hiraya (Active Citizenship)", "Any program"]],
-                ["Age Group", ["15–18 years old", "19–24 years old", "25–30 years old"]],
-              ].map(([label, opts], i) => (
-                <div key={i} style={{ marginBottom: 18 }}>
-                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
-                  <select style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }}>
-                    {opts.map((o, oi) => <option key={oi}>{o}</option>)}
-                  </select>
+                  <h3 style={{ fontSize: "1.3rem", fontWeight: 600, color: C.dark, marginBottom: 10 }}>{v.title}</h3>
+                  <p style={{ fontSize: "0.9rem", color: C.mid, lineHeight: 1.75 }}>{v.desc}</p>
                 </div>
-              ))}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
 
-              <button onClick={handleSubmit}
-                style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 15, borderRadius: 14, fontFamily: "inherit", fontWeight: 600, fontSize: "0.92rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 6px 20px rgba(229,92,20,0.3)" }}>
-                {submitted ? <><Check size={16} /> Interest Signified!</> : <>Submit Application <ArrowRight size={14} color="#fff" /></>}
-              </button>
-            </div>
+      {/* Why Volunteer With Us Pillars */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+        style={{ padding: "110px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+      >
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Why Volunteer</div>
+            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>What You Gain as a Síkat Volunteer</h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
+            {pillars.map((p, i) => (
+              <motion.div
+                key={i}
+                variants={cardHoverVariants}
+                whileHover="hover"
+                style={{ background: "#fff", borderRadius: 24, padding: "32px 24px", border: "1px solid rgba(0,0,0,0.05)", textAlign: "center" }}
+              >
+                <div style={{ fontSize: "2rem", marginBottom: 14 }}>{p.icon}</div>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>{p.title}</h3>
+                <p style={{ fontSize: "0.85rem", color: C.mid, lineHeight: 1.65 }}>{p.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom Callout */}
+          <div style={{ textAlign: "center", marginTop: 64 }}>
+            <button onClick={onOpenModal}
+              style={{ background: C.or, color: "#fff", border: "none", padding: "16px 40px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)" }}>
+              Open Volunteer Application Form (Modal)
+            </button>
           </div>
         </div>
       </motion.section>
@@ -988,7 +1192,7 @@ function DonatePage({ onNavigate }) {
 }
 
 // Final CTA Band
-function FinalCTA({ onNavigate }) {
+function FinalCTA({ onNavigate, onOpenModal }) {
   return (
     <motion.div
       initial="hidden"
@@ -1005,7 +1209,7 @@ function FinalCTA({ onNavigate }) {
           Join over 400 youth volunteers across Baler and Aurora Province in building a brighter future.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
-          <button onClick={() => onNavigate("volunteer")}
+          <button onClick={onOpenModal}
             style={{ background: C.or, color: "#fff", border: "none", padding: "16px 36px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)" }}>
             Become a Volunteer
           </button>
@@ -1086,9 +1290,10 @@ function Footer({ onNavigate }) {
   );
 }
 
-// MAIN APP WITH MULTI-PAGE ROUTING & SLIDING ANIMATIONS
+// MAIN APP WITH MULTI-PAGE ROUTING, MODAL & SLIDING ANIMATIONS
 export default function App() {
   const [activePage, setActivePage] = useState("home");
+  const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -1111,9 +1316,14 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const openModal = () => setIsVolunteerModalOpen(true);
+  const closeModal = () => setIsVolunteerModalOpen(false);
+
   return (
     <>
-      <Navbar activePage={activePage} onNavigate={navigate} />
+      <Navbar activePage={activePage} onNavigate={navigate} onOpenModal={openModal} />
+
+      <VolunteerModal isOpen={isVolunteerModalOpen} onClose={closeModal} />
 
       <AnimatePresence mode="wait">
         <motion.main
@@ -1123,14 +1333,14 @@ export default function App() {
           exit={{ opacity: 0, y: -15 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          {activePage === "home" && <HomePage onNavigate={navigate} />}
+          {activePage === "home" && <HomePage onNavigate={navigate} onOpenModal={openModal} />}
           {activePage === "about" && <AboutPage onNavigate={navigate} />}
           {activePage === "programs" && <ProgramsPage onNavigate={navigate} />}
           {activePage === "impact" && <ImpactPage onNavigate={navigate} />}
           {activePage === "leadership" && <LeadershipPage onNavigate={navigate} />}
           {activePage === "blog" && <BlogPage onNavigate={navigate} />}
           {activePage === "faq" && <FAQPage onNavigate={navigate} />}
-          {activePage === "volunteer" && <VolunteerPage onNavigate={navigate} />}
+          {activePage === "volunteer" && <VolunteerPage onNavigate={navigate} onOpenModal={openModal} />}
           {activePage === "donate" && <DonatePage onNavigate={navigate} />}
         </motion.main>
       </AnimatePresence>
