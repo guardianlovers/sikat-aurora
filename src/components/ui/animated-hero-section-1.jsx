@@ -85,7 +85,7 @@ export const AnimatedHero = ({
 
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight max-w-3xl"
+          className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight max-w-3xl"
         >
           {title}
         </motion.h1>
@@ -116,7 +116,7 @@ export const AnimatedHero = ({
               <div key={i} className="flex items-center gap-8">
                 {i > 0 && <div className="w-px h-10 bg-white/10" />}
                 <div>
-                  <div className="text-3xl font-bold tracking-tight">{num}</div>
+                  <div className="text-3xl font-semibold tracking-tight">{num}</div>
                   <div className="text-xs text-white/40 font-medium tracking-widest uppercase mt-1">
                     {label}
                   </div>
