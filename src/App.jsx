@@ -1906,7 +1906,7 @@ function DonatePage() {
 
 function FinalCTA({ onNavigate, onOpenModal }) {
   return (
-    <Reveal as="div" className="border-t-2 border-primary bg-navy py-20 text-center text-white lg:py-24">
+    <Reveal as="div" className="border-t-2 border-primary bg-black py-20 text-center text-white lg:py-24">
       <Container className="max-w-3xl">
         {/* Sized to hold two balanced lines at every width */}
         <h2 className="mx-auto max-w-[22ch] text-balance text-[clamp(1.35rem,6.4vw,2.75rem)] font-bold leading-[1.15] tracking-[-0.015em]">
@@ -1941,7 +1941,7 @@ function FooterLink({ onClick, children }) {
 
 function Footer({ onNavigate }) {
   return (
-    <footer className="bg-black px-6 pb-7 pt-16 text-white/60 md:px-9">
+    <footer className="border-t border-white/10 bg-black px-6 pb-7 pt-16 text-white/60 md:px-9">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
           <div>

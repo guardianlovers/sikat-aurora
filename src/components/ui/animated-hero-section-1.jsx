@@ -40,7 +40,9 @@ export const AnimatedHero = ({
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImageUrl})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep/90 via-navy-deep/70 to-navy-deep/40" />
+        {/* Text spans the full width on phones, so keep the overlay even there;
+            on wider screens it sits in the left column and can fall off to the right. */}
+        <div className="absolute inset-0 bg-black/75 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/70 lg:to-black/40" />
       </div>
 
       {/* Hero content — aligned to the same 1280px page grid as every section */}
