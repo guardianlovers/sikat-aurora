@@ -51,23 +51,86 @@ import recognitionAraneta from "./assets/impact/recognitions/488223845_102255000
 
 const EASE = [0.22, 1, 0.36, 1];
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
+const REVEAL_VARIANTS = {
+  fadeUp: {
+    hidden: { opacity: 0, y: 35 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+  },
+  fadeDown: {
+    hidden: { opacity: 0, y: -35 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+  },
+  fadeLeft: {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+  },
+  fadeRight: {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+  },
+  scaleUp: {
+    hidden: { opacity: 0, scale: 0.94, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+  },
 };
 
-// Section that fades in once as it enters the viewport
-function Reveal({ className, children, as = "section", ...props }) {
+// Section that animates smoothly as it enters the viewport
+function Reveal({ className, children, variant = "fadeUp", as = "section", ...props }) {
   const Comp = motion[as];
+  const chosenVariant = REVEAL_VARIANTS[variant] || REVEAL_VARIANTS.fadeUp;
   return (
     <Comp
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
-      variants={sectionVariants}
+      variants={chosenVariant}
       className={className}
       {...props}
     >
+      {children}
+    </Comp>
+  );
+}
+
+// Container that automatically staggers direct children as they enter the viewport
+function StaggerContainer({ className, children, stagger = 0.08, delay = 0, as = "div", ...props }) {
+  const Comp = motion[as];
+  return (
+    <Comp
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: stagger,
+            delayChildren: delay,
+          },
+        },
+      }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
+}
+
+function StaggerItem({ className, children, as = "div", ...props }) {
+  const Comp = motion[as];
+  const itemVariants = {
+    hidden: { opacity: 0, y: 28, scale: 0.97 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, ease: EASE },
+    },
+  };
+  return (
+    <Comp variants={itemVariants} className={className} {...props}>
       {children}
     </Comp>
   );
@@ -621,9 +684,9 @@ function HomePage({ onNavigate, onOpenModal }) {
 
           {/* Each figure sits with the photograph that evidences it, so the
               image is doing the same work as the number rather than decorating it. */}
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+          <StaggerContainer as="ul" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {HOME_IMPACT_STATS.map(({ Icon, figure, label, photo }) => (
-              <li key={label} className="group">
+              <StaggerItem as="li" key={label} className="group">
                 <div className="overflow-hidden rounded-2xl">
                   <img
                     src={photo.src}
@@ -641,9 +704,9 @@ function HomePage({ onNavigate, onOpenModal }) {
                     {label}
                   </p>
                 </div>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
@@ -657,7 +720,7 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 name: "Abot Ko Ang Libro",
@@ -678,30 +741,31 @@ function HomePage({ onNavigate, onOpenModal }) {
                 desc: "Leadership training & seed funding across 30 DepEd schools.",
               },
             ].map((p) => (
-              <Card
-                key={p.name}
-                className="group cursor-pointer overflow-hidden"
-                onClick={() => onNavigate("programs")}
-                role="link"
-                tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("programs")}
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt={p.name}
-                    className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="border-t border-navy/10 p-6">
-                  <Tag className="mb-3 bg-primary-soft text-primary">{p.center}</Tag>
-                  <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
-                </div>
-              </Card>
+              <StaggerItem key={p.name}>
+                <Card
+                  className="group cursor-pointer overflow-hidden"
+                  onClick={() => onNavigate("programs")}
+                  role="link"
+                  tabIndex={0}
+                  onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("programs")}
+                >
+                  <div className="overflow-hidden">
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="border-t border-navy/10 p-6">
+                    <Tag className="mb-3 bg-primary-soft text-primary">{p.center}</Tag>
+                    <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
+                  </div>
+                </Card>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
@@ -1411,9 +1475,9 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
       />
       <Reveal className="bg-white py-16 lg:py-20">
         <Container>
-          <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerContainer className="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
             {LEADERS.map((l) => (
-              <article key={l.name} className="group border-t border-navy/15 py-7">
+              <StaggerItem as="article" key={l.name} className="group border-t border-navy/15 py-7">
                 {/* Portrait slot — falls back to initials until a photo is added */}
                 <div className="mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-primary-soft">
                   {l.photo ? (
@@ -1439,9 +1503,9 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
                   {l.title}
                 </p>
                 <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{l.role}</p>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
@@ -2313,10 +2377,10 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.main
           key={activePage}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 20, scale: 0.995 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -16, scale: 0.995 }}
+          transition={{ duration: 0.38, ease: EASE }}
         >
           {pages[activePage] ?? pages.home}
         </motion.main>
