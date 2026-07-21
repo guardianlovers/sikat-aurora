@@ -3,11 +3,7 @@ import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-import abotKoAngLibroImg from "@/assets/abot-ko-ang-libro.png";
-import batangKaliImg from "@/assets/batang-kali.png";
-import hirayaImg from "@/assets/hiraya.png";
-import impactImg from "@/assets/impact.png";
-import heroBanner from "@/assets/hero-banner.jpg";
+import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 
 export const PhotoGallery = ({
   animationDelay = 0.3,
@@ -75,8 +71,8 @@ export const PhotoGallery = ({
       y: "15px",
       zIndex: 50,
       direction: "left",
-      src: abotKoAngLibroImg,
-      alt: "Abot Ko Ang Libro Mobile Library",
+      src: PROGRAM_PHOTOS.abkl[0].src,
+      alt: PROGRAM_PHOTOS.abkl[0].alt,
     },
     {
       id: 2,
@@ -85,8 +81,8 @@ export const PhotoGallery = ({
       y: "32px",
       zIndex: 40,
       direction: "left",
-      src: batangKaliImg,
-      alt: "Ang Batang Kali Environmental Program",
+      src: PROGRAM_PHOTOS.abkp[0].src,
+      alt: PROGRAM_PHOTOS.abkp[0].alt,
     },
     {
       id: 3,
@@ -95,8 +91,8 @@ export const PhotoGallery = ({
       y: "8px",
       zIndex: 30,
       direction: "right",
-      src: hirayaImg,
-      alt: "Hiraya Youth Leadership",
+      src: PROGRAM_PHOTOS.hiraya[0].src,
+      alt: PROGRAM_PHOTOS.hiraya[0].alt,
     },
     {
       id: 4,
@@ -105,8 +101,8 @@ export const PhotoGallery = ({
       y: "22px",
       zIndex: 20,
       direction: "right",
-      src: impactImg,
-      alt: "Community Storytelling Session",
+      src: PROGRAM_PHOTOS.abkl[2].src,
+      alt: PROGRAM_PHOTOS.abkl[2].alt,
     },
     {
       id: 5,
@@ -115,8 +111,8 @@ export const PhotoGallery = ({
       y: "44px",
       zIndex: 10,
       direction: "left",
-      src: heroBanner,
-      alt: "Síkat-Aurora Volunteers",
+      src: PHOTOS.communityAssembly,
+      alt: "Síkat-Aurora volunteers and children at a community assembly",
     },
   ];
 

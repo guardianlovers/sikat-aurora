@@ -6,7 +6,6 @@ import {
   Award,
   BookOpen,
   Check,
-  Clock,
   HandCoins,
   Heart,
   Lock,
@@ -21,15 +20,12 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
-import batangKaliImg from "./assets/batang-kali.png";
-import abotKoAngLibroImg from "./assets/abot-ko-ang-libro.png";
-import hirayaImg from "./assets/hiraya.png";
-import impactImg from "./assets/impact.png";
 
 /* ============================= Shared primitives ============================= */
 
@@ -174,6 +170,27 @@ function Card({ className, interactive = true, children, ...props }) {
       {...props}
     >
       {children}
+    </div>
+  );
+}
+
+// The deck's "in Photos" pattern: a grid of program photography under a label
+function PhotoGrid({ label, photos, className }) {
+  return (
+    <div className={className}>
+      {label && <span className="pill-label mb-5 inline-flex">{label}</span>}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {photos.map((p) => (
+          <figure key={p.src} className="group overflow-hidden rounded-xl bg-navy/5">
+            <img
+              src={p.src}
+              alt={p.alt}
+              loading="lazy"
+              className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
+            />
+          </figure>
+        ))}
+      </div>
     </div>
   );
 }
@@ -543,8 +560,8 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
           <img
-            src={hirayaImg}
-            alt="Síkat-Aurora volunteers at a community program"
+            src={PHOTOS.communityAssembly}
+            alt="Síkat-Aurora volunteers and children at a community assembly"
             className="h-64 w-full rounded-lg object-cover sm:h-[26rem]"
             loading="lazy"
           />
@@ -594,19 +611,19 @@ function HomePage({ onNavigate, onOpenModal }) {
               {
                 name: "Abot Ko Ang Libro",
                 center: "Education",
-                img: abotKoAngLibroImg,
+                img: PROGRAM_PHOTOS.abkl[0].src,
                 desc: "Mobile library cart bringing books & storytelling to kids ages 2–14.",
               },
               {
                 name: "Ang Batang Kali",
                 center: "Environment",
-                img: batangKaliImg,
+                img: PROGRAM_PHOTOS.abkp[0].src,
                 desc: "Environmental life skills for youth ages 8–15 protecting nature.",
               },
               {
                 name: "Hiraya",
                 center: "Active Citizenship",
-                img: hirayaImg,
+                img: PROGRAM_PHOTOS.hiraya[0].src,
                 desc: "Leadership training & seed funding across 30 DepEd schools.",
               },
             ].map((p) => (
@@ -721,8 +738,8 @@ function AboutPage({ onNavigate, onOpenModal }) {
               </div>
             </div>
             <img
-              src={hirayaImg}
-              alt="Síkat-Aurora volunteers"
+              src={PHOTOS.volunteersGroup}
+              alt="Síkat-Aurora youth volunteers together at a program"
               className="h-64 w-full rounded-lg object-cover sm:h-[26rem]"
               loading="lazy"
             />
@@ -778,6 +795,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
     {
       center: "Education",
       name: "Abot Ko Ang Libro",
+      shortName: "ABKL",
       duration: "5 consecutive Saturdays",
       desc: "A mobile library cart that brings books closer to kids ages 2–14 through storytelling sessions and book borrowing — rolling into barangays across Baler, Maria Aurora, and Dipaculao.",
       communities: [
@@ -792,27 +810,32 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
         "Brgy. Pingit (Baler)",
         "Brgy. Diamanen (Dipaculao)",
       ],
-      img: abotKoAngLibroImg,
+      img: PROGRAM_PHOTOS.abkl[0].src,
+      photos: PROGRAM_PHOTOS.abkl,
       accent: "text-primary",
       bg: "bg-primary-soft",
     },
     {
       center: "Environment",
       name: "Ang Batang Kali",
+      shortName: "ABKP",
       duration: "5 Saturdays / 3 days",
       desc: "A life skills program helping youth ages 8–15 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
       communities: ["Brgy. Dibut (San Luis)", "Brgy. Zabali (Baler)", "Sitio Cozo (Casiguran)"],
-      img: batangKaliImg,
+      img: PROGRAM_PHOTOS.abkp[0].src,
+      photos: PROGRAM_PHOTOS.abkp,
       accent: "text-navy",
       bg: "bg-sky-soft",
     },
     {
       center: "Active Citizenship",
       name: "Hiraya: Paglinang sa Kasanayan ng mga Makabagong Bayani ng Aurora",
+      shortName: "Hiraya",
       duration: "1–2 days",
       desc: "A leadership training equipping aspiring youth leaders with essential skills, knowledge, and initial funding necessary to excel in their roles and make a positive impact in their schools and communities.",
       communities: ["30 DepEd Public Schools in Central Aurora", "Hiraya Dinalungan", "Hiraya Ditumabo NHS"],
-      img: hirayaImg,
+      img: PROGRAM_PHOTOS.hiraya[0].src,
+      photos: PROGRAM_PHOTOS.hiraya,
       accent: "text-forest",
       bg: "bg-forest-soft",
     },
@@ -825,48 +848,65 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
         title="Three Programs, One Rising Community"
         subtitle="Every program is volunteer-driven and free for its learners — built around our three centers of participation."
       />
-      <Reveal className="bg-cream py-16 lg:py-20">
-        <Container className="flex flex-col gap-9">
-          {programs.map((p, i) => (
-            <Card key={p.name} className="grid overflow-hidden md:grid-cols-[1fr_1.25fr]">
-              <img
-                src={p.img}
-                alt={p.name}
-                className="h-56 w-full object-cover md:h-full md:min-h-[320px]"
-                loading="lazy"
-              />
-              <div className="border-t border-navy/10 p-7 sm:p-9 md:border-l md:border-t-0">
-                <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="text-[0.95rem] font-bold text-navy/30" aria-hidden="true">
-                    0{i + 1}
-                  </span>
-                  <Tag className={cn(p.bg, p.accent)}>{p.center}</Tag>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-navy/75">
-                    <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {p.duration}
-                  </span>
-                </div>
-                <h2 className="max-w-[24ch] text-[1.4rem] font-bold leading-[1.2] tracking-[-0.01em] text-navy sm:text-[1.6rem]">
+      {/* Each program alternates a half-bleed photo with its details, then
+          opens into its own photo grid — the deck's "in Photos" spread. */}
+      {programs.map((p, i) => (
+        <Reveal
+          key={p.name}
+          className={cn("overflow-hidden", i % 2 === 1 ? "bg-cream" : "bg-white")}
+        >
+          <div
+            className={cn(
+              "grid items-stretch lg:grid-cols-2",
+              i % 2 === 1 && "lg:[&>figure]:order-last"
+            )}
+          >
+            <figure className="relative min-h-[280px] lg:min-h-[520px]">
+              <img src={p.img} alt={p.alt || p.name} className="absolute inset-0 h-full w-full object-cover" />
+            </figure>
+
+            <div className="flex items-center px-6 py-14 md:px-9 lg:py-20">
+              <div className={cn("w-full", i % 2 === 0 ? "lg:max-w-xl lg:pl-4" : "lg:ml-auto lg:max-w-xl lg:pr-4")}>
+                <Eyebrow>Core Program</Eyebrow>
+                <h2 className="max-w-[20ch] text-[1.6rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2rem]">
                   {p.name}
                 </h2>
-                <p className="mb-6 mt-3 max-w-[58ch] text-sm leading-[1.75] text-navy/75">{p.desc}</p>
-                <p className="mb-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-navy">
+
+                <dl className="mt-5 space-y-2 text-[0.9rem] leading-relaxed">
+                  <div className="flex flex-wrap gap-x-2">
+                    <dt className="font-semibold text-navy">Center of Participation:</dt>
+                    <dd className="text-navy/75">{p.center}</dd>
+                  </div>
+                  <div className="flex flex-wrap gap-x-2">
+                    <dt className="font-semibold text-navy">Duration:</dt>
+                    <dd className="text-navy/75">{p.duration}</dd>
+                  </div>
+                </dl>
+
+                <p className="mt-4 max-w-[56ch] text-[0.92rem] leading-[1.75] text-navy/75">{p.desc}</p>
+
+                <p className="mb-2.5 mt-6 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy">
                   Partner Communities ({p.communities.length})
                 </p>
                 <ul className="flex flex-wrap gap-1.5">
                   {p.communities.map((c) => (
                     <li
                       key={c}
-                      className="inline-flex items-center gap-1 rounded border border-navy/10 bg-cream px-2.5 py-1 text-[0.7rem] font-medium text-navy"
+                      className="inline-flex items-center gap-1 rounded-full border border-navy/10 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy"
                     >
-                      <MapPin className="h-3 w-3 text-navy/75" aria-hidden="true" /> {c}
+                      <MapPin className="h-3 w-3 text-primary" aria-hidden="true" /> {c}
                     </li>
                   ))}
                 </ul>
               </div>
-            </Card>
-          ))}
-        </Container>
-      </Reveal>
+            </div>
+          </div>
+
+          <Container className="pb-16 lg:pb-20">
+            <PhotoGrid label={`${p.shortName} in Photos`} photos={p.photos} />
+          </Container>
+        </Reveal>
+      ))}
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
@@ -971,8 +1011,8 @@ function ImpactPage({ onNavigate, onOpenModal }) {
               </a>
             </div>
             <img
-              src={impactImg}
-              alt="Síkat-Aurora community impact"
+              src={PHOTOS.communityOutreach}
+              alt="Síkat-Aurora community outreach in Aurora"
               className="h-52 w-full rounded-md object-cover"
               loading="lazy"
             />
@@ -1070,19 +1110,19 @@ function BlogPage({ onNavigate, onOpenModal }) {
       title: "Field Notes — Five Saturdays in Brgy. Zabali",
       desc: "What happens when a library on wheels meets fifty kids who've never borrowed a book before.",
       tag: "Abot Ko Ang Libro",
-      img: abotKoAngLibroImg,
+      img: PROGRAM_PHOTOS.abkl[1].src,
     },
     {
       title: "Volunteer Story — From Dibut to Cozo: Batang Kali by the water",
       desc: "How a river cleanup turned into a lifelong promise between kids and their coastline.",
       tag: "Ang Batang Kali",
-      img: batangKaliImg,
+      img: PROGRAM_PHOTOS.abkp[0].src,
     },
     {
       title: "Updates — Hiraya 2026: 30 schools, one generation of leaders",
       desc: "Inside the leadership training that hands young people both the mic and the funding.",
       tag: "Hiraya",
-      img: hirayaImg,
+      img: PROGRAM_PHOTOS.hiraya[0].src,
     },
   ];
 
@@ -1218,28 +1258,28 @@ function VolunteerPage({ onOpenModal }) {
     {
       title: "Education Volunteers — Abot Ko Ang Libro",
       desc: "Volunteers rolling mobile book carts into barangays in Baler, Maria Aurora, and Dipaculao to read and teach children ages 2–14.",
-      img: abotKoAngLibroImg,
+      img: PROGRAM_PHOTOS.abkl[2].src,
       location: "Baler & Maria Aurora",
       tag: "400+ Active Youth",
     },
     {
       title: "Environmental Stewards — Ang Batang Kali",
       desc: "Youth leaders conducting river cleanups and environmental life skills for children in Dibut, Zabali, and Sitio Cozo.",
-      img: batangKaliImg,
+      img: PROGRAM_PHOTOS.abkp[1].src,
       location: "San Luis & Casiguran",
       tag: "Coastal Care",
     },
     {
       title: "Youth Leaders & Mentors — Hiraya Program",
       desc: "Mentors facilitating leadership workshops and seed grants for student leaders across 30 public high schools in Central Aurora.",
-      img: hirayaImg,
+      img: PROGRAM_PHOTOS.hiraya[0].src,
       location: "Central Aurora DepEd Schools",
       tag: "30 Public Schools",
     },
     {
       title: "Community Outreach & All-Hands Assemblies",
       desc: "Volunteers united across 18 partner communities celebrating International Youth Day and community outreach drives.",
-      img: heroBanner,
+      img: PHOTOS.communityAssembly,
       location: "Province-wide Aurora",
       tag: "18 Communities",
     },
