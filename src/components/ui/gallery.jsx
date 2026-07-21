@@ -122,15 +122,15 @@ export const PhotoGallery = ({
 
   return (
     <div className="relative overflow-hidden py-16 font-sans lg:py-20">
-      <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
+      <div className="mx-auto w-full max-w-7xl px-6 text-center md:px-9">
         <div className="mb-10">
-          <div className="mb-4">
+          <div className="mb-4 flex justify-center">
             <span className="pill-label">VISUAL STORIES</span>
           </div>
-          <h2 className="max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
+          <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
             Moments from the field
           </h2>
-          <p className="mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
+          <p className="mx-auto mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
             Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
             <span className="hidden lg:inline"> Drag any photo to explore.</span>
           </p>
