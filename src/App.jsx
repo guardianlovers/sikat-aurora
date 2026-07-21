@@ -679,110 +679,272 @@ function HomePage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 2: About ============================= */
 
-function AboutPage({ onNavigate, onOpenModal }) {
-  const values = [
-    {
-      title: "Pagmamalasakit",
-      desc: "Kumikilos nang may malasakit sa kapwa.",
-      accent: "text-primary",
-      bg: "bg-primary-soft",
-    },
-    {
-      title: "Paggalang",
-      desc: "Kumikilos nang may paggalang sa paniniwala, kultura, at saloobin ng mga kasapi at komunidad.",
-      accent: "text-navy",
-      bg: "bg-sky-soft",
-    },
-    {
-      title: "Pagtugon",
-      desc: "Kumikilos upang tumugon sa tunay na mga pangangailangan ng mga tao sa komunidad.",
-      accent: "text-forest",
-      bg: "bg-forest-soft",
-    },
-  ];
+// Mandates come from the organization's own committee descriptions.
+const COMMITTEES = [
+  {
+    name: "Executive Committee",
+    lead: "RJ Belen — Executive Director",
+    mandate:
+      "The Executive Director serves as the highest official of the organization, sitting as ex-officio presiding officer of the Executive Committee, executing policies and determining the direction of the organization.",
+  },
+  {
+    name: "Internal Affairs",
+    lead: "Rachelle Ann Imperial — Director",
+    mandate:
+      "Designs and enforces the recruitment mechanism of the organization, and is responsible for facilitating harmonious relationships between members and applicants.",
+  },
+  {
+    name: "External Affairs",
+    lead: "Patrisha Mae Abubo — Director",
+    mandate:
+      "Serves as the envoys of the organization to external partners and other organizations, actively seeking out connections with groups whose goals align with our own.",
+  },
+  {
+    name: "Education and Training",
+    lead: "Reaiah Codiapit — Director",
+    mandate:
+      "The informative and educational arm of the organization, and its think tank for projects, programs, workshops, and trainings.",
+  },
+  {
+    name: "Finance and Logistics",
+    lead: "Angelica Matusalem — Director",
+    mandate:
+      "In charge of financial and logistical functions — improving the financial capacity of the organization and overseeing procurement of materials for its events.",
+  },
+  {
+    name: "Creatives",
+    lead: "Cattleya Abuan — Director",
+    mandate:
+      "Promotes the image of the organization in line with its established principles, creating publicity materials and managing our online identity.",
+  },
+];
 
+const VALUES = [
+  {
+    title: "Pagmamalasakit",
+    desc: "Kumikilos nang may malasakit sa kapwa.",
+    gloss: "We act with genuine care for one another.",
+  },
+  {
+    title: "Paggalang",
+    desc: "Kumikilos nang may paggalang sa paniniwala, kultura, at saloobin ng mga kasapi at komunidad.",
+    gloss: "We act with respect for the beliefs, culture, and views of our members and communities.",
+  },
+  {
+    title: "Pagtugon",
+    desc: "Kumikilos upang tumugon sa tunay na mga pangangailangan ng mga tao sa komunidad.",
+    gloss: "We act in response to the real needs of the people in the community.",
+  },
+];
+
+function AboutPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <PageHeader
-        eyebrow="Who We Are"
-        title="About Síkat-Aurora Inc."
-        subtitle="Formerly Síkat-Baler — formally established on International Youth Day, August 12, 2021."
-      />
-      <Reveal className="bg-white py-16 lg:py-20">
-        <Container>
-          <div className="mb-14 grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-            <div>
-              <h2 className="mb-5 text-[1.75rem] font-bold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
-                Our Origins &amp; Name
+      {/* 1 — Statement of purpose, set centered and large */}
+      <section className="bg-white px-6 pb-16 pt-36 text-center md:px-9 lg:pb-20 lg:pt-40">
+        <div className="mx-auto max-w-4xl">
+          <Eyebrow align="center">Who We Are</Eyebrow>
+          <h1 className="mx-auto max-w-[20ch] text-[2.1rem] font-bold leading-[1.12] tracking-[-0.03em] text-navy sm:text-[3rem]">
+            A youth-led movement building a new face of volunteerism in Aurora
+          </h1>
+          {/* The brand's gold rule, used here as an underline accent */}
+          <span aria-hidden="true" className="mx-auto mt-7 block h-1.5 w-24 rounded-full bg-gold" />
+          <p className="mx-auto mt-7 max-w-[58ch] text-[1.02rem] leading-[1.8] text-navy/75">
+            Síkat-Aurora Inc. provides free after-school programs in education, environment, and active
+            citizenship — powered entirely by young volunteers, for the communities they come from.
+          </p>
+        </div>
+      </section>
+
+      {/* 2 — Vision and mission, stacked and centered */}
+      <Reveal className="bg-cream py-16 lg:py-24">
+        <Container className="max-w-4xl space-y-12 text-center">
+          <div>
+            <Eyebrow align="center">Vision</Eyebrow>
+            <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
+              A future where{" "}
+              <span className="bg-gold/35 px-1">accessible and enriching after-school programs</span> empower
+              underserved communities in Aurora.
+            </p>
+          </div>
+          <div>
+            <Eyebrow align="center">Mission</Eyebrow>
+            <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
+              To provide inclusive after-school programs in{" "}
+              <span className="bg-gold/35 px-1">education, environment, and active citizenship</span>, driven by
+              youth volunteers to create lasting community impact.
+            </p>
+          </div>
+        </Container>
+      </Reveal>
+
+      {/* 3 — Values as a divided vertical stack */}
+      <Reveal className="bg-white py-16 lg:py-24">
+        <Container className="max-w-4xl">
+          <SectionHeading eyebrow="Our Values" title="Ang aming pinanghahawakan" className="mb-12" />
+          <dl className="border-t border-navy/15">
+            {VALUES.map((v) => (
+              <div key={v.title} className="border-b border-navy/15 py-8 sm:grid sm:grid-cols-[14rem_1fr] sm:gap-8">
+                <dt className="text-[1.3rem] font-bold tracking-[-0.01em] text-navy">{v.title}</dt>
+                <dd className="mt-2 sm:mt-0">
+                  <p className="text-[1rem] leading-[1.7] text-navy/85">{v.desc}</p>
+                  <p className="mt-1.5 text-[0.88rem] italic leading-relaxed text-navy/55">{v.gloss}</p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </Reveal>
+
+      {/* 4 — Origin narrative beside a photograph */}
+      <Reveal className="overflow-hidden bg-cream">
+        <div className="grid items-stretch lg:grid-cols-2">
+          <figure className="relative min-h-[300px] lg:min-h-[560px]">
+            <img
+              src={PHOTOS.communityAssembly}
+              alt="Síkat-Aurora volunteers and children gathered at a community assembly"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </figure>
+          <div className="flex items-center px-6 py-16 md:px-9 lg:py-24">
+            <div className="w-full lg:ml-auto lg:max-w-xl lg:pr-4">
+              <Eyebrow>How We Started</Eyebrow>
+              <h2 className="max-w-[18ch] text-[1.7rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.1rem]">
+                Where the Philippine sun rises first
               </h2>
-              {/* Opening paragraph set slightly larger — a lede, as in print */}
-              <p className="mb-4 max-w-[56ch] text-[0.98rem] leading-[1.75] text-navy/80">
+              <p className="mt-5 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
                 <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was
                 formally established as a nonprofit, youth-led, and youth-serving organization on{" "}
                 <strong className="font-semibold text-navy">August 12, 2021</strong>, during International Youth Day.
               </p>
-              <p className="mb-6 max-w-[56ch] text-sm leading-[1.8] text-navy/75 sm:text-[0.93rem]">
+              <p className="mt-4 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
                 The name <em>Síkat</em>, meaning <strong className="font-semibold text-navy">"rise,"</strong> is a
-                tribute to the rise of a new generation of volunteers in the community where the Philippine sun rises
-                first.
+                tribute to the rise of a new generation of volunteers in the community where the Philippine sun
+                rises first — in Baler, Aurora.
               </p>
-              <div className="border-l-2 border-primary bg-cream px-5 py-4">
-                <p className="mb-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-navy">
-                  Legal Registration
-                </p>
-                <p className="text-[0.8rem] leading-relaxed text-navy/75">
-                  Company Registration No. <strong className="font-semibold text-navy">2025030194739-03</strong>
-                  <br />
-                  Unique Registration Number (URN) <strong className="font-semibold text-navy">YO-2807-021323</strong>
-                </p>
-              </div>
-            </div>
-            <img
-              src={PHOTOS.volunteersGroup}
-              alt="Síkat-Aurora youth volunteers together at a program"
-              className="h-64 w-full rounded-lg object-cover sm:h-[26rem]"
-              loading="lazy"
-            />
-          </div>
 
-          {/* Vision & Mission */}
-          <div className="mb-16 grid gap-px overflow-hidden rounded-lg border border-navy/10 bg-navy/10 md:grid-cols-2">
-            <div className="bg-cream p-8">
-              <span className="pill-label mb-4 inline-flex">Vision</span>
-              <p className="max-w-[48ch] text-[0.98rem] leading-[1.7] text-navy/80">
-                Síkat-Aurora envisions a future where{" "}
-                <strong className="font-semibold text-navy">accessible and enriching after-school programs</strong>{" "}
-                empower underserved communities in Aurora.
-              </p>
-            </div>
-            <div className="bg-cream p-8">
-              <span className="pill-label mb-4 inline-flex">Mission</span>
-              <p className="max-w-[48ch] text-[0.98rem] leading-[1.7] text-navy/80">
-                Síkat-Aurora provides inclusive after-school programs in{" "}
-                <strong className="font-semibold text-navy">education, environment, and active citizenship</strong>,
-                driven by <strong className="font-semibold text-navy">youth volunteers</strong> to create lasting
-                community impact.
-              </p>
-            </div>
-          </div>
-
-          {/* Core values — numbered, rule-separated entries rather than tinted boxes */}
-          <div>
-            <SectionHeading eyebrow="What Guides Us" title="Our Core Values" className="mb-10" />
-            <div className="grid gap-x-10 gap-y-10 md:grid-cols-3">
-              {values.map((v, i) => (
-                <div key={v.title} className="border-t-2 border-navy/10 pt-5">
-                  <p className={cn("text-[1.4rem] font-bold", v.accent)} aria-hidden="true">
-                    0{i + 1}
-                  </p>
-                  <h3 className="mt-2 text-[1.25rem] font-bold text-navy">{v.title}</h3>
-                  <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{v.desc}</p>
+              <dl className="mt-8 grid gap-4 border-t border-navy/15 pt-6 sm:grid-cols-2">
+                <div>
+                  <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
+                    Company Registration No.
+                  </dt>
+                  <dd className="mt-1 font-semibold text-navy">2025030194739-03</dd>
                 </div>
-              ))}
+                <div>
+                  <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
+                    Unique Registration No.
+                  </dt>
+                  <dd className="mt-1 font-semibold text-navy">YO-2807-021323</dd>
+                </div>
+              </dl>
             </div>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* 5 — The programs, as a linked list rather than repeated cards */}
+      <Reveal className="bg-white py-16 lg:py-24">
+        <Container className="max-w-4xl">
+          <SectionHeading
+            eyebrow="Our Programs"
+            title="Three centers of participation"
+            lead="Every program is volunteer-driven and free for the learners it serves."
+            className="mb-12"
+          />
+          <ul className="border-t border-navy/15">
+            {[
+              { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 2–14." },
+              { name: "Ang Batang Kali", center: "Environment", desc: "Life skills helping youth ages 8–15 grow into stewards of nature." },
+              { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for youth leaders across 30 DepEd schools." },
+            ].map((p) => (
+              <li key={p.name}>
+                <button
+                  onClick={() => onNavigate("programs")}
+                  className="group flex w-full items-center gap-6 border-b border-navy/15 py-7 text-left transition-colors duration-200 hover:bg-cream"
+                >
+                  <div className="flex-1">
+                    <p className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-primary">{p.center}</p>
+                    <h3 className="mt-1.5 text-[1.3rem] font-bold text-navy transition-colors duration-200 group-hover:text-primary">
+                      {p.name}
+                    </h3>
+                    <p className="mt-1.5 max-w-[60ch] text-[0.92rem] leading-relaxed text-navy/75">{p.desc}</p>
+                  </div>
+                  <ArrowRight
+                    className="h-5 w-5 shrink-0 text-navy/40 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary motion-reduce:group-hover:translate-x-0"
+                    aria-hidden="true"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10">
+            <Btn onClick={() => onNavigate("programs")}>
+              Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Btn>
           </div>
         </Container>
       </Reveal>
+
+      {/* 6 — How the organization is structured (people live on the Leadership page) */}
+      <Reveal className="bg-navy py-16 text-white lg:py-24">
+        <Container>
+          <SectionHeading
+            dark
+            eyebrow="How We Are Organized"
+            title="Six committees, one directorate"
+            lead="Síkat-Aurora is run by its own volunteers. Each committee carries a defined mandate under the Executive Committee."
+            className="mb-12"
+          />
+          <div className="grid gap-x-10 gap-y-9 border-t border-white/20 pt-10 md:grid-cols-2 lg:grid-cols-3">
+            {COMMITTEES.map((c) => (
+              <div key={c.name}>
+                <h3 className="text-[1.15rem] font-bold text-white">{c.name}</h3>
+                <p className="mt-1.5 text-[0.8rem] font-semibold text-gold">{c.lead}</p>
+                <p className="mt-3 text-[0.88rem] leading-[1.7] text-white/70">{c.mandate}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12">
+            <Btn variant="gold" onClick={() => onNavigate("leadership")}>
+              Meet the People Behind It <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Btn>
+          </div>
+        </Container>
+      </Reveal>
+
+      {/* 7 — Joining, drawn from the organization's own admission rules */}
+      <Reveal className="bg-cream py-16 lg:py-24">
+        <Container className="max-w-4xl">
+          <SectionHeading
+            eyebrow="Admission & Membership"
+            title="Admission is free and open to all youth in Aurora"
+            lead="Open to anyone aged 15–30. Three steps, three months."
+            className="mb-12"
+          />
+          <ol className="grid gap-8 sm:grid-cols-3">
+            {[
+              { n: "01", t: "Signify your interest", d: "Follow the Síkat-Aurora page and let us know you want in." },
+              { n: "02", t: "Attend three events", d: "Join at least three Síkat-Aurora events within three months." },
+              { n: "03", t: "Commit to the principles", d: "Adhere to the organization's principles, rules, and policies." },
+            ].map((s) => (
+              <li key={s.n} className="list-none border-t-2 border-gold pt-5">
+                <p className="text-[1.4rem] font-bold leading-none text-primary">{s.n}</p>
+                <h3 className="mt-3 text-[1.1rem] font-bold text-navy">{s.t}</h3>
+                <p className="mt-2 text-[0.9rem] leading-[1.7] text-navy/75">{s.d}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Btn onClick={onOpenModal}>
+              Become a Volunteer <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Btn>
+            <Btn variant="outline" onClick={() => onNavigate("faq")}>
+              Read the FAQ
+            </Btn>
+          </div>
+        </Container>
+      </Reveal>
+
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
