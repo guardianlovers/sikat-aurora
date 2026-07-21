@@ -1,4 +1,5 @@
 import { slugify } from "@/lib/volunteers";
+import { FILLER_PHOTOS } from "@/lib/photos";
 
 // Portraits are matched by filename slug — drop "rj-belen.jpg" into
 // src/assets/leaders/ and it is picked up here. See the README in that folder.
@@ -47,9 +48,9 @@ const ROSTER = [
   },
 ];
 
-export const LEADERS = ROSTER.map((l) => ({
+export const LEADERS = ROSTER.map((l, i) => ({
   ...l,
-  photo: photosBySlug[slugify(l.name)] ?? null,
+  photo: photosBySlug[slugify(l.name)] ?? FILLER_PHOTOS[i % FILLER_PHOTOS.length] ?? null,
   initials: l.name
     .split(" ")
     .filter(Boolean)

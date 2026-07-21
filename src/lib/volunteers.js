@@ -1,3 +1,5 @@
+import { FILLER_PHOTOS } from "@/lib/photos";
+
 // Volunteer roster for the Leadership page.
 //
 // TO ADD A VOLUNTEER:
@@ -35,18 +37,18 @@ export function slugify(name) {
 // ---------------------------------------------------------------------------
 const ROSTER = [
   // { name: "Juan Dela Cruz", role: "Abot Ko Ang Libro" },  <- example
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
-  { name: "" },
+  { name: "Youth Volunteer", role: "Abot Ko Ang Libro" },
+  { name: "Community Facilitator", role: "Ang Batang Kali" },
+  { name: "Youth Ambassador", role: "Hiraya" },
+  { name: "Field Volunteer", role: "Abot Ko Ang Libro" },
+  { name: "Eco Mentor", role: "Ang Batang Kali" },
+  { name: "Active Citizen", role: "Hiraya" },
+  { name: "Storyteller", role: "Abot Ko Ang Libro" },
+  { name: "Youth Organizer", role: "Ang Batang Kali" },
+  { name: "Project Coordinator", role: "Hiraya" },
+  { name: "Reading Mentor", role: "Abot Ko Ang Libro" },
+  { name: "River Steward", role: "Ang Batang Kali" },
+  { name: "Student Leader", role: "Hiraya" },
 ];
 
 export const VOLUNTEERS = ROSTER.map((v, i) => {
@@ -55,7 +57,7 @@ export const VOLUNTEERS = ROSTER.map((v, i) => {
     id: slug || `placeholder-${i}`,
     name: v.name || "",
     role: v.role || "",
-    photo: v.photo ?? (slug ? photosBySlug[slug] : undefined) ?? null,
+    photo: v.photo ?? (slug ? photosBySlug[slug] : undefined) ?? FILLER_PHOTOS[(i + 6) % FILLER_PHOTOS.length] ?? null,
   };
 });
 

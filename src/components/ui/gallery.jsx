@@ -111,7 +111,7 @@ export const PhotoGallery = ({
       y: "44px",
       zIndex: 10,
       direction: "left",
-      src: PHOTOS.communityAssembly,
+      src: PHOTOS.allPhotos[3] || PHOTOS.communityAssembly,
       alt: "Síkat-Aurora volunteers and children at a community assembly",
     },
   ];
