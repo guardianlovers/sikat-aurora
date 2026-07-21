@@ -197,7 +197,7 @@ export const PhotoGallery = ({
       <div className="flex w-full justify-center">
         <Button
           onClick={onViewAll}
-          className="rounded-md bg-primary px-7 py-3 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:bg-primary-dark"
+          className="rounded-full bg-primary px-8 py-3.5 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark shadow-cta"
         >
           Read All Kwentong Síkat Stories
         </Button>

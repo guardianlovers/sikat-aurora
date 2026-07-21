@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const FaqSection = React.forwardRef(
   ({ className, title, description, items, ...props }, ref) => {
     return (
-      <section ref={ref} className={cn("w-full py-16 font-sans lg:py-20", className)} {...props}>
+      <section ref={ref} className={cn("w-full bg-cream py-16 font-sans lg:py-20", className)} {...props}>
         <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
           {/* Header */}
           <motion.div
