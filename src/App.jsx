@@ -283,6 +283,11 @@ function HomePage({ onNavigate }) {
         </div>
       </section>
 
+      {/* Photo Gallery Blog Teaser directly on Home */}
+      <section style={{ background: "#fff" }}>
+        <PhotoGallery onViewAll={() => onNavigate("blog")} />
+      </section>
+
       {/* FAQ Section directly on Home */}
       <FAQSection />
 
