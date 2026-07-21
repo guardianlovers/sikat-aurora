@@ -3,7 +3,6 @@ import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
-  Award,
   BookOpen,
   Check,
   HandCoins,
@@ -24,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
 import { POSTS, POST_CATEGORIES, formatPostDate } from "@/lib/posts";
+import { CASH_DONATIONS, FUNDING_TOTALS, FUNDING_AS_OF, TOTALS_PERIOD, formatPeso } from "@/lib/funding";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
@@ -586,17 +586,52 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          {/* Figures in the deck's "In a Nutshell" style: gold icon, bold figure */}
-          <ul className="grid gap-6 sm:grid-cols-2">
-            {[
-              { Icon: Users, figure: "400+", label: "youth volunteers" },
-              { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
-              { Icon: MapPin, figure: "18", label: "partner communities" },
-              { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
-            ].map((s) => (
-              <StatRow key={s.label} dark {...s} />
-            ))}
-          </ul>
+          {/* Figures in the deck's "In a Nutshell" style, set against the work
+              they describe so the band is not an unbroken block of navy. */}
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
+            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-7">
+              {[
+                { Icon: Users, figure: "400+", label: "youth volunteers" },
+                { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
+                { Icon: MapPin, figure: "18", label: "partner communities" },
+                { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
+              ].map((s) => (
+                <StatRow key={s.label} dark {...s} />
+              ))}
+            </ul>
+
+            {/* Offset collage — the taller column drops down to break the grid line */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <img
+                  src={PROGRAM_PHOTOS.abkl[1].src}
+                  alt={PROGRAM_PHOTOS.abkl[1].alt}
+                  loading="lazy"
+                  className="h-44 w-full rounded-2xl object-cover sm:h-56"
+                />
+                <img
+                  src={PROGRAM_PHOTOS.abkp[0].src}
+                  alt={PROGRAM_PHOTOS.abkp[0].alt}
+                  loading="lazy"
+                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                />
+              </div>
+              <div className="space-y-4 pt-8">
+                <img
+                  src={PROGRAM_PHOTOS.hiraya[0].src}
+                  alt={PROGRAM_PHOTOS.hiraya[0].alt}
+                  loading="lazy"
+                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                />
+                <img
+                  src={PHOTOS.communityAssembly}
+                  alt="Síkat-Aurora volunteers and children at a community assembly"
+                  loading="lazy"
+                  className="h-44 w-full rounded-2xl object-cover sm:h-56"
+                />
+              </div>
+            </div>
+          </div>
         </Container>
       </Reveal>
 
@@ -678,45 +713,6 @@ function HomePage({ onNavigate, onOpenModal }) {
 /* ============================= Page 2: About ============================= */
 
 // Mandates come from the organization's own committee descriptions.
-const COMMITTEES = [
-  {
-    name: "Executive Committee",
-    lead: "RJ Belen — Executive Director",
-    mandate:
-      "The Executive Director serves as the highest official of the organization, sitting as ex-officio presiding officer of the Executive Committee, executing policies and determining the direction of the organization.",
-  },
-  {
-    name: "Internal Affairs",
-    lead: "Rachelle Ann Imperial — Director",
-    mandate:
-      "Designs and enforces the recruitment mechanism of the organization, and is responsible for facilitating harmonious relationships between members and applicants.",
-  },
-  {
-    name: "External Affairs",
-    lead: "Patrisha Mae Abubo — Director",
-    mandate:
-      "Serves as the envoys of the organization to external partners and other organizations, actively seeking out connections with groups whose goals align with our own.",
-  },
-  {
-    name: "Education and Training",
-    lead: "Reaiah Codiapit — Director",
-    mandate:
-      "The informative and educational arm of the organization, and its think tank for projects, programs, workshops, and trainings.",
-  },
-  {
-    name: "Finance and Logistics",
-    lead: "Angelica Matusalem — Director",
-    mandate:
-      "In charge of financial and logistical functions — improving the financial capacity of the organization and overseeing procurement of materials for its events.",
-  },
-  {
-    name: "Creatives",
-    lead: "Cattleya Abuan — Director",
-    mandate:
-      "Promotes the image of the organization in line with its established principles, creating publicity materials and managing our online identity.",
-  },
-];
-
 const VALUES = [
   {
     title: "Pagmamalasakit",
@@ -878,33 +874,6 @@ function AboutPage({ onNavigate, onOpenModal }) {
           <div className="mt-10">
             <Btn onClick={() => onNavigate("programs")}>
               Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Btn>
-          </div>
-        </Container>
-      </Reveal>
-
-      {/* 6 — How the organization is structured (people live on the Leadership page) */}
-      <Reveal className="bg-navy py-16 text-white lg:py-24">
-        <Container>
-          <SectionHeading
-            dark
-            eyebrow="How We Are Organized"
-            title="Six committees, one directorate"
-            lead="Síkat-Aurora is run by its own volunteers. Each committee carries a defined mandate under the Executive Committee."
-            className="mb-12"
-          />
-          <div className="grid gap-x-10 gap-y-9 border-t border-white/20 pt-10 md:grid-cols-2 lg:grid-cols-3">
-            {COMMITTEES.map((c) => (
-              <div key={c.name}>
-                <h3 className="text-[1.15rem] font-bold text-white">{c.name}</h3>
-                <p className="mt-1.5 text-[0.8rem] font-semibold text-gold">{c.lead}</p>
-                <p className="mt-3 text-[0.88rem] leading-[1.7] text-white/70">{c.mandate}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12">
-            <Btn variant="gold" onClick={() => onNavigate("leadership")}>
-              Meet the People Behind It <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
         </Container>
@@ -1080,8 +1049,43 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 4: Impact & Awards ============================= */
 
+// Horizontal bars built from the published figures. Rendered as a definition
+// list so the numbers are readable without the chart.
+function FundingChart() {
+  const max = Math.max(...CASH_DONATIONS.map((d) => d.amount));
+
+  return (
+    <div>
+      <dl className="space-y-4">
+        {CASH_DONATIONS.map((d) => (
+          <div key={d.year} className="grid grid-cols-[3.2rem_1fr] items-center gap-4">
+            <dt className="text-[0.85rem] font-bold text-navy">{d.year}</dt>
+            <dd className="flex items-center gap-3">
+              <div className="h-7 flex-1 overflow-hidden rounded-r-md bg-navy/[0.06]">
+                <div
+                  className={cn(
+                    "h-full rounded-r-md transition-[width] duration-700 ease-out-expo",
+                    d.partial ? "bg-gold" : "bg-primary"
+                  )}
+                  style={{ width: `${(d.amount / max) * 100}%` }}
+                />
+              </div>
+              <span className="w-24 shrink-0 text-right text-[0.82rem] font-semibold tabular-nums text-navy">
+                {formatPeso(d.amount)}
+              </span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-5 flex items-start gap-2 text-[0.78rem] leading-relaxed text-navy/55">
+        <span aria-hidden="true" className="mt-1 h-2.5 w-2.5 shrink-0 rounded-sm bg-gold" />
+        2026 covers January to early May only, so it is not yet a full year.
+      </p>
+    </div>
+  );
+}
+
 function ImpactPage({ onNavigate, onOpenModal }) {
-  // Order and phrasing follow the "In a Nutshell" page of the brand deck
   const stats = [
     { Icon: Rocket, figure: "2021", label: "formally established" },
     { Icon: Users, figure: "400+", label: "youth volunteers" },
@@ -1132,23 +1136,126 @@ function ImpactPage({ onNavigate, onOpenModal }) {
         title="The Premier Platform for Youth Volunteerism in Aurora"
         subtitle="Official metrics and recognitions as of July 2026."
       />
-      <Reveal className="bg-navy py-16 text-white lg:py-20">
-        <Container>
-          <ul className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {stats.map((s) => (
-              <StatRow key={s.label} dark {...s} />
-            ))}
-          </ul>
 
-          <h2 className="mb-8 flex items-center gap-3 text-[1.6rem] font-bold sm:text-[1.9rem]">
-            <Award className="h-6 w-6 text-gold" aria-hidden="true" /> Awards &amp; Recognitions
-          </h2>
-          {/* Awards read as a citation list — level, title, grantor per row */}
-          <ul className="mb-16 border-t border-white/15">
+      {/* Figures, set against the programs they came from */}
+      <Reveal className="bg-white py-16 lg:py-24">
+        <Container>
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+            <div>
+              <SectionHeading
+                eyebrow="In a Nutshell"
+                title="What four years of youth volunteerism adds up to"
+                className="mb-10"
+              />
+              <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
+                {stats.map((s) => (
+                  <StatRow key={s.label} {...s} />
+                ))}
+              </ul>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
+                <img
+                  src={PROGRAM_PHOTOS.abkl[0].src}
+                  alt={PROGRAM_PHOTOS.abkl[0].alt}
+                  loading="lazy"
+                  className="h-40 w-full rounded-2xl object-cover sm:h-52"
+                />
+                <img
+                  src={PROGRAM_PHOTOS.hiraya[3].src}
+                  alt={PROGRAM_PHOTOS.hiraya[3].alt}
+                  loading="lazy"
+                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                />
+              </div>
+              <div className="space-y-4 pt-8">
+                <img
+                  src={PROGRAM_PHOTOS.abkp[0].src}
+                  alt={PROGRAM_PHOTOS.abkp[0].alt}
+                  loading="lazy"
+                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                />
+                <img
+                  src={PHOTOS.volunteersGroup}
+                  alt="Síkat-Aurora youth volunteers together at a program"
+                  loading="lazy"
+                  className="h-40 w-full rounded-2xl object-cover sm:h-52"
+                />
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Reveal>
+
+      {/* Funding, charted from the published transparency report */}
+      <Reveal className="border-y border-navy/10 bg-cream py-16 lg:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Our Funding"
+            title="Where the money comes from"
+            lead={`Cash donations and grants received per fiscal year, as published in our transparency report as of ${FUNDING_AS_OF}.`}
+            className="mb-12"
+          />
+
+          <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+            <FundingChart />
+
+            <div>
+              <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/50">
+                Totals for {TOTALS_PERIOD}
+              </p>
+              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-navy/10 bg-navy/10">
+                {[
+                  ["Cash donations", formatPeso(FUNDING_TOTALS.cash), "text-navy"],
+                  ["In-kind donations", formatPeso(FUNDING_TOTALS.inKind), "text-navy"],
+                  ["Expenses", formatPeso(FUNDING_TOTALS.expenses), "text-primary"],
+                  ["Remaining balance", formatPeso(FUNDING_TOTALS.balance), "text-forest"],
+                ].map(([label, value, tone]) => (
+                  <div key={label} className="bg-white p-5">
+                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/50">
+                      {label}
+                    </dt>
+                    <dd className={cn("mt-1.5 text-[1.15rem] font-bold tabular-nums", tone)}>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-5 text-[0.78rem] leading-relaxed text-navy/55">
+                Figures above cover {TOTALS_PERIOD}; 2026 donations are still being recorded.
+              </p>
+              <p className="mt-4 text-[0.88rem] leading-[1.7] text-navy/70">
+                We publish where every single peso goes — the full ledger is open to anyone who wants
+                to read it.
+              </p>
+              <a
+                href="https://bit.ly/sikatfinance"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.85rem] font-semibold text-white no-underline shadow-cta transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
+              >
+                Open the Financial Tracker <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </Container>
+      </Reveal>
+
+      {/* Awards — the one dark band on the page */}
+      <Reveal className="bg-navy py-16 text-white lg:py-24">
+        <Container>
+          <SectionHeading
+            dark
+            eyebrow="Recognition"
+            title="Awards & recognitions"
+            lead="From the municipality of Baler to the ASEAN Youth Forum."
+            className="mb-12"
+          />
+          <ul className="border-t border-white/20">
             {awards.map((a) => (
               <li
                 key={a.title}
-                className="grid gap-2 border-b border-white/10 py-5 transition-colors duration-200 hover:bg-white/[0.03] md:grid-cols-[10rem_1fr_18rem] md:items-baseline md:gap-6 md:px-3"
+                className="grid gap-2 border-b border-white/10 py-5 transition-colors duration-200 hover:bg-white/[0.04] md:grid-cols-[11rem_1fr_18rem] md:items-baseline md:gap-6 md:px-3"
               >
                 <Tag className={cn("w-fit", levelStyles[a.level])}>{a.level}</Tag>
                 <p className="text-[1.05rem] font-bold leading-snug text-white">{a.title}</p>
@@ -1156,35 +1263,29 @@ function ImpactPage({ onNavigate, onOpenModal }) {
               </li>
             ))}
           </ul>
-
-          {/* Transparency */}
-          <div className="grid items-center gap-8 rounded-lg border border-white/15 bg-white/[0.03] p-8 sm:p-10 lg:grid-cols-2">
-            <div>
-              <h3 className="text-[1.4rem] font-bold text-white sm:text-[1.6rem]">
-                Financial Transparency Report
-              </h3>
-              <p className="mb-6 mt-3 max-w-[48ch] text-sm leading-[1.7] text-white/70">
-                We publish where every single peso goes. Over ₱1.5M+ raised through grant competitions and public
-                donation drives.
-              </p>
-              <a
-                href="https://bit.ly/sikatfinance"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-[0.82rem] font-semibold text-white no-underline transition-colors duration-200 hover:bg-primary-dark"
-              >
-                Open Financial Tracker <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
-            <img
-              src={PHOTOS.communityOutreach}
-              alt="Síkat-Aurora community outreach in Aurora"
-              className="h-52 w-full rounded-md object-cover"
-              loading="lazy"
-            />
-          </div>
         </Container>
       </Reveal>
+
+      {/* Recognition in the field */}
+      <Reveal className="bg-white py-16 lg:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="On the Ground"
+            title="What the recognition looks like in practice"
+            lead="Every award traces back to a Saturday spent with kids somewhere in Aurora."
+            className="mb-12"
+          />
+          <PhotoGrid
+            photos={[
+              PROGRAM_PHOTOS.abkl[2],
+              PROGRAM_PHOTOS.abkp[1],
+              PROGRAM_PHOTOS.hiraya[1],
+              PROGRAM_PHOTOS.abkp[3],
+            ]}
+          />
+        </Container>
+      </Reveal>
+
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
