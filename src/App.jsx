@@ -30,6 +30,10 @@ import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
+import impactVolunteersImg from "./assets/impact-in-numbers/400-youth-volunteer.jpg";
+import impactLearnersImg from "./assets/impact-in-numbers/1100-learner-reached.jpg";
+import impactCommunitiesImg from "./assets/impact-in-numbers/18-partner-community.jpg";
+import impactDonationsImg from "./assets/impact-in-numbers/donation-grant.jpg";
 
 /* ============================= Shared primitives ============================= */
 
@@ -493,33 +497,35 @@ function PageHeader({ eyebrow, title, subtitle }) {
 
 /* ============================= Page 1: Home ============================= */
 
-// Each figure is paired with a photograph that shows the thing being counted:
-// volunteers for the headcount, a teaching session for learners reached, a
-// community turnout for partner communities, and the book cart for what the
-// donations actually buy.
+// Each figure is paired with a photograph of the thing being counted.
+// These four live in src/assets/impact-in-numbers/, named after their stat —
+// replace a file there (same name) to swap a photo.
 const HOME_IMPACT_STATS = [
   {
     Icon: Users,
     figure: "400+",
     label: "youth volunteers",
     photo: {
-      src: PHOTOS.volunteersGroup,
-      alt: "Síkat-Aurora youth volunteers gathered together at a program",
+      src: impactVolunteersImg,
+      alt: "The Síkat-Aurora volunteer corps gathered for a group photo",
     },
   },
   {
     Icon: BookOpen,
     figure: "1,100+",
     label: "learners reached",
-    photo: PROGRAM_PHOTOS.abkl[1],
+    photo: {
+      src: impactLearnersImg,
+      alt: "A volunteer reading a storybook one-on-one with a young learner",
+    },
   },
   {
     Icon: MapPin,
     figure: "18",
     label: "partner communities",
     photo: {
-      src: PHOTOS.communityAssembly,
-      alt: "A barangay turnout of children and volunteers at a Síkat-Aurora session",
+      src: impactCommunitiesImg,
+      alt: "A packed community room of children and volunteers at a partner barangay",
     },
   },
   {
@@ -527,8 +533,8 @@ const HOME_IMPACT_STATS = [
     figure: "₱1.5M+",
     label: "donations and grants",
     photo: {
-      src: PROGRAM_PHOTOS.abkl[0].src,
-      alt: "The mobile library cart stocked with books funded by donations",
+      src: impactDonationsImg,
+      alt: "Donation packs laid out beside the Síkat-Aurora banner, ready for distribution",
     },
   },
 ];
