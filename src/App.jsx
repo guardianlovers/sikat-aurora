@@ -43,6 +43,7 @@ import whoWeAre2 from "./assets/about/who-we-are/2.jpg";
 import whoWeAre3 from "./assets/about/who-we-are/3.jpg";
 import whoWeAre4 from "./assets/about/who-we-are/4.jpg";
 import homeWhoWeAre from "./assets/home/who-we-are/1.jpg";
+import sunImg from "./assets/about/vision-mission/sun.png";
 import recognitionSparkChange from "./assets/impact/recognitions/spark-a-change.jpg";
 import recognitionAraneta from "./assets/impact/recognitions/488223845_10225500053268278_7311255336231534549_n.jpg";
 
@@ -838,11 +839,20 @@ function AboutPage({ onNavigate, onOpenModal }) {
         </div>
       </section>
 
-      {/* 2 — Vision and mission, stacked and centered, with the brand's sun
-          rays rising from the corners */}
+      {/* 2 — Vision and mission, stacked and centered, with the brand's sun symbol */}
       <Reveal className="relative overflow-hidden bg-cream py-16 lg:py-24">
-        <SunRays className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 text-gold/25 sm:h-80 sm:w-80" />
-        <SunRays className="pointer-events-none absolute -bottom-24 -right-24 h-64 w-64 text-gold/25 sm:h-80 sm:w-80" />
+        <img
+          src={sunImg}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 opacity-20 sm:h-80 sm:w-80"
+        />
+        <img
+          src={sunImg}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 opacity-20 sm:h-80 sm:w-80"
+        />
         <Container className="relative max-w-4xl space-y-12 text-center">
           <div>
             <Eyebrow align="center">Vision</Eyebrow>
