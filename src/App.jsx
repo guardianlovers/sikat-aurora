@@ -344,7 +344,7 @@ function StatRow({ Icon, figure, label, dark = false }) {
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
       <p className={cn("text-[1.05rem] leading-snug", dark ? "text-white/80" : "text-navy/80")}>
-        <span className={cn("font-bold", dark ? "text-white" : "text-navy")}>{figure}</span> {label}
+        <span className={cn("font-medium", dark ? "text-white" : "text-navy")}>{figure}</span> {label}
       </p>
     </li>
   );
@@ -777,7 +777,7 @@ function HomePage({ onNavigate, onOpenModal }) {
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <p className="text-[0.95rem] leading-snug text-white/75">
-                    <span className="block text-[1.6rem] font-bold leading-tight text-white">{figure}</span>
+                    <span className="block text-[1.6rem] font-medium leading-tight text-white">{figure}</span>
                     {label}
                   </p>
                 </div>
@@ -1094,22 +1094,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
                 </p>
               </StaggerItem>
 
-              <StaggerItem>
-                <dl className="mt-8 grid gap-4 border-t border-navy/15 pt-6 sm:grid-cols-2">
-                  <div className="rounded-xl border border-navy/10 bg-white p-4 shadow-xs">
-                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
-                      Company Registration No.
-                    </dt>
-                    <dd className="mt-1 font-semibold text-navy">2025030194739-03</dd>
-                  </div>
-                  <div className="rounded-xl border border-navy/10 bg-white p-4 shadow-xs">
-                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
-                      Unique Registration No.
-                    </dt>
-                    <dd className="mt-1 font-semibold text-navy">YO-2807-021323</dd>
-                  </div>
-                </dl>
-              </StaggerItem>
+
             </StaggerContainer>
           </div>
         </div>
@@ -1938,7 +1923,7 @@ const OFFICIAL_FAQS = [
   {
     question: "Is Síkat-Aurora a registered nonprofit organization?",
     answer:
-      "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines — Company Registration No. 2025030194739-03 and Unique Registration Number (URN) YO-2807-021323.",
+      "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines.",
   },
   {
     question: "How can I donate or sponsor a program?",
