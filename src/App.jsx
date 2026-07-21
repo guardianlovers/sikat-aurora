@@ -1220,7 +1220,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
             <div>
               <SectionHeading
                 eyebrow="In a Nutshell"
-                title="What four years of youth volunteerism adds up to"
+                title="What five years of youth volunteerism adds up to"
                 className="mb-10"
               />
               <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
