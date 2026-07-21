@@ -1137,11 +1137,6 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Core Programs"
-        title="Three Programs, One Rising Community"
-        subtitle="Every program is volunteer-driven and free for its learners — built around our three centers of participation."
-      />
       {/* Each program alternates a half-bleed photo with its details, then
           opens into its own photo grid — the deck's "in Photos" spread. */}
       {programs.map((p, i) => (
@@ -1150,9 +1145,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
           className={cn(
             "overflow-hidden",
             i % 2 === 1 ? "bg-cream" : "bg-white",
-            // The alternating backgrounds are too close in tone to read as a
-            // break on their own, so separate the programs with a rule.
-            i > 0 && "border-t border-navy/10"
+            i === 0 ? "pt-24 lg:pt-28" : "border-t border-navy/10"
           )}
         >
           <div
@@ -1318,14 +1311,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Impact & Awards"
-        title="The Premier Platform for Youth Volunteerism in Aurora"
-        subtitle="Official metrics and recognitions as of July 2026."
-      />
-
-      {/* Figures, set against the programs they came from */}
-      <Reveal className="bg-white py-16 lg:py-24">
+      <Reveal className="bg-white pb-16 pt-28 lg:pb-20 lg:pt-36">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div>
@@ -1468,12 +1454,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <PageHeader
-        eyebrow="Organizational Structure"
-        title="Youth Leaders Behind the Movement"
-        subtitle="Meet the executive committee and directorate driving programs across Aurora Province."
-      />
-      <Reveal className="bg-white py-16 lg:py-20">
+      <Reveal className="bg-white pb-16 pt-28 lg:pb-20 lg:pt-36">
         <Container>
           <StaggerContainer className="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
             {LEADERS.map((l) => (
@@ -1698,14 +1679,8 @@ function BlogPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Blog & Stories"
-        title="Kwentong Síkat"
-        subtitle="Stories from the field — written by the volunteers, for the community."
-      />
-
       {/* Lead story */}
-      <Reveal className="border-b border-navy/10 bg-white py-14 lg:py-16">
+      <Reveal className="border-b border-navy/10 bg-white pb-14 pt-28 lg:pb-16 lg:pt-36">
         <Container>
           <a
             href={`#blog/${featured.slug}`}
@@ -1845,12 +1820,8 @@ const OFFICIAL_FAQS = [
 function FAQPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <PageHeader
-        eyebrow="Frequently Asked Questions"
-        title="Everything You Need to Know About Síkat-Aurora"
-        subtitle="Common questions about our programs, volunteer induction, and financial transparency."
-      />
       <FaqSection
+        className="pt-28 lg:pt-36"
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
@@ -1937,14 +1908,8 @@ function VolunteerPage({ onOpenModal }) {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Join Our Volunteer Movement"
-        title="Where Every Youth Has a Voice & Purpose"
-        subtitle="Admission is 100% free and open to all youth aged 15–30 in Aurora Province."
-      />
-
       {/* CTA banner */}
-      <Reveal className="bg-cream px-6 pt-9 md:px-9">
+      <Reveal className="bg-cream px-6 pb-12 pt-28 md:px-9 lg:pt-36">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 rounded-lg border-l-2 border-primary bg-navy p-8 text-white sm:p-10">
           <div>
             <Eyebrow dark>Ready to Make a Difference?</Eyebrow>
@@ -2066,12 +2031,7 @@ function DonatePage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Donate / Be a Sponsor"
-        title="Every Peso Becomes a Page, a Seedling, a Leader"
-        subtitle="Your donation goes directly to program materials and community sessions."
-      />
-      <Reveal className="bg-cream py-16 lg:py-20">
+      <Reveal className="bg-cream pb-16 pt-28 lg:pb-20 lg:pt-36">
         <Container>
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             <div>
