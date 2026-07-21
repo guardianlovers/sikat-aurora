@@ -23,6 +23,7 @@ import {
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
+import { POSTS, POST_CATEGORIES, formatPostDate } from "@/lib/posts";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
@@ -159,10 +160,11 @@ function Tag({ className, children }) {
   );
 }
 
-// Rounded card with a soft border; hover lifts and warms the shadow
-function Card({ className, interactive = true, children, ...props }) {
+// Rounded card with a soft border; hover lifts and warms the shadow.
+// `as` lets callers pick a semantic element (e.g. "article" for a post).
+function Card({ as: Element = "div", className, interactive = true, children, ...props }) {
   return (
-    <div
+    <Element
       className={cn(
         "rounded-2xl border border-navy/10 bg-white shadow-card",
         interactive &&
@@ -172,7 +174,7 @@ function Card({ className, interactive = true, children, ...props }) {
       {...props}
     >
       {children}
-    </div>
+    </Element>
   );
 }
 
@@ -1340,69 +1342,170 @@ function VolunteerWall({ onOpenModal }) {
 
 /* ============================= Page 6: Blog ============================= */
 
+const CATEGORY_STYLES = {
+  "Abot Ko Ang Libro": "bg-primary-soft text-primary",
+  "Ang Batang Kali": "bg-forest-soft text-forest",
+  Hiraya: "bg-sky-soft text-navy",
+  Updates: "bg-gold/25 text-navy-ink",
+};
+
+function PostMeta({ post, className, dark = false }) {
+  return (
+    <p
+      className={cn(
+        "flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.78rem]",
+        dark ? "text-white/60" : "text-navy/55",
+        className
+      )}
+    >
+      <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{post.readTime}</span>
+    </p>
+  );
+}
+
+function PostCard({ post }) {
+  return (
+    <Card as="article" className="group flex flex-col overflow-hidden">
+      <a
+        href={`#blog/${post.slug}`}
+        onClick={(e) => e.preventDefault()}
+        className="flex flex-1 flex-col no-underline"
+      >
+        <div className="overflow-hidden">
+          <img
+            src={post.img}
+            alt=""
+            loading="lazy"
+            className="h-48 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
+          />
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <Tag className={cn("mb-3 w-fit", CATEGORY_STYLES[post.category])}>{post.category}</Tag>
+          <h3 className="text-[1.15rem] font-bold leading-snug text-navy transition-colors duration-200 group-hover:text-primary">
+            {post.title}
+          </h3>
+          <p className="mb-5 mt-2.5 flex-1 text-[0.88rem] leading-[1.7] text-navy/70">{post.excerpt}</p>
+          <PostMeta post={post} />
+        </div>
+      </a>
+    </Card>
+  );
+}
+
 function BlogPage({ onNavigate, onOpenModal }) {
-  const posts = [
-    {
-      title: "Field Notes — Five Saturdays in Brgy. Zabali",
-      desc: "What happens when a library on wheels meets fifty kids who've never borrowed a book before.",
-      tag: "Abot Ko Ang Libro",
-      img: PROGRAM_PHOTOS.abkl[1].src,
-    },
-    {
-      title: "Volunteer Story — From Dibut to Cozo: Batang Kali by the water",
-      desc: "How a river cleanup turned into a lifelong promise between kids and their coastline.",
-      tag: "Ang Batang Kali",
-      img: PROGRAM_PHOTOS.abkp[0].src,
-    },
-    {
-      title: "Updates — Hiraya 2026: 30 schools, one generation of leaders",
-      desc: "Inside the leadership training that hands young people both the mic and the funding.",
-      tag: "Hiraya",
-      img: PROGRAM_PHOTOS.hiraya[0].src,
-    },
-  ];
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const featured = POSTS.find((p) => p.featured) ?? POSTS[0];
+  const rest = POSTS.filter((p) => p !== featured);
+  const visible =
+    activeCategory === "All" ? rest : rest.filter((p) => p.category === activeCategory);
 
   return (
     <>
       <PageHeader
         eyebrow="Blog & Stories"
         title="Kwentong Síkat"
-        subtitle="Stories from the field — by the volunteers, for the community."
+        subtitle="Stories from the field — written by the volunteers, for the community."
       />
-      <Reveal className="bg-cream py-16 lg:py-20">
+
+      {/* Lead story */}
+      <Reveal className="border-b border-navy/10 bg-white py-14 lg:py-16">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
-              <Card key={p.title} className="group flex flex-col overflow-hidden">
-                <div className="overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt=""
-                    className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col border-t border-navy/10 p-6">
-                  <Tag className="mb-3 w-fit bg-primary-soft text-primary">{p.tag}</Tag>
-                  <h3 className="text-[1.2rem] font-bold leading-snug text-navy">{p.title}</h3>
-                  <p className="mb-5 mt-2.5 flex-1 text-sm leading-[1.7] text-navy/75">{p.desc}</p>
-                  <a
-                    href="#blog"
-                    onClick={(e) => e.preventDefault()}
-                    className="inline-flex items-center gap-2 rounded-sm text-[0.8rem] font-semibold text-primary no-underline transition-colors duration-150 hover:text-primary-dark"
-                  >
-                    Read full story
-                    <ArrowRight
-                      className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <a
+            href={`#blog/${featured.slug}`}
+            onClick={(e) => e.preventDefault()}
+            className="group grid gap-8 no-underline lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12"
+          >
+            <div className="overflow-hidden rounded-2xl">
+              <img
+                src={featured.img}
+                alt=""
+                className="h-64 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 sm:h-[26rem]"
+              />
+            </div>
+            <div>
+              <div className="mb-4 flex flex-wrap items-center gap-3">
+                <span className="pill-label">Latest Story</span>
+                <Tag className={CATEGORY_STYLES[featured.category]}>{featured.category}</Tag>
+              </div>
+              <h2 className="max-w-[18ch] text-[1.8rem] font-bold leading-[1.15] text-navy transition-colors duration-200 group-hover:text-primary sm:text-[2.3rem]">
+                {featured.title}
+              </h2>
+              <p className="mt-4 max-w-[54ch] text-[0.98rem] leading-[1.75] text-navy/75">
+                {featured.excerpt}
+              </p>
+              <PostMeta post={featured} className="mt-5" />
+              <span className="mt-6 inline-flex items-center gap-2 text-[0.85rem] font-semibold text-primary">
+                Read full story
+                <ArrowRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
+                  aria-hidden="true"
+                />
+              </span>
+            </div>
+          </a>
         </Container>
       </Reveal>
+
+      {/* Filters + archive */}
+      <section className="bg-cream py-14 lg:py-20">
+        <Container>
+          <div className="mb-10 flex flex-wrap items-center justify-between gap-5">
+            <SectionHeading eyebrow="All Stories" title="From the field" />
+            <div
+              className="flex flex-wrap gap-2"
+              role="tablist"
+              aria-label="Filter stories by program"
+            >
+              {POST_CATEGORIES.map((c) => {
+                const isActive = activeCategory === c;
+                return (
+                  <button
+                    key={c}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveCategory(c)}
+                    className={cn(
+                      "rounded-full border px-4 py-2 text-[0.8rem] font-semibold transition-colors duration-200",
+                      isActive
+                        ? "border-navy bg-navy text-white"
+                        : "border-navy/15 bg-white text-navy/70 hover:border-navy/40 hover:text-navy"
+                    )}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {visible.map((post) => (
+                <motion.div
+                  key={post.slug}
+                  layout
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.22, ease: EASE }}
+                >
+                  <PostCard post={post} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          {visible.length === 0 && (
+            <p className="py-16 text-center text-[0.95rem] text-navy/55">
+              No stories in this category yet — check back soon.
+            </p>
+          )}
+        </Container>
+      </section>
+
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
@@ -1837,7 +1940,7 @@ function FooterLink({ onClick, children }) {
 
 function Footer({ onNavigate }) {
   return (
-    <footer className="border-t border-white/[0.06] bg-navy-deep px-6 pb-7 pt-16 text-white/60 md:px-9">
+    <footer className="bg-black px-6 pb-7 pt-16 text-white/60 md:px-9">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
           <div>

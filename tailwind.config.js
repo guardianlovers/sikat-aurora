@@ -17,7 +17,9 @@ export default {
         cream: "#FBF9F6",
       },
       fontFamily: {
-        sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Open Sans carries body copy; Urbanist carries headings and UI labels.
+        sans: ["Open Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Urbanist", "Open Sans", "ui-sans-serif", "sans-serif"],
       },
       boxShadow: {
         card: "0 1px 2px rgba(29,74,111,0.04), 0 6px 20px rgba(29,74,111,0.06)",
