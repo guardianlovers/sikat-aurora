@@ -49,28 +49,29 @@ import recognitionAraneta from "./assets/impact/recognitions/488223845_102255000
 
 /* ============================= Shared primitives ============================= */
 
-const EASE = [0.22, 1, 0.36, 1];
+// Luxury cubic-bezier curve for smooth decelerating momentum
+const EASE = [0.16, 1, 0.3, 1];
 
 const REVEAL_VARIANTS = {
   fadeUp: {
-    hidden: { opacity: 0, y: 35 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+    hidden: { opacity: 0, y: 22 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
   },
   fadeDown: {
-    hidden: { opacity: 0, y: -35 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+    hidden: { opacity: 0, y: -22 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
   },
   fadeLeft: {
-    hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+    hidden: { opacity: 0, x: 28 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: EASE } },
   },
   fadeRight: {
-    hidden: { opacity: 0, x: -40 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+    hidden: { opacity: 0, x: -28 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: EASE } },
   },
   scaleUp: {
-    hidden: { opacity: 0, scale: 0.94, y: 20 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+    hidden: { opacity: 0, scale: 0.96, y: 14 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
   },
 };
 
@@ -82,7 +83,7 @@ function Reveal({ className, children, variant = "fadeUp", as = "section", ...pr
     <Comp
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-50px" }}
       variants={chosenVariant}
       className={className}
       {...props}
@@ -93,7 +94,7 @@ function Reveal({ className, children, variant = "fadeUp", as = "section", ...pr
 }
 
 // Container that automatically staggers direct children as they enter the viewport
-function StaggerContainer({ className, children, stagger = 0.08, delay = 0, as = "div", ...props }) {
+function StaggerContainer({ className, children, stagger = 0.06, delay = 0, as = "div", ...props }) {
   const Comp = motion[as];
   return (
     <Comp
@@ -121,12 +122,12 @@ function StaggerContainer({ className, children, stagger = 0.08, delay = 0, as =
 function StaggerItem({ className, children, as = "div", ...props }) {
   const Comp = motion[as];
   const itemVariants = {
-    hidden: { opacity: 0, y: 28, scale: 0.97 },
+    hidden: { opacity: 0, y: 18, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: EASE },
+      transition: { duration: 0.55, ease: EASE },
     },
   };
   return (
@@ -2399,10 +2400,10 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.main
           key={activePage}
-          initial={{ opacity: 0, y: 20, scale: 0.995 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -16, scale: 0.995 }}
-          transition={{ duration: 0.38, ease: EASE }}
+          initial={{ opacity: 0, scale: 0.995 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.995 }}
+          transition={{ duration: 0.28, ease: EASE }}
         >
           {pages[activePage] ?? pages.home}
         </motion.main>
