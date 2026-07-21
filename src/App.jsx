@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
+import logoImg from "./assets/logo.png";
 
 const C = {
   or: "#E55C14",
@@ -117,11 +118,9 @@ function Navbar() {
         maxWidth: 1280, margin: "0 auto",
         display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 36, height: 36, background: C.or, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <SunIcon size={20} />
-          </div>
-          <span style={{ fontSize: "1rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.3px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 38, height: 38, objectFit: "contain" }} />
+          <span style={{ fontSize: "1.05rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.3px" }}>
             Síkat<span style={{ color: C.or }}>-Aurora</span>
           </span>
         </div>
@@ -615,9 +614,9 @@ function Footer() {
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "2.2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <div style={{ width: 34, height: 34, background: C.or, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center" }}><SunIcon size={18} /></div>
-              <span style={{ color: "#fff", fontWeight: 600, fontSize: "0.95rem" }}>Síkat-Aurora</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+              <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 36, height: 36, objectFit: "contain" }} />
+              <span style={{ color: "#fff", fontWeight: 700, fontSize: "1.05rem" }}>Síkat-Aurora</span>
             </div>
             <p style={{ color: "rgba(255,255,255,0.35)", fontSize: "0.82rem", lineHeight: 1.75, maxWidth: 260, fontWeight: 300 }}>A youth-led NGO dedicated to afterschool programs and literacy initiatives across Aurora Province, Philippines. Registered · RA 10173 compliant.</p>
           </div>
