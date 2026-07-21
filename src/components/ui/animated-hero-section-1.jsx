@@ -62,6 +62,7 @@ export const AnimatedHero = ({
       )}
     >
       {/* Carousel Background Images */}
+      {/* Carousel Background Images with integrated gradient overlay */}
       <AnimatePresence mode="popLayout">
         {bgImages.length > 0 && (
           <motion.div
@@ -72,12 +73,12 @@ export const AnimatedHero = ({
             transition={{ duration: 1.2, ease: "easeInOut" }}
             className="absolute inset-0 z-0 bg-cover bg-top"
             style={{ backgroundImage: `url(${bgImages[currentIndex]})` }}
-          />
+          >
+            {/* Overlay transitions in perfect 1:1 sync with the photo */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-transparent max-w-4xl pointer-events-none" />
+          </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Focused gradient overlay behind the text area on the left */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/85 via-black/60 to-transparent max-w-4xl pointer-events-none" />
 
       {/* Hero content — aligned to the same 1280px page grid as every section */}
       <motion.div
