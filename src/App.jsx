@@ -1278,28 +1278,13 @@ function ImpactPage({ onNavigate, onOpenModal }) {
             <FundingChart />
 
             <div>
-              <p className="mb-3 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/50">
-                Totals for {TOTALS_PERIOD}
-              </p>
-              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-navy/10 bg-navy/10">
-                {[
-                  ["Cash donations", formatPeso(FUNDING_TOTALS.cash), "text-navy"],
-                  ["In-kind donations", formatPeso(FUNDING_TOTALS.inKind), "text-navy"],
-                  ["Expenses", formatPeso(FUNDING_TOTALS.expenses), "text-primary"],
-                  ["Remaining balance", formatPeso(FUNDING_TOTALS.balance), "text-forest"],
-                ].map(([label, value, tone]) => (
-                  <div key={label} className="bg-white p-5">
-                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/50">
-                      {label}
-                    </dt>
-                    <dd className={cn("mt-1.5 text-[1.15rem] font-bold tabular-nums", tone)}>{value}</dd>
-                  </div>
-                ))}
-              </dl>
-
-              <p className="mt-5 text-[0.78rem] leading-relaxed text-navy/55">
-                Figures above cover {TOTALS_PERIOD}; 2026 donations are still being recorded.
-              </p>
+              <div className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-sm">
+                <img
+                  src={PHOTOS.communityOutreach}
+                  alt="Síkat-Aurora community impact and financial transparency"
+                  className="h-64 w-full object-cover sm:h-72"
+                />
+              </div>
               <p className="mt-4 text-[0.88rem] leading-[1.7] text-navy/70">
                 We publish where every single peso goes — the full ledger is open to anyone who wants
                 to read it.
