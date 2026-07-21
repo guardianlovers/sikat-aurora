@@ -1013,7 +1013,13 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       {programs.map((p, i) => (
         <Reveal
           key={p.name}
-          className={cn("overflow-hidden", i % 2 === 1 ? "bg-cream" : "bg-white")}
+          className={cn(
+            "overflow-hidden",
+            i % 2 === 1 ? "bg-cream" : "bg-white",
+            // The alternating backgrounds are too close in tone to read as a
+            // break on their own, so separate the programs with a rule.
+            i > 0 && "border-t border-navy/10"
+          )}
         >
           <div
             className={cn(
@@ -1062,7 +1068,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
             </div>
           </div>
 
-          <Container className="pb-16 lg:pb-20">
+          <Container className="pb-20 pt-12 lg:pb-28 lg:pt-16">
             <PhotoGrid label={`${p.shortName} in Photos`} photos={p.photos} />
           </Container>
         </Reveal>
@@ -1324,18 +1330,41 @@ function VolunteerWall({ onOpenModal }) {
           </Btn>
         </div>
 
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
-          {VOLUNTEERS.map((v) => (
-            <VolunteerCard key={v.id} volunteer={v} />
+      </Container>
+
+      {/* Marquee runs edge to edge, so it sits outside the page container.
+          The track holds two copies of the roster and shifts by -50%, which
+          loops seamlessly. It pauses on hover and on keyboard focus, and
+          reduced-motion users get a normal horizontal scroller instead. */}
+      <div
+        className="group relative overflow-x-auto motion-reduce:overflow-x-scroll"
+        role="region"
+        aria-label="Síkat-Aurora volunteers"
+        tabIndex={0}
+      >
+        <div className="flex w-max animate-marquee hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none">
+          {/* Two identical copies. Spacing lives on each tile rather than on the
+              track, so each copy is exactly half the width and -50% loops
+              without a jump. The second copy is hidden from assistive tech. */}
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex shrink-0 list-none" aria-hidden={copy === 1 || undefined}>
+              {VOLUNTEERS.map((v) => (
+                <li key={`${copy}-${v.id}`} className="w-36 shrink-0 pr-5 sm:w-44">
+                  <VolunteerCard volunteer={v} />
+                </li>
+              ))}
+            </ul>
           ))}
         </div>
+      </div>
 
-        {ROSTER_IS_EMPTY && (
+      {ROSTER_IS_EMPTY && (
+        <Container>
           <p className="mt-8 text-center text-[0.85rem] text-navy/50">
             Volunteer photos are being collected — this wall fills in as they come in.
           </p>
-        )}
-      </Container>
+        </Container>
+      )}
     </Reveal>
   );
 }

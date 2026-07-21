@@ -30,6 +30,16 @@ export default {
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.22, 1, 0.36, 1)",
       },
+      keyframes: {
+        // Track holds two copies of the list, so -50% loops seamlessly
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 45s linear infinite",
+      },
     },
   },
   plugins: [],
