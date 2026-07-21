@@ -1,4 +1,4 @@
-// Program photography, extracted from the official Síkat-Aurora core program assets.
+// Program photography, extracted from official Síkat-Aurora core program assets.
 // Grouped per program so galleries and cards always pull matching imagery.
 
 import communityAssembly from "@/assets/photos/community-assembly.jpg";
@@ -32,21 +32,21 @@ export const PHOTOS = {
 // Each entry pairs a source with the alt text describing what is happening.
 export const PROGRAM_PHOTOS = {
   abkl: [
-    { src: abkl1, alt: "The Abot Ko Ang Libro mobile library cart, stocked with children's books" },
-    { src: abkl2, alt: "A volunteer reading with children around a table" },
-    { src: abkl3, alt: "A storytelling session with children seated in a circle" },
-    { src: abkl4, alt: "A boy smiling while holding a borrowed picture book" },
+    { src: abkl1, alt: "Abot Ko Ang Libro community reading session in Aurora" },
+    { src: abkl2, alt: "Volunteers engaging youth with books and storytelling" },
+    { src: abkl3, alt: "Abot Ko Ang Libro mobile library cart activity" },
+    { src: abkl4, alt: "Storytelling interaction with local children" },
   ],
   abkp: [
-    { src: abkp1, alt: "Children taking part in a river cleanup" },
-    { src: abkp2, alt: "A volunteer guiding children through a planting activity" },
-    { src: abkp3, alt: "Two children outdoors during an Ang Batang Kali session" },
-    { src: abkp4, alt: "Ang Batang Kali participants gathered after a session" },
+    { src: abkp1, alt: "Ang Batang Kali youth environmental activity" },
+    { src: abkp2, alt: "Youth leaders taking part in nature conservation" },
+    { src: abkp3, alt: "Tree planting and environmental life skills workshop" },
+    { src: abkp4, alt: "Ang Batang Kali participants gathered outdoors" },
   ],
   hiraya: [
-    { src: hiraya1, alt: "Youth leaders taking part in a Hiraya workshop" },
-    { src: hiraya2, alt: "Participants collaborating around tables during a Hiraya session" },
-    { src: hiraya3, alt: "A Hiraya leadership training on stage" },
-    { src: hiraya4, alt: "A full assembly hall at a Hiraya training" },
+    { src: hiraya1, alt: "Youth leaders participating in Hiraya active citizenship training" },
+    { src: hiraya2, alt: "Collaborative workshop and student leader discussion" },
+    { src: hiraya3, alt: "Hiraya leadership program participants in Central Aurora" },
+    { src: hiraya4, alt: "Full assembly of youth leaders and mentors in Aurora" },
   ],
 };
