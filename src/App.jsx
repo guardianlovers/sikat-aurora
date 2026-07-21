@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
+import { FaqSection } from "@/components/ui/faq-section";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
 import batangKaliImg from "./assets/batang-kali.png";
@@ -433,7 +434,17 @@ function HomePage({ onNavigate, onOpenModal }) {
       </section>
 
       {/* FAQ Section directly on Home */}
-      <FAQSection />
+      <FaqSection
+        title="Frequently Asked Questions"
+        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
+        items={OFFICIAL_FAQS}
+        contactInfo={{
+          title: "Still have questions?",
+          description: "Reach out directly to our volunteer coordination team in Baler, Aurora.",
+          buttonText: "Contact Us via Email",
+          onContact: () => window.location.href = "mailto:contact@sikataurora.org",
+        }}
+      />
 
       {/* Final CTA Band */}
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
@@ -819,85 +830,36 @@ function BlogPage({ onNavigate }) {
   );
 }
 
-// ================= FAQ SECTION (Min Height 1080px) =================
-function FAQSection({ showHeader = true }) {
-  const [openIndex, setOpenIndex] = useState(0);
-
-  const faqs = [
-    {
-      q: "What is Síkat-Aurora Inc.?",
-      a: "Síkat-Aurora Inc., formerly Síkat-Baler, is a youth-led, youth-serving nonprofit organization based in Baler, Aurora, Philippines. Established on August 12, 2021 — International Youth Day — it provides free after-school programs in education, environment, and active citizenship, powered by 400+ youth volunteers."
-    },
-    {
-      q: "How can I volunteer with Síkat-Aurora in Baler, Aurora?",
-      a: "Admission is free and open to all youth aged 15–30 in Aurora. Simply follow the Síkat-Aurora Facebook page, signify your interest, then attend at least three (3) events within three months while committing to the organization's principles, rules, and policies."
-    },
-    {
-      q: "Is Síkat-Aurora a registered nonprofit organization?",
-      a: "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines — Company Registration No. 2025030194739-03 and Unique Registration Number (URN) YO-2807-021323."
-    },
-    {
-      q: "How can I donate or sponsor a program?",
-      a: "You can give through our donation drive or become a program sponsor — every peso translates directly to books, learning kits, and youth training in Aurora. We publish a full transparency report at bit.ly/sikatfinance."
-    },
-    {
-      q: "What programs does Síkat-Aurora run?",
-      a: "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Batang Kali (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora)."
-    },
-    {
-      q: "Where does Síkat-Aurora operate?",
-      a: "Síkat-Aurora serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora."
-    }
-  ];
-
-  return (
-    <motion.section
-      id="faq"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={sectionVariants}
-      style={{ minHeight: "1080px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "110px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
-    >
-      <div style={{ maxWidth: 960, margin: "0 auto", width: "100%" }}>
-        {showHeader && (
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>FAQ</div>
-            <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Frequently Asked Questions</h2>
-          </div>
-        )}
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          {faqs.map((f, i) => (
-            <div key={i} style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 20, overflow: "hidden", background: C.bg }}>
-              <button onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
-                style={{ width: "100%", padding: "26px 32px", background: "transparent", border: "none", textAlign: "left", fontSize: "1.05rem", fontWeight: 600, color: C.dark, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "inherit" }}>
-                <span>{f.q}</span>
-                <span style={{ fontSize: "1.4rem", color: C.or, fontWeight: 600, transition: "transform 0.2s" }}>{openIndex === i ? "−" : "+"}</span>
-              </button>
-              <AnimatePresence>
-                {openIndex === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ padding: "0 32px 28px", fontSize: "0.94rem", color: C.mid, lineHeight: 1.8 }}
-                  >
-                    {f.a}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
-      </div>
-    </motion.section>
-  );
-}
+// Official FAQs Data
+const OFFICIAL_FAQS = [
+  {
+    question: "What is Síkat-Aurora Inc.?",
+    answer: "Síkat-Aurora Inc., formerly Síkat-Baler, is a youth-led, youth-serving nonprofit organization based in Baler, Aurora, Philippines. Established on August 12, 2021 — International Youth Day — it provides free after-school programs in education, environment, and active citizenship, powered by 400+ youth volunteers."
+  },
+  {
+    question: "How can I volunteer with Síkat-Aurora in Baler, Aurora?",
+    answer: "Admission is free and open to all youth aged 15–30 in Aurora. Simply follow the Síkat-Aurora Facebook page, signify your interest, then attend at least three (3) events within three months while committing to the organization's principles, rules, and policies."
+  },
+  {
+    question: "Is Síkat-Aurora a registered nonprofit organization?",
+    answer: "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines — Company Registration No. 2025030194739-03 and Unique Registration Number (URN) YO-2807-021323."
+  },
+  {
+    question: "How can I donate or sponsor a program?",
+    answer: "You can give through our donation drive or become a program sponsor — every peso translates directly to books, learning kits, and youth training in Aurora. We publish a full transparency report at bit.ly/sikatfinance."
+  },
+  {
+    question: "What programs does Síkat-Aurora run?",
+    answer: "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Batang Kali (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora)."
+  },
+  {
+    question: "Where does Síkat-Aurora operate?",
+    answer: "Síkat-Aurora serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora."
+  }
+];
 
 // ================= PAGE 7: FAQ =================
-function FAQPage({ onNavigate }) {
+function FAQPage({ onNavigate, onOpenModal }) {
   return (
     <>
       <PageHeader
@@ -905,8 +867,18 @@ function FAQPage({ onNavigate }) {
         title="Everything You Need to Know About Síkat-Aurora"
         subtitle="Common questions about our programs, volunteer induction, and financial transparency."
       />
-      <FAQSection showHeader={false} />
-      <FinalCTA onNavigate={onNavigate} />
+      <FaqSection
+        title="Frequently Asked Questions"
+        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
+        items={OFFICIAL_FAQS}
+        contactInfo={{
+          title: "Still have questions?",
+          description: "Reach out directly to our volunteer coordination team in Baler, Aurora.",
+          buttonText: "Contact Us via Email",
+          onContact: () => window.location.href = "mailto:contact@sikataurora.org",
+        }}
+      />
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
 }
