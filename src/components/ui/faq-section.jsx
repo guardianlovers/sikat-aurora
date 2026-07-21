@@ -14,16 +14,16 @@ const FaqSection = React.forwardRef(
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-12"
+            className="mx-auto mb-12 max-w-2xl text-center"
           >
-            <div className="mb-4">
+            <div className="mb-4 flex justify-center">
               <span className="pill-label">FREQUENTLY ASKED QUESTIONS</span>
             </div>
-            <h2 className="max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
+            <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
               {title}
             </h2>
             {description && (
-              <p className="mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">{description}</p>
+              <p className="mx-auto mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">{description}</p>
             )}
           </motion.div>
 
