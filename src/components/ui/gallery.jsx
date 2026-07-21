@@ -123,17 +123,18 @@ export const PhotoGallery = ({
   return (
     <div className="relative overflow-hidden py-16 font-sans lg:py-20">
       <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
-        <p className="mb-3 flex items-center justify-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-primary">
-          <span aria-hidden="true" className="h-px w-6 bg-primary/40" />
-          Kwentong Síkat — Visual Stories
-        </p>
-        <h3 className="z-20 mx-auto mb-4 max-w-2xl text-center text-[1.75rem] font-bold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
-          Moments From <span className="text-primary">the Field</span>
-        </h3>
-        <p className="mx-auto mb-12 max-w-[46ch] text-center text-sm leading-[1.7] text-navy/75">
-          Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
-          <span className="hidden lg:inline"> Drag any photo to explore.</span>
-        </p>
+        <div className="mb-10">
+          <div className="mb-4">
+            <span className="pill-label">VISUAL STORIES</span>
+          </div>
+          <h2 className="max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
+            Moments from the field
+          </h2>
+          <p className="mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
+            Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
+            <span className="hidden lg:inline"> Drag any photo to explore.</span>
+          </p>
+        </div>
       </div>
 
       {/* Small screens: swipeable photo strip (the draggable fan needs a wide viewport) */}
