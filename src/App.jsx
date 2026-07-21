@@ -2369,11 +2369,6 @@ function Footer({ onNavigate }) {
             <p className="mb-5 max-w-[36ch] text-[0.82rem] leading-relaxed text-white/55">
               A youth-led nonprofit in Baler, Aurora — where the sun rises first.
             </p>
-            <p className="text-xs leading-relaxed text-white/40">
-              Company Reg. No. 2025030194739-03
-              <br />
-              Unique Registration Number (URN) YO-2807-021323
-            </p>
           </div>
 
           <nav aria-label="Footer — explore pages">
@@ -2438,9 +2433,8 @@ function Footer({ onNavigate }) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] pt-6 text-xs text-white/50">
+        <div className="border-t border-white/[0.06] pt-6 text-center text-xs text-white/50">
           <p>© 2026 Síkat-Aurora Inc. All rights reserved.</p>
-          <p>Established August 12, 2021 — International Youth Day</p>
         </div>
       </div>
     </footer>
