@@ -87,7 +87,6 @@ function Navbar({ activePage, onNavigate }) {
     { id: "impact", label: "Impact" },
     { id: "leadership", label: "Leadership" },
     { id: "blog", label: "Blog" },
-    { id: "faq", label: "FAQ" },
   ];
 
   return (
@@ -282,6 +281,9 @@ function HomePage({ onNavigate }) {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section directly on Home */}
+      <FAQSection />
 
       {/* Final CTA Band */}
       <FinalCTA onNavigate={onNavigate} />
@@ -609,8 +611,8 @@ function BlogPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 7: FAQ =================
-function FAQPage({ onNavigate }) {
+// ================= FAQ SECTION =================
+function FAQSection({ showHeader = true }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
@@ -641,32 +643,46 @@ function FAQPage({ onNavigate }) {
   ];
 
   return (
+    <section id="faq" style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        {showHeader && (
+          <div style={{ textAlign: "center", marginBottom: 44 }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>FAQ</div>
+            <h2 style={{ fontSize: "2.2rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Frequently Asked Questions</h2>
+          </div>
+        )}
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {faqs.map((f, i) => (
+            <div key={i} style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, overflow: "hidden", background: C.bg }}>
+              <button onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
+                style={{ width: "100%", padding: "22px 28px", background: "transparent", border: "none", textAlign: "left", fontSize: "0.98rem", fontWeight: 600, color: C.dark, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: "inherit" }}>
+                <span>{f.q}</span>
+                <span style={{ fontSize: "1.2rem", color: C.or, fontWeight: 700 }}>{openIndex === i ? "−" : "+"}</span>
+              </button>
+              {openIndex === i && (
+                <div style={{ padding: "0 28px 24px", fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>
+                  {f.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ================= PAGE 7: FAQ =================
+function FAQPage({ onNavigate }) {
+  return (
     <>
       <PageHeader
         eyebrow="Frequently Asked Questions"
         title="Everything You Need to Know About Síkat-Aurora"
         subtitle="Common questions about our programs, volunteer induction, and financial transparency."
       />
-      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
-        <div style={{ maxWidth: 960, margin: "0 auto" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {faqs.map((f, i) => (
-              <div key={i} style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 18, overflow: "hidden", background: C.bg }}>
-                <button onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
-                  style={{ width: "100%", padding: "22px 28px", background: "transparent", border: "none", textAlign: "left", fontSize: "1rem", fontWeight: 600, color: C.dark, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span>{f.q}</span>
-                  <span style={{ fontSize: "1.3rem", color: C.or, fontWeight: 700 }}>{openIndex === i ? "−" : "+"}</span>
-                </button>
-                {openIndex === i && (
-                  <div style={{ padding: "0 28px 24px", fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>
-                    {f.a}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FAQSection showHeader={false} />
       <FinalCTA onNavigate={onNavigate} />
     </>
   );
