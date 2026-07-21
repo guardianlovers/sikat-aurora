@@ -122,11 +122,10 @@ export const PhotoGallery = ({
 
   return (
     <div className="py-16 relative font-sans overflow-hidden">
-      <div className="absolute inset-0 max-md:hidden top-[80px] -z-10 h-[300px] w-full bg-transparent bg-[linear-gradient(to_right,#57534e_1px,transparent_1px),linear-gradient(to_bottom,#57534e_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-15 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       <p className="my-2 text-center text-xs font-semibold uppercase tracking-widest text-[#E55C14]">
         Kwentong Síkat — Visual Stories
       </p>
-      <h3 className="z-20 mx-auto max-w-2xl justify-center bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text py-2 text-center text-3xl font-semibold text-transparent md:text-5xl">
+      <h3 className="z-20 mx-auto max-w-2xl text-center text-3xl md:text-4xl font-semibold text-[#0D1F2D] mb-3">
         Moments From <span className="text-[#E55C14]">the Field</span>
       </h3>
       <p className="text-center text-slate-500 text-sm max-w-md mx-auto mb-10 font-light">
