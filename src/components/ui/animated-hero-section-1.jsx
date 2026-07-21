@@ -32,7 +32,7 @@ export const AnimatedHero = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-[85vh] lg:min-h-screen w-full flex-col items-center justify-center overflow-hidden font-sans",
+        "relative flex min-h-[1080px] w-full flex-col items-center justify-center overflow-hidden font-sans",
         className
       )}
     >
