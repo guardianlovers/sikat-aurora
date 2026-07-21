@@ -76,8 +76,7 @@ export const AnimatedHero = ({
         )}
       </AnimatePresence>
 
-      {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 z-[1] bg-black/75 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/70 lg:to-black/40" />
+      {/* Dark overlay removed to keep background photos bright and clear */}
 
       {/* Hero content — aligned to the same 1280px page grid as every section */}
       <motion.div
@@ -125,44 +124,6 @@ export const AnimatedHero = ({
           )}
         </motion.div>
       </motion.div>
-
-      {/* Carousel Navigation Controls & Indicators */}
-      {bgImages.length > 1 && (
-        <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 sm:bottom-8 sm:right-12">
-          {/* Arrow Buttons */}
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={handlePrev}
-              aria-label="Previous slide"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 active:scale-95"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={handleNext}
-              aria-label="Next slide"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 active:scale-95"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex items-center gap-1.5 pl-2">
-            {bgImages.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300",
-                  idx === currentIndex ? "w-6 bg-gold" : "w-2 bg-white/40 hover:bg-white/70"
-                )}
-              />
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

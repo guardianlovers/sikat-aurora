@@ -1578,12 +1578,14 @@ function PostCard({ post }) {
           />
         </div>
         <div className="flex flex-1 flex-col p-6">
-          <Tag className={cn("mb-3 w-fit", CATEGORY_STYLES[post.category])}>{post.category}</Tag>
           <h3 className="text-[1.15rem] font-bold leading-snug text-navy transition-colors duration-200 group-hover:text-primary">
             {post.title}
           </h3>
           <p className="mb-5 mt-2.5 flex-1 text-[0.88rem] leading-[1.7] text-navy/70">{post.excerpt}</p>
-          <PostMeta post={post} />
+          <div className="mt-auto flex flex-wrap items-center gap-2.5">
+            <Tag className={cn("w-fit text-[0.72rem]", CATEGORY_STYLES[post.category])}>{post.category}</Tag>
+            <PostMeta post={post} />
+          </div>
         </div>
       </a>
     </Card>
