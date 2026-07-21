@@ -1,18 +1,25 @@
 import { slugify } from "@/lib/volunteers";
-import { FILLER_PHOTOS } from "@/lib/photos";
 
-// Portraits are matched by filename slug — drop "rj-belen.jpg" into
-// src/assets/leaders/ and it is picked up here. See the README in that folder.
-const photoModules = import.meta.glob("../assets/leaders/*.{jpg,jpeg,png,webp}", {
+// Fallback photos for leaders who have not yet submitted a portrait
+const fillerModules = import.meta.glob("../assets/photos/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+const FILLER_PHOTOS = Object.values(fillerModules);
+
+// Portraits are matched by filename slug — drop "rj-belen.jpg" or "rj.jpg" into
+// src/assets/leadership/ and it is picked up here. See the README in that folder.
+const photoModules = import.meta.glob("../assets/leadership/*.{jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 });
 
 const photosBySlug = Object.fromEntries(
-  Object.entries(photoModules).map(([path, src]) => [
-    path.split("/").pop().replace(/\.(jpg|jpeg|png|webp)$/i, "").toLowerCase(),
-    src,
-  ])
+  Object.entries(photoModules).map(([path, src]) => {
+    let slug = path.split("/").pop().replace(/\.(jpg|jpeg|png|webp)$/i, "").toLowerCase();
+    if (slug === "rj") slug = "rj-belen";
+    return [slug, src];
+  })
 );
 
 const ROSTER = [

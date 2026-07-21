@@ -3,7 +3,11 @@ import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
+import moment1 from "@/assets/home/moments-from-the-field/1.jpg";
+import moment2 from "@/assets/home/moments-from-the-field/2.jpg";
+import moment3 from "@/assets/home/moments-from-the-field/3.jpg";
+import moment4 from "@/assets/home/moments-from-the-field/4.jpg";
+import moment5 from "@/assets/home/moments-from-the-field/5.jpg";
 
 export const PhotoGallery = ({
   animationDelay = 0.3,
@@ -71,8 +75,8 @@ export const PhotoGallery = ({
       y: "15px",
       zIndex: 50,
       direction: "left",
-      src: PROGRAM_PHOTOS.abkl[0].src,
-      alt: PROGRAM_PHOTOS.abkl[0].alt,
+      src: moment1,
+      alt: "Moment from the field in Aurora",
     },
     {
       id: 2,
@@ -81,8 +85,8 @@ export const PhotoGallery = ({
       y: "32px",
       zIndex: 40,
       direction: "left",
-      src: PROGRAM_PHOTOS.abkp[0].src,
-      alt: PROGRAM_PHOTOS.abkp[0].alt,
+      src: moment2,
+      alt: "Síkat-Aurora volunteers and children",
     },
     {
       id: 3,
@@ -91,8 +95,8 @@ export const PhotoGallery = ({
       y: "8px",
       zIndex: 30,
       direction: "right",
-      src: PROGRAM_PHOTOS.hiraya[0].src,
-      alt: PROGRAM_PHOTOS.hiraya[0].alt,
+      src: moment3,
+      alt: "Youth engagement workshop",
     },
     {
       id: 4,
@@ -101,8 +105,8 @@ export const PhotoGallery = ({
       y: "22px",
       zIndex: 20,
       direction: "right",
-      src: PROGRAM_PHOTOS.abkl[2].src,
-      alt: PROGRAM_PHOTOS.abkl[2].alt,
+      src: moment4,
+      alt: "Storytelling session under trees",
     },
     {
       id: 5,
@@ -111,8 +115,8 @@ export const PhotoGallery = ({
       y: "44px",
       zIndex: 10,
       direction: "left",
-      src: PHOTOS.allPhotos[3] || PHOTOS.communityAssembly,
-      alt: "Síkat-Aurora volunteers and children at a community assembly",
+      src: moment5,
+      alt: "Active community volunteerism",
     },
   ];
 

@@ -1,12 +1,10 @@
 // Program photography, extracted from official Síkat-Aurora core program assets.
 // Grouped per program so galleries and cards always pull matching imagery.
 
-const photoModules = import.meta.glob("../assets/photos/*.{jpg,jpeg,png,webp}", {
-  eager: true,
-  import: "default",
-});
-
-export const FILLER_PHOTOS = Object.values(photoModules);
+import whoWeAre1 from "@/assets/about/who-we-are/1.jpg";
+import whoWeAre2 from "@/assets/about/who-we-are/2.jpg";
+import whoWeAre3 from "@/assets/about/who-we-are/3.jpg";
+import whoWeAre4 from "@/assets/about/who-we-are/4.jpg";
 
 import abkl1 from "@/assets/core-program/abkl-photos/1.jpg";
 import abkl2 from "@/assets/core-program/abkl-photos/2.jpg";
@@ -24,13 +22,13 @@ import hiraya3 from "@/assets/core-program/hiraya/3.jpg";
 import hiraya4 from "@/assets/core-program/hiraya/4.jpg";
 
 export const PHOTOS = {
-  communityAssembly: FILLER_PHOTOS[0] || abkl1,
-  communityOutreach: FILLER_PHOTOS[1] || abkp1,
-  volunteersGroup: FILLER_PHOTOS[2] || hiraya1,
+  communityAssembly: whoWeAre1,
+  communityOutreach: whoWeAre2,
+  volunteersGroup: whoWeAre3,
   abklLibraryCart: abkl1,
   abkpRiverCleanup: abkp1,
   hirayaWorkshop: hiraya1,
-  allPhotos: FILLER_PHOTOS,
+  allPhotos: [whoWeAre1, whoWeAre2, whoWeAre3, whoWeAre4],
 };
 
 // Each entry pairs a source with the alt text describing what is happening.

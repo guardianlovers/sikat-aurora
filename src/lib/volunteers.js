@@ -1,4 +1,9 @@
-import { FILLER_PHOTOS } from "@/lib/photos";
+// Fallback photos for volunteers who have not yet submitted a portrait
+const fillerModules = import.meta.glob("../assets/photos/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+const FILLER_PHOTOS = Object.values(fillerModules);
 
 // Volunteer roster for the Leadership page.
 //

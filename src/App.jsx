@@ -29,14 +29,21 @@ import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
 import logoImg from "./assets/logo.png";
-import heroBanner from "./assets/hero-banner.jpg";
-import impactVolunteersImg from "./assets/impact-in-numbers/400-youth-volunteer.jpg";
-import impactLearnersImg from "./assets/impact-in-numbers/1100-learner-reached.jpg";
-import impactCommunitiesImg from "./assets/impact-in-numbers/18-partner-community.jpg";
-import impactDonationsImg from "./assets/impact-in-numbers/donation-grant.jpg";
-import coreAbklImg from "./assets/core-program/abot-ko-ang-libro.jpg";
-import coreAbkpImg from "./assets/core-program/batang-kali.jpg";
+import heroBanner from "./assets/home/hero-banner/1.jpg";
+import impactVolunteersImg from "./assets/home/impact-in-numbers/400-youth-volunteer.jpg";
+import impactLearnersImg from "./assets/home/impact-in-numbers/1100-learner-reached.jpg";
+import impactCommunitiesImg from "./assets/home/impact-in-numbers/18-partner-community.jpg";
+import impactDonationsImg from "./assets/home/impact-in-numbers/donation-grant.jpg";
+import coreAbklImg from "./assets/home/core-program/abot-ko-ang-libro.jpg";
+import coreAbkpImg from "./assets/home/core-program/ang-batang-kali.jpg";
 import coreHirayaImg from "./assets/core-program/hiraya.jpg";
+import howWeStartedImg from "./assets/about/how-we-started/how-we-started.jpg";
+import whoWeAre1 from "./assets/about/who-we-are/1.jpg";
+import whoWeAre2 from "./assets/about/who-we-are/2.jpg";
+import whoWeAre3 from "./assets/about/who-we-are/3.jpg";
+import whoWeAre4 from "./assets/about/who-we-are/4.jpg";
+import recognitionSparkChange from "./assets/impact/recognitions/spark-a-change.jpg";
+import recognitionAraneta from "./assets/impact/recognitions/488223845_10225500053268278_7311255336231534549_n.jpg";
 
 /* ============================= Shared primitives ============================= */
 
@@ -581,7 +588,7 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
           <img
-            src={PHOTOS.communityAssembly}
+            src={whoWeAre1}
             alt="Síkat-Aurora volunteers and children at a community assembly"
             className="h-64 w-full rounded-lg object-cover sm:h-[26rem]"
             loading="lazy"
@@ -738,10 +745,10 @@ function SunRays({ className, rays = 12 }) {
 
 // Flanking the About statement — one from each program, plus the assembly
 const ABOUT_HERO_PHOTOS = [
-  PROGRAM_PHOTOS.abkl[0],
-  PROGRAM_PHOTOS.abkp[0],
-  PROGRAM_PHOTOS.hiraya[0],
-  { src: PHOTOS.communityAssembly, alt: "Síkat-Aurora volunteers and children at a community assembly" },
+  { src: whoWeAre1, alt: "Síkat-Aurora youth volunteers at a community program" },
+  { src: whoWeAre2, alt: "Volunteers engaging with local children in Aurora" },
+  { src: whoWeAre3, alt: "Youth leaders at a Síkat-Aurora program activity" },
+  { src: whoWeAre4, alt: "Síkat-Aurora community assembly and outreach" },
 ];
 
 const VALUES = [
@@ -871,8 +878,8 @@ function AboutPage({ onNavigate, onOpenModal }) {
         <div className="grid items-stretch lg:grid-cols-2">
           <figure className="relative min-h-[300px] lg:min-h-[560px]">
             <img
-              src={PHOTOS.communityAssembly}
-              alt="Síkat-Aurora volunteers and children gathered at a community assembly"
+              src={howWeStartedImg}
+              alt="Síkat-Aurora how we started — where the Philippine sun rises first"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </figure>
@@ -1338,8 +1345,8 @@ function ImpactPage({ onNavigate, onOpenModal }) {
           />
           <PhotoGrid
             photos={[
-              PROGRAM_PHOTOS.abkl[2],
-              PROGRAM_PHOTOS.abkp[1],
+              { src: recognitionSparkChange, alt: "Síkat-Aurora National Winner, Spark-A-Change Challenge" },
+              { src: recognitionAraneta, alt: "J. Amado Araneta Foundation recognition" },
               PROGRAM_PHOTOS.hiraya[1],
               PROGRAM_PHOTOS.abkp[3],
             ]}
