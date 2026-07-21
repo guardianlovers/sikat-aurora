@@ -2310,7 +2310,7 @@ function DonatePage() {
 
 function FinalCTA({ onNavigate, onOpenModal }) {
   return (
-    <Reveal as="div" className="border-t-2 border-primary bg-black py-20 text-center text-white lg:py-24">
+    <Reveal as="div" className="border-t-2 border-primary bg-navy py-20 text-center text-white lg:py-24">
       <Container className="max-w-3xl">
         {/* Sized to hold two balanced lines at every width */}
         <h2 className="mx-auto max-w-[22ch] text-balance text-[clamp(1.35rem,6.4vw,2.75rem)] font-bold leading-[1.15] tracking-[-0.015em]">
