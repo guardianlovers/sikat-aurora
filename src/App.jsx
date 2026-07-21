@@ -1908,7 +1908,8 @@ function FinalCTA({ onNavigate, onOpenModal }) {
   return (
     <Reveal as="div" className="border-t-2 border-primary bg-navy py-20 text-center text-white lg:py-24">
       <Container className="max-w-3xl">
-        <h2 className="mx-auto max-w-[18ch] text-[2rem] font-bold leading-[1.12] tracking-[-0.015em] sm:text-[2.75rem]">
+        {/* Sized to hold two balanced lines at every width */}
+        <h2 className="mx-auto max-w-[22ch] text-balance text-[clamp(1.35rem,6.4vw,2.75rem)] font-bold leading-[1.15] tracking-[-0.015em]">
           Handa ka na bang sumíkat kasama namin?
         </h2>
         <p className="mx-auto mt-5 max-w-[52ch] text-sm leading-[1.75] text-white/70 sm:text-[0.95rem]">
