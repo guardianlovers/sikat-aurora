@@ -38,7 +38,7 @@ export default {
         },
       },
       animation: {
-        marquee: "marquee 45s linear infinite",
+        marquee: "marquee 90s linear infinite",
       },
     },
   },

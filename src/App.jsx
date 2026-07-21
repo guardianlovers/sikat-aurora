@@ -1655,7 +1655,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
 // Grid of volunteer portraits. Entries without a photo show their initials,
 // and entries with neither fall back to an empty slot, so the wall stays
 // presentable while photos are still being gathered.
-function VolunteerCard({ volunteer }) {
+function VolunteerCard({ volunteer, onSelectPhoto }) {
   const initials = volunteer.name
     ? volunteer.name
         .split(" ")
@@ -1667,7 +1667,10 @@ function VolunteerCard({ volunteer }) {
     : null;
 
   return (
-    <figure className="group">
+    <figure
+      className="group cursor-pointer"
+      onClick={() => volunteer.photo && onSelectPhoto?.({ src: volunteer.photo, alt: `${volunteer.name} - ${volunteer.role}` })}
+    >
       <div className="relative aspect-square overflow-hidden rounded-2xl border border-navy/10 bg-cream">
         {volunteer.photo ? (
           <img
@@ -1696,11 +1699,7 @@ function VolunteerCard({ volunteer }) {
   );
 }
 
-// One scrolling row. The track holds two identical copies and shifts by -50%,
-// so the loop closes with no jump; spacing lives on each tile rather than the
-// track to keep both copies exactly half the width. `reverse` flips the travel
-// direction. Pauses on hover/focus; reduced motion turns it into a swipe strip.
-function MarqueeRow({ volunteers, reverse = false, hidden = false }) {
+function MarqueeRow({ volunteers, reverse = false, hidden = false, onSelectPhoto }) {
   return (
     <div className="no-scrollbar overflow-x-auto" aria-hidden={hidden || undefined}>
       <div
@@ -1713,11 +1712,9 @@ function MarqueeRow({ volunteers, reverse = false, hidden = false }) {
       >
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex shrink-0 list-none" aria-hidden={copy === 1 || undefined}>
-            {/* The roster is short, so repeat it within each half — a half must
-                be at least a screen wide or a gap shows on very wide displays. */}
             {[...volunteers, ...volunteers].map((v, i) => (
               <li key={`${copy}-${i}-${v.id}`} className="w-32 shrink-0 pr-5 sm:w-40">
-                <VolunteerCard volunteer={v} />
+                <VolunteerCard volunteer={v} onSelectPhoto={onSelectPhoto} />
               </li>
             ))}
           </ul>
@@ -1728,6 +1725,8 @@ function MarqueeRow({ volunteers, reverse = false, hidden = false }) {
 }
 
 function VolunteerWall({ onOpenModal }) {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   return (
     <Reveal className="bg-cream py-16 lg:py-24">
       <Container>
@@ -1741,21 +1740,19 @@ function VolunteerWall({ onOpenModal }) {
             Join Them <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Btn>
         </div>
-
       </Container>
 
-      {/* Two rows travelling opposite ways. Only the first is exposed to
-          assistive tech — the second is the same people, so announcing both
-          would just repeat the roster. */}
       <div
         className="group relative space-y-5"
         role="region"
         aria-label="Síkat-Aurora volunteers"
         tabIndex={0}
       >
-        <MarqueeRow volunteers={VOLUNTEERS} />
-        <MarqueeRow volunteers={[...VOLUNTEERS].reverse()} reverse hidden />
+        <MarqueeRow volunteers={VOLUNTEERS} onSelectPhoto={setSelectedPhoto} />
+        <MarqueeRow volunteers={[...VOLUNTEERS].reverse()} reverse hidden onSelectPhoto={setSelectedPhoto} />
       </div>
+
+      <ImageLightboxModal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
 
       {ROSTER_IS_EMPTY && (
         <Container>
