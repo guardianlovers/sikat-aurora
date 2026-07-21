@@ -2,6 +2,10 @@ import { useState } from "react";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
+import batangKaliImg from "./assets/batang-kali.png";
+import abotKoAngLibroImg from "./assets/abot-ko-ang-libro.png";
+import hirayaImg from "./assets/hiraya.png";
+import impactImg from "./assets/impact.png";
 
 const C = {
   or: "#E55C14",
@@ -298,28 +302,28 @@ function Programs() {
       name: "Ang Batang Kali",
       desc: "Our core afterschool engagement program — providing structured schedules, curriculum activities, and registration portals so every child in Aurora has a safe place to grow.",
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={C.bl} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>,
-      img: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=190&fit=crop&q=70",
+      img: batangKaliImg,
     },
     {
       color: C.or, lightBg: "#FEF3EC", tag: "Literacy",
       name: "Abot Ko Ang Libro",
       desc: "A literacy-focused book drive and reading program featuring a 'Donate a Book' tracker and a gallery of storytelling activities that ignite a love of learning.",
       icon: <BookIcon size={22} color={C.or} />,
-      img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=190&fit=crop&q=70",
+      img: abotKoAngLibroImg,
     },
     {
       color: "#0E6B8C", lightBg: "#E8F4F8", tag: "Arts & Culture",
       name: "Hiraya",
       desc: "A creative arts and cultural program nurturing imagination, self-expression, and Filipino heritage among Aurora's youth through workshops, performances, and exhibitions.",
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B8C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
-      img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=190&fit=crop&q=70",
+      img: hirayaImg,
     },
     {
       color: "#7b2d8b", lightBg: "#F5EEF8", tag: "Stories",
       name: "Impact Blog",
       desc: "Field reports, volunteer testimonials, and high-quality photo essays that humanize our data and bring the voices of Aurora's children to the world.",
       icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b2d8b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>,
-      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=190&fit=crop&q=70",
+      img: impactImg,
     },
   ];
   return (
@@ -389,7 +393,7 @@ function Impact() {
         <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.95rem", lineHeight: 1.75, maxWidth: 520, fontWeight: 300 }}>Track every peso we receive and spend. Real-time fund allocation reporting across all 12 school sites — in full compliance with RA 10173.</p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 52, marginTop: 52, alignItems: "start" }}>
           <div>
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=560&h=300&fit=crop&q=70" alt="Aurora community" style={{ width: "100%", height: 300, objectFit: "cover", borderRadius: 20, display: "block", marginBottom: 24 }} />
+            <img src={impactImg} alt="Aurora community impact" style={{ width: "100%", height: 300, objectFit: "cover", borderRadius: 20, display: "block", marginBottom: 24 }} />
             <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.78rem", fontWeight: 600, marginBottom: 14 }}>Fund Allocation — May 2026</div>
             {funds.map(([name, pct, val, color], i) => (
               <div key={i} style={{ marginBottom: 14 }}>
@@ -467,7 +471,7 @@ function Volunteer() {
                 </div>
               ))}
             </div>
-            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=560&h=200&fit=crop&q=70" alt="Volunteers" style={{ width: "100%", height: 200, objectFit: "cover", borderRadius: 20, display: "block", marginBottom: 16 }} />
+            <img src={hirayaImg} alt="Volunteers and community" style={{ width: "100%", height: 200, objectFit: "cover", borderRadius: 20, display: "block", marginBottom: 16 }} />
             <div style={{ background: C.dark, borderRadius: 20, padding: "22px 24px" }}>
               <div style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600, fontSize: "0.88rem", marginBottom: 14 }}>Why volunteer with Síkat-Aurora?</div>
               {perks.map((p, i) => (
@@ -569,7 +573,7 @@ function Donate() {
                 </div>
               ))}
             </div>
-            <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=560&h=160&fit=crop&q=70" alt="Community" style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 16, display: "block" }} />
+            <img src={impactImg} alt="Community literacy circle" style={{ width: "100%", height: 160, objectFit: "cover", borderRadius: 16, display: "block" }} />
           </div>
           <div>
             <div style={{ background: "#fff", borderRadius: 20, padding: 30, border: "1px solid rgba(0,0,0,0.07)" }}>
@@ -620,21 +624,21 @@ function Stories() {
       title: "Liza's first book: a story about finding your voice",
       excerpt: "At nine years old, Liza had never finished a full book. Today she reads to her siblings every night — and dreams of becoming a teacher.",
       initials: "KR", author: "Kaye Reyes",
-      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=200&fit=crop&q=70",
+      img: abotKoAngLibroImg,
     },
     {
       bg: "#E8F4F8", color: "#0E6B8C", tag: "Hiraya", date: "Apr 28, 2026",
       title: "How a mural turned one school wall into a community landmark",
       excerpt: "Twelve students from San Luis spent three weekends painting a mural that now tells the story of Aurora's history — and their own dreams.",
       initials: "MC", author: "Marco Cruz",
-      img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=200&fit=crop&q=70",
+      img: hirayaImg,
     },
     {
       bg: "#FEF3EC", color: C.or, tag: "Ang Batang Kali", date: "Apr 10, 2026",
       title: "From student to mentor: Nico's journey with Ang Batang Kali",
       excerpt: "At 19, Nico was once a beneficiary of our afterschool program. Now he leads weekend sessions for 30 children in San Luis, Aurora.",
       initials: "AL", author: "Ana Lim",
-      img: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=200&fit=crop&q=70",
+      img: batangKaliImg,
     },
   ];
   return (
