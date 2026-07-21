@@ -493,6 +493,46 @@ function PageHeader({ eyebrow, title, subtitle }) {
 
 /* ============================= Page 1: Home ============================= */
 
+// Each figure is paired with a photograph that shows the thing being counted:
+// volunteers for the headcount, a teaching session for learners reached, a
+// community turnout for partner communities, and the book cart for what the
+// donations actually buy.
+const HOME_IMPACT_STATS = [
+  {
+    Icon: Users,
+    figure: "400+",
+    label: "youth volunteers",
+    photo: {
+      src: PHOTOS.volunteersGroup,
+      alt: "Síkat-Aurora youth volunteers gathered together at a program",
+    },
+  },
+  {
+    Icon: BookOpen,
+    figure: "1,100+",
+    label: "learners reached",
+    photo: PROGRAM_PHOTOS.abkl[1],
+  },
+  {
+    Icon: MapPin,
+    figure: "18",
+    label: "partner communities",
+    photo: {
+      src: PHOTOS.communityAssembly,
+      alt: "A barangay turnout of children and volunteers at a Síkat-Aurora session",
+    },
+  },
+  {
+    Icon: HandCoins,
+    figure: "₱1.5M+",
+    label: "donations and grants",
+    photo: {
+      src: PROGRAM_PHOTOS.abkl[0].src,
+      alt: "The mobile library cart stocked with books funded by donations",
+    },
+  },
+];
+
 function HomePage({ onNavigate, onOpenModal }) {
   return (
     <>
@@ -554,52 +594,31 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          {/* Figures in the deck's "In a Nutshell" style, set against the work
-              they describe so the band is not an unbroken block of navy. */}
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-7">
-              {[
-                { Icon: Users, figure: "400+", label: "youth volunteers" },
-                { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
-                { Icon: MapPin, figure: "18", label: "partner communities" },
-                { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
-              ].map((s) => (
-                <StatRow key={s.label} dark {...s} />
-              ))}
-            </ul>
-
-            {/* Offset collage — the taller column drops down to break the grid line */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <img
-                  src={PROGRAM_PHOTOS.abkl[1].src}
-                  alt={PROGRAM_PHOTOS.abkl[1].alt}
-                  loading="lazy"
-                  className="h-44 w-full rounded-2xl object-cover sm:h-56"
-                />
-                <img
-                  src={PROGRAM_PHOTOS.abkp[0].src}
-                  alt={PROGRAM_PHOTOS.abkp[0].alt}
-                  loading="lazy"
-                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
-                />
-              </div>
-              <div className="space-y-4 pt-8">
-                <img
-                  src={PROGRAM_PHOTOS.hiraya[0].src}
-                  alt={PROGRAM_PHOTOS.hiraya[0].alt}
-                  loading="lazy"
-                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
-                />
-                <img
-                  src={PHOTOS.communityAssembly}
-                  alt="Síkat-Aurora volunteers and children at a community assembly"
-                  loading="lazy"
-                  className="h-44 w-full rounded-2xl object-cover sm:h-56"
-                />
-              </div>
-            </div>
-          </div>
+          {/* Each figure sits with the photograph that evidences it, so the
+              image is doing the same work as the number rather than decorating it. */}
+          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {HOME_IMPACT_STATS.map(({ Icon, figure, label, photo }) => (
+              <li key={label} className="group">
+                <div className="overflow-hidden rounded-2xl">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading="lazy"
+                    className="h-48 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100 lg:h-52"
+                  />
+                </div>
+                <div className="mt-5 flex items-start gap-3.5">
+                  <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <p className="text-[0.95rem] leading-snug text-white/75">
+                    <span className="block text-[1.6rem] font-bold leading-tight text-white">{figure}</span>
+                    {label}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </Container>
       </Reveal>
 
