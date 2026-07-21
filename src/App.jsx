@@ -846,94 +846,125 @@ function AboutPage({ onNavigate, onOpenModal }) {
   return (
     <>
       {/* 1 — Statement of purpose, flanked by the work it describes */}
-      <section className="bg-white px-6 pb-16 pt-36 md:px-9 lg:pb-24 lg:pt-40">
+      <Reveal className="bg-white px-6 pb-16 pt-36 md:px-9 lg:pb-24 lg:pt-40">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,2fr)_minmax(0,0.75fr)]">
           {/* Side columns sit slightly off-axis so the pair does not read as a bar */}
-          <div className="hidden gap-4 lg:grid">
-            <img
-              src={ABOUT_HERO_PHOTOS[0].src}
-              alt={ABOUT_HERO_PHOTOS[0].alt}
-              className="h-52 w-full rounded-2xl object-cover"
-            />
-            <img
-              src={ABOUT_HERO_PHOTOS[1].src}
-              alt={ABOUT_HERO_PHOTOS[1].alt}
-              className="h-36 w-full rounded-2xl object-cover"
-            />
-          </div>
+          <StaggerContainer className="hidden gap-4 lg:grid">
+            <StaggerItem>
+              <img
+                src={ABOUT_HERO_PHOTOS[0].src}
+                alt={ABOUT_HERO_PHOTOS[0].alt}
+                className="h-52 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03]"
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <img
+                src={ABOUT_HERO_PHOTOS[1].src}
+                alt={ABOUT_HERO_PHOTOS[1].alt}
+                className="h-36 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03]"
+              />
+            </StaggerItem>
+          </StaggerContainer>
 
           <div className="text-center">
             <Eyebrow align="center">Who We Are</Eyebrow>
-            <h1 className="mx-auto max-w-[20ch] text-[2.1rem] font-bold leading-[1.12] tracking-[-0.03em] text-navy sm:text-[3rem]">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE }}
+              className="mx-auto max-w-[20ch] text-[2.1rem] font-bold leading-[1.12] tracking-[-0.03em] text-navy sm:text-[3rem]"
+            >
               A youth-led movement building a new face of volunteerism in Aurora
-            </h1>
+            </motion.h1>
             {/* The brand's gold rule, used here as an underline accent */}
-            <span aria-hidden="true" className="mx-auto mt-7 block h-1.5 w-24 rounded-full bg-gold" />
-            <p className="mx-auto mt-7 max-w-[58ch] text-[1.02rem] leading-[1.8] text-navy/75">
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+              aria-hidden="true"
+              className="mx-auto mt-7 block h-1.5 w-24 origin-center rounded-full bg-gold"
+            />
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
+              className="mx-auto mt-7 max-w-[58ch] text-[1.02rem] leading-[1.8] text-navy/75"
+            >
               Síkat-Aurora Inc. provides free after-school programs in education, environment, and active
               citizenship — powered entirely by young volunteers, for the communities they come from.
-            </p>
+            </motion.p>
           </div>
 
-          <div className="hidden gap-4 pt-14 lg:grid">
-            <img
-              src={ABOUT_HERO_PHOTOS[2].src}
-              alt={ABOUT_HERO_PHOTOS[2].alt}
-              className="h-36 w-full rounded-2xl object-cover"
-            />
-            <img
-              src={ABOUT_HERO_PHOTOS[3].src}
-              alt={ABOUT_HERO_PHOTOS[3].alt}
-              className="h-52 w-full rounded-2xl object-cover"
-            />
-          </div>
+          <StaggerContainer className="hidden gap-4 pt-14 lg:grid" delay={0.15}>
+            <StaggerItem>
+              <img
+                src={ABOUT_HERO_PHOTOS[2].src}
+                alt={ABOUT_HERO_PHOTOS[2].alt}
+                className="h-36 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03]"
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <img
+                src={ABOUT_HERO_PHOTOS[3].src}
+                alt={ABOUT_HERO_PHOTOS[3].alt}
+                className="h-52 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03]"
+              />
+            </StaggerItem>
+          </StaggerContainer>
 
           {/* Below lg the columns would squeeze, so the same four run as a grid */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:hidden">
+          <StaggerContainer className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:hidden">
             {ABOUT_HERO_PHOTOS.map((p) => (
-              <img
-                key={p.src}
-                src={p.src}
-                alt={p.alt}
-                loading="lazy"
-                className="h-28 w-full rounded-xl object-cover sm:h-32"
-              />
+              <StaggerItem key={p.src}>
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  className="h-28 w-full rounded-xl object-cover sm:h-32 shadow-xs"
+                />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
-      </section>
+      </Reveal>
 
       {/* 2 — Vision and mission, stacked and centered, with the brand's sun symbol */}
-      <Reveal className="relative overflow-hidden bg-cream py-16 lg:py-24">
-        <img
+      <Reveal variant="scaleUp" className="relative overflow-hidden bg-cream py-16 lg:py-24">
+        <motion.img
+          animate={{ rotate: 360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
           src={sunImg}
           alt=""
           aria-hidden="true"
           className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 opacity-20 sm:h-80 sm:w-80"
         />
-        <img
+        <motion.img
+          animate={{ rotate: -360 }}
+          transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
           src={sunImg}
           alt=""
           aria-hidden="true"
           className="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 opacity-20 sm:h-80 sm:w-80"
         />
         <Container className="relative max-w-4xl space-y-12 text-center">
-          <div>
-            <Eyebrow align="center">Vision</Eyebrow>
-            <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
-              A future where{" "}
-              <span className="bg-gold/35 px-1">accessible and enriching after-school programs</span> empower
-              underserved communities in Aurora.
-            </p>
-          </div>
-          <div>
-            <Eyebrow align="center">Mission</Eyebrow>
-            <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
-              To provide inclusive after-school programs in{" "}
-              <span className="bg-gold/35 px-1">education, environment, and active citizenship</span>, driven by
-              youth volunteers to create lasting community impact.
-            </p>
-          </div>
+          <StaggerContainer stagger={0.15}>
+            <StaggerItem className="mb-10">
+              <Eyebrow align="center">Vision</Eyebrow>
+              <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
+                A future where{" "}
+                <span className="bg-gold/35 px-1 rounded-sm">accessible and enriching after-school programs</span> empower
+                underserved communities in Aurora.
+              </p>
+            </StaggerItem>
+            <StaggerItem>
+              <Eyebrow align="center">Mission</Eyebrow>
+              <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
+                To provide inclusive after-school programs in{" "}
+                <span className="bg-gold/35 px-1 rounded-sm">education, environment, and active citizenship</span>, driven by
+                youth volunteers to create lasting community impact.
+              </p>
+            </StaggerItem>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
@@ -941,62 +972,68 @@ function AboutPage({ onNavigate, onOpenModal }) {
       <Reveal className="bg-white py-16 lg:py-24">
         <Container className="max-w-4xl">
           <SectionHeading eyebrow="Our Values" title="Ang aming pinanghahawakan" className="mb-12" />
-          <dl className="border-t border-navy/15">
+          <StaggerContainer as="dl" className="border-t border-navy/15">
             {VALUES.map((v) => (
-              <div key={v.title} className="border-b border-navy/15 py-8 sm:grid sm:grid-cols-[14rem_1fr] sm:gap-8">
-                <dt className="text-[1.3rem] font-bold tracking-[-0.01em] text-navy">{v.title}</dt>
+              <StaggerItem key={v.title} className="group border-b border-navy/15 py-8 transition-colors duration-200 hover:bg-cream/40 sm:grid sm:grid-cols-[14rem_1fr] sm:gap-8 sm:px-4 sm:rounded-xl">
+                <dt className="text-[1.3rem] font-bold tracking-[-0.01em] text-navy transition-colors duration-200 group-hover:text-primary">{v.title}</dt>
                 <dd className="mt-2 sm:mt-0">
                   <p className="text-[1rem] leading-[1.7] text-navy/85">{v.desc}</p>
                   <p className="mt-1.5 text-[0.88rem] italic leading-relaxed text-navy/55">{v.gloss}</p>
                 </dd>
-              </div>
+              </StaggerItem>
             ))}
-          </dl>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
       {/* 4 — Origin narrative beside a photograph */}
       <Reveal className="overflow-hidden bg-cream">
         <div className="grid items-stretch lg:grid-cols-2">
-          <figure className="relative min-h-[300px] lg:min-h-[560px]">
+          <figure className="relative min-h-[300px] overflow-hidden lg:min-h-[560px]">
             <img
               src={howWeStartedImg}
               alt="Síkat-Aurora how we started — where the Philippine sun rises first"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />
           </figure>
           <div className="flex items-center px-6 py-16 md:px-9 lg:py-24">
-            <div className="w-full lg:ml-auto lg:max-w-xl lg:pr-4">
-              <Eyebrow>How We Started</Eyebrow>
-              <h2 className="max-w-[18ch] text-[1.7rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.1rem]">
-                Where the Philippine sun rises first
-              </h2>
-              <p className="mt-5 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
-                <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was
-                formally established as a nonprofit, youth-led, and youth-serving organization on{" "}
-                <strong className="font-semibold text-navy">August 12, 2021</strong>, during International Youth Day.
-              </p>
-              <p className="mt-4 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
-                The name <em>Síkat</em>, meaning <strong className="font-semibold text-navy">"rise,"</strong> is a
-                tribute to the rise of a new generation of volunteers in the community where the Philippine sun
-                rises first — in Baler, Aurora.
-              </p>
+            <StaggerContainer className="w-full lg:ml-auto lg:max-w-xl lg:pr-4">
+              <StaggerItem>
+                <Eyebrow>How We Started</Eyebrow>
+                <h2 className="max-w-[18ch] text-[1.7rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.1rem]">
+                  Where the Philippine sun rises first
+                </h2>
+              </StaggerItem>
+              <StaggerItem>
+                <p className="mt-5 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
+                  <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was
+                  formally established as a nonprofit, youth-led, and youth-serving organization on{" "}
+                  <strong className="font-semibold text-navy">August 12, 2021</strong>, during International Youth Day.
+                </p>
+                <p className="mt-4 max-w-[56ch] text-[0.98rem] leading-[1.8] text-navy/80">
+                  The name <em>Síkat</em>, meaning <strong className="font-semibold text-navy">"rise,"</strong> is a
+                  tribute to the rise of a new generation of volunteers in the community where the Philippine sun
+                  rises first — in Baler, Aurora.
+                </p>
+              </StaggerItem>
 
-              <dl className="mt-8 grid gap-4 border-t border-navy/15 pt-6 sm:grid-cols-2">
-                <div>
-                  <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
-                    Company Registration No.
-                  </dt>
-                  <dd className="mt-1 font-semibold text-navy">2025030194739-03</dd>
-                </div>
-                <div>
-                  <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
-                    Unique Registration No.
-                  </dt>
-                  <dd className="mt-1 font-semibold text-navy">YO-2807-021323</dd>
-                </div>
-              </dl>
-            </div>
+              <StaggerItem>
+                <dl className="mt-8 grid gap-4 border-t border-navy/15 pt-6 sm:grid-cols-2">
+                  <div className="rounded-xl border border-navy/10 bg-white p-4 shadow-xs">
+                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
+                      Company Registration No.
+                    </dt>
+                    <dd className="mt-1 font-semibold text-navy">2025030194739-03</dd>
+                  </div>
+                  <div className="rounded-xl border border-navy/10 bg-white p-4 shadow-xs">
+                    <dt className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy/55">
+                      Unique Registration No.
+                    </dt>
+                    <dd className="mt-1 font-semibold text-navy">YO-2807-021323</dd>
+                  </div>
+                </dl>
+              </StaggerItem>
+            </StaggerContainer>
           </div>
         </div>
       </Reveal>
@@ -1010,16 +1047,16 @@ function AboutPage({ onNavigate, onOpenModal }) {
             lead="Every program is volunteer-driven and free for the learners it serves."
             className="mb-12"
           />
-          <ul className="border-t border-navy/15">
+          <StaggerContainer as="ul" className="border-t border-navy/15">
             {[
               { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 2–14." },
               { name: "Ang Batang Kali", center: "Environment", desc: "Life skills helping youth ages 8–15 grow into stewards of nature." },
               { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for youth leaders across 30 DepEd schools." },
             ].map((p) => (
-              <li key={p.name}>
+              <StaggerItem as="li" key={p.name}>
                 <button
                   onClick={() => onNavigate("programs")}
-                  className="group flex w-full items-center gap-6 border-b border-navy/15 py-7 text-left transition-colors duration-200 hover:bg-cream"
+                  className="group flex w-full items-center gap-6 border-b border-navy/15 py-7 text-left transition-all duration-200 hover:bg-cream/50 sm:px-4 sm:rounded-xl"
                 >
                   <div className="flex-1">
                     <p className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-primary">{p.center}</p>
@@ -1029,13 +1066,13 @@ function AboutPage({ onNavigate, onOpenModal }) {
                     <p className="mt-1.5 max-w-[60ch] text-[0.92rem] leading-relaxed text-navy/75">{p.desc}</p>
                   </div>
                   <ArrowRight
-                    className="h-5 w-5 shrink-0 text-navy/40 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary motion-reduce:group-hover:translate-x-0"
+                    className="h-5 w-5 shrink-0 text-navy/40 transition-all duration-200 group-hover:translate-x-1.5 group-hover:text-primary motion-reduce:group-hover:translate-x-0"
                     aria-hidden="true"
                   />
                 </button>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerContainer>
           <div className="mt-10">
             <Btn onClick={() => onNavigate("programs")}>
               Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
