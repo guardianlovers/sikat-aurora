@@ -57,6 +57,15 @@
       focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/25;
   }
 
+  /* Keeps a strip swipeable without showing a scrollbar under it */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* The brand's signature label: black uppercase type in a yellow pill */
   .pill-label {
     @apply inline-flex items-center gap-1.5 rounded-full bg-gold px-4 py-1.5

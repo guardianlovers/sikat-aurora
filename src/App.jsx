@@ -713,6 +713,14 @@ function HomePage({ onNavigate, onOpenModal }) {
 /* ============================= Page 2: About ============================= */
 
 // Mandates come from the organization's own committee descriptions.
+// Flanking the About statement — one from each program, plus the assembly
+const ABOUT_HERO_PHOTOS = [
+  PROGRAM_PHOTOS.abkl[0],
+  PROGRAM_PHOTOS.abkp[0],
+  PROGRAM_PHOTOS.hiraya[0],
+  { src: PHOTOS.communityAssembly, alt: "Síkat-Aurora volunteers and children at a community assembly" },
+];
+
 const VALUES = [
   {
     title: "Pagmamalasakit",
@@ -734,19 +742,61 @@ const VALUES = [
 function AboutPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      {/* 1 — Statement of purpose, set centered and large */}
-      <section className="bg-white px-6 pb-16 pt-36 text-center md:px-9 lg:pb-20 lg:pt-40">
-        <div className="mx-auto max-w-4xl">
-          <Eyebrow align="center">Who We Are</Eyebrow>
-          <h1 className="mx-auto max-w-[20ch] text-[2.1rem] font-bold leading-[1.12] tracking-[-0.03em] text-navy sm:text-[3rem]">
-            A youth-led movement building a new face of volunteerism in Aurora
-          </h1>
-          {/* The brand's gold rule, used here as an underline accent */}
-          <span aria-hidden="true" className="mx-auto mt-7 block h-1.5 w-24 rounded-full bg-gold" />
-          <p className="mx-auto mt-7 max-w-[58ch] text-[1.02rem] leading-[1.8] text-navy/75">
-            Síkat-Aurora Inc. provides free after-school programs in education, environment, and active
-            citizenship — powered entirely by young volunteers, for the communities they come from.
-          </p>
+      {/* 1 — Statement of purpose, flanked by the work it describes */}
+      <section className="bg-white px-6 pb-16 pt-36 md:px-9 lg:pb-24 lg:pt-40">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,2fr)_minmax(0,0.75fr)]">
+          {/* Side columns sit slightly off-axis so the pair does not read as a bar */}
+          <div className="hidden gap-4 lg:grid">
+            <img
+              src={ABOUT_HERO_PHOTOS[0].src}
+              alt={ABOUT_HERO_PHOTOS[0].alt}
+              className="h-52 w-full rounded-2xl object-cover"
+            />
+            <img
+              src={ABOUT_HERO_PHOTOS[1].src}
+              alt={ABOUT_HERO_PHOTOS[1].alt}
+              className="h-36 w-full rounded-2xl object-cover"
+            />
+          </div>
+
+          <div className="text-center">
+            <Eyebrow align="center">Who We Are</Eyebrow>
+            <h1 className="mx-auto max-w-[20ch] text-[2.1rem] font-bold leading-[1.12] tracking-[-0.03em] text-navy sm:text-[3rem]">
+              A youth-led movement building a new face of volunteerism in Aurora
+            </h1>
+            {/* The brand's gold rule, used here as an underline accent */}
+            <span aria-hidden="true" className="mx-auto mt-7 block h-1.5 w-24 rounded-full bg-gold" />
+            <p className="mx-auto mt-7 max-w-[58ch] text-[1.02rem] leading-[1.8] text-navy/75">
+              Síkat-Aurora Inc. provides free after-school programs in education, environment, and active
+              citizenship — powered entirely by young volunteers, for the communities they come from.
+            </p>
+          </div>
+
+          <div className="hidden gap-4 pt-14 lg:grid">
+            <img
+              src={ABOUT_HERO_PHOTOS[2].src}
+              alt={ABOUT_HERO_PHOTOS[2].alt}
+              className="h-36 w-full rounded-2xl object-cover"
+            />
+            <img
+              src={ABOUT_HERO_PHOTOS[3].src}
+              alt={ABOUT_HERO_PHOTOS[3].alt}
+              className="h-52 w-full rounded-2xl object-cover"
+            />
+          </div>
+
+          {/* Below lg the columns would squeeze, so the same four run as a grid */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:hidden">
+            {ABOUT_HERO_PHOTOS.map((p) => (
+              <img
+                key={p.src}
+                src={p.src}
+                alt={p.alt}
+                loading="lazy"
+                className="h-28 w-full rounded-xl object-cover sm:h-32"
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1416,6 +1466,37 @@ function VolunteerCard({ volunteer }) {
   );
 }
 
+// One scrolling row. The track holds two identical copies and shifts by -50%,
+// so the loop closes with no jump; spacing lives on each tile rather than the
+// track to keep both copies exactly half the width. `reverse` flips the travel
+// direction. Pauses on hover/focus; reduced motion turns it into a swipe strip.
+function MarqueeRow({ volunteers, reverse = false, hidden = false }) {
+  return (
+    <div className="no-scrollbar overflow-x-auto" aria-hidden={hidden || undefined}>
+      <div
+        className={cn(
+          "flex w-max animate-marquee",
+          "hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]",
+          "motion-reduce:animate-none",
+          reverse && "[animation-direction:reverse]"
+        )}
+      >
+        {[0, 1].map((copy) => (
+          <ul key={copy} className="flex shrink-0 list-none" aria-hidden={copy === 1 || undefined}>
+            {/* The roster is short, so repeat it within each half — a half must
+                be at least a screen wide or a gap shows on very wide displays. */}
+            {[...volunteers, ...volunteers].map((v, i) => (
+              <li key={`${copy}-${i}-${v.id}`} className="w-32 shrink-0 pr-5 sm:w-40">
+                <VolunteerCard volunteer={v} />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function VolunteerWall({ onOpenModal }) {
   return (
     <Reveal className="bg-cream py-16 lg:py-24">
@@ -1433,30 +1514,17 @@ function VolunteerWall({ onOpenModal }) {
 
       </Container>
 
-      {/* Marquee runs edge to edge, so it sits outside the page container.
-          The track holds two copies of the roster and shifts by -50%, which
-          loops seamlessly. It pauses on hover and on keyboard focus, and
-          reduced-motion users get a normal horizontal scroller instead. */}
+      {/* Two rows travelling opposite ways. Only the first is exposed to
+          assistive tech — the second is the same people, so announcing both
+          would just repeat the roster. */}
       <div
-        className="group relative overflow-x-auto motion-reduce:overflow-x-scroll"
+        className="group relative space-y-5"
         role="region"
         aria-label="Síkat-Aurora volunteers"
         tabIndex={0}
       >
-        <div className="flex w-max animate-marquee hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none">
-          {/* Two identical copies. Spacing lives on each tile rather than on the
-              track, so each copy is exactly half the width and -50% loops
-              without a jump. The second copy is hidden from assistive tech. */}
-          {[0, 1].map((copy) => (
-            <ul key={copy} className="flex shrink-0 list-none" aria-hidden={copy === 1 || undefined}>
-              {VOLUNTEERS.map((v) => (
-                <li key={`${copy}-${v.id}`} className="w-36 shrink-0 pr-5 sm:w-44">
-                  <VolunteerCard volunteer={v} />
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
+        <MarqueeRow volunteers={VOLUNTEERS} />
+        <MarqueeRow volunteers={[...VOLUNTEERS].reverse()} reverse hidden />
       </div>
 
       {ROSTER_IS_EMPTY && (
