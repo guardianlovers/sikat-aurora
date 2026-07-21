@@ -1193,8 +1193,6 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      {/* Each program alternates a half-bleed photo with its details, then
-          opens into its own photo grid — the deck's "in Photos" spread. */}
       {programs.map((p, i) => (
         <Reveal
           key={p.name}
@@ -1210,66 +1208,77 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
               i % 2 === 1 && "lg:[&>figure]:order-last"
             )}
           >
-            <figure className="relative min-h-[280px] lg:min-h-[520px]">
-              <img src={p.img} alt={p.alt || p.name} className="absolute inset-0 h-full w-full object-cover" />
+            <figure className="relative min-h-[280px] overflow-hidden lg:min-h-[520px]">
+              <img
+                src={p.img}
+                alt={p.alt || p.name}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+              />
             </figure>
 
             <div className="flex items-center px-6 py-14 md:px-9 lg:py-20">
-              <div className={cn("w-full", i % 2 === 0 ? "lg:max-w-xl lg:pl-4" : "lg:ml-auto lg:max-w-xl lg:pr-4")}>
-                <Eyebrow>Core Program</Eyebrow>
-                <h2 className="max-w-[20ch] text-[1.6rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2rem]">
-                  {p.name}
-                </h2>
+              <StaggerContainer className={cn("w-full", i % 2 === 0 ? "lg:max-w-xl lg:pl-4" : "lg:ml-auto lg:max-w-xl lg:pr-4")}>
+                <StaggerItem>
+                  <Eyebrow>Core Program</Eyebrow>
+                  <h2 className="max-w-[20ch] text-[1.6rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2rem]">
+                    {p.name}
+                  </h2>
+                </StaggerItem>
 
-                <dl className="mt-5 space-y-2 text-[0.9rem] leading-relaxed">
-                  <div className="flex flex-wrap gap-x-2">
-                    <dt className="font-semibold text-navy">Center of Participation:</dt>
-                    <dd className="text-navy/75">{p.center}</dd>
-                  </div>
-                  <div className="flex flex-wrap gap-x-2">
-                    <dt className="font-semibold text-navy">Duration:</dt>
-                    <dd className="text-navy/75">{p.duration}</dd>
-                  </div>
-                </dl>
+                <StaggerItem>
+                  <dl className="mt-5 space-y-2 text-[0.9rem] leading-relaxed">
+                    <div className="flex flex-wrap gap-x-2">
+                      <dt className="font-semibold text-navy">Center of Participation:</dt>
+                      <dd className="text-navy/75">{p.center}</dd>
+                    </div>
+                    <div className="flex flex-wrap gap-x-2">
+                      <dt className="font-semibold text-navy">Duration:</dt>
+                      <dd className="text-navy/75">{p.duration}</dd>
+                    </div>
+                  </dl>
 
-                <p className="mt-4 max-w-[56ch] text-[0.92rem] leading-[1.75] text-navy/75">{p.desc}</p>
+                  <p className="mt-4 max-w-[56ch] text-[0.92rem] leading-[1.75] text-navy/75">{p.desc}</p>
+                </StaggerItem>
 
-                <p className="mb-2.5 mt-6 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy">
-                  Partner Communities ({p.communities.length})
-                </p>
-                <ul className="flex flex-wrap gap-1.5">
-                  {p.communities.map((c) => {
-                    const name = typeof c === "string" ? c : c.name;
-                    const url = typeof c === "object" && c.url ? c.url : null;
+                <StaggerItem>
+                  <p className="mb-2.5 mt-6 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-navy">
+                    Partner Communities ({p.communities.length})
+                  </p>
+                  <StaggerContainer as="ul" className="flex flex-wrap gap-1.5" stagger={0.04}>
+                    {p.communities.map((c) => {
+                      const name = typeof c === "string" ? c : c.name;
+                      const url = typeof c === "object" && c.url ? c.url : null;
 
-                    if (url) {
+                      if (url) {
+                        return (
+                          <StaggerItem as="li" key={name}>
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy transition-all duration-200 hover:border-primary hover:bg-primary-soft hover:text-primary hover:-translate-y-0.5 shadow-xs"
+                            >
+                              <MapPin className="h-3 w-3 text-primary" aria-hidden="true" />
+                              {name}
+                              <ArrowUpRight className="h-3 w-3 opacity-60 ml-0.5" aria-hidden="true" />
+                            </a>
+                          </StaggerItem>
+                        );
+                      }
+
                       return (
-                        <li key={name}>
-                          <a
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy transition-all duration-200 hover:border-primary hover:bg-primary-soft hover:text-primary hover:-translate-y-0.5 shadow-xs"
-                          >
-                            <MapPin className="h-3 w-3 text-primary" aria-hidden="true" />
-                            {name}
-                            <ArrowUpRight className="h-3 w-3 opacity-60 ml-0.5" aria-hidden="true" />
-                          </a>
-                        </li>
+                        <StaggerItem
+                          as="li"
+                          key={name}
+                          className="inline-flex items-center gap-1 rounded-full border border-navy/10 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy"
+                        >
+                          <MapPin className="h-3 w-3 text-primary" aria-hidden="true" /> {name}
+                        </StaggerItem>
                       );
-                    }
-
-                    return (
-                      <li
-                        key={name}
-                        className="inline-flex items-center gap-1 rounded-full border border-navy/10 bg-white px-3 py-1 text-[0.7rem] font-medium text-navy"
-                      >
-                        <MapPin className="h-3 w-3 text-primary" aria-hidden="true" /> {name}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+                    })}
+                  </StaggerContainer>
+                </StaggerItem>
+              </StaggerContainer>
             </div>
           </div>
 
@@ -1376,43 +1385,45 @@ function ImpactPage({ onNavigate, onOpenModal }) {
                 title="What five years of youth volunteerism adds up to"
                 className="mb-10"
               />
-              <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
+              <StaggerContainer as="ul" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
                 {stats.map((s) => (
-                  <StatRow key={s.label} {...s} />
+                  <StaggerItem as="li" key={s.label}>
+                    <StatRow {...s} />
+                  </StaggerItem>
                 ))}
-              </ul>
+              </StaggerContainer>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
+            <StaggerContainer className="grid grid-cols-2 gap-4">
+              <StaggerItem className="space-y-4">
                 <img
                   src={PROGRAM_PHOTOS.abkl[0].src}
                   alt={PROGRAM_PHOTOS.abkl[0].alt}
                   loading="lazy"
-                  className="h-40 w-full rounded-2xl object-cover sm:h-52"
+                  className="h-40 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03] sm:h-52"
                 />
                 <img
                   src={PROGRAM_PHOTOS.hiraya[3].src}
                   alt={PROGRAM_PHOTOS.hiraya[3].alt}
                   loading="lazy"
-                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                  className="h-32 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03] sm:h-40"
                 />
-              </div>
-              <div className="space-y-4 pt-8">
+              </StaggerItem>
+              <StaggerItem className="space-y-4 pt-8">
                 <img
                   src={PROGRAM_PHOTOS.abkp[0].src}
                   alt={PROGRAM_PHOTOS.abkp[0].alt}
                   loading="lazy"
-                  className="h-32 w-full rounded-2xl object-cover sm:h-40"
+                  className="h-32 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03] sm:h-40"
                 />
                 <img
                   src={PHOTOS.volunteersGroup}
                   alt="Síkat-Aurora youth volunteers together at a program"
                   loading="lazy"
-                  className="h-40 w-full rounded-2xl object-cover sm:h-52"
+                  className="h-40 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03] sm:h-52"
                 />
-              </div>
-            </div>
+              </StaggerItem>
+            </StaggerContainer>
           </div>
         </Container>
       </Reveal>
@@ -1435,7 +1446,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
                 <img
                   src={PHOTOS.communityOutreach}
                   alt="Síkat-Aurora community impact and financial transparency"
-                  className="h-64 w-full object-cover sm:h-72"
+                  className="h-64 w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-72"
                 />
               </div>
               <p className="mt-4 text-[0.88rem] leading-[1.7] text-navy/70">
@@ -1465,18 +1476,19 @@ function ImpactPage({ onNavigate, onOpenModal }) {
             lead="From the municipality of Baler to the ASEAN Youth Forum."
             className="mb-12"
           />
-          <ul className="border-t border-white/20">
+          <StaggerContainer as="ul" className="border-t border-white/20">
             {awards.map((a) => (
-              <li
+              <StaggerItem
+                as="li"
                 key={a.title}
                 className="grid gap-2 border-b border-white/10 py-5 transition-colors duration-200 hover:bg-white/[0.04] md:grid-cols-[11rem_1fr_18rem] md:items-baseline md:gap-6 md:px-3"
               >
                 <Tag className={cn("w-fit", levelStyles[a.level])}>{a.level}</Tag>
                 <p className="text-[1.05rem] font-bold leading-snug text-white">{a.title}</p>
                 <p className="text-xs leading-relaxed text-white/55">{a.grantor}</p>
-              </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
