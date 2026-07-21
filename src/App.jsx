@@ -152,15 +152,16 @@ function Eyebrow({ className, align = "left", dark = false, children }) {
   );
 }
 
-function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className }) {
+function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className, titleClassName }) {
   return (
     <div className={cn(align === "center" && "text-center", className)}>
       {eyebrow && <Eyebrow align={align} dark={dark}>{eyebrow}</Eyebrow>}
       <h2
         className={cn(
-          "max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.4rem]",
+          "max-w-[42ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.4rem]",
           dark ? "text-white" : "text-navy",
-          align === "center" && "mx-auto"
+          align === "center" && "mx-auto",
+          titleClassName
         )}
       >
         {title}
@@ -1279,7 +1280,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
           className={cn(
             "overflow-hidden",
             i % 2 === 1 ? "bg-cream" : "bg-white",
-            i === 0 ? "pt-24 lg:pt-28" : "border-t border-navy/10"
+            i === 0 ? "pt-20 lg:pt-24" : "border-t border-navy/10"
           )}
         >
           <div
@@ -1456,7 +1457,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
   return (
     <>
-      <Reveal className="bg-white pb-16 pt-28 lg:pb-20 lg:pt-36">
+      <Reveal className="bg-white pb-16 pt-20 lg:pb-20 lg:pt-24">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div>
@@ -1602,7 +1603,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <Reveal className="bg-white pb-16 pt-28 lg:pb-24 lg:pt-36">
+      <Reveal className="bg-white pb-16 pt-20 lg:pb-24 lg:pt-24">
         <Container>
           <SectionHeading
             eyebrow="Organizational Structure"
@@ -1669,7 +1670,7 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
   return (
     <figure
       className="group cursor-pointer"
-      onClick={() => volunteer.photo && onSelectPhoto?.({ src: volunteer.photo, alt: `${volunteer.name} - ${volunteer.role}` })}
+      onClick={() => volunteer.photo && onSelectPhoto?.({ src: volunteer.photo, alt: volunteer.name ? `${volunteer.name} - ${volunteer.role}` : "Síkat-Aurora volunteer" })}
     >
       <div className="relative aspect-square overflow-hidden rounded-2xl border border-navy/10 bg-cream">
         {volunteer.photo ? (
@@ -1689,12 +1690,6 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
           </div>
         )}
       </div>
-      {volunteer.name && (
-        <figcaption className="mt-3">
-          <p className="text-[0.9rem] font-semibold leading-snug text-navy">{volunteer.name}</p>
-          {volunteer.role && <p className="mt-0.5 text-[0.78rem] text-navy/60">{volunteer.role}</p>}
-        </figcaption>
-      )}
     </figure>
   );
 }
@@ -1832,7 +1827,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
   return (
     <>
       {/* Lead story */}
-      <Reveal className="border-b border-navy/10 bg-white pb-14 pt-28 lg:pb-16 lg:pt-36">
+      <Reveal className="border-b border-navy/10 bg-white pb-14 pt-20 lg:pb-16 lg:pt-24">
         <Container>
           <a
             href={`#blog/${featured.slug}`}
@@ -1973,7 +1968,7 @@ function FAQPage({ onNavigate, onOpenModal }) {
   return (
     <>
       <FaqSection
-        className="pt-28 lg:pt-36"
+        className="pt-20 lg:pt-24"
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
@@ -2069,11 +2064,11 @@ function VolunteerPage({ onOpenModal }) {
       </header>
 
       {/* CTA banner */}
-      <Reveal className="bg-cream px-6 py-12 md:px-9">
+      <Reveal className="bg-cream px-6 pb-12 pt-20 md:px-9 lg:pt-24">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 rounded-lg border-l-2 border-primary bg-navy p-8 text-white sm:p-10">
           <div>
             <Eyebrow dark>Ready to Make a Difference?</Eyebrow>
-            <h2 className="text-[1.5rem] font-bold tracking-[-0.01em] sm:text-[1.9rem]">
+            <h2 className="max-w-[20ch] text-[1.5rem] font-bold tracking-[-0.01em] sm:text-[1.9rem]">
               Sign Up to Become a Volunteer
             </h2>
             <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-white/70">
@@ -2191,7 +2186,7 @@ function DonatePage() {
 
   return (
     <>
-      <Reveal className="bg-cream pb-16 pt-28 lg:pb-20 lg:pt-36">
+      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
         <Container>
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             <div>
