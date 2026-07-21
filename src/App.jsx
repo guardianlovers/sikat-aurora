@@ -34,6 +34,9 @@ import impactVolunteersImg from "./assets/impact-in-numbers/400-youth-volunteer.
 import impactLearnersImg from "./assets/impact-in-numbers/1100-learner-reached.jpg";
 import impactCommunitiesImg from "./assets/impact-in-numbers/18-partner-community.jpg";
 import impactDonationsImg from "./assets/impact-in-numbers/donation-grant.jpg";
+import coreAbklImg from "./assets/core-program/abot-ko-ang-libro.jpg";
+import coreAbkpImg from "./assets/core-program/batang-kali.jpg";
+import coreHirayaImg from "./assets/core-program/hiraya.jpg";
 
 /* ============================= Shared primitives ============================= */
 
@@ -643,19 +646,19 @@ function HomePage({ onNavigate, onOpenModal }) {
               {
                 name: "Abot Ko Ang Libro",
                 center: "Education",
-                img: PROGRAM_PHOTOS.abkl[0].src,
+                img: coreAbklImg,
                 desc: "Mobile library cart bringing books & storytelling to kids ages 2–14.",
               },
               {
                 name: "Ang Batang Kali",
                 center: "Environment",
-                img: PROGRAM_PHOTOS.abkp[0].src,
+                img: coreAbkpImg,
                 desc: "Environmental life skills for youth ages 8–15 protecting nature.",
               },
               {
                 name: "Hiraya",
                 center: "Active Citizenship",
-                img: PROGRAM_PHOTOS.hiraya[0].src,
+                img: coreHirayaImg,
                 desc: "Leadership training & seed funding across 30 DepEd schools.",
               },
             ].map((p) => (
@@ -1012,7 +1015,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
         "Brgy. Pingit (Baler)",
         "Brgy. Diamanen (Dipaculao)",
       ],
-      img: PROGRAM_PHOTOS.abkl[0].src,
+      img: coreAbklImg,
       photos: PROGRAM_PHOTOS.abkl,
       accent: "text-primary",
       bg: "bg-primary-soft",
@@ -1024,7 +1027,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       duration: "5 Saturdays / 3 days",
       desc: "A life skills program helping youth ages 8–15 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
       communities: ["Brgy. Dibut (San Luis)", "Brgy. Zabali (Baler)", "Sitio Cozo (Casiguran)"],
-      img: PROGRAM_PHOTOS.abkp[0].src,
+      img: coreAbkpImg,
       photos: PROGRAM_PHOTOS.abkp,
       accent: "text-navy",
       bg: "bg-sky-soft",
@@ -1036,7 +1039,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       duration: "1–2 days",
       desc: "A leadership training equipping aspiring youth leaders with essential skills, knowledge, and initial funding necessary to excel in their roles and make a positive impact in their schools and communities.",
       communities: ["30 DepEd Public Schools in Central Aurora", "Hiraya Dinalungan", "Hiraya Ditumabo NHS"],
-      img: PROGRAM_PHOTOS.hiraya[0].src,
+      img: coreHirayaImg,
       photos: PROGRAM_PHOTOS.hiraya,
       accent: "text-forest",
       bg: "bg-forest-soft",
