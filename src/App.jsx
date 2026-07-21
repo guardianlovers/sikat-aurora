@@ -24,20 +24,20 @@ const C = {
 
 // Motion animation variants
 const sectionVariants = {
-  hidden: { opacity: 0, y: 35 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const cardHoverVariants = {
   hover: {
-    y: -8,
-    scale: 1.015,
-    boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
-    transition: { duration: 0.25, ease: "easeOut" },
+    y: -5,
+    scale: 1.01,
+    boxShadow: "0 14px 32px rgba(0,0,0,0.06)",
+    transition: { duration: 0.22, ease: "easeOut" },
   },
 };
 
@@ -104,51 +104,51 @@ function VolunteerModal({ isOpen, onClose }) {
 
           {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            exit={{ opacity: 0, scale: 0.94, y: 15 }}
             transition={{ type: "spring", stiffness: 380, damping: 28 }}
-            style={{ position: "relative", zIndex: 1, background: "#fff", borderRadius: 28, padding: "36px 40px", maxWidth: 540, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 24px 60px rgba(0,0,0,0.3)", border: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}
+            style={{ position: "relative", zIndex: 1, background: "#fff", borderRadius: 24, padding: "32px 36px", maxWidth: 520, width: "100%", maxHeight: "90vh", overflowY: "auto", boxShadow: "0 20px 50px rgba(0,0,0,0.25)", border: "1px solid rgba(0,0,0,0.08)", fontFamily: "'Poppins', sans-serif" }}
           >
-            <button onClick={onClose} style={{ position: "absolute", top: 20, right: 24, background: C.bg, border: "none", width: 36, height: 36, borderRadius: 100, cursor: "pointer", fontSize: "1.1rem", fontWeight: 600, color: C.mid, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <button onClick={onClose} style={{ position: "absolute", top: 18, right: 20, background: C.bg, border: "none", width: 34, height: 34, borderRadius: 100, cursor: "pointer", fontSize: "1rem", fontWeight: 600, color: C.mid, display: "flex", alignItems: "center", justifyContent: "center" }}>
               ✕
             </button>
 
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 8 }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 6 }}>
               Join Síkat-Aurora
             </div>
-            <h3 style={{ fontSize: "1.5rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>
+            <h3 style={{ fontSize: "1.35rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>
               Sign Up & Signify Interest
             </h3>
-            <p style={{ fontSize: "0.85rem", color: C.mid, marginBottom: 24 }}>
+            <p style={{ fontSize: "0.84rem", color: C.mid, marginBottom: 20 }}>
               Takes 2 minutes — our membership team will reach out within 48 hours.
             </p>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>First name</label>
-                  <input required placeholder="Juan" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>First name</label>
+                  <input required placeholder="Juan" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Last name</label>
-                  <input required placeholder="Dela Cruz" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Last name</label>
+                  <input required placeholder="Dela Cruz" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
                 </div>
               </div>
 
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Email address</label>
-                <input required type="email" placeholder="juan@gmail.com" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Email address</label>
+                <input required type="email" placeholder="juan@gmail.com" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
               </div>
 
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Mobile number</label>
-                <input required type="tel" placeholder="0917 123 4567" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Mobile number</label>
+                <input required type="tel" placeholder="0917 123 4567" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
               </div>
 
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Program of interest</label>
-                <select style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }}>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Program of interest</label>
+                <select style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }}>
                   <option>Select a program...</option>
                   <option>Abot Ko Ang Libro (Education)</option>
                   <option>Ang Batang Kali (Environment)</option>
@@ -157,9 +157,9 @@ function VolunteerModal({ isOpen, onClose }) {
                 </select>
               </div>
 
-              <div style={{ marginBottom: 24 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Age Group (15–30 y/o)</label>
-                <select style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }}>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Age Group (15–30 y/o)</label>
+                <select style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }}>
                   <option>15–18 years old</option>
                   <option>19–24 years old</option>
                   <option>25–30 years old</option>
@@ -167,8 +167,8 @@ function VolunteerModal({ isOpen, onClose }) {
               </div>
 
               <button type="submit"
-                style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 15, borderRadius: 14, fontFamily: "inherit", fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 6px 20px rgba(229,92,20,0.3)" }}>
-                {submitted ? <><Check size={18} /> Interest Signified! Welcome to Síkat</> : <>Submit Application <ArrowRight size={16} color="#fff" /></>}
+                style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 13, borderRadius: 12, fontFamily: "inherit", fontWeight: 600, fontSize: "0.9rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 4px 16px rgba(229,92,20,0.3)" }}>
+                {submitted ? <><Check size={16} /> Interest Signified! Welcome to Síkat</> : <>Submit Application <ArrowRight size={15} color="#fff" /></>}
               </button>
             </form>
           </motion.div>
@@ -192,17 +192,17 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
   return (
     <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, fontFamily: "'Poppins', sans-serif" }}>
       <nav style={{ background: "rgba(255,255,255,0.94)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 40px" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 36px" }}>
           {/* Logo Branding */}
-          <a href="#home" onClick={(e) => { e.preventDefault(); onNavigate("home"); }} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
-            <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 40, height: 40, objectFit: "contain" }} />
-            <span style={{ fontSize: "1.1rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.4px" }}>
+          <a href="#home" onClick={(e) => { e.preventDefault(); onNavigate("home"); }} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+            <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 36, height: 36, objectFit: "contain" }} />
+            <span style={{ fontSize: "1.05rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.4px" }}>
               Síkat<span style={{ color: C.or }}>-Aurora Inc.</span>
             </span>
           </a>
 
           {/* Nav Items as Separate Pages */}
-          <div style={{ display: "flex", gap: 4, alignItems: "center", background: "#EEF2F7", padding: "5px 6px", borderRadius: 100, position: "relative" }}>
+          <div style={{ display: "flex", gap: 4, alignItems: "center", background: "#EEF2F7", padding: "4px 5px", borderRadius: 100, position: "relative" }}>
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
@@ -215,8 +215,8 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
                     background: "transparent",
                     color: isActive ? "#fff" : C.dark,
                     fontWeight: isActive ? 600 : 500,
-                    fontSize: "0.82rem",
-                    padding: "8px 18px",
+                    fontSize: "0.8rem",
+                    padding: "7px 16px",
                     borderRadius: 100,
                     cursor: "pointer",
                     zIndex: 1,
@@ -233,7 +233,7 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
                         background: C.or,
                         borderRadius: 100,
                         zIndex: -1,
-                        boxShadow: "0 4px 14px rgba(229,92,20,0.35)",
+                        boxShadow: "0 4px 12px rgba(229,92,20,0.3)",
                       }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
@@ -247,11 +247,11 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
           {/* Action Buttons */}
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <button onClick={onOpenModal}
-              style={{ background: activePage === "volunteer" ? C.dark : "transparent", border: "1px solid rgba(0,0,0,0.15)", color: activePage === "volunteer" ? "#fff" : C.dark, padding: "9px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", transition: "all .2s" }}>
+              style={{ background: activePage === "volunteer" ? C.dark : "transparent", border: "1px solid rgba(0,0,0,0.15)", color: activePage === "volunteer" ? "#fff" : C.dark, padding: "8px 18px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", transition: "all .2s" }}>
               Volunteer
             </button>
             <button onClick={() => onNavigate("donate")}
-              style={{ background: C.or, border: "none", color: "#fff", padding: "10px 24px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", boxShadow: "0 4px 14px rgba(229,92,20,0.3)", transition: "all .2s" }}>
+              style={{ background: C.or, border: "none", color: "#fff", padding: "8px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", boxShadow: "0 4px 14px rgba(229,92,20,0.3)", transition: "all .2s" }}>
               Donate
             </button>
           </div>
@@ -267,13 +267,13 @@ function PageHeader({ eyebrow, title, subtitle }) {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{ background: C.dark, color: "#fff", paddingTop: 130, paddingBottom: 60, paddingLeft: 40, paddingRight: 40, fontFamily: "'Poppins', sans-serif" }}
+      transition={{ duration: 0.4 }}
+      style={{ background: C.dark, color: "#fff", paddingTop: 110, paddingBottom: 44, paddingLeft: 36, paddingRight: 36, fontFamily: "'Poppins', sans-serif" }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 12 }}>{eyebrow}</div>
-        <h1 style={{ fontSize: "2.8rem", fontWeight: 600, letterSpacing: "-1px", marginBottom: 14 }}>{title}</h1>
-        {subtitle && <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1rem", lineHeight: 1.7, maxWidth: 680, fontWeight: 300 }}>{subtitle}</p>}
+        <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 8 }}>{eyebrow}</div>
+        <h1 style={{ fontSize: "2.1rem", fontWeight: 600, letterSpacing: "-0.6px", marginBottom: 10 }}>{title}</h1>
+        {subtitle && <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: 620, fontWeight: 300 }}>{subtitle}</p>}
       </div>
     </motion.div>
   );
@@ -311,104 +311,104 @@ function HomePage({ onNavigate, onOpenModal }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ background: C.or, padding: "18px 40px", fontFamily: "'Poppins', sans-serif" }}
+        style={{ background: C.or, padding: "14px 36px", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", gap: 16 }}>
-          <span style={{ background: "rgba(0,0,0,0.2)", color: "#fff", padding: "5px 14px", borderRadius: 100, fontSize: "0.72rem", fontWeight: 600, letterSpacing: ".5px", flexShrink: 0 }}>Formally Established</span>
-          <span style={{ color: "rgba(255,255,255,0.95)", fontSize: "0.9rem" }}>"Established August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03"</span>
+          <span style={{ background: "rgba(0,0,0,0.2)", color: "#fff", padding: "4px 12px", borderRadius: 100, fontSize: "0.7rem", fontWeight: 600, letterSpacing: ".5px", flexShrink: 0 }}>Formally Established</span>
+          <span style={{ color: "rgba(255,255,255,0.95)", fontSize: "0.85rem" }}>"Established August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03"</span>
           <button onClick={() => onNavigate("about")}
-            style={{ background: "transparent", border: "none", color: "#fff", fontWeight: 600, fontSize: "0.85rem", cursor: "pointer", marginLeft: "auto", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, fontFamily: "inherit" }}>
+            style={{ background: "transparent", border: "none", color: "#fff", fontWeight: 600, fontSize: "0.82rem", cursor: "pointer", marginLeft: "auto", display: "flex", alignItems: "center", gap: 6, flexShrink: 0, fontFamily: "inherit" }}>
             Read Our History <ArrowRight size={13} color="#fff" />
           </button>
         </div>
       </motion.div>
 
-      {/* About Teaser (Min Height 850px) */}
+      {/* About Teaser */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 70, alignItems: "center" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 52, alignItems: "center" }}>
           <div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 12 }}>Who We Are</div>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.25, marginBottom: 20 }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Who We Are</div>
+            <h2 style={{ fontSize: "1.95rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.5px", lineHeight: 1.28, marginBottom: 16 }}>
               A new face of youth volunteerism in Baler, Aurora
             </h2>
-            <p style={{ color: C.mid, fontSize: "0.98rem", lineHeight: 1.85, fontWeight: 300, marginBottom: 28 }}>
+            <p style={{ color: C.mid, fontSize: "0.92rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 22 }}>
               <strong>Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning <strong>"rise,"</strong> pays tribute to a new generation of volunteers where the Philippine sun rises first.
             </p>
             <div style={{ display: "flex", gap: 12 }}>
               <button onClick={() => onNavigate("about")}
-                style={{ background: C.dark, color: "#fff", border: "none", padding: "14px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.88rem", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+                style={{ background: C.dark, color: "#fff", border: "none", padding: "12px 24px", borderRadius: 100, fontWeight: 600, fontSize: "0.84rem", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
                 Learn More About Us <ArrowRight size={14} color="#fff" />
               </button>
             </div>
           </div>
-          <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
-            <img src={hirayaImg} alt="Volunteers" style={{ width: "100%", height: 400, objectFit: "cover", borderRadius: 24, boxShadow: "0 16px 40px rgba(0,0,0,0.08)" }} />
+          <motion.div whileHover={{ scale: 1.015 }} transition={{ duration: 0.3 }}>
+            <img src={hirayaImg} alt="Volunteers" style={{ width: "100%", height: 320, objectFit: "cover", borderRadius: 20, boxShadow: "0 12px 32px rgba(0,0,0,0.06)" }} />
           </motion.div>
         </div>
       </motion.section>
 
-      {/* Impact Stats Teaser (Min Height 850px) */}
+      {/* Impact Stats Teaser */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 52 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40 }}>
             <div>
-              <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 10 }}>Impact in Numbers</div>
-              <h2 style={{ fontSize: "2.3rem", fontWeight: 600, letterSpacing: "-0.6px" }}>The premier platform for youth volunteerism</h2>
+              <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 8 }}>Impact in Numbers</div>
+              <h2 style={{ fontSize: "1.95rem", fontWeight: 600, letterSpacing: "-0.5px" }}>The premier platform for youth volunteerism</h2>
             </div>
             <button onClick={() => onNavigate("impact")}
-              style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "#fff", padding: "14px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.88rem", cursor: "pointer", fontFamily: "inherit" }}>
+              style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "#fff", padding: "10px 22px", borderRadius: 100, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer", fontFamily: "inherit" }}>
               See Full Impact & Awards →
             </button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 }}>
             {[["400+", "Youth Volunteers"], ["1,100+", "Learners Reached"], ["18", "Partner Communities"], ["₱1.5M+", "Donations Raised"]].map(([n, l], i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -6, backgroundColor: "rgba(255,255,255,0.07)" }}
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: "38px 24px", textAlign: "center", transition: "all 0.2s" }}
+                whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.07)" }}
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 18, padding: "26px 18px", textAlign: "center", transition: "all 0.2s" }}
               >
-                <div style={{ fontSize: "2.8rem", fontWeight: 600, color: C.ye, marginBottom: 8 }}>{n}</div>
-                <div style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.65)" }}>{l}</div>
+                <div style={{ fontSize: "2.2rem", fontWeight: 600, color: C.ye, marginBottom: 4 }}>{n}</div>
+                <div style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.65)" }}>{l}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
 
-      {/* Core Programs Teaser (Min Height 850px) */}
+      {/* Core Programs Teaser */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 52 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40 }}>
             <div>
-              <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Core Programs</div>
-              <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Three programs, one rising community</h2>
+              <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 8 }}>Core Programs</div>
+              <h2 style={{ fontSize: "1.95rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.5px" }}>Three programs, one rising community</h2>
             </div>
             <button onClick={() => onNavigate("programs")}
-              style={{ background: C.or, color: "#fff", border: "none", padding: "14px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.88rem", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
+              style={{ background: C.or, color: "#fff", border: "none", padding: "10px 22px", borderRadius: 100, fontWeight: 600, fontSize: "0.82rem", cursor: "pointer", fontFamily: "inherit", boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
               Explore All Programs →
             </button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 22 }}>
             {[
               { name: "Abot Ko Ang Libro", center: "Education", img: abotKoAngLibroImg, desc: "Mobile library cart bringing books & storytelling to kids ages 2–14." },
               { name: "Ang Batang Kali", center: "Environment", img: batangKaliImg, desc: "Environmental life skills for youth ages 8–15 protecting nature." },
@@ -419,13 +419,13 @@ function HomePage({ onNavigate, onOpenModal }) {
                 variants={cardHoverVariants}
                 whileHover="hover"
                 onClick={() => onNavigate("programs")}
-                style={{ background: "#fff", borderRadius: 28, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", cursor: "pointer" }}
+                style={{ background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", cursor: "pointer" }}
               >
-                <img src={p.img} alt={p.name} style={{ width: "100%", height: 230, objectFit: "cover" }} />
-                <div style={{ padding: "26px" }}>
-                  <span style={{ fontSize: "0.72rem", fontWeight: 600, color: C.or, background: "#FEF3EC", padding: "6px 14px", borderRadius: 100, display: "inline-block", marginBottom: 12 }}>{p.center}</span>
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 10 }}>{p.name}</h3>
-                  <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>{p.desc}</p>
+                <img src={p.img} alt={p.name} style={{ width: "100%", height: 190, objectFit: "cover" }} />
+                <div style={{ padding: "20px" }}>
+                  <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.or, background: "#FEF3EC", padding: "4px 10px", borderRadius: 100, display: "inline-block", marginBottom: 8 }}>{p.center}</span>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{p.name}</h3>
+                  <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.6 }}>{p.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -433,12 +433,12 @@ function HomePage({ onNavigate, onOpenModal }) {
         </div>
       </motion.section>
 
-      {/* Photo Gallery Blog Teaser directly on Home (Min Height 850px) */}
+      {/* Photo Gallery Blog Teaser directly on Home */}
       <section style={{ background: "#fff" }}>
         <PhotoGallery onViewAll={() => onNavigate("blog")} />
       </section>
 
-      {/* FAQ Section directly on Home (Min Height 850px) */}
+      {/* FAQ Section directly on Home */}
       <FaqSection
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
@@ -457,7 +457,7 @@ function HomePage({ onNavigate, onOpenModal }) {
   );
 }
 
-// ================= PAGE 2: ABOUT (Min Height 850px) =================
+// ================= PAGE 2: ABOUT =================
 function AboutPage({ onNavigate }) {
   const values = [
     { title: "Pagmamalasakit", desc: "Kumikilos nang may malasakit sa kapwa.", color: C.or, bg: "#FEF3EC" },
@@ -477,44 +477,44 @@ function AboutPage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 70, alignItems: "start", marginBottom: 70 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 52, alignItems: "start", marginBottom: 52 }}>
             <div>
-              <h2 style={{ fontSize: "2.1rem", fontWeight: 600, color: C.dark, marginBottom: 18 }}>Our Origins & Name</h2>
-              <p style={{ color: C.mid, fontSize: "0.96rem", lineHeight: 1.85, fontWeight: 300, marginBottom: 18 }}>
+              <h2 style={{ fontSize: "1.85rem", fontWeight: 600, color: C.dark, marginBottom: 14 }}>Our Origins & Name</h2>
+              <p style={{ color: C.mid, fontSize: "0.92rem", lineHeight: 1.8, fontWeight: 300, marginBottom: 14 }}>
                 <strong>Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was formally established as a nonprofit, youth-led, and youth-serving organization on <strong>August 12, 2021</strong>, during International Youth Day.
               </p>
-              <p style={{ color: C.mid, fontSize: "0.96rem", lineHeight: 1.85, fontWeight: 300, marginBottom: 24 }}>
+              <p style={{ color: C.mid, fontSize: "0.92rem", lineHeight: 1.8, fontWeight: 300, marginBottom: 18 }}>
                 The name <em>Síkat</em>, meaning <strong>"rise,"</strong> is a tribute to the rise of a new generation of volunteers in the community where the Philippine sun rises first.
               </p>
-              <div style={{ background: C.bg, padding: "22px 28px", borderRadius: 20, borderLeft: `4px solid ${C.or}` }}>
-                <div style={{ fontSize: "0.8rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Legal Registration Info:</div>
-                <div style={{ fontSize: "0.84rem", color: C.mid }}>
+              <div style={{ background: C.bg, padding: "18px 22px", borderRadius: 16, borderLeft: `4px solid ${C.or}` }}>
+                <div style={{ fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Legal Registration Info:</div>
+                <div style={{ fontSize: "0.8rem", color: C.mid }}>
                   Company Registration No. <strong>2025030194739-03</strong><br />
                   Unique Registration Number (URN) <strong>YO-2807-021323</strong>
                 </div>
               </div>
             </div>
             <div>
-              <img src={hirayaImg} alt="Síkat-Aurora Volunteers" style={{ width: "100%", height: 380, objectFit: "cover", borderRadius: 24, boxShadow: "0 16px 40px rgba(0,0,0,0.08)" }} />
+              <img src={hirayaImg} alt="Síkat-Aurora Volunteers" style={{ width: "100%", height: 320, objectFit: "cover", borderRadius: 20, boxShadow: "0 12px 32px rgba(0,0,0,0.06)" }} />
             </div>
           </div>
 
           {/* Vision & Mission */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 70 }}>
-            <div style={{ background: C.bg, borderRadius: 24, padding: 38, border: "1px solid rgba(0,0,0,0.06)" }}>
-              <span style={{ fontSize: "0.72rem", fontWeight: 600, color: C.or, background: "#FEF3EC", padding: "6px 16px", borderRadius: 100, display: "inline-block", marginBottom: 14 }}>VISION</span>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: 600, color: C.dark, marginBottom: 12 }}>Our Vision</h3>
-              <p style={{ fontSize: "0.94rem", color: C.mid, lineHeight: 1.8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 52 }}>
+            <div style={{ background: C.bg, borderRadius: 20, padding: 28, border: "1px solid rgba(0,0,0,0.06)" }}>
+              <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.or, background: "#FEF3EC", padding: "4px 12px", borderRadius: 100, display: "inline-block", marginBottom: 10 }}>VISION</span>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>Our Vision</h3>
+              <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>
                 A future where accessible and enriching after-school programs empower underserved communities in Aurora.
               </p>
             </div>
-            <div style={{ background: C.bg, borderRadius: 24, padding: 38, border: "1px solid rgba(0,0,0,0.06)" }}>
-              <span style={{ fontSize: "0.72rem", fontWeight: 600, color: C.bl, background: "#EEF4FA", padding: "6px 16px", borderRadius: 100, display: "inline-block", marginBottom: 14 }}>MISSION</span>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: 600, color: C.dark, marginBottom: 12 }}>Our Mission</h3>
-              <p style={{ fontSize: "0.94rem", color: C.mid, lineHeight: 1.8 }}>
+            <div style={{ background: C.bg, borderRadius: 20, padding: 28, border: "1px solid rgba(0,0,0,0.06)" }}>
+              <span style={{ fontSize: "0.68rem", fontWeight: 600, color: C.bl, background: "#EEF4FA", padding: "4px 12px", borderRadius: 100, display: "inline-block", marginBottom: 10 }}>MISSION</span>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>Our Mission</h3>
+              <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>
                 To provide inclusive after-school programs in education, environment, and active citizenship — driven by youth volunteers to create lasting community impact.
               </p>
             </div>
@@ -522,18 +522,18 @@ function AboutPage({ onNavigate }) {
 
           {/* Core Values */}
           <div>
-            <h2 style={{ fontSize: "2rem", fontWeight: 600, color: C.dark, marginBottom: 32, textAlign: "center" }}>Our Core Values</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 600, color: C.dark, marginBottom: 24, textAlign: "center" }}>Our Core Values</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
               {values.map((v, i) => (
                 <motion.div
                   key={i}
                   variants={cardHoverVariants}
                   whileHover="hover"
-                  style={{ background: v.bg, borderRadius: 24, padding: "32px", border: "1px solid rgba(0,0,0,0.04)" }}
+                  style={{ background: v.bg, borderRadius: 20, padding: "24px", border: "1px solid rgba(0,0,0,0.04)" }}
                 >
-                  <div style={{ fontSize: "2rem", fontWeight: 800, color: v.color, marginBottom: 12 }}>0{i+1}</div>
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>{v.title}</h3>
-                  <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>{v.desc}</p>
+                  <div style={{ fontSize: "1.6rem", fontWeight: 800, color: v.color, marginBottom: 8 }}>0{i+1}</div>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{v.title}</h3>
+                  <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.65 }}>{v.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -545,7 +545,7 @@ function AboutPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 3: PROGRAMS (Min Height 850px) =================
+// ================= PAGE 3: PROGRAMS =================
 function ProgramsPage({ onNavigate }) {
   const programs = [
     {
@@ -592,30 +592,30 @@ function ProgramsPage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", gap: 48 }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", gap: 36 }}>
           {programs.map((p, i) => (
             <motion.div
               key={i}
               variants={cardHoverVariants}
               whileHover="hover"
-              style={{ background: "#fff", borderRadius: 28, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 0, boxShadow: "0 12px 32px rgba(0,0,0,0.03)" }}
+              style={{ background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 0, boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
             >
-              <img src={p.img} alt={p.name} style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "cover", display: "block" }} />
-              <div style={{ padding: "40px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-                  <span style={{ background: p.lightBg, color: p.color, fontSize: "0.76rem", fontWeight: 600, padding: "6px 16px", borderRadius: 100 }}>
+              <img src={p.img} alt={p.name} style={{ width: "100%", height: "100%", minHeight: 280, objectFit: "cover", display: "block" }} />
+              <div style={{ padding: "30px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                  <span style={{ background: p.lightBg, color: p.color, fontSize: "0.7rem", fontWeight: 600, padding: "4px 12px", borderRadius: 100 }}>
                     Center of Participation: {p.center}
                   </span>
-                  <span style={{ fontSize: "0.8rem", color: C.mid, fontWeight: 500 }}>⏱️ {p.duration}</span>
+                  <span style={{ fontSize: "0.76rem", color: C.mid, fontWeight: 500 }}>⏱️ {p.duration}</span>
                 </div>
-                <h2 style={{ fontSize: "1.7rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.4px", marginBottom: 14 }}>{p.name}</h2>
-                <p style={{ fontSize: "0.9rem", color: C.mid, lineHeight: 1.75, marginBottom: 24, fontWeight: 400 }}>{p.desc}</p>
-                <div style={{ fontSize: "0.8rem", fontWeight: 600, color: C.dark, marginBottom: 12 }}>Partner Communities ({p.communities.length}):</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <h2 style={{ fontSize: "1.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.3px", marginBottom: 10 }}>{p.name}</h2>
+                <p style={{ fontSize: "0.86rem", color: C.mid, lineHeight: 1.65, marginBottom: 18, fontWeight: 400 }}>{p.desc}</p>
+                <div style={{ fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>Partner Communities ({p.communities.length}):</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                   {p.communities.map((c, ci) => (
-                    <span key={ci} style={{ background: C.bg, color: C.dark, fontSize: "0.75rem", padding: "6px 12px", borderRadius: 10, fontWeight: 500 }}>
+                    <span key={ci} style={{ background: C.bg, color: C.dark, fontSize: "0.7rem", padding: "4px 10px", borderRadius: 8, fontWeight: 500 }}>
                       📍 {c}
                     </span>
                   ))}
@@ -630,7 +630,7 @@ function ProgramsPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 4: IMPACT & AWARDS (Min Height 850px) =================
+// ================= PAGE 4: IMPACT & AWARDS =================
 function ImpactPage({ onNavigate }) {
   const stats = [
     ["400+", "Youth Volunteers"],
@@ -661,54 +661,54 @@ function ImpactPage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16, marginBottom: 70 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12, marginBottom: 48 }}>
             {stats.map(([n, l], i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -6 }}
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "28px 16px", textAlign: "center" }}
+                whileHover={{ y: -4 }}
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 12px", textAlign: "center" }}
               >
-                <div style={{ fontSize: "2.1rem", fontWeight: 600, color: C.ye, letterSpacing: "-0.5px", lineHeight: 1, marginBottom: 8 }}>{n}</div>
-                <div style={{ fontSize: "0.76rem", color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>{l}</div>
+                <div style={{ fontSize: "1.75rem", fontWeight: 600, color: C.ye, letterSpacing: "-0.5px", lineHeight: 1, marginBottom: 4 }}>{n}</div>
+                <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.6)", fontWeight: 500 }}>{l}</div>
               </motion.div>
             ))}
           </div>
 
-          <h2 style={{ fontSize: "1.9rem", fontWeight: 600, color: "#fff", marginBottom: 32, display: "flex", alignItems: "center", gap: 12 }}>
-            <AwardIcon size={26} color={C.ye} /> Awards & Recognitions
+          <h2 style={{ fontSize: "1.65rem", fontWeight: 600, color: "#fff", marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+            <AwardIcon size={22} color={C.ye} /> Awards & Recognitions
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24, marginBottom: 70 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 18, marginBottom: 48 }}>
             {awards.map((a, i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -6 }}
-                style={{ background: "rgba(255,255,255,0.04)", borderRadius: 24, padding: "28px", border: "1px solid rgba(255,255,255,0.08)" }}
+                whileHover={{ y: -4 }}
+                style={{ background: "rgba(255,255,255,0.04)", borderRadius: 18, padding: "22px", border: "1px solid rgba(255,255,255,0.08)" }}
               >
-                <span style={{ display: "inline-block", background: a.level === "International" ? "rgba(225,92,20,0.2)" : a.level === "National" ? "rgba(245,194,0,0.2)" : "rgba(168,212,240,0.2)", color: a.level === "International" ? C.or : a.level === "National" ? C.ye : C.sky, fontSize: "0.7rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100, marginBottom: 14 }}>
+                <span style={{ display: "inline-block", background: a.level === "International" ? "rgba(225,92,20,0.2)" : a.level === "National" ? "rgba(245,194,0,0.2)" : "rgba(168,212,240,0.2)", color: a.level === "International" ? C.or : a.level === "National" ? C.ye : C.sky, fontSize: "0.66rem", fontWeight: 600, padding: "4px 10px", borderRadius: 100, marginBottom: 10 }}>
                   {a.level}
                 </span>
-                <div style={{ color: "#fff", fontSize: "1rem", fontWeight: 600, lineHeight: 1.5, marginBottom: 10 }}>{a.title}</div>
-                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", lineHeight: 1.55 }}>{a.grantor}</div>
+                <div style={{ color: "#fff", fontSize: "0.9rem", fontWeight: 600, lineHeight: 1.4, marginBottom: 6 }}>{a.title}</div>
+                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.76rem", lineHeight: 1.45 }}>{a.grantor}</div>
               </motion.div>
             ))}
           </div>
 
           {/* Transparency Section */}
-          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: 28, padding: "48px", border: "1px solid rgba(255,255,255,0.08)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: 20, padding: "32px", border: "1px solid rgba(255,255,255,0.08)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "center" }}>
             <div>
-              <h3 style={{ fontSize: "1.5rem", fontWeight: 600, color: "#fff", marginBottom: 12 }}>Financial Transparency Report</h3>
-              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.94rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 24 }}>
+              <h3 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#fff", marginBottom: 8 }}>Financial Transparency Report</h3>
+              <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.86rem", lineHeight: 1.65, fontWeight: 300, marginBottom: 16 }}>
                 We publish where every single peso goes. Over ₱1.5M+ raised through grant competitions and public donation drives.
               </p>
-              <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ background: C.or, color: "#fff", padding: "14px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.88rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "0 6px 20px rgba(229,92,20,0.4)" }}>
+              <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ background: C.or, color: "#fff", padding: "10px 20px", borderRadius: 100, fontWeight: 600, fontSize: "0.82rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, boxShadow: "0 6px 20px rgba(229,92,20,0.4)" }}>
                 Open Financial Tracker (bit.ly/sikatfinance) ↗
               </a>
             </div>
             <div>
-              <img src={impactImg} alt="Impact transparency" style={{ width: "100%", height: 230, objectFit: "cover", borderRadius: 20 }} />
+              <img src={impactImg} alt="Impact transparency" style={{ width: "100%", height: 180, objectFit: "cover", borderRadius: 16 }} />
             </div>
           </div>
         </div>
@@ -718,7 +718,7 @@ function ImpactPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 5: LEADERSHIP (Min Height 850px) =================
+// ================= PAGE 5: LEADERSHIP =================
 function LeadershipPage({ onNavigate }) {
   const leaders = [
     { name: "RJ Belen", title: "Executive Director", role: "Highest official; presides over Executive Committee, executes policies & sets direction." },
@@ -741,23 +741,23 @@ function LeadershipPage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
             {leaders.map((l, i) => (
               <motion.div
                 key={i}
                 variants={cardHoverVariants}
                 whileHover="hover"
-                style={{ background: C.bg, borderRadius: 28, padding: "34px", border: "1px solid rgba(0,0,0,0.05)" }}
+                style={{ background: C.bg, borderRadius: 20, padding: "26px", border: "1px solid rgba(0,0,0,0.05)" }}
               >
-                <div style={{ width: 52, height: 52, borderRadius: 16, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1.15rem", marginBottom: 18, boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1rem", marginBottom: 14, boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
                   {l.name.split(" ").map(n => n[0]).join("")}
                 </div>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>{l.name}</h3>
-                <div style={{ fontSize: "0.82rem", color: C.or, fontWeight: 600, marginBottom: 14 }}>{l.title}</div>
-                <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>{l.role}</p>
+                <h3 style={{ fontSize: "1.08rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>{l.name}</h3>
+                <div style={{ fontSize: "0.78rem", color: C.or, fontWeight: 600, marginBottom: 10 }}>{l.title}</div>
+                <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.6 }}>{l.role}</p>
               </motion.div>
             ))}
           </div>
@@ -768,7 +768,7 @@ function LeadershipPage({ onNavigate }) {
   );
 }
 
-// ================= PAGE 6: BLOG (Min Height 850px) =================
+// ================= PAGE 6: BLOG =================
 function BlogPage({ onNavigate }) {
   const posts = [
     {
@@ -803,25 +803,25 @@ function BlogPage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {posts.map((p, i) => (
               <motion.div
                 key={i}
                 variants={cardHoverVariants}
                 whileHover="hover"
-                style={{ background: "#fff", borderRadius: 28, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
+                style={{ background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
               >
-                <img src={p.img} alt={p.title} style={{ width: "100%", height: 230, objectFit: "cover", display: "block" }} />
-                <div style={{ padding: "30px" }}>
-                  <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.72rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100, marginBottom: 14, display: "inline-block" }}>
+                <img src={p.img} alt={p.title} style={{ width: "100%", height: 190, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "22px" }}>
+                  <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.68rem", fontWeight: 600, padding: "4px 10px", borderRadius: 100, marginBottom: 10, display: "inline-block" }}>
                     {p.tag}
                   </span>
-                  <h3 style={{ fontSize: "1.15rem", fontWeight: 600, color: C.dark, lineHeight: 1.45, marginBottom: 12 }}>{p.title}</h3>
-                  <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7, marginBottom: 20 }}>{p.desc}</p>
-                  <a href="#" style={{ color: C.or, fontSize: "0.84rem", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+                  <h3 style={{ fontSize: "1.05rem", fontWeight: 600, color: C.dark, lineHeight: 1.4, marginBottom: 8 }}>{p.title}</h3>
+                  <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.6, marginBottom: 16 }}>{p.desc}</p>
+                  <a href="#" style={{ color: C.or, fontSize: "0.8rem", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
                     Read full story <ArrowRight size={13} color={C.or} />
                   </a>
                 </div>
@@ -888,7 +888,7 @@ function FAQPage({ onNavigate, onOpenModal }) {
   );
 }
 
-// ================= PAGE 8: VOLUNTEER GALLERY & EXPERIENCE PAGE (Min Height 850px) =================
+// ================= PAGE 8: VOLUNTEER GALLERY & EXPERIENCE PAGE =================
 function VolunteerPage({ onNavigate, onOpenModal }) {
   const steps = [
     { num: "01", title: "Signify your interest", desc: "Follow the Síkat-Aurora Facebook page and reach out. Engaging with and sharing posts counts as your first show of support." },
@@ -948,93 +948,93 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ padding: "50px 40px 30px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "36px 36px 16px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
-        <div style={{ maxWidth: 1280, margin: "0 auto", background: C.dark, color: "#fff", borderRadius: 28, padding: "44px 52px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 16px 40px rgba(0,0,0,0.1)", flexWrap: "wrap", gap: 24 }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", background: C.dark, color: "#fff", borderRadius: 20, padding: "32px 38px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 12px 32px rgba(0,0,0,0.08)", flexWrap: "wrap", gap: 18 }}>
           <div>
-            <span style={{ fontSize: "0.75rem", fontWeight: 600, color: C.ye, textTransform: "uppercase", letterSpacing: "1px" }}>Ready to Make a Difference?</span>
-            <h2 style={{ fontSize: "2.1rem", fontWeight: 600, marginTop: 6, marginBottom: 8 }}>Sign Up to Become a Volunteer</h2>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.95rem", maxWidth: 620, fontWeight: 300 }}>
+            <span style={{ fontSize: "0.7rem", fontWeight: 600, color: C.ye, textTransform: "uppercase", letterSpacing: "1px" }}>Ready to Make a Difference?</span>
+            <h2 style={{ fontSize: "1.75rem", fontWeight: 600, marginTop: 4, marginBottom: 4 }}>Sign Up to Become a Volunteer</h2>
+            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", maxWidth: 580, fontWeight: 300 }}>
               Takes 2 minutes. Click below to open the application form modal.
             </p>
           </div>
           <button onClick={onOpenModal}
-            style={{ background: C.or, color: "#fff", border: "none", padding: "16px 36px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)", display: "inline-flex", alignItems: "center", gap: 8 }}>
-            Signify Interest Now <ArrowRight size={16} color="#fff" />
+            style={{ background: C.or, color: "#fff", border: "none", padding: "12px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.85rem", cursor: "pointer", boxShadow: "0 6px 20px rgba(229,92,20,0.35)", display: "inline-flex", alignItems: "center", gap: 8 }}>
+            Signify Interest Now <ArrowRight size={15} color="#fff" />
           </button>
         </div>
       </motion.section>
 
-      {/* Path from Interested to Inducted (Min Height 850px) */}
+      {/* Path from Interested to Inducted */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Simple Onboarding</div>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Path from Interested to Inducted</h2>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 6 }}>Simple Onboarding</div>
+            <h2 style={{ fontSize: "1.95rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.5px" }}>Path from Interested to Inducted</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
             {steps.map((s, i) => (
               <motion.div
                 key={i}
                 variants={cardHoverVariants}
                 whileHover="hover"
-                style={{ background: "#fff", padding: "38px 32px", borderRadius: 28, border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
+                style={{ background: "#fff", padding: "26px 22px", borderRadius: 20, border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 6px 20px rgba(0,0,0,0.02)" }}
               >
-                <div style={{ width: 52, height: 52, borderRadius: 16, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1.15rem", marginBottom: 20, boxShadow: "0 4px 14px rgba(229,92,20,0.3)" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: "1rem", marginBottom: 14, boxShadow: "0 4px 12px rgba(229,92,20,0.3)" }}>
                   {s.num}
                 </div>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 10 }}>{s.title}</h3>
-                <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>{s.desc}</p>
+                <h3 style={{ fontSize: "1.08rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{s.title}</h3>
+                <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.65 }}>{s.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
 
-      {/* Volunteer Image & Community Gallery Section (Min Height 850px) */}
+      {/* Volunteer Image & Community Gallery Section */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Volunteer Action</div>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Our Volunteers in Every Community</h2>
-            <p style={{ color: C.mid, fontSize: "0.96rem", maxWidth: 660, margin: "12px auto 0", fontWeight: 300 }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 6 }}>Volunteer Action</div>
+            <h2 style={{ fontSize: "1.95rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.5px" }}>Our Volunteers in Every Community</h2>
+            <p style={{ color: C.mid, fontSize: "0.9rem", maxWidth: 620, margin: "8px auto 0", fontWeight: 300 }}>
               Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 32 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
             {volunteerGalleries.map((v, i) => (
               <motion.div
                 key={i}
                 variants={cardHoverVariants}
                 whileHover="hover"
-                style={{ background: C.bg, borderRadius: 28, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 12px 32px rgba(0,0,0,0.04)" }}
+                style={{ background: C.bg, borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.03)" }}
               >
-                <img src={v.img} alt={v.title} style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }} />
-                <div style={{ padding: "30px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                    <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.72rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100 }}>
+                <img src={v.img} alt={v.title} style={{ width: "100%", height: 230, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "22px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.68rem", fontWeight: 600, padding: "4px 10px", borderRadius: 100 }}>
                       📍 {v.location}
                     </span>
-                    <span style={{ background: C.dark, color: C.ye, fontSize: "0.72rem", fontWeight: 600, padding: "5px 14px", borderRadius: 100 }}>
+                    <span style={{ background: C.dark, color: C.ye, fontSize: "0.68rem", fontWeight: 600, padding: "4px 10px", borderRadius: 100 }}>
                       {v.tag}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: C.dark, marginBottom: 10 }}>{v.title}</h3>
-                  <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>{v.desc}</p>
+                  <h3 style={{ fontSize: "1.12rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{v.title}</h3>
+                  <p style={{ fontSize: "0.84rem", color: C.mid, lineHeight: 1.65 }}>{v.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -1042,39 +1042,39 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
         </div>
       </motion.section>
 
-      {/* Why Volunteer With Us Pillars (Min Height 850px) */}
+      {/* Why Volunteer With Us Pillars */}
       <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Why Volunteer</div>
-            <h2 style={{ fontSize: "2.3rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>What You Gain as a Síkat Volunteer</h2>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 6 }}>Why Volunteer</div>
+            <h2 style={{ fontSize: "1.95rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.5px" }}>What You Gain as a Síkat Volunteer</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 }}>
             {pillars.map((p, i) => (
               <motion.div
                 key={i}
                 variants={cardHoverVariants}
                 whileHover="hover"
-                style={{ background: "#fff", borderRadius: 24, padding: "34px 24px", border: "1px solid rgba(0,0,0,0.05)", textAlign: "center" }}
+                style={{ background: "#fff", borderRadius: 18, padding: "24px 18px", border: "1px solid rgba(0,0,0,0.05)", textAlign: "center" }}
               >
-                <div style={{ fontSize: "2.2rem", marginBottom: 14 }}>{p.icon}</div>
-                <h3 style={{ fontSize: "1.15rem", fontWeight: 600, color: C.dark, marginBottom: 8 }}>{p.title}</h3>
-                <p style={{ fontSize: "0.86rem", color: C.mid, lineHeight: 1.65 }}>{p.desc}</p>
+                <div style={{ fontSize: "1.8rem", marginBottom: 10 }}>{p.icon}</div>
+                <h3 style={{ fontSize: "1.02rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>{p.title}</h3>
+                <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.55 }}>{p.desc}</p>
               </motion.div>
             ))}
           </div>
 
           {/* Bottom Callout */}
-          <div style={{ textAlign: "center", marginTop: 60 }}>
+          <div style={{ textAlign: "center", marginTop: 44 }}>
             <button onClick={onOpenModal}
-              style={{ background: C.or, color: "#fff", border: "none", padding: "16px 40px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)" }}>
+              style={{ background: C.or, color: "#fff", border: "none", padding: "13px 30px", borderRadius: 100, fontWeight: 600, fontSize: "0.85rem", cursor: "pointer", boxShadow: "0 6px 20px rgba(229,92,20,0.35)" }}>
               Open Volunteer Application Form (Modal)
             </button>
           </div>
@@ -1084,7 +1084,7 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
   );
 }
 
-// ================= PAGE 9: DONATE (Min Height 850px) =================
+// ================= PAGE 9: DONATE =================
 function DonatePage({ onNavigate }) {
   const [amt, setAmt] = useState(0);
   const [done, setDone] = useState(false);
@@ -1108,57 +1108,57 @@ function DonatePage({ onNavigate }) {
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
-        style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
+        style={{ padding: "64px 36px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}
       >
         <div style={{ maxWidth: 1280, margin: "0 auto", width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 70, alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 52, alignItems: "start" }}>
             <div>
-              <h2 style={{ fontSize: "2rem", fontWeight: 600, color: C.dark, marginBottom: 24 }}>Sponsorship Equivalents</h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 36 }}>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 600, color: C.dark, marginBottom: 18 }}>Sponsorship Equivalents</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
                 {tiers.map((t, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ scale: 1.015 }}
+                    whileHover={{ scale: 1.012 }}
                     onClick={() => setAmt(i)}
-                    style={{ display: "flex", alignItems: "center", gap: 20, padding: "22px 28px", background: amt === i ? "#FEF3EC" : "#fff", borderRadius: 20, border: `2px solid ${amt === i ? C.or : "rgba(0,0,0,0.06)"}`, cursor: "pointer", transition: "all .2s" }}
+                    style={{ display: "flex", alignItems: "center", gap: 16, padding: "16px 20px", background: amt === i ? "#FEF3EC" : "#fff", borderRadius: 16, border: `2px solid ${amt === i ? C.or : "rgba(0,0,0,0.06)"}`, cursor: "pointer", transition: "all .2s" }}
                   >
-                    <div style={{ fontSize: "1.25rem", fontWeight: 800, color: C.or, width: 95, flexShrink: 0 }}>{t.amount}</div>
-                    <div style={{ fontSize: "0.9rem", color: C.dark, fontWeight: 500 }}>{t.equiv}</div>
+                    <div style={{ fontSize: "1.15rem", fontWeight: 800, color: C.or, width: 78, flexShrink: 0 }}>{t.amount}</div>
+                    <div style={{ fontSize: "0.85rem", color: C.dark, fontWeight: 500 }}>{t.equiv}</div>
                   </motion.div>
                 ))}
               </div>
 
-              <div style={{ background: C.dark, color: "#fff", borderRadius: 24, padding: "28px 32px" }}>
-                <div style={{ fontSize: "0.8rem", fontWeight: 600, color: C.ye, marginBottom: 8 }}>Transparency Line</div>
-                <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.65, marginBottom: 16 }}>
+              <div style={{ background: C.dark, color: "#fff", borderRadius: 20, padding: "22px 24px" }}>
+                <div style={{ fontSize: "0.75rem", fontWeight: 600, color: C.ye, marginBottom: 4 }}>Transparency Line</div>
+                <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.6, marginBottom: 12 }}>
                   We publish where every peso goes. Read the full report at <strong>bit.ly/sikatfinance</strong>.
                 </p>
-                <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, fontSize: "0.86rem", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
                   View Financial Report ↗
                 </a>
               </div>
             </div>
 
-            <div style={{ background: "#fff", borderRadius: 28, padding: 40, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 12px 36px rgba(0,0,0,0.05)" }}>
-              <h3 style={{ fontSize: "1.3rem", fontWeight: 600, color: C.dark, marginBottom: 24 }}>Donate / Sponsor Now</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 12, marginBottom: 24 }}>
-                <button style={{ padding: "14px", border: `2px solid ${C.or}`, borderRadius: 14, background: "#FEF3EC", fontWeight: 600, color: C.or, cursor: "pointer" }}>GCash / Maya</button>
-                <button style={{ padding: "14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 14, background: C.bg, fontWeight: 600, color: C.dark, cursor: "pointer" }}>Bank Transfer</button>
+            <div style={{ background: "#fff", borderRadius: 20, padding: 32, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 10px 28px rgba(0,0,0,0.03)" }}>
+              <h3 style={{ fontSize: "1.18rem", fontWeight: 600, color: C.dark, marginBottom: 18 }}>Donate / Sponsor Now</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 10, marginBottom: 18 }}>
+                <button style={{ padding: "11px", border: `2px solid ${C.or}`, borderRadius: 10, background: "#FEF3EC", fontWeight: 600, color: C.or, cursor: "pointer", fontSize: "0.82rem" }}>GCash / Maya</button>
+                <button style={{ padding: "11px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, background: C.bg, fontWeight: 600, color: C.dark, cursor: "pointer", fontSize: "0.82rem" }}>Bank Transfer</button>
+              </div>
+
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ display: "block", fontSize: "0.74rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Full Name</label>
+                <input placeholder="Juan Dela Cruz" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.84rem", background: C.bg, outline: "none" }} />
               </div>
 
               <div style={{ marginBottom: 18 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Full Name</label>
-                <input placeholder="Juan Dela Cruz" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
-              </div>
-
-              <div style={{ marginBottom: 24 }}>
-                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Email Address (for receipt)</label>
-                <input placeholder="juan@gmail.com" style={{ width: "100%", padding: "12px 16px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, fontFamily: "inherit", fontSize: "0.88rem", background: C.bg, outline: "none" }} />
+                <label style={{ display: "block", fontSize: "0.74rem", fontWeight: 600, color: C.dark, marginBottom: 4 }}>Email Address (for receipt)</label>
+                <input placeholder="juan@gmail.com" style={{ width: "100%", padding: "10px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.84rem", background: C.bg, outline: "none" }} />
               </div>
 
               <button onClick={() => { setDone(true); setTimeout(() => setDone(false), 3500); }}
-                style={{ width: "100%", background: done ? C.gr : C.dark, color: "#fff", border: "none", padding: 15, borderRadius: 14, fontFamily: "inherit", fontWeight: 600, fontSize: "0.92rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 6px 20px rgba(0,0,0,0.2)" }}>
-                {done ? <><Check size={16} /> Receipt Sent!</> : <><Lock size={14} /> Proceed to Secure Donation</>}
+                style={{ width: "100%", background: done ? C.gr : C.dark, color: "#fff", border: "none", padding: 13, borderRadius: 10, fontFamily: "inherit", fontWeight: 600, fontSize: "0.88rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s", boxShadow: "0 4px 16px rgba(0,0,0,0.18)" }}>
+                {done ? <><Check size={15} /> Receipt Sent!</> : <><Lock size={13} /> Proceed to Secure Donation</>}
               </button>
             </div>
           </div>
@@ -1168,7 +1168,7 @@ function DonatePage({ onNavigate }) {
   );
 }
 
-// Final CTA Band (Min Height 850px)
+// Final CTA Band
 function FinalCTA({ onNavigate, onOpenModal }) {
   return (
     <motion.div
@@ -1176,22 +1176,22 @@ function FinalCTA({ onNavigate, onOpenModal }) {
       whileInView="visible"
       viewport={{ once: true }}
       variants={sectionVariants}
-      style={{ minHeight: "850px", display: "flex", flexDirection: "column", justifyContent: "center", background: C.dark, color: "#fff", padding: "100px 40px", textAlign: "center", fontFamily: "'Poppins', sans-serif" }}
+      style={{ background: C.dark, color: "#fff", padding: "64px 36px", textAlign: "center", fontFamily: "'Poppins', sans-serif" }}
     >
-      <div style={{ maxWidth: 880, margin: "0 auto", width: "100%" }}>
-        <h2 style={{ fontSize: "3rem", fontWeight: 600, letterSpacing: "-1px", marginBottom: 24 }}>
+      <div style={{ maxWidth: 800, margin: "0 auto", width: "100%" }}>
+        <h2 style={{ fontSize: "2.3rem", fontWeight: 600, letterSpacing: "-0.6px", marginBottom: 14 }}>
           Handa ka na bang sumíkat kasama namin?
         </h2>
-        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1.05rem", lineHeight: 1.85, marginBottom: 40 }}>
+        <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.94rem", lineHeight: 1.7, marginBottom: 28 }}>
           Join over 400 youth volunteers across Baler and Aurora Province in building a brighter future.
         </p>
-        <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
           <button onClick={onOpenModal}
-            style={{ background: C.or, color: "#fff", border: "none", padding: "16px 36px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer", boxShadow: "0 8px 24px rgba(229,92,20,0.4)" }}>
+            style={{ background: C.or, color: "#fff", border: "none", padding: "12px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.86rem", cursor: "pointer", boxShadow: "0 6px 20px rgba(229,92,20,0.35)" }}>
             Become a Volunteer
           </button>
           <button onClick={() => onNavigate("donate")}
-            style={{ background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", padding: "16px 36px", borderRadius: 100, fontWeight: 600, fontSize: "0.95rem", cursor: "pointer" }}>
+            style={{ background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", padding: "12px 28px", borderRadius: 100, fontWeight: 600, fontSize: "0.86rem", cursor: "pointer" }}>
             Donate / Be a Sponsor
           </button>
         </div>
@@ -1203,26 +1203,26 @@ function FinalCTA({ onNavigate, onOpenModal }) {
 // Footer
 function Footer({ onNavigate }) {
   return (
-    <footer style={{ background: "#04090F", color: "rgba(255,255,255,0.5)", padding: "90px 40px 36px", fontFamily: "'Poppins', sans-serif", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+    <footer style={{ background: "#04090F", color: "rgba(255,255,255,0.5)", padding: "64px 36px 28px", fontFamily: "'Poppins', sans-serif", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.2fr", gap: 52, marginBottom: 70 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.2fr", gap: 40, marginBottom: 48 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
-              <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 42, height: 42, objectFit: "contain" }} />
-              <span style={{ color: "#fff", fontWeight: 600, fontSize: "1.15rem" }}>Síkat-Aurora Inc.</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+              <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 36, height: 36, objectFit: "contain" }} />
+              <span style={{ color: "#fff", fontWeight: 600, fontSize: "1.05rem" }}>Síkat-Aurora Inc.</span>
             </div>
-            <p style={{ fontSize: "0.88rem", lineHeight: 1.8, maxWidth: 320, fontWeight: 300, color: "rgba(255,255,255,0.55)", marginBottom: 20 }}>
+            <p style={{ fontSize: "0.82rem", lineHeight: 1.7, maxWidth: 300, fontWeight: 300, color: "rgba(255,255,255,0.55)", marginBottom: 16 }}>
               Ang pagsíkat ay nagsisimula sa pagkilos. A youth-led nonprofit in Baler, Aurora — where the sun rises.
             </p>
-            <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.65 }}>
+            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.55 }}>
               Company Reg. No. 2025030194739-03<br />
               Unique Registration Number (URN) YO-2807-021323
             </div>
           </div>
 
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.88rem", fontWeight: 600, marginBottom: 20 }}>Explore Pages</h4>
-            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12, fontSize: "0.84rem" }}>
+            <h4 style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600, marginBottom: 14 }}>Explore Pages</h4>
+            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: "0.8rem" }}>
               <li><button onClick={() => onNavigate("about")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>About Us</button></li>
               <li><button onClick={() => onNavigate("programs")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Core Programs</button></li>
               <li><button onClick={() => onNavigate("impact")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Impact & Awards</button></li>
@@ -1233,8 +1233,8 @@ function Footer({ onNavigate }) {
           </div>
 
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.88rem", fontWeight: 600, marginBottom: 20 }}>Get Involved</h4>
-            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12, fontSize: "0.84rem" }}>
+            <h4 style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600, marginBottom: 14 }}>Get Involved</h4>
+            <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: "0.8rem" }}>
               <li><button onClick={() => onNavigate("volunteer")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Become a Volunteer</button></li>
               <li><button onClick={() => onNavigate("donate")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Donate</button></li>
               <li><a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, textDecoration: "none" }}>Transparency Report ↗</a></li>
@@ -1242,23 +1242,23 @@ function Footer({ onNavigate }) {
           </div>
 
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.88rem", fontWeight: 600, marginBottom: 20 }}>Contact & Social</h4>
-            <p style={{ fontSize: "0.84rem", lineHeight: 1.7, marginBottom: 16 }}>
+            <h4 style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600, marginBottom: 14 }}>Contact & Social</h4>
+            <p style={{ fontSize: "0.8rem", lineHeight: 1.6, marginBottom: 12 }}>
               📍 Baler, Aurora, Philippines<br />
               📧 contact@sikataurora.org
             </p>
-            <div style={{ display: "flex", gap: 10 }}>
-              <a href="https://www.facebook.com/sikataurora" target="_blank" rel="noreferrer" style={{ background: "rgba(255,255,255,0.06)", color: "#fff", padding: "8px 16px", borderRadius: 10, fontSize: "0.78rem", fontWeight: 600, textDecoration: "none" }}>
+            <div style={{ display: "flex", gap: 8 }}>
+              <a href="https://www.facebook.com/sikataurora" target="_blank" rel="noreferrer" style={{ background: "rgba(255,255,255,0.06)", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: "0.74rem", fontWeight: 600, textDecoration: "none" }}>
                 Facebook
               </a>
-              <a href="https://www.instagram.com/sikataurora" target="_blank" rel="noreferrer" style={{ background: "rgba(255,255,255,0.06)", color: "#fff", padding: "8px 16px", borderRadius: 10, fontSize: "0.78rem", fontWeight: 600, textDecoration: "none" }}>
+              <a href="https://www.instagram.com/sikataurora" target="_blank" rel="noreferrer" style={{ background: "rgba(255,255,255,0.06)", color: "#fff", padding: "6px 12px", borderRadius: 8, fontSize: "0.74rem", fontWeight: 600, textDecoration: "none" }}>
                 Instagram
               </a>
             </div>
           </div>
         </div>
 
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 32, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.78rem" }}>
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 24, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.74rem" }}>
           <div>© 2026 Síkat-Aurora Inc. All rights reserved.</div>
           <div>Established August 12, 2021 — International Youth Day</div>
         </div>
@@ -1305,10 +1305,10 @@ export default function App() {
       <AnimatePresence mode="wait">
         <motion.main
           key={activePage}
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -15 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {activePage === "home" && <HomePage onNavigate={navigate} onOpenModal={openModal} />}
           {activePage === "about" && <AboutPage onNavigate={navigate} />}
@@ -1316,8 +1316,8 @@ export default function App() {
           {activePage === "impact" && <ImpactPage onNavigate={navigate} />}
           {activePage === "leadership" && <LeadershipPage onNavigate={navigate} />}
           {activePage === "blog" && <BlogPage onNavigate={navigate} />}
-          {activePage === "faq" && <FAQPage onNavigate={navigate} onOpenModal={openModal} />}
-          {activePage === "volunteer" && <VolunteerPage onNavigate={navigate} onOpenModal={openModal} />}
+          {activePage === "faq" && <FAQPage onNavigate={navigate} onOpenModal={onOpenModal} />}
+          {activePage === "volunteer" && <VolunteerPage onNavigate={navigate} onOpenModal={onOpenModal} />}
           {activePage === "donate" && <DonatePage onNavigate={navigate} />}
         </motion.main>
       </AnimatePresence>
