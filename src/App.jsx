@@ -700,6 +700,33 @@ function HomePage({ onNavigate, onOpenModal }) {
 /* ============================= Page 2: About ============================= */
 
 // Mandates come from the organization's own committee descriptions.
+// Decorative sun in the brand's style — the ring of triangular rays from the
+// logo, drawn as SVG so it can sit behind content at any size. aria-hidden;
+// purely ornamental.
+function SunRays({ className, rays = 12 }) {
+  const paths = Array.from({ length: rays }, (_, i) => {
+    const angle = (i * 360) / rays;
+    const rad = (deg) => (deg * Math.PI) / 180;
+    const inner = 40;
+    const outer = 60;
+    const half = 7; // half-width of each ray base, in degrees
+    const x1 = 100 + inner * Math.cos(rad(angle - half));
+    const y1 = 100 + inner * Math.sin(rad(angle - half));
+    const x2 = 100 + inner * Math.cos(rad(angle + half));
+    const y2 = 100 + inner * Math.sin(rad(angle + half));
+    const tx = 100 + outer * Math.cos(rad(angle));
+    const ty = 100 + outer * Math.sin(rad(angle));
+    return `M ${x1} ${y1} L ${tx} ${ty} L ${x2} ${y2} Z`;
+  });
+  return (
+    <svg viewBox="0 0 200 200" aria-hidden="true" className={className} fill="currentColor">
+      {paths.map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </svg>
+  );
+}
+
 // Flanking the About statement — one from each program, plus the assembly
 const ABOUT_HERO_PHOTOS = [
   PROGRAM_PHOTOS.abkl[0],
@@ -787,9 +814,12 @@ function AboutPage({ onNavigate, onOpenModal }) {
         </div>
       </section>
 
-      {/* 2 — Vision and mission, stacked and centered */}
-      <Reveal className="bg-cream py-16 lg:py-24">
-        <Container className="max-w-4xl space-y-12 text-center">
+      {/* 2 — Vision and mission, stacked and centered, with the brand's sun
+          rays rising from the corners */}
+      <Reveal className="relative overflow-hidden bg-cream py-16 lg:py-24">
+        <SunRays className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 text-gold/25 sm:h-80 sm:w-80" />
+        <SunRays className="pointer-events-none absolute -bottom-24 -right-24 h-64 w-64 text-gold/25 sm:h-80 sm:w-80" />
+        <Container className="relative max-w-4xl space-y-12 text-center">
           <div>
             <Eyebrow align="center">Vision</Eyebrow>
             <p className="mx-auto max-w-[52ch] text-[1.25rem] font-medium leading-[1.6] text-navy sm:text-[1.5rem]">
@@ -1340,11 +1370,11 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
       />
       <Reveal className="bg-white py-16 lg:py-20">
         <Container>
-          <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
             {LEADERS.map((l) => (
               <article key={l.name} className="group border-t border-navy/15 py-7">
                 {/* Portrait slot — falls back to initials until a photo is added */}
-                <div className="mb-5 aspect-[4/5] w-full overflow-hidden rounded-2xl bg-primary-soft">
+                <div className="mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-primary-soft">
                   {l.photo ? (
                     <img
                       src={l.photo}
