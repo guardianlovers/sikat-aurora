@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
@@ -19,32 +19,7 @@ const C = {
   bg: "#F7F4F0",
 };
 
-function NavLink({ href, children }) {
-  return (
-    <a
-      href={href}
-      onClick={(e) => {
-        e.preventDefault();
-        document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-      }}
-      style={{
-        textDecoration: "none",
-        color: C.mid,
-        fontWeight: 500,
-        fontSize: "0.82rem",
-        padding: "7px 14px",
-        borderRadius: 8,
-        transition: "all .2s",
-        fontFamily: "inherit",
-      }}
-      onMouseEnter={(e) => (e.target.style.background = "#EEF2F7")}
-      onMouseLeave={(e) => (e.target.style.background = "transparent")}
-    >
-      {children}
-    </a>
-  );
-}
-
+// Helper SVG Icons
 function ArrowRight({ size = 14, color = "currentColor" }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -103,47 +78,66 @@ function AwardIcon({ size = 20, color = "currentColor" }) {
   );
 }
 
-function Navbar() {
+// Navigation Bar
+function Navbar({ activePage, onNavigate }) {
   const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Impact", href: "#impact" },
-    { label: "Programs", href: "#programs" },
-    { label: "Leadership", href: "#leadership" },
-    { label: "Blog", href: "#blog" },
-    { label: "FAQ", href: "#faq" },
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "programs", label: "Programs" },
+    { id: "impact", label: "Impact" },
+    { id: "leadership", label: "Leadership" },
+    { id: "blog", label: "Blog" },
+    { id: "faq", label: "FAQ" },
   ];
 
   return (
     <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, fontFamily: "'Poppins', sans-serif" }}>
-      <nav style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
+      <nav style={{ background: "rgba(255,255,255,0.94)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 40px" }}>
           {/* Logo Branding */}
-          <a href="#home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
+          <a href="#home" onClick={(e) => { e.preventDefault(); onNavigate("home"); }} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
             <img src={logoImg} alt="Síkat-Aurora Logo" style={{ width: 40, height: 40, objectFit: "contain" }} />
             <span style={{ fontSize: "1.1rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.4px" }}>
               Síkat<span style={{ color: C.or }}>-Aurora Inc.</span>
             </span>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-            {navItems.map((item, i) => (
-              <NavLink key={i} href={item.href}>{item.label}</NavLink>
-            ))}
+          {/* Nav Items as Separate Pages (Pill Active Highlights) */}
+          <div style={{ display: "flex", gap: 6, alignItems: "center", background: "#EEF2F7", padding: "4px 6px", borderRadius: 100 }}>
+            {navItems.map((item) => {
+              const isActive = activePage === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  style={{
+                    border: "none",
+                    background: isActive ? C.or : "transparent",
+                    color: isActive ? "#fff" : C.dark,
+                    fontWeight: isActive ? 600 : 500,
+                    fontSize: "0.82rem",
+                    padding: "7px 16px",
+                    borderRadius: 100,
+                    cursor: "pointer",
+                    transition: "all 0.25s ease",
+                    boxShadow: isActive ? "0 2px 10px rgba(229,92,20,0.3)" : "none",
+                    fontFamily: "inherit",
+                  }}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Action Buttons */}
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <button onClick={() => document.querySelector("#onboarding")?.scrollIntoView({ behavior: "smooth" })}
-              style={{ background: "transparent", border: "1px solid rgba(0,0,0,0.15)", color: C.dark, padding: "8px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", transition: "all .2s" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#F3F4F6"; e.currentTarget.style.borderColor = C.dark; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(0,0,0,0.15)"; }}>
+            <button onClick={() => onNavigate("volunteer")}
+              style={{ background: activePage === "volunteer" ? C.dark : "transparent", border: "1px solid rgba(0,0,0,0.15)", color: activePage === "volunteer" ? "#fff" : C.dark, padding: "8px 20px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", transition: "all .2s" }}>
               Volunteer
             </button>
-            <button onClick={() => document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" })}
-              style={{ background: C.or, border: "none", color: "#fff", padding: "9px 22px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", boxShadow: "0 4px 14px rgba(229,92,20,0.3)", transition: "all .2s" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#D4500F"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = C.or; e.currentTarget.style.transform = "none"; }}>
+            <button onClick={() => onNavigate("donate")}
+              style={{ background: C.or, border: "none", color: "#fff", padding: "9px 22px", borderRadius: 100, fontFamily: "inherit", fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", boxShadow: "0 4px 14px rgba(229,92,20,0.3)", transition: "all .2s" }}>
               Donate
             </button>
           </div>
@@ -153,180 +147,227 @@ function Navbar() {
   );
 }
 
-function Hero() {
+// Page Header Banner for subpages
+function PageHeader({ eyebrow, title, subtitle }) {
   return (
-    <section id="home">
-      <AnimatedHero
-        backgroundImageUrl={heroBanner}
-        badge="Ang pagsíkat ay nagsisimula sa pagkilos."
-        title={<>Where the sun rises, <span style={{ color: "#F5C200" }}>the youth rise with it.</span></>}
-        description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
-        ctaButton={{
-          text: "Become a Volunteer",
-          onClick: () => document.querySelector("#onboarding")?.scrollIntoView({ behavior: "smooth" }),
-        }}
-        secondaryCta={{
-          text: "Donate / Be a Sponsor",
-          onClick: () => document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" }),
-        }}
-        stats={[
-          ["400+", "Youth Volunteers"],
-          ["1,100+", "Learners Reached"],
-          ["18", "Partner Communities"],
-          ["₱1.5M+", "Donations & Grants Raised"],
-        ]}
-      />
-    </section>
-  );
-}
-
-function Ticker() {
-  return (
-    <div style={{ background: C.or, padding: "14px 40px", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", gap: 16 }}>
-        <span style={{ background: "rgba(0,0,0,0.2)", color: "#fff", padding: "4px 12px", borderRadius: 100, fontSize: "0.7rem", fontWeight: 700, letterSpacing: ".5px", flexShrink: 0 }}>Announcement</span>
-        <span style={{ color: "rgba(255,255,255,0.95)", fontSize: "0.88rem" }}>"Síkat-Aurora Inc. formally established on August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03"</span>
-        <a href="#about" onClick={e=>{e.preventDefault();document.querySelector("#about")?.scrollIntoView({behavior:"smooth"})}}
-          style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", textDecoration: "none", marginLeft: "auto", display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
-          About Us <ArrowRight size={13} color="#fff" />
-        </a>
+    <div style={{ background: C.dark, color: "#fff", paddingTop: 130, paddingBottom: 60, paddingLeft: 40, paddingRight: 40, fontFamily: "'Poppins', sans-serif" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 10 }}>{eyebrow}</div>
+        <h1 style={{ fontSize: "2.8rem", fontWeight: 700, letterSpacing: "-1px", marginBottom: 14 }}>{title}</h1>
+        {subtitle && <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem", lineHeight: 1.7, maxWidth: 640, fontWeight: 300 }}>{subtitle}</p>}
       </div>
     </div>
   );
 }
 
-function About() {
+// ================= PAGE 1: HOME =================
+function HomePage({ onNavigate }) {
+  return (
+    <>
+      <section id="home">
+        <AnimatedHero
+          backgroundImageUrl={heroBanner}
+          badge="Ang pagsíkat ay nagsisimula sa pagkilos."
+          title={<>Where the sun rises, <span style={{ color: "#F5C200" }}>the youth rise with it.</span></>}
+          description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
+          ctaButton={{
+            text: "Become a Volunteer",
+            onClick: () => onNavigate("volunteer"),
+          }}
+          secondaryCta={{
+            text: "Donate / Be a Sponsor",
+            onClick: () => onNavigate("donate"),
+          }}
+          stats={[
+            ["400+", "Youth Volunteers"],
+            ["1,100+", "Learners Reached"],
+            ["18", "Partner Communities"],
+            ["₱1.5M+", "Donations & Grants Raised"],
+          ]}
+        />
+      </section>
+
+      {/* Ticker */}
+      <div style={{ background: C.or, padding: "14px 40px", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ background: "rgba(0,0,0,0.2)", color: "#fff", padding: "4px 12px", borderRadius: 100, fontSize: "0.7rem", fontWeight: 700, letterSpacing: ".5px", flexShrink: 0 }}>Formally Established</span>
+          <span style={{ color: "rgba(255,255,255,0.95)", fontSize: "0.88rem" }}>"Established August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03"</span>
+          <button onClick={() => onNavigate("about")}
+            style={{ background: "transparent", border: "none", color: "#fff", fontWeight: 600, fontSize: "0.85rem", cursor: "pointer", marginLeft: "auto", display: "flex", alignItems: "center", gap: 4, flexShrink: 0, fontFamily: "inherit" }}>
+            Read Our History <ArrowRight size={13} color="#fff" />
+          </button>
+        </div>
+      </div>
+
+      {/* About Teaser */}
+      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "center" }}>
+          <div>
+            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Who We Are</div>
+            <h2 style={{ fontSize: "2.2rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.25, marginBottom: 16 }}>
+              A new face of youth volunteerism in Baler, Aurora
+            </h2>
+            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.8, fontWeight: 300, marginBottom: 24 }}>
+              <strong>Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning <strong>"rise,"</strong> pays tribute to a new generation of volunteers where the Philippine sun rises first.
+            </p>
+            <div style={{ display: "flex", gap: 12 }}>
+              <button onClick={() => onNavigate("about")}
+                style={{ background: C.dark, color: "#fff", border: "none", padding: "12px 24px", borderRadius: 100, fontWeight: 600, fontSize: "0.85rem", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+                Learn More About Us <ArrowRight size={14} color="#fff" />
+              </button>
+            </div>
+          </div>
+          <div>
+            <img src={hirayaImg} alt="Volunteers" style={{ width: "100%", height: 320, objectFit: "cover", borderRadius: 24, boxShadow: "0 12px 36px rgba(0,0,0,0.08)" }} />
+          </div>
+        </div>
+      </section>
+
+      {/* Impact Stats Teaser */}
+      <section style={{ padding: "80px 40px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40 }}>
+            <div>
+              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 8 }}>Impact in Numbers</div>
+              <h2 style={{ fontSize: "2rem", fontWeight: 600, letterSpacing: "-0.6px" }}>The premier platform for youth volunteerism</h2>
+            </div>
+            <button onClick={() => onNavigate("impact")}
+              style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.2)", color: "#fff", padding: "10px 22px", borderRadius: 100, fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", fontFamily: "inherit" }}>
+              See Full Impact & Awards →
+            </button>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+            {[["400+", "Youth Volunteers"], ["1,100+", "Learners Reached"], ["18", "Partner Communities"], ["₱1.5M+", "Donations Raised"]].map(([n, l], i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "24px", textAlign: "center" }}>
+                <div style={{ fontSize: "2.2rem", fontWeight: 700, color: C.ye, marginBottom: 4 }}>{n}</div>
+                <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.6)" }}>{l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Programs Teaser */}
+      <section style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 44 }}>
+            <div>
+              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Core Programs</div>
+              <h2 style={{ fontSize: "2.2rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Three programs, one rising community</h2>
+            </div>
+            <button onClick={() => onNavigate("programs")}
+              style={{ background: C.or, color: "#fff", border: "none", padding: "10px 22px", borderRadius: 100, fontWeight: 600, fontSize: "0.83rem", cursor: "pointer", fontFamily: "inherit" }}>
+              Explore All Programs →
+            </button>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            {[
+              { name: "Abot Ko Ang Libro", center: "Education", img: abotKoAngLibroImg, desc: "Mobile library cart bringing books & storytelling to kids ages 2–14." },
+              { name: "Ang Batang Kali", center: "Environment", img: batangKaliImg, desc: "Environmental life skills for youth ages 8–15 protecting nature." },
+              { name: "Hiraya", center: "Active Citizenship", img: hirayaImg, desc: "Leadership training & seed funding across 30 DepEd schools." },
+            ].map((p, i) => (
+              <div key={i} onClick={() => onNavigate("programs")} style={{ background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", cursor: "pointer", transition: "all .3s" }}
+                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+                <img src={p.img} alt={p.name} style={{ width: "100%", height: 200, objectFit: "cover" }} />
+                <div style={{ padding: "20px" }}>
+                  <span style={{ fontSize: "0.68rem", fontWeight: 700, color: C.or, background: "#FEF3EC", padding: "4px 10px", borderRadius: 100, display: "inline-block", marginBottom: 8 }}>{p.center}</span>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: C.dark, marginBottom: 6 }}>{p.name}</h3>
+                  <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.6 }}>{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Band */}
+      <FinalCTA onNavigate={onNavigate} />
+    </>
+  );
+}
+
+// ================= PAGE 2: ABOUT =================
+function AboutPage({ onNavigate }) {
   const values = [
     { title: "Pagmamalasakit", desc: "Kumikilos nang may malasakit sa kapwa.", color: C.or, bg: "#FEF3EC" },
     { title: "Paggalang", desc: "Kumikilos nang may paggalang sa paniniwala, kultura, at saloobin ng mga kasapi at komunidad.", color: C.bl, bg: "#EEF4FA" },
     { title: "Pagtugon", desc: "Kumikilos upang tumugon sa tunay na mga pangangailangan ng mga tao sa komunidad.", color: "#0E6B8C", bg: "#E8F4F8" },
   ];
 
-  const keywords = ["Passionate", "Community-driven", "Youth-led", "Impact-focused"];
-
   return (
-    <section id="about" style={{ padding: "100px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "center" }}>
-          <div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Who We Are</div>
-            <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 16 }}>
-              A new face of youth volunteerism in Baler, Aurora
-            </h2>
-            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.8, fontWeight: 300, marginBottom: 20 }}>
-              <strong>Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was formally established as a nonprofit, youth-led, and youth-serving organization on <strong>August 12, 2021</strong>, during International Youth Day.
-            </p>
-            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.8, fontWeight: 300, marginBottom: 28 }}>
-              The name <em>Síkat</em>, meaning <strong>"rise,"</strong> is a tribute to the rise of a new generation of volunteers in the community where the Philippine sun rises first.
-            </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>
-              {keywords.map((kw, i) => (
-                <span key={i} style={{ background: C.bg, color: C.dark, padding: "6px 14px", borderRadius: 100, fontSize: "0.78rem", fontWeight: 600, border: "1px solid rgba(0,0,0,0.06)" }}>
-                  {kw}
-                </span>
-              ))}
+    <>
+      <PageHeader
+        eyebrow="Who We Are"
+        title="About Síkat-Aurora Inc."
+        subtitle="Formerly Síkat-Baler — formally established on International Youth Day, August 12, 2021."
+      />
+      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "start", marginBottom: 70 }}>
+            <div>
+              <h2 style={{ fontSize: "2rem", fontWeight: 700, color: C.dark, marginBottom: 18 }}>Our Origins & Name</h2>
+              <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.85, fontWeight: 300, marginBottom: 18 }}>
+                <strong>Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — was formally established as a nonprofit, youth-led, and youth-serving organization on <strong>August 12, 2021</strong>, during International Youth Day.
+              </p>
+              <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.85, fontWeight: 300, marginBottom: 24 }}>
+                The name <em>Síkat</em>, meaning <strong>"rise,"</strong> is a tribute to the rise of a new generation of volunteers in the community where the Philippine sun rises first.
+              </p>
+              <div style={{ background: C.bg, padding: "20px 24px", borderRadius: 16, borderLeft: `4px solid ${C.or}` }}>
+                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: C.dark, marginBottom: 4 }}>Legal Registration Info:</div>
+                <div style={{ fontSize: "0.82rem", color: C.mid }}>
+                  Company Registration No. <strong>2025030194739-03</strong><br />
+                  Unique Registration Number (URN) <strong>YO-2807-021323</strong>
+                </div>
+              </div>
             </div>
-            {/* Vision & Mission Cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              <div style={{ background: C.bg, borderRadius: 16, padding: "20px", border: "1px solid rgba(0,0,0,0.05)" }}>
-                <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.dark, marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
-                  <SproutIcon size={18} color={C.or} /> Vision
-                </h3>
-                <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.6 }}>
-                  A future where accessible and enriching after-school programs empower underserved communities in Aurora.
-                </p>
-              </div>
-              <div style={{ background: C.bg, borderRadius: 16, padding: "20px", border: "1px solid rgba(0,0,0,0.05)" }}>
-                <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.dark, marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
-                  <BookIcon size={18} color={C.bl} /> Mission
-                </h3>
-                <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.6 }}>
-                  To provide inclusive after-school programs in education, environment, and active citizenship — driven by youth volunteers to create lasting community impact.
-                </p>
-              </div>
+            <div>
+              <img src={hirayaImg} alt="Síkat-Aurora Volunteers" style={{ width: "100%", height: 380, objectFit: "cover", borderRadius: 24, boxShadow: "0 12px 36px rgba(0,0,0,0.08)" }} />
             </div>
           </div>
+
+          {/* Vision & Mission */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 30, marginBottom: 80 }}>
+            <div style={{ background: C.bg, borderRadius: 20, padding: 36, border: "1px solid rgba(0,0,0,0.06)" }}>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: C.or, background: "#FEF3EC", padding: "4px 12px", borderRadius: 100, display: "inline-block", marginBottom: 12 }}>VISION</span>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 700, color: C.dark, marginBottom: 12 }}>Our Vision</h3>
+              <p style={{ fontSize: "0.92rem", color: C.mid, lineHeight: 1.75 }}>
+                A future where accessible and enriching after-school programs empower underserved communities in Aurora.
+              </p>
+            </div>
+            <div style={{ background: C.bg, borderRadius: 20, padding: 36, border: "1px solid rgba(0,0,0,0.06)" }}>
+              <span style={{ fontSize: "0.72rem", fontWeight: 700, color: C.bl, background: "#EEF4FA", padding: "4px 12px", borderRadius: 100, display: "inline-block", marginBottom: 12 }}>MISSION</span>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 700, color: C.dark, marginBottom: 12 }}>Our Mission</h3>
+              <p style={{ fontSize: "0.92rem", color: C.mid, lineHeight: 1.75 }}>
+                To provide inclusive after-school programs in education, environment, and active citizenship — driven by youth volunteers to create lasting community impact.
+              </p>
+            </div>
+          </div>
+
+          {/* Core Values */}
           <div>
-            <img src={hirayaImg} alt="Síkat-Aurora Youth Volunteers" style={{ width: "100%", height: 380, objectFit: "cover", borderRadius: 24, boxShadow: "0 12px 36px rgba(0,0,0,0.08)", marginBottom: 24 }} />
-            <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: C.dark, marginBottom: 14 }}>Our Core Values</h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <h2 style={{ fontSize: "2rem", fontWeight: 700, color: C.dark, marginBottom: 24, textAlign: "center" }}>Our Core Values</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
               {values.map((v, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", borderRadius: 14, background: v.bg, border: "1px solid rgba(0,0,0,0.04)" }}>
-                  <div style={{ width: 36, height: 36, borderRadius: 10, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, color: v.color, fontSize: "0.9rem", flexShrink: 0 }}>
-                    0{i+1}
-                  </div>
-                  <div>
-                    <strong style={{ display: "block", fontSize: "0.88rem", fontWeight: 700, color: C.dark }}>{v.title}</strong>
-                    <span style={{ fontSize: "0.78rem", color: C.mid }}>{v.desc}</span>
-                  </div>
+                <div key={i} style={{ background: v.bg, borderRadius: 20, padding: "30px", border: "1px solid rgba(0,0,0,0.04)" }}>
+                  <div style={{ fontSize: "1.8rem", fontWeight: 800, color: v.color, marginBottom: 12 }}>0{i+1}</div>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 700, color: C.dark, marginBottom: 8 }}>{v.title}</h3>
+                  <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7 }}>{v.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function Impact() {
-  const stats = [
-    ["400+", "Youth Volunteers"],
-    ["1,100+", "Learners Reached"],
-    ["18", "Partner Communities"],
-    ["5k+", "Facebook Followers"],
-    ["₱1.5M+", "Donations & Grants Raised"],
-    ["2021", "Formally Established"],
-  ];
-
-  const awards = [
-    { title: "Youth Organization of the Year (Abot Ko Ang Libro)", level: "Municipal / Provincial", grantor: "Municipal Government of Baler & SK Municipal Federation of Baler" },
-    { title: "Grand Winner, Search for Outstanding Youth Organization", level: "Municipal / Provincial", grantor: "Provincial Government of Aurora & SK Provincial Federation of Aurora" },
-    { title: "National Winner, Spark-A-Change Challenge", level: "National", grantor: "J. Amado Araneta Foundation" },
-    { title: "Safe Space Hero 2022 / Outstanding GYS Alumni", level: "National", grantor: "Global Peace Foundation & Consuelo Zobel Alger Foundation" },
-    { title: "International Winner, Mini-Fund for Youth Grant", level: "International", grantor: "ASEAN Youth Forum" },
-  ];
-
-  return (
-    <section id="impact" style={{ padding: "100px 40px", background: C.dark, fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.ye, marginBottom: 10 }}>Impact in Numbers</div>
-        <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: "#fff", letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 10 }}>The premier platform for youth volunteerism in Aurora</h2>
-        <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.85rem", marginBottom: 44 }}>*Official Data as of July 2026</p>
-
-        {/* Stats Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 14, marginBottom: 60 }}>
-          {stats.map(([n, l], i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 16px", textAlign: "center" }}>
-              <div style={{ fontSize: "1.8rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.5px", lineHeight: 1, marginBottom: 6 }}>{n}</div>
-              <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>{l}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Awards Section */}
-        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: "36px" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: "#fff", marginBottom: 20, display: "flex", alignItems: "center", gap: 8 }}>
-            <AwardIcon size={20} color={C.ye} /> Awards & Recognitions
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-            {awards.map((a, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: 16, padding: "20px", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <span style={{ display: "inline-block", background: a.level === "International" ? "rgba(225,92,20,0.2)" : a.level === "National" ? "rgba(245,194,0,0.2)" : "rgba(168,212,240,0.2)", color: a.level === "International" ? C.or : a.level === "National" ? C.ye : C.sky, fontSize: "0.65rem", fontWeight: 700, padding: "3px 10px", borderRadius: 100, marginBottom: 10 }}>
-                  {a.level}
-                </span>
-                <div style={{ color: "#fff", fontSize: "0.88rem", fontWeight: 600, lineHeight: 1.4, marginBottom: 6 }}>{a.title}</div>
-                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.75rem", lineHeight: 1.5 }}>{a.grantor}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Programs() {
+// ================= PAGE 3: PROGRAMS =================
+function ProgramsPage({ onNavigate }) {
   const programs = [
     {
       center: "Education",
@@ -361,31 +402,30 @@ function Programs() {
   ];
 
   return (
-    <section id="programs" style={{ padding: "100px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Core Programs</div>
-        <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>Three programs, one rising community</h2>
-        <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, maxWidth: 600, fontWeight: 300, marginBottom: 52 }}>
-          Every program is volunteer-driven and free for its learners — built around our three centers of participation.
-        </p>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+    <>
+      <PageHeader
+        eyebrow="Core Programs"
+        title="Three Programs, One Rising Community"
+        subtitle="Every program is volunteer-driven and free for its learners — built around our three centers of participation."
+      />
+      <section style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", flexDirection: "column", gap: 48 }}>
           {programs.map((p, i) => (
             <div key={i} style={{ background: "#fff", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 0, boxShadow: "0 10px 30px rgba(0,0,0,0.03)" }}>
-              <img src={p.img} alt={p.name} style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "cover", display: "block" }} />
-              <div style={{ padding: "40px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-                  <span style={{ background: p.lightBg, color: p.color, fontSize: "0.72rem", fontWeight: 700, padding: "4px 12px", borderRadius: 100 }}>
+              <img src={p.img} alt={p.name} style={{ width: "100%", height: "100%", minHeight: 340, objectFit: "cover", display: "block" }} />
+              <div style={{ padding: "44px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+                  <span style={{ background: p.lightBg, color: p.color, fontSize: "0.75rem", fontWeight: 700, padding: "5px 14px", borderRadius: 100 }}>
                     Center of Participation: {p.center}
                   </span>
-                  <span style={{ fontSize: "0.75rem", color: C.mid, fontWeight: 500 }}>⏱️ {p.duration}</span>
+                  <span style={{ fontSize: "0.78rem", color: C.mid, fontWeight: 500 }}>⏱️ {p.duration}</span>
                 </div>
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.4px", marginBottom: 12 }}>{p.name}</h3>
-                <p style={{ fontSize: "0.88rem", color: C.mid, lineHeight: 1.7, marginBottom: 20, fontWeight: 400 }}>{p.desc}</p>
-                <div style={{ fontSize: "0.76rem", fontWeight: 700, color: C.dark, marginBottom: 10 }}>Partner Communities:</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                <h2 style={{ fontSize: "1.7rem", fontWeight: 700, color: C.dark, letterSpacing: "-0.4px", marginBottom: 14 }}>{p.name}</h2>
+                <p style={{ fontSize: "0.9rem", color: C.mid, lineHeight: 1.75, marginBottom: 24, fontWeight: 400 }}>{p.desc}</p>
+                <div style={{ fontSize: "0.8rem", fontWeight: 700, color: C.dark, marginBottom: 12 }}>Partner Communities ({p.communities.length}):</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {p.communities.map((c, ci) => (
-                    <span key={ci} style={{ background: C.bg, color: C.dark, fontSize: "0.72rem", padding: "4px 10px", borderRadius: 8, fontWeight: 500 }}>
+                    <span key={ci} style={{ background: C.bg, color: C.dark, fontSize: "0.75rem", padding: "5px 12px", borderRadius: 8, fontWeight: 500 }}>
                       📍 {c}
                     </span>
                   ))}
@@ -394,167 +434,88 @@ function Programs() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function Onboarding() {
-  const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = () => { setSubmitted(true); setTimeout(() => setSubmitted(false), 3500); };
+// ================= PAGE 4: IMPACT & AWARDS =================
+function ImpactPage({ onNavigate }) {
+  const stats = [
+    ["400+", "Youth Volunteers"],
+    ["1,100+", "Learners Reached"],
+    ["18", "Partner Communities"],
+    ["5k+", "Facebook Followers"],
+    ["₱1.5M+", "Donations & Grants Raised"],
+    ["2021", "Formally Established"],
+  ];
 
-  const steps = [
-    { num: "01", title: "Signify your interest", desc: "Follow the Síkat-Aurora Facebook page and reach out. Engaging with and sharing posts counts as your first show of support." },
-    { num: "02", title: "Attend 3 events", desc: "Join at least three (3) Síkat-Aurora events within three months of signifying interest. Show up, help out, get to know the community." },
-    { num: "03", title: "Commit to principles", desc: "Demonstrate willingness to adhere to principles, rules, and policies — including finding a replacement if unavailable." },
+  const awards = [
+    { title: "Youth Organization of the Year (Abot Ko Ang Libro)", level: "Municipal / Provincial", grantor: "Municipal Government of Baler & SK Municipal Federation of Baler" },
+    { title: "Grand Winner, Search for Outstanding Youth Organization", level: "Municipal / Provincial", grantor: "Provincial Government of Aurora & SK Provincial Federation of Aurora" },
+    { title: "National Winner, Spark-A-Change Challenge", level: "National", grantor: "J. Amado Araneta Foundation" },
+    { title: "Safe Space Hero 2022 / Outstanding GYS Alumni", level: "National", grantor: "Global Peace Foundation & Consuelo Zobel Alger Foundation" },
+    { title: "International Winner, Mini-Fund for Youth Grant", level: "International", grantor: "ASEAN Youth Forum" },
   ];
 
   return (
-    <section id="onboarding" style={{ padding: "100px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "start" }}>
-          <div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Join Us</div>
-            <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>How can I be a member?</h2>
-            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 32 }}>
-              Admission is <strong>free and open to all youth aged 15–30 in Aurora.</strong> Here's the path from interested to inducted:
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 32 }}>
-              {steps.map((s, i) => (
-                <div key={i} style={{ display: "flex", gap: 16, background: C.bg, padding: "20px", borderRadius: 16, border: "1px solid rgba(0,0,0,0.05)" }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.9rem", flexShrink: 0 }}>
-                    {s.num}
-                  </div>
-                  <div>
-                    <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.dark, marginBottom: 4 }}>{s.title}</h4>
-                    <p style={{ fontSize: "0.82rem", color: C.mid, lineHeight: 1.6 }}>{s.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <img src={hirayaImg} alt="Volunteers in action" style={{ width: "100%", height: 200, objectFit: "cover", borderRadius: 20, display: "block" }} />
-          </div>
-
-          {/* Volunteer Form */}
-          <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.3px", marginBottom: 4 }}>Start Volunteering Today</h3>
-            <p style={{ fontSize: "0.82rem", color: C.mid, marginBottom: 24 }}>Open for youth ages 15–30 in Aurora Province.</p>
-            
-            {[["First name", "Last name"], ["Email address", ""], ["Mobile number", ""]].map((row, ri) => (
-              row[1] ? (
-                <div key={ri} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
-                  {row.map((label, li) => (
-                    <div key={li}>
-                      <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
-                      <input style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div key={ri} style={{ marginBottom: 16 }}>
-                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{row[0]}</label>
-                  <input style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
-                </div>
-              )
-            ))}
-
-            {[
-              ["Program of interest", ["Select a program...", "Abot Ko Ang Libro (Education)", "Ang Batang Kali (Environment)", "Hiraya (Active Citizenship)", "Any program"]],
-              ["Age Range", ["15–18 years old", "19–24 years old", "25–30 years old"]],
-            ].map(([label, opts], i) => (
-              <div key={i} style={{ marginBottom: 16 }}>
-                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
-                <select style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }}>
-                  {opts.map((o, oi) => <option key={oi}>{o}</option>)}
-                </select>
+    <>
+      <PageHeader
+        eyebrow="Impact & Awards"
+        title="The Premier Platform for Youth Volunteerism in Aurora"
+        subtitle="Official metrics and recognitions as of July 2026."
+      />
+      <section style={{ padding: "90px 40px", background: C.dark, color: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 14, marginBottom: 70 }}>
+            {stats.map(([n, l], i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "24px 16px", textAlign: "center" }}>
+                <div style={{ fontSize: "2rem", fontWeight: 700, color: C.ye, letterSpacing: "-0.5px", lineHeight: 1, marginBottom: 8 }}>{n}</div>
+                <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", fontWeight: 500 }}>{l}</div>
               </div>
             ))}
-
-            <button onClick={handleSubmit}
-              style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 14, borderRadius: 12, fontFamily: "inherit", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s" }}>
-              {submitted ? <><Check size={16} /> Interest Signified!</> : <>Signify Interest & Apply <ArrowRight size={14} color="#fff" /></>}
-            </button>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-function Donate() {
-  const [amt, setAmt] = useState(0);
-  const [done, setDone] = useState(false);
+          <h2 style={{ fontSize: "1.8rem", fontWeight: 700, color: "#fff", marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
+            <AwardIcon size={24} color={C.ye} /> Awards & Recognitions
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, marginBottom: 70 }}>
+            {awards.map((a, i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: 20, padding: "24px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <span style={{ display: "inline-block", background: a.level === "International" ? "rgba(225,92,20,0.2)" : a.level === "National" ? "rgba(245,194,0,0.2)" : "rgba(168,212,240,0.2)", color: a.level === "International" ? C.or : a.level === "National" ? C.ye : C.sky, fontSize: "0.68rem", fontWeight: 700, padding: "4px 12px", borderRadius: 100, marginBottom: 12 }}>
+                  {a.level}
+                </span>
+                <div style={{ color: "#fff", fontSize: "0.95rem", fontWeight: 600, lineHeight: 1.45, marginBottom: 8 }}>{a.title}</div>
+                <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.78rem", lineHeight: 1.5 }}>{a.grantor}</div>
+              </div>
+            ))}
+          </div>
 
-  const tiers = [
-    { amount: "₱150", equiv: "3 storybooks for the Abot Ko Ang Libro mobile cart" },
-    { amount: "₱500", equiv: "Art & learning supplies for one Saturday storytelling session" },
-    { amount: "₱1,500", equiv: "A full Batang Kali nature-stewardship kit for one batch of kids" },
-    { amount: "₱5,000", equiv: "Seed funding for one youth-led Hiraya school project" },
-  ];
-
-  return (
-    <section id="donate" style={{ padding: "100px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "start" }}>
-          <div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Donate / Be a Sponsor</div>
-            <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>Every peso becomes a page, a seedling, a leader</h2>
-            <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, fontWeight: 300, marginBottom: 28 }}>
-              Your donation goes directly to program materials and community sessions. Here's what your support is equivalent to:
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
-              {tiers.map((t, i) => (
-                <div key={i} onClick={() => setAmt(i)} style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", background: amt === i ? "#FEF3EC" : "#fff", borderRadius: 16, border: `1px solid ${amt === i ? C.or : "rgba(0,0,0,0.06)"}`, cursor: "pointer", transition: "all .2s" }}>
-                  <div style={{ fontSize: "1.1rem", fontWeight: 800, color: C.or, width: 80, flexShrink: 0 }}>{t.amount}</div>
-                  <div style={{ fontSize: "0.83rem", color: C.dark, fontWeight: 500 }}>{t.equiv}</div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ background: C.dark, color: "#fff", borderRadius: 16, padding: "20px 24px" }}>
-              <div style={{ fontSize: "0.78rem", fontWeight: 600, color: C.ye, marginBottom: 4 }}>Full Transparency Promise</div>
-              <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: 10 }}>
-                We publish where every peso goes. Funding sources include grant competitions and public donation drives.
+          {/* Transparency Section */}
+          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: 24, padding: "40px", border: "1px solid rgba(255,255,255,0.08)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, alignItems: "center" }}>
+            <div>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 700, color: "#fff", marginBottom: 10 }}>Financial Transparency Report</h3>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9rem", lineHeight: 1.7, fontWeight: 300, marginBottom: 20 }}>
+                We publish where every single peso goes. Over ₱1.5M+ raised through grant competitions and public donation drives.
               </p>
-              <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, fontSize: "0.8rem", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                Read full report at bit.ly/sikatfinance <ArrowRight size={12} color={C.sky} />
+              <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ background: C.or, color: "#fff", padding: "12px 24px", borderRadius: 100, fontWeight: 600, fontSize: "0.85rem", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                Open Financial Tracker (bit.ly/sikatfinance) ↗
               </a>
             </div>
-          </div>
-
-          <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 600, color: C.dark, marginBottom: 20 }}>Make a Donation</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 10, marginBottom: 20 }}>
-              <button style={{ padding: "14px", border: `2px solid ${C.or}`, borderRadius: 12, background: "#FEF3EC", fontWeight: 700, color: C.or, cursor: "pointer" }}>GCash / Maya</button>
-              <button style={{ padding: "14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, background: C.bg, fontWeight: 600, color: C.dark, cursor: "pointer" }}>Bank Transfer</button>
+            <div>
+              <img src={impactImg} alt="Impact transparency" style={{ width: "100%", height: 200, objectFit: "cover", borderRadius: 16 }} />
             </div>
-
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Full Name</label>
-              <input placeholder="Juan Dela Cruz" style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
-            </div>
-
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Email Address (for official receipt)</label>
-              <input placeholder="juan@gmail.com" style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
-            </div>
-
-            <button onClick={() => { setDone(true); setTimeout(() => setDone(false), 3500); }}
-              style={{ width: "100%", background: done ? C.gr : C.dark, color: "#fff", border: "none", padding: 14, borderRadius: 12, fontFamily: "inherit", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s" }}>
-              {done ? <><Check size={16} /> Receipt Generated!</> : <><Lock size={14} /> Proceed to Secure Donation</>}
-            </button>
-            <p style={{ fontSize: "0.7rem", color: "rgba(0,0,0,0.35)", textAlign: "center", marginTop: 14 }}>
-              Registered NGO · Reg No. 2025030194739-03 · URN YO-2807-021323
-            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function Leadership() {
+// ================= PAGE 5: LEADERSHIP =================
+function LeadershipPage({ onNavigate }) {
   const leaders = [
     { name: "RJ Belen", title: "Executive Director", role: "Highest official; presides over Executive Committee, executes policies & sets direction." },
     { name: "Angelica Matusalem", title: "Deputy Executive Director & Director of Finance", role: "Oversees operations, financial capacity, & procurement." },
@@ -565,32 +526,35 @@ function Leadership() {
   ];
 
   return (
-    <section id="leadership" style={{ padding: "100px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Organizational Structure</div>
-        <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>Youth leaders behind the movement</h2>
-        <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, maxWidth: 520, fontWeight: 300, marginBottom: 48 }}>
-          Meet the executive committee and directorate driving programs across Aurora Province.
-        </p>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-          {leaders.map((l, i) => (
-            <div key={i} style={{ background: C.bg, borderRadius: 20, padding: "24px", border: "1px solid rgba(0,0,0,0.05)" }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "1rem", marginBottom: 14 }}>
-                {l.name.split(" ").map(n => n[0]).join("")}
+    <>
+      <PageHeader
+        eyebrow="Organizational Structure"
+        title="Youth Leaders Behind the Movement"
+        subtitle="Meet the executive committee and directorate driving programs across Aurora Province."
+      />
+      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            {leaders.map((l, i) => (
+              <div key={i} style={{ background: C.bg, borderRadius: 24, padding: "30px", border: "1px solid rgba(0,0,0,0.05)" }}>
+                <div style={{ width: 48, height: 48, borderRadius: 14, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "1.1rem", marginBottom: 16 }}>
+                  {l.name.split(" ").map(n => n[0]).join("")}
+                </div>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: C.dark, marginBottom: 4 }}>{l.name}</h3>
+                <div style={{ fontSize: "0.8rem", color: C.or, fontWeight: 600, marginBottom: 12 }}>{l.title}</div>
+                <p style={{ fontSize: "0.85rem", color: C.mid, lineHeight: 1.65 }}>{l.role}</p>
               </div>
-              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: C.dark, marginBottom: 4 }}>{l.name}</h3>
-              <div style={{ fontSize: "0.78rem", color: C.or, fontWeight: 600, marginBottom: 10 }}>{l.title}</div>
-              <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.6 }}>{l.role}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function Blog() {
+// ================= PAGE 6: BLOG =================
+function BlogPage({ onNavigate }) {
   const posts = [
     {
       title: "Field Notes — Five Saturdays in Brgy. Zabali",
@@ -613,37 +577,40 @@ function Blog() {
   ];
 
   return (
-    <section id="blog" style={{ padding: "100px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>Blog & Stories</div>
-        <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px", lineHeight: 1.2, marginBottom: 14 }}>Kwentong Síkat</h2>
-        <p style={{ color: C.mid, fontSize: "0.95rem", lineHeight: 1.75, maxWidth: 520, fontWeight: 300, marginBottom: 48 }}>
-          Stories from the field — by the volunteers, for the community.
-        </p>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-          {posts.map((p, i) => (
-            <div key={i} style={{ background: "#fff", borderRadius: 20, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 6px 20px rgba(0,0,0,0.03)" }}>
-              <img src={p.img} alt={p.title} style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }} />
-              <div style={{ padding: "24px" }}>
-                <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.68rem", fontWeight: 700, padding: "4px 10px", borderRadius: 100, marginBottom: 10, display: "inline-block" }}>
-                  {p.tag}
-                </span>
-                <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: C.dark, lineHeight: 1.4, marginBottom: 8 }}>{p.title}</h3>
-                <p style={{ fontSize: "0.8rem", color: C.mid, lineHeight: 1.6, marginBottom: 16 }}>{p.desc}</p>
-                <a href="#" style={{ color: C.or, fontSize: "0.8rem", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
-                  Read full story <ArrowRight size={13} color={C.or} />
-                </a>
+    <>
+      <PageHeader
+        eyebrow="Blog & Stories"
+        title="Kwentong Síkat"
+        subtitle="Stories from the field — by the volunteers, for the community."
+      />
+      <section style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+            {posts.map((p, i) => (
+              <div key={i} style={{ background: "#fff", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 6px 20px rgba(0,0,0,0.03)" }}>
+                <img src={p.img} alt={p.title} style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }} />
+                <div style={{ padding: "28px" }}>
+                  <span style={{ background: "#FEF3EC", color: C.or, fontSize: "0.7rem", fontWeight: 700, padding: "4px 12px", borderRadius: 100, marginBottom: 12, display: "inline-block" }}>
+                    {p.tag}
+                  </span>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: C.dark, lineHeight: 1.45, marginBottom: 10 }}>{p.title}</h3>
+                  <p style={{ fontSize: "0.85rem", color: C.mid, lineHeight: 1.65, marginBottom: 18 }}>{p.desc}</p>
+                  <a href="#" style={{ color: C.or, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
+                    Read full story <ArrowRight size={13} color={C.or} />
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function FAQ() {
+// ================= PAGE 7: FAQ =================
+function FAQPage({ onNavigate }) {
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
@@ -674,35 +641,196 @@ function FAQ() {
   ];
 
   return (
-    <section id="faq" style={{ padding: "100px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: C.or, marginBottom: 10 }}>FAQ</div>
-          <h2 style={{ fontSize: "2.4rem", fontWeight: 600, color: C.dark, letterSpacing: "-0.8px" }}>Frequently Asked Questions</h2>
+    <>
+      <PageHeader
+        eyebrow="Frequently Asked Questions"
+        title="Everything You Need to Know About Síkat-Aurora"
+        subtitle="Common questions about our programs, volunteer induction, and financial transparency."
+      />
+      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {faqs.map((f, i) => (
+              <div key={i} style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 18, overflow: "hidden", background: C.bg }}>
+                <button onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
+                  style={{ width: "100%", padding: "22px 28px", background: "transparent", border: "none", textAlign: "left", fontSize: "1rem", fontWeight: 600, color: C.dark, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span>{f.q}</span>
+                  <span style={{ fontSize: "1.3rem", color: C.or, fontWeight: 700 }}>{openIndex === i ? "−" : "+"}</span>
+                </button>
+                {openIndex === i && (
+                  <div style={{ padding: "0 28px 24px", fontSize: "0.88rem", color: C.mid, lineHeight: 1.75 }}>
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {faqs.map((f, i) => (
-            <div key={i} style={{ border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, overflow: "hidden", background: C.bg }}>
-              <button onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
-                style={{ width: "100%", padding: "20px 24px", background: "transparent", border: "none", textAlign: "left", fontSize: "0.95rem", fontWeight: 600, color: C.dark, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span>{f.q}</span>
-                <span style={{ fontSize: "1.2rem", color: C.or }}>{openIndex === i ? "−" : "+"}</span>
-              </button>
-              {openIndex === i && (
-                <div style={{ padding: "0 24px 20px", fontSize: "0.85rem", color: C.mid, lineHeight: 1.7 }}>
-                  {f.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+      <FinalCTA onNavigate={onNavigate} />
+    </>
   );
 }
 
-function FinalCTA() {
+// ================= PAGE 8: VOLUNTEER / ONBOARDING =================
+function VolunteerPage({ onNavigate }) {
+  const [submitted, setSubmitted] = useState(false);
+  const handleSubmit = () => { setSubmitted(true); setTimeout(() => setSubmitted(false), 3500); };
+
+  const steps = [
+    { num: "01", title: "Signify your interest", desc: "Follow the Síkat-Aurora Facebook page and reach out. Engaging with and sharing posts counts as your first show of support." },
+    { num: "02", title: "Attend 3 events", desc: "Join at least three (3) Síkat-Aurora events within three months of signifying interest. Show up, help out, get to know the community." },
+    { num: "03", title: "Commit to principles", desc: "Demonstrate willingness to adhere to principles, rules, and policies — including finding a replacement if unavailable for a signed-up program." },
+  ];
+
+  return (
+    <>
+      <PageHeader
+        eyebrow="Join Us"
+        title="Become a Síkat-Aurora Volunteer"
+        subtitle="Admission is free and open to all youth aged 15–30 in Aurora Province."
+      />
+      <section style={{ padding: "90px 40px", background: "#fff", fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "start" }}>
+            <div>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 700, color: C.dark, marginBottom: 16 }}>Path from Interested to Inducted</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 32 }}>
+                {steps.map((s, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, background: C.bg, padding: "24px", borderRadius: 20, border: "1px solid rgba(0,0,0,0.05)" }}>
+                    <div style={{ width: 44, height: 44, borderRadius: 12, background: C.or, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "1rem", flexShrink: 0 }}>
+                      {s.num}
+                    </div>
+                    <div>
+                      <h3 style={{ fontSize: "1rem", fontWeight: 700, color: C.dark, marginBottom: 6 }}>{s.title}</h3>
+                      <p style={{ fontSize: "0.85rem", color: C.mid, lineHeight: 1.65 }}>{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: C.dark, marginBottom: 4 }}>Sign Up & Signify Interest</h3>
+              <p style={{ fontSize: "0.82rem", color: C.mid, marginBottom: 24 }}>Takes 2 minutes — we will reach out within 48 hours.</p>
+
+              {[["First name", "Last name"], ["Email address", ""], ["Mobile number", ""]].map((row, ri) => (
+                row[1] ? (
+                  <div key={ri} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
+                    {row.map((label, li) => (
+                      <div key={li}>
+                        <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
+                        <input style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div key={ri} style={{ marginBottom: 16 }}>
+                    <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{row[0]}</label>
+                    <input style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
+                  </div>
+                )
+              ))}
+
+              {[
+                ["Program of interest", ["Select a program...", "Abot Ko Ang Libro (Education)", "Ang Batang Kali (Environment)", "Hiraya (Active Citizenship)", "Any program"]],
+                ["Age Group", ["15–18 years old", "19–24 years old", "25–30 years old"]],
+              ].map(([label, opts], i) => (
+                <div key={i} style={{ marginBottom: 16 }}>
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>{label}</label>
+                  <select style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }}>
+                    {opts.map((o, oi) => <option key={oi}>{o}</option>)}
+                  </select>
+                </div>
+              ))}
+
+              <button onClick={handleSubmit}
+                style={{ width: "100%", background: submitted ? C.gr : C.or, color: "#fff", border: "none", padding: 14, borderRadius: 12, fontFamily: "inherit", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s" }}>
+                {submitted ? <><Check size={16} /> Interest Signified!</> : <>Submit Application <ArrowRight size={14} color="#fff" /></>}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// ================= PAGE 9: DONATE =================
+function DonatePage({ onNavigate }) {
+  const [amt, setAmt] = useState(0);
+  const [done, setDone] = useState(false);
+
+  const tiers = [
+    { amount: "₱150", equiv: "3 storybooks for the Abot Ko Ang Libro mobile cart" },
+    { amount: "₱500", equiv: "Art & learning supplies for one Saturday storytelling session" },
+    { amount: "₱1,500", equiv: "A full Batang Kali nature-stewardship kit for one batch of kids" },
+    { amount: "₱5,000", equiv: "Seed funding for one youth-led Hiraya school project" },
+  ];
+
+  return (
+    <>
+      <PageHeader
+        eyebrow="Donate / Be a Sponsor"
+        title="Every Peso Becomes a Page, a Seedling, a Leader"
+        subtitle="Your donation goes directly to program materials and community sessions."
+      />
+      <section style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 60, alignItems: "start" }}>
+            <div>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 700, color: C.dark, marginBottom: 20 }}>Sponsorship Equivalents</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 32 }}>
+                {tiers.map((t, i) => (
+                  <div key={i} onClick={() => setAmt(i)} style={{ display: "flex", alignItems: "center", gap: 16, padding: "20px 24px", background: amt === i ? "#FEF3EC" : "#fff", borderRadius: 18, border: `1px solid ${amt === i ? C.or : "rgba(0,0,0,0.06)"}`, cursor: "pointer", transition: "all .2s" }}>
+                    <div style={{ fontSize: "1.2rem", fontWeight: 800, color: C.or, width: 90, flexShrink: 0 }}>{t.amount}</div>
+                    <div style={{ fontSize: "0.88rem", color: C.dark, fontWeight: 500 }}>{t.equiv}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background: C.dark, color: "#fff", borderRadius: 20, padding: "24px 28px" }}>
+                <div style={{ fontSize: "0.8rem", fontWeight: 700, color: C.ye, marginBottom: 6 }}>Transparency Line</div>
+                <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: 14 }}>
+                  We publish where every peso goes. Read the full report at <strong>bit.ly/sikatfinance</strong>.
+                </p>
+                <a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, fontSize: "0.85rem", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  View Financial Report ↗
+                </a>
+              </div>
+            </div>
+
+            <div style={{ background: "#fff", borderRadius: 24, padding: 36, border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 10px 30px rgba(0,0,0,0.04)" }}>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: C.dark, marginBottom: 20 }}>Donate / Sponsor Now</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 10, marginBottom: 20 }}>
+                <button style={{ padding: "14px", border: `2px solid ${C.or}`, borderRadius: 12, background: "#FEF3EC", fontWeight: 700, color: C.or, cursor: "pointer" }}>GCash / Maya</button>
+                <button style={{ padding: "14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 12, background: C.bg, fontWeight: 600, color: C.dark, cursor: "pointer" }}>Bank Transfer</button>
+              </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Full Name</label>
+                <input placeholder="Juan Dela Cruz" style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
+              </div>
+
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 600, color: C.dark, marginBottom: 6 }}>Email Address (for receipt)</label>
+                <input placeholder="juan@gmail.com" style={{ width: "100%", padding: "11px 14px", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 10, fontFamily: "inherit", fontSize: "0.85rem", background: C.bg, outline: "none" }} />
+              </div>
+
+              <button onClick={() => { setDone(true); setTimeout(() => setDone(false), 3500); }}
+                style={{ width: "100%", background: done ? C.gr : C.dark, color: "#fff", border: "none", padding: 14, borderRadius: 12, fontFamily: "inherit", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background .3s" }}>
+                {done ? <><Check size={16} /> Receipt Sent!</> : <><Lock size={14} /> Proceed to Secure Donation</>}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// Final CTA Band
+function FinalCTA({ onNavigate }) {
   return (
     <div style={{ background: C.dark, color: "#fff", padding: "100px 40px", textAlign: "center", fontFamily: "'Poppins', sans-serif" }}>
       <div style={{ maxWidth: 800, margin: "0 auto" }}>
@@ -713,11 +841,11 @@ function FinalCTA() {
           Join over 400 youth volunteers across Baler and Aurora Province in building a brighter future.
         </p>
         <div style={{ display: "flex", gap: 14, justifyContent: "center" }}>
-          <button onClick={() => document.querySelector("#onboarding")?.scrollIntoView({ behavior: "smooth" })}
+          <button onClick={() => onNavigate("volunteer")}
             style={{ background: C.or, color: "#fff", border: "none", padding: "14px 32px", borderRadius: 100, fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", boxShadow: "0 6px 20px rgba(229,92,20,0.4)" }}>
             Become a Volunteer
           </button>
-          <button onClick={() => document.querySelector("#donate")?.scrollIntoView({ behavior: "smooth" })}
+          <button onClick={() => onNavigate("donate")}
             style={{ background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.3)", padding: "14px 32px", borderRadius: 100, fontWeight: 600, fontSize: "0.9rem", cursor: "pointer" }}>
             Donate / Be a Sponsor
           </button>
@@ -727,7 +855,8 @@ function FinalCTA() {
   );
 }
 
-function Footer() {
+// Footer
+function Footer({ onNavigate }) {
   return (
     <footer style={{ background: "#04090F", color: "rgba(255,255,255,0.5)", padding: "80px 40px 32px", fontFamily: "'Poppins', sans-serif", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
@@ -747,22 +876,22 @@ function Footer() {
           </div>
 
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600, marginBottom: 18 }}>Explore</h4>
+            <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600, marginBottom: 18 }}>Explore Pages</h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 10, fontSize: "0.8rem" }}>
-              <li><a href="#about" style={{ color: "inherit", textDecoration: "none" }}>About Us</a></li>
-              <li><a href="#impact" style={{ color: "inherit", textDecoration: "none" }}>Impact & Awards</a></li>
-              <li><a href="#programs" style={{ color: "inherit", textDecoration: "none" }}>Our Programs</a></li>
-              <li><a href="#blog" style={{ color: "inherit", textDecoration: "none" }}>Blog — Kwentong Síkat</a></li>
-              <li><a href="#faq" style={{ color: "inherit", textDecoration: "none" }}>FAQ</a></li>
+              <li><button onClick={() => onNavigate("about")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>About Us</button></li>
+              <li><button onClick={() => onNavigate("programs")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Core Programs</button></li>
+              <li><button onClick={() => onNavigate("impact")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Impact & Awards</button></li>
+              <li><button onClick={() => onNavigate("leadership")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Leadership</button></li>
+              <li><button onClick={() => onNavigate("blog")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Blog — Kwentong Síkat</button></li>
+              <li><button onClick={() => onNavigate("faq")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>FAQ</button></li>
             </ul>
           </div>
 
           <div>
             <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600, marginBottom: 18 }}>Get Involved</h4>
             <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 10, fontSize: "0.8rem" }}>
-              <li><a href="#onboarding" style={{ color: "inherit", textDecoration: "none" }}>Become a Volunteer</a></li>
-              <li><a href="#donate" style={{ color: "inherit", textDecoration: "none" }}>Donate</a></li>
-              <li><a href="#donate" style={{ color: "inherit", textDecoration: "none" }}>Be a Sponsor</a></li>
+              <li><button onClick={() => onNavigate("volunteer")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Become a Volunteer</button></li>
+              <li><button onClick={() => onNavigate("donate")} style={{ background: "none", border: "none", color: "inherit", cursor: "pointer", padding: 0, fontFamily: "inherit" }}>Donate</button></li>
               <li><a href="https://bit.ly/sikatfinance" target="_blank" rel="noreferrer" style={{ color: C.sky, textDecoration: "none" }}>Transparency Report ↗</a></li>
             </ul>
           </div>
@@ -792,29 +921,53 @@ function Footer() {
   );
 }
 
+// MAIN APP WITH MULTI-PAGE ROUTING
 export default function App() {
+  const [activePage, setActivePage] = useState("home");
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        setActivePage(hash);
+      } else {
+        setActivePage("home");
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  const navigate = (pageId) => {
+    setActivePage(pageId);
+    window.location.hash = pageId === "home" ? "" : pageId;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         html { scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #F7F4F0; }
-        input::placeholder { color: rgba(0,0,0,0.3); }
-        textarea::placeholder { color: rgba(0,0,0,0.3); }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #F7F4F0; color: #0D1F2D; }
+        button, a { font-family: 'Poppins', sans-serif; }
       `}</style>
-      <Navbar />
-      <Hero />
-      <Ticker />
-      <About />
-      <Impact />
-      <Programs />
-      <Onboarding />
-      <Donate />
-      <Leadership />
-      <Blog />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
+      
+      <Navbar activePage={activePage} onNavigate={navigate} />
+
+      {activePage === "home" && <HomePage onNavigate={navigate} />}
+      {activePage === "about" && <AboutPage onNavigate={navigate} />}
+      {activePage === "programs" && <ProgramsPage onNavigate={navigate} />}
+      {activePage === "impact" && <ImpactPage onNavigate={navigate} />}
+      {activePage === "leadership" && <LeadershipPage onNavigate={navigate} />}
+      {activePage === "blog" && <BlogPage onNavigate={navigate} />}
+      {activePage === "faq" && <FAQPage onNavigate={navigate} />}
+      {activePage === "volunteer" && <VolunteerPage onNavigate={navigate} />}
+      {activePage === "donate" && <DonatePage onNavigate={navigate} />}
+
+      <Footer onNavigate={navigate} />
     </>
   );
 }
