@@ -550,11 +550,18 @@ const HOME_IMPACT_STATS = [
   },
 ];
 
+const heroBannerModules = import.meta.glob("./assets/home/hero-banner/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+const HERO_BANNER_IMAGES = Object.values(heroBannerModules);
+
 function HomePage({ onNavigate, onOpenModal }) {
   return (
     <>
       <section id="home">
         <AnimatedHero
+          images={HERO_BANNER_IMAGES}
           backgroundImageUrl={heroBanner}
           badge="SÍKAT-AURORA INC."
           title={

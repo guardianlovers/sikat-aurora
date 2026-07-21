@@ -1,6 +1,8 @@
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,6 +22,7 @@ const itemVariants = {
 };
 
 export const AnimatedHero = ({
+  images = [],
   backgroundImageUrl,
   title,
   description,
@@ -27,7 +30,30 @@ export const AnimatedHero = ({
   secondaryCta,
   badge,
   className,
+  autoPlayInterval = 5000,
 }) => {
+  // Normalize images array
+  const bgImages = images.length > 0 ? images : backgroundImageUrl ? [backgroundImageUrl] : [];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = useCallback(() => {
+    if (bgImages.length <= 1) return;
+    setCurrentIndex((prev) => (prev + 1) % bgImages.length);
+  }, [bgImages.length]);
+
+  const handlePrev = useCallback(() => {
+    if (bgImages.length <= 1) return;
+    setCurrentIndex((prev) => (prev - 1 + bgImages.length) % bgImages.length);
+  }, [bgImages.length]);
+
+  useEffect(() => {
+    if (bgImages.length <= 1) return;
+    const timer = setInterval(() => {
+      handleNext();
+    }, autoPlayInterval);
+    return () => clearInterval(timer);
+  }, [bgImages.length, autoPlayInterval, handleNext]);
+
   return (
     <div
       className={cn(
@@ -35,15 +61,23 @@ export const AnimatedHero = ({
         className
       )}
     >
-      {/* Background image with a single legibility overlay */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-      >
-        {/* Text spans the full width on phones, so keep the overlay even there;
-            on wider screens it sits in the left column and can fall off to the right. */}
-        <div className="absolute inset-0 bg-black/75 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/70 lg:to-black/40" />
-      </div>
+      {/* Carousel Background Images */}
+      <AnimatePresence mode="popLayout">
+        {bgImages.length > 0 && (
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            className="absolute inset-0 z-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${bgImages[currentIndex]})` }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 z-[1] bg-black/75 lg:bg-gradient-to-r lg:from-black/90 lg:via-black/70 lg:to-black/40" />
 
       {/* Hero content — aligned to the same 1280px page grid as every section */}
       <motion.div
@@ -91,6 +125,44 @@ export const AnimatedHero = ({
           )}
         </motion.div>
       </motion.div>
+
+      {/* Carousel Navigation Controls & Indicators */}
+      {bgImages.length > 1 && (
+        <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 sm:bottom-8 sm:right-12">
+          {/* Arrow Buttons */}
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous slide"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 active:scale-95"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next slide"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 active:scale-95"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center gap-1.5 pl-2">
+            {bgImages.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300",
+                  idx === currentIndex ? "w-6 bg-gold" : "w-2 bg-white/40 hover:bg-white/70"
+                )}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
