@@ -1509,13 +1509,20 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
-      <Reveal className="bg-white pb-16 pt-28 lg:pb-20 lg:pt-36">
+      <Reveal className="bg-white pb-16 pt-28 lg:pb-24 lg:pt-36">
         <Container>
-          <StaggerContainer className="grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
+          <SectionHeading
+            eyebrow="Organizational Structure"
+            title="Youth Leaders Behind the Movement"
+            lead="Meet the executive committee and directorate driving programs across Aurora Province."
+            className="mb-12"
+          />
+
+          <StaggerContainer className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
             {LEADERS.map((l) => (
-              <StaggerItem as="article" key={l.name} className="group border-t border-navy/15 py-7">
+              <StaggerItem as="article" key={l.name} className="group flex flex-col">
                 {/* Portrait slot — falls back to initials until a photo is added */}
-                <div className="mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-primary-soft">
+                <div className="mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-primary-soft shadow-xs">
                   {l.photo ? (
                     <img
                       src={l.photo}
@@ -1538,7 +1545,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
                 <p className="mt-1 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-primary">
                   {l.title}
                 </p>
-                <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{l.role}</p>
+                <p className="mt-2 text-sm leading-[1.7] text-navy/75">{l.role}</p>
               </StaggerItem>
             ))}
           </StaggerContainer>
