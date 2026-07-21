@@ -4,14 +4,18 @@ import {
   ArrowRight,
   ArrowUpRight,
   Award,
+  BookOpen,
   Check,
   Clock,
+  HandCoins,
   Heart,
   Lock,
   Mail,
   MapPin,
   Menu,
+  Rocket,
   Sprout,
+  ThumbsUp,
   Trophy,
   Users,
   X,
@@ -57,38 +61,25 @@ function Container({ className, children }) {
   return <div className={cn("mx-auto w-full max-w-7xl px-6 md:px-9", className)}>{children}</div>;
 }
 
-// Eyebrow: a short rule followed by a label — reads as an editorial section marker
-function Eyebrow({ className, dark = false, align = "left", children }) {
+// The brand's section marker: black uppercase type in a yellow pill.
+// It stays yellow on dark backgrounds too — that contrast is the point.
+function Eyebrow({ className, align = "left", children }) {
   return (
-    <p
-      className={cn(
-        "mb-3 flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em]",
-        dark ? "text-gold" : "text-primary",
-        align === "center" && "justify-center",
-        className
-      )}
-    >
-      <span
-        aria-hidden="true"
-        className={cn("h-px w-6", dark ? "bg-gold/50" : "bg-primary/40")}
-      />
-      {children}
-    </p>
+    <div className={cn("mb-4", align === "center" && "flex justify-center", className)}>
+      <span className="pill-label">{children}</span>
+    </div>
   );
 }
 
 function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className }) {
   return (
     <div className={cn(align === "center" && "text-center", className)}>
-      {eyebrow && (
-        <Eyebrow dark={dark} align={align}>
-          {eyebrow}
-        </Eyebrow>
-      )}
+      {eyebrow && <Eyebrow align={align}>{eyebrow}</Eyebrow>}
       <h2
         className={cn(
-          "font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] sm:text-[2.1rem]",
-          dark ? "text-white" : "text-navy"
+          "max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.4rem]",
+          dark ? "text-white" : "text-navy",
+          align === "center" && "mx-auto"
         )}
       >
         {title}
@@ -96,8 +87,8 @@ function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, cl
       {lead && (
         <p
           className={cn(
-            "mt-4 max-w-[54ch] text-sm leading-[1.7] sm:text-[0.93rem]",
-            dark ? "text-white/70" : "text-ink",
+            "mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7]",
+            dark ? "text-white/75" : "text-navy/75",
             align === "center" && "mx-auto"
           )}
         >
@@ -109,21 +100,22 @@ function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, cl
 }
 
 const BTN_VARIANTS = {
-  primary: "bg-primary text-white hover:bg-primary-dark",
-  dark: "bg-navy text-white hover:bg-ocean",
-  outline: "border border-navy/20 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white",
-  onDark: "border border-white/25 bg-transparent text-white hover:border-white hover:bg-white hover:text-navy",
+  primary: "bg-primary text-white shadow-cta hover:bg-primary-dark",
+  gold: "bg-gold text-navy-ink hover:bg-gold-bright",
+  dark: "bg-navy text-white hover:bg-navy-ink",
+  outline: "border-2 border-navy/20 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white",
+  onDark: "border-2 border-white/30 bg-transparent text-white hover:border-white hover:bg-white hover:text-navy",
   success: "bg-forest text-white",
 };
 
-// Squared-off buttons read more institutional than pills; the underline-on-hover
-// link variant is handled separately by TextLink.
+// Rounded buttons match the brand's pill vocabulary; the lift on hover is small
+// enough to read as feedback rather than decoration.
 function Btn({ variant = "primary", className, children, ...props }) {
   return (
     <button
       className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-6 py-3 text-[0.82rem] font-semibold tracking-[0.01em]",
-        "transition-colors duration-200 active:translate-y-px",
+        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-3 text-[0.85rem] font-semibold",
+        "transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 motion-reduce:hover:translate-y-0",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
         "disabled:pointer-events-none disabled:opacity-50",
         BTN_VARIANTS[variant],
@@ -160,7 +152,7 @@ function Tag({ className, children }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.08em]",
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.68rem] font-semibold",
         className
       )}
     >
@@ -169,20 +161,39 @@ function Tag({ className, children }) {
   );
 }
 
-// Flat card defined by a hairline border; hover deepens the border and lifts slightly
+// Rounded card with a soft border; hover lifts and warms the shadow
 function Card({ className, interactive = true, children, ...props }) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-navy/10 bg-white shadow-card",
+        "rounded-2xl border border-navy/10 bg-white shadow-card",
         interactive &&
-          "transition-all duration-200 ease-out-expo hover:-translate-y-0.5 hover:border-navy/20 hover:shadow-card-hover motion-reduce:hover:translate-y-0",
+          "transition-all duration-200 ease-out-expo hover:-translate-y-1 hover:border-navy/15 hover:shadow-card-hover motion-reduce:hover:translate-y-0",
         className
       )}
       {...props}
     >
       {children}
     </div>
+  );
+}
+
+// Stat row in the deck's "In a Nutshell" style: gold icon, bold navy figure
+function StatRow({ Icon, figure, label, dark = false }) {
+  return (
+    <li className="flex items-center gap-4">
+      <span
+        className={cn(
+          "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
+          dark ? "bg-gold/15 text-gold" : "bg-gold/20 text-navy"
+        )}
+      >
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <p className={cn("text-[1.05rem] leading-snug", dark ? "text-white/80" : "text-navy/80")}>
+        <span className={cn("font-bold", dark ? "text-white" : "text-navy")}>{figure}</span> {label}
+      </p>
+    </li>
   );
 }
 
@@ -250,16 +261,16 @@ function VolunteerModal({ isOpen, onClose }) {
             <button
               onClick={onClose}
               aria-label="Close dialog"
-              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-md text-ink transition-colors duration-150 hover:bg-cream hover:text-navy"
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-md text-navy/75 transition-colors duration-150 hover:bg-cream hover:text-navy"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
 
             <Eyebrow>Join Síkat-Aurora</Eyebrow>
-            <h3 id="volunteer-modal-title" className="font-display text-[1.5rem] font-semibold text-navy">
+            <h3 id="volunteer-modal-title" className="text-[1.5rem] font-bold text-navy">
               Sign Up &amp; Signify Interest
             </h3>
-            <p className="mb-7 mt-2 text-sm leading-relaxed text-ink">
+            <p className="mb-7 mt-2 text-sm leading-relaxed text-navy/75">
               Takes 2 minutes — our membership team will reach out within 48 hours.
             </p>
 
@@ -350,7 +361,7 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
             className="flex shrink-0 items-center gap-2.5 rounded-md no-underline"
           >
             <img src={logoImg} alt="" className="h-9 w-9 object-contain" />
-            <span className="font-display text-[1.05rem] font-semibold tracking-[-0.01em] text-navy">
+            <span className="text-[1.05rem] font-bold tracking-[-0.02em] text-navy">
               Síkat<span className="text-primary">-Aurora</span>
             </span>
           </a>
@@ -373,7 +384,7 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
                   {isActive && (
                     <motion.span
                       layoutId="navIndicator"
-                      className="absolute inset-x-3 -bottom-px h-0.5 bg-primary"
+                      className="absolute inset-x-3 -bottom-px h-[3px] rounded-full bg-gold"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -463,15 +474,15 @@ function PageHeader({ eyebrow, title, subtitle }) {
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: EASE }}
-      className="border-b-2 border-primary bg-navy pb-14 pt-32 text-white"
+      className="bg-navy pb-16 pt-32 text-white"
     >
       <Container>
-        <Eyebrow dark>{eyebrow}</Eyebrow>
-        <h1 className="max-w-[20ch] font-display text-[2rem] font-semibold leading-[1.12] tracking-[-0.015em] sm:text-[2.6rem]">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h1 className="max-w-[18ch] text-[2.1rem] font-bold leading-[1.1] tracking-[-0.025em] sm:text-[2.9rem]">
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-4 max-w-[56ch] text-sm leading-[1.7] text-white/70 sm:text-[0.93rem]">{subtitle}</p>
+          <p className="mt-5 max-w-[56ch] text-[0.95rem] leading-[1.7] text-white/75">{subtitle}</p>
         )}
       </Container>
     </motion.div>
@@ -504,7 +515,7 @@ function HomePage({ onNavigate, onOpenModal }) {
       <Reveal as="div" className="border-y border-navy/10 bg-white">
         <Container className="flex flex-wrap items-center gap-x-5 gap-y-2 py-4">
           <Tag className="bg-primary-soft text-primary">Formally Established</Tag>
-          <span className="text-[0.83rem] text-ink">
+          <span className="text-[0.83rem] text-navy/75">
             August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03
           </span>
           <TextLink className="ml-auto shrink-0" onClick={() => onNavigate("about")}>
@@ -521,7 +532,7 @@ function HomePage({ onNavigate, onOpenModal }) {
               eyebrow="Who We Are"
               title="A new face of youth volunteerism in Baler, Aurora"
             />
-            <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-ink sm:text-[0.93rem]">
+            <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
               <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
               nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning{" "}
               <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
@@ -554,30 +565,17 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          {/* Figures separated by rules rather than boxed into cards */}
-          <div className="grid grid-cols-2 gap-y-10 border-t border-white/15 pt-10 lg:grid-cols-4">
+          {/* Figures in the deck's "In a Nutshell" style: gold icon, bold figure */}
+          <ul className="grid gap-6 sm:grid-cols-2">
             {[
-              ["400+", "Youth Volunteers"],
-              ["1,100+", "Learners Reached"],
-              ["18", "Partner Communities"],
-              ["₱1.5M+", "Donations Raised"],
-            ].map(([n, l], i) => (
-              <div
-                key={l}
-                className={cn(
-                  "px-2 sm:px-6",
-                  i % 2 === 1 && "border-l border-white/15",
-                  i > 0 && "lg:border-l lg:border-white/15",
-                  i === 2 && "lg:border-l"
-                )}
-              >
-                <p className="font-display text-[2.4rem] font-semibold leading-none tracking-[-0.02em] text-gold sm:text-[3rem]">
-                  {n}
-                </p>
-                <p className="mt-3 text-[0.8rem] uppercase tracking-[0.1em] text-white/60">{l}</p>
-              </div>
+              { Icon: Users, figure: "400+", label: "youth volunteers" },
+              { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
+              { Icon: MapPin, figure: "18", label: "partner communities" },
+              { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
+            ].map((s) => (
+              <StatRow key={s.label} dark {...s} />
             ))}
-          </div>
+          </ul>
         </Container>
       </Reveal>
 
@@ -630,8 +628,8 @@ function HomePage({ onNavigate, onOpenModal }) {
                 </div>
                 <div className="border-t border-navy/10 p-6">
                   <Tag className="mb-3 bg-primary-soft text-primary">{p.center}</Tag>
-                  <h3 className="font-display text-[1.2rem] font-semibold text-navy">{p.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink">{p.desc}</p>
+                  <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
                 </div>
               </Card>
             ))}
@@ -675,14 +673,14 @@ function AboutPage({ onNavigate, onOpenModal }) {
     {
       title: "Paggalang",
       desc: "Kumikilos nang may paggalang sa paniniwala, kultura, at saloobin ng mga kasapi at komunidad.",
-      accent: "text-ocean",
-      bg: "bg-ocean-soft",
+      accent: "text-navy",
+      bg: "bg-sky-soft",
     },
     {
       title: "Pagtugon",
       desc: "Kumikilos upang tumugon sa tunay na mga pangangailangan ng mga tao sa komunidad.",
-      accent: "text-teal",
-      bg: "bg-teal-soft",
+      accent: "text-forest",
+      bg: "bg-forest-soft",
     },
   ];
 
@@ -697,7 +695,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
         <Container>
           <div className="mb-14 grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
             <div>
-              <h2 className="mb-5 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
+              <h2 className="mb-5 text-[1.75rem] font-bold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
                 Our Origins &amp; Name
               </h2>
               {/* Opening paragraph set slightly larger — a lede, as in print */}
@@ -706,7 +704,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
                 formally established as a nonprofit, youth-led, and youth-serving organization on{" "}
                 <strong className="font-semibold text-navy">August 12, 2021</strong>, during International Youth Day.
               </p>
-              <p className="mb-6 max-w-[56ch] text-sm leading-[1.8] text-ink sm:text-[0.93rem]">
+              <p className="mb-6 max-w-[56ch] text-sm leading-[1.8] text-navy/75 sm:text-[0.93rem]">
                 The name <em>Síkat</em>, meaning <strong className="font-semibold text-navy">"rise,"</strong> is a
                 tribute to the rise of a new generation of volunteers in the community where the Philippine sun rises
                 first.
@@ -715,7 +713,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
                 <p className="mb-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-navy">
                   Legal Registration
                 </p>
-                <p className="text-[0.8rem] leading-relaxed text-ink">
+                <p className="text-[0.8rem] leading-relaxed text-navy/75">
                   Company Registration No. <strong className="font-semibold text-navy">2025030194739-03</strong>
                   <br />
                   Unique Registration Number (URN) <strong className="font-semibold text-navy">YO-2807-021323</strong>
@@ -733,18 +731,20 @@ function AboutPage({ onNavigate, onOpenModal }) {
           {/* Vision & Mission */}
           <div className="mb-16 grid gap-px overflow-hidden rounded-lg border border-navy/10 bg-navy/10 md:grid-cols-2">
             <div className="bg-cream p-8">
-              <p className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-primary">Vision</p>
-              <h3 className="font-display text-[1.3rem] font-semibold text-navy">Our Vision</h3>
-              <p className="mt-3 max-w-[48ch] text-sm leading-[1.7] text-ink">
-                A future where accessible and enriching after-school programs empower underserved communities in Aurora.
+              <span className="pill-label mb-4 inline-flex">Vision</span>
+              <p className="max-w-[48ch] text-[0.98rem] leading-[1.7] text-navy/80">
+                Síkat-Aurora envisions a future where{" "}
+                <strong className="font-semibold text-navy">accessible and enriching after-school programs</strong>{" "}
+                empower underserved communities in Aurora.
               </p>
             </div>
             <div className="bg-cream p-8">
-              <p className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ocean">Mission</p>
-              <h3 className="font-display text-[1.3rem] font-semibold text-navy">Our Mission</h3>
-              <p className="mt-3 max-w-[48ch] text-sm leading-[1.7] text-ink">
-                To provide inclusive after-school programs in education, environment, and active citizenship — driven by
-                youth volunteers to create lasting community impact.
+              <span className="pill-label mb-4 inline-flex">Mission</span>
+              <p className="max-w-[48ch] text-[0.98rem] leading-[1.7] text-navy/80">
+                Síkat-Aurora provides inclusive after-school programs in{" "}
+                <strong className="font-semibold text-navy">education, environment, and active citizenship</strong>,
+                driven by <strong className="font-semibold text-navy">youth volunteers</strong> to create lasting
+                community impact.
               </p>
             </div>
           </div>
@@ -755,11 +755,11 @@ function AboutPage({ onNavigate, onOpenModal }) {
             <div className="grid gap-x-10 gap-y-10 md:grid-cols-3">
               {values.map((v, i) => (
                 <div key={v.title} className="border-t-2 border-navy/10 pt-5">
-                  <p className={cn("font-display text-[1.4rem] font-semibold", v.accent)} aria-hidden="true">
+                  <p className={cn("text-[1.4rem] font-bold", v.accent)} aria-hidden="true">
                     0{i + 1}
                   </p>
-                  <h3 className="mt-2 font-display text-[1.25rem] font-semibold text-navy">{v.title}</h3>
-                  <p className="mt-2.5 text-sm leading-[1.7] text-ink">{v.desc}</p>
+                  <h3 className="mt-2 text-[1.25rem] font-bold text-navy">{v.title}</h3>
+                  <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{v.desc}</p>
                 </div>
               ))}
             </div>
@@ -803,8 +803,8 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       desc: "A life skills program helping youth ages 8–15 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
       communities: ["Brgy. Dibut (San Luis)", "Brgy. Zabali (Baler)", "Sitio Cozo (Casiguran)"],
       img: batangKaliImg,
-      accent: "text-ocean",
-      bg: "bg-ocean-soft",
+      accent: "text-navy",
+      bg: "bg-sky-soft",
     },
     {
       center: "Active Citizenship",
@@ -813,8 +813,8 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       desc: "A leadership training equipping aspiring youth leaders with essential skills, knowledge, and initial funding necessary to excel in their roles and make a positive impact in their schools and communities.",
       communities: ["30 DepEd Public Schools in Central Aurora", "Hiraya Dinalungan", "Hiraya Ditumabo NHS"],
       img: hirayaImg,
-      accent: "text-teal",
-      bg: "bg-teal-soft",
+      accent: "text-forest",
+      bg: "bg-forest-soft",
     },
   ];
 
@@ -837,18 +837,18 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
               />
               <div className="border-t border-navy/10 p-7 sm:p-9 md:border-l md:border-t-0">
                 <div className="mb-4 flex flex-wrap items-center gap-3">
-                  <span className="font-display text-[0.95rem] font-semibold text-navy/30" aria-hidden="true">
+                  <span className="text-[0.95rem] font-bold text-navy/30" aria-hidden="true">
                     0{i + 1}
                   </span>
                   <Tag className={cn(p.bg, p.accent)}>{p.center}</Tag>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ink">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-navy/75">
                     <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {p.duration}
                   </span>
                 </div>
-                <h2 className="max-w-[24ch] font-display text-[1.4rem] font-semibold leading-[1.2] tracking-[-0.01em] text-navy sm:text-[1.6rem]">
+                <h2 className="max-w-[24ch] text-[1.4rem] font-bold leading-[1.2] tracking-[-0.01em] text-navy sm:text-[1.6rem]">
                   {p.name}
                 </h2>
-                <p className="mb-6 mt-3 max-w-[58ch] text-sm leading-[1.75] text-ink">{p.desc}</p>
+                <p className="mb-6 mt-3 max-w-[58ch] text-sm leading-[1.75] text-navy/75">{p.desc}</p>
                 <p className="mb-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-navy">
                   Partner Communities ({p.communities.length})
                 </p>
@@ -858,7 +858,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
                       key={c}
                       className="inline-flex items-center gap-1 rounded border border-navy/10 bg-cream px-2.5 py-1 text-[0.7rem] font-medium text-navy"
                     >
-                      <MapPin className="h-3 w-3 text-ink" aria-hidden="true" /> {c}
+                      <MapPin className="h-3 w-3 text-navy/75" aria-hidden="true" /> {c}
                     </li>
                   ))}
                 </ul>
@@ -875,13 +875,14 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
 /* ============================= Page 4: Impact & Awards ============================= */
 
 function ImpactPage({ onNavigate, onOpenModal }) {
+  // Order and phrasing follow the "In a Nutshell" page of the brand deck
   const stats = [
-    ["400+", "Youth Volunteers"],
-    ["1,100+", "Learners Reached"],
-    ["18", "Partner Communities"],
-    ["5k+", "Facebook Followers"],
-    ["₱1.5M+", "Donations & Grants Raised"],
-    ["2021", "Formally Established"],
+    { Icon: Rocket, figure: "2021", label: "formally established" },
+    { Icon: Users, figure: "400+", label: "youth volunteers" },
+    { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
+    { Icon: MapPin, figure: "18", label: "partner communities" },
+    { Icon: ThumbsUp, figure: "5k+", label: "followers on Facebook" },
+    { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
   ];
 
   const awards = [
@@ -927,26 +928,13 @@ function ImpactPage({ onNavigate, onOpenModal }) {
       />
       <Reveal className="bg-navy py-16 text-white lg:py-20">
         <Container>
-          <div className="mb-16 grid grid-cols-2 gap-y-9 border-t border-white/15 pt-10 sm:grid-cols-3 lg:grid-cols-6">
-            {stats.map(([n, l], i) => (
-              <div
-                key={l}
-                className={cn(
-                  "px-2 sm:px-5",
-                  i % 2 === 1 && "border-l border-white/15 sm:border-l-0",
-                  i % 3 !== 0 && "sm:border-l sm:border-white/15 lg:border-l-0",
-                  i > 0 && "lg:border-l lg:border-white/15"
-                )}
-              >
-                <p className="font-display text-[1.9rem] font-semibold leading-none tracking-[-0.02em] text-gold">
-                  {n}
-                </p>
-                <p className="mt-2.5 text-[0.7rem] uppercase leading-snug tracking-[0.1em] text-white/60">{l}</p>
-              </div>
+          <ul className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {stats.map((s) => (
+              <StatRow key={s.label} dark {...s} />
             ))}
-          </div>
+          </ul>
 
-          <h2 className="mb-8 flex items-center gap-3 font-display text-[1.6rem] font-semibold sm:text-[1.9rem]">
+          <h2 className="mb-8 flex items-center gap-3 text-[1.6rem] font-bold sm:text-[1.9rem]">
             <Award className="h-6 w-6 text-gold" aria-hidden="true" /> Awards &amp; Recognitions
           </h2>
           {/* Awards read as a citation list — level, title, grantor per row */}
@@ -957,7 +945,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
                 className="grid gap-2 border-b border-white/10 py-5 transition-colors duration-200 hover:bg-white/[0.03] md:grid-cols-[10rem_1fr_18rem] md:items-baseline md:gap-6 md:px-3"
               >
                 <Tag className={cn("w-fit", levelStyles[a.level])}>{a.level}</Tag>
-                <p className="font-display text-[1.05rem] font-semibold leading-snug text-white">{a.title}</p>
+                <p className="text-[1.05rem] font-bold leading-snug text-white">{a.title}</p>
                 <p className="text-xs leading-relaxed text-white/55">{a.grantor}</p>
               </li>
             ))}
@@ -966,7 +954,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
           {/* Transparency */}
           <div className="grid items-center gap-8 rounded-lg border border-white/15 bg-white/[0.03] p-8 sm:p-10 lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-[1.4rem] font-semibold text-white sm:text-[1.6rem]">
+              <h3 className="text-[1.4rem] font-bold text-white sm:text-[1.6rem]">
                 Financial Transparency Report
               </h3>
               <p className="mb-6 mt-3 max-w-[48ch] text-sm leading-[1.7] text-white/70">
@@ -1049,7 +1037,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
                 className="group flex gap-4 border-b border-navy/10 py-7 transition-colors duration-200"
               >
                 <span
-                  className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-primary/25 bg-primary-soft font-display text-[0.95rem] font-semibold text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white"
+                  className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-primary/25 bg-primary-soft text-[0.95rem] font-bold text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white"
                   aria-hidden="true"
                 >
                   {l.name
@@ -1058,11 +1046,11 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
                     .join("")}
                 </span>
                 <div>
-                  <h3 className="font-display text-[1.15rem] font-semibold leading-snug text-navy">{l.name}</h3>
+                  <h3 className="text-[1.15rem] font-bold leading-snug text-navy">{l.name}</h3>
                   <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-primary">
                     {l.title}
                   </p>
-                  <p className="mt-2.5 text-sm leading-[1.7] text-ink">{l.role}</p>
+                  <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{l.role}</p>
                 </div>
               </div>
             ))}
@@ -1120,8 +1108,8 @@ function BlogPage({ onNavigate, onOpenModal }) {
                 </div>
                 <div className="flex flex-1 flex-col border-t border-navy/10 p-6">
                   <Tag className="mb-3 w-fit bg-primary-soft text-primary">{p.tag}</Tag>
-                  <h3 className="font-display text-[1.2rem] font-semibold leading-snug text-navy">{p.title}</h3>
-                  <p className="mb-5 mt-2.5 flex-1 text-sm leading-[1.7] text-ink">{p.desc}</p>
+                  <h3 className="text-[1.2rem] font-bold leading-snug text-navy">{p.title}</h3>
+                  <p className="mb-5 mt-2.5 flex-1 text-sm leading-[1.7] text-navy/75">{p.desc}</p>
                   <a
                     href="#blog"
                     onClick={(e) => e.preventDefault()}
@@ -1293,7 +1281,7 @@ function VolunteerPage({ onOpenModal }) {
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 rounded-lg border-l-2 border-primary bg-navy p-8 text-white sm:p-10">
           <div>
             <Eyebrow dark>Ready to Make a Difference?</Eyebrow>
-            <h2 className="font-display text-[1.5rem] font-semibold tracking-[-0.01em] sm:text-[1.9rem]">
+            <h2 className="text-[1.5rem] font-bold tracking-[-0.01em] sm:text-[1.9rem]">
               Sign Up to Become a Volunteer
             </h2>
             <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-white/70">
@@ -1319,9 +1307,9 @@ function VolunteerPage({ onOpenModal }) {
           <ol className="grid gap-x-8 gap-y-10 md:grid-cols-3">
             {steps.map((s) => (
               <li key={s.num} className="list-none border-t-2 border-primary/25 pt-6">
-                <p className="font-display text-[1.5rem] font-semibold leading-none text-primary">{s.num}</p>
-                <h3 className="mt-3 font-display text-[1.2rem] font-semibold text-navy">{s.title}</h3>
-                <p className="mt-2.5 text-sm leading-[1.7] text-ink">{s.desc}</p>
+                <p className="text-[1.5rem] font-bold leading-none text-primary">{s.num}</p>
+                <h3 className="mt-3 text-[1.2rem] font-bold text-navy">{s.title}</h3>
+                <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{s.desc}</p>
               </li>
             ))}
           </ol>
@@ -1356,8 +1344,8 @@ function VolunteerPage({ onOpenModal }) {
                     </Tag>
                     <Tag className="bg-navy text-gold">{v.tag}</Tag>
                   </div>
-                  <h3 className="font-display text-[1.2rem] font-semibold leading-snug text-navy">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-[1.7] text-ink">{v.desc}</p>
+                  <h3 className="text-[1.2rem] font-bold leading-snug text-navy">{v.title}</h3>
+                  <p className="mt-2 text-sm leading-[1.7] text-navy/75">{v.desc}</p>
                 </div>
               </Card>
             ))}
@@ -1378,8 +1366,8 @@ function VolunteerPage({ onOpenModal }) {
             {pillars.map(({ title, desc, Icon }) => (
               <div key={title} className="border-t border-navy/15 pt-6">
                 <Icon className="mb-4 h-5 w-5 text-primary" aria-hidden="true" />
-                <h3 className="font-display text-[1.15rem] font-semibold text-navy">{title}</h3>
-                <p className="mt-2 text-[0.85rem] leading-[1.7] text-ink">{desc}</p>
+                <h3 className="text-[1.15rem] font-bold text-navy">{title}</h3>
+                <p className="mt-2 text-[0.85rem] leading-[1.7] text-navy/75">{desc}</p>
               </div>
             ))}
           </div>
@@ -1445,7 +1433,7 @@ function DonatePage() {
                           : "border-navy/10 bg-white hover:border-navy/30"
                       )}
                     >
-                      <span className="w-24 shrink-0 font-display text-[1.3rem] font-semibold text-primary">
+                      <span className="w-24 shrink-0 text-[1.3rem] font-bold text-primary">
                         {t.amount}
                       </span>
                       <span className="text-sm leading-snug text-navy">{t.equiv}</span>
@@ -1473,7 +1461,7 @@ function DonatePage() {
 
             {/* Donation form */}
             <div className="rounded-lg border border-navy/10 bg-white p-7 shadow-card sm:p-8">
-              <h3 className="mb-6 font-display text-[1.35rem] font-semibold text-navy">Donate / Sponsor Now</h3>
+              <h3 className="mb-6 text-[1.35rem] font-bold text-navy">Donate / Sponsor Now</h3>
               <div className="mb-5 grid grid-cols-2 gap-2.5" role="radiogroup" aria-label="Payment method">
                 <button
                   role="radio"
@@ -1547,7 +1535,7 @@ function FinalCTA({ onNavigate, onOpenModal }) {
   return (
     <Reveal as="div" className="border-t-2 border-primary bg-navy py-20 text-center text-white lg:py-24">
       <Container className="max-w-3xl">
-        <h2 className="mx-auto max-w-[18ch] font-display text-[2rem] font-semibold leading-[1.12] tracking-[-0.015em] sm:text-[2.75rem]">
+        <h2 className="mx-auto max-w-[18ch] text-[2rem] font-bold leading-[1.12] tracking-[-0.015em] sm:text-[2.75rem]">
           Handa ka na bang sumíkat kasama namin?
         </h2>
         <p className="mx-auto mt-5 max-w-[52ch] text-sm leading-[1.75] text-white/70 sm:text-[0.95rem]">
@@ -1585,9 +1573,9 @@ function Footer({ onNavigate }) {
           <div>
             <div className="mb-4 flex items-center gap-2.5">
               <img src={logoImg} alt="" className="h-9 w-9 object-contain" />
-              <span className="font-display text-[1.05rem] font-semibold text-white">Síkat-Aurora Inc.</span>
+              <span className="text-[1.05rem] font-bold text-white">Síkat-Aurora Inc.</span>
             </div>
-            <p className="mb-5 max-w-[34ch] font-display text-[0.95rem] italic leading-[1.6] text-white/70">
+            <p className="mb-5 max-w-[34ch] text-[0.95rem] italic leading-[1.6] text-white/70">
               Ang pagsíkat ay nagsisimula sa pagkilos.
             </p>
             <p className="mb-5 max-w-[36ch] text-[0.82rem] leading-relaxed text-white/55">

@@ -51,24 +51,21 @@ export const AnimatedHero = ({
         className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-start justify-center px-6 text-white md:px-9"
       >
         {badge && (
-          <motion.div variants={itemVariants} className="mb-5">
-            <span className="flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-gold">
-              <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
-              {badge}
-            </span>
+          <motion.div variants={itemVariants} className="mb-6">
+            <span className="pill-label">{badge}</span>
           </motion.div>
         )}
 
         <motion.h1
           variants={itemVariants}
-          className="max-w-[15ch] font-display text-[2.1rem] font-semibold leading-[1.08] tracking-[-0.02em] sm:text-[3.2rem] md:text-[3.75rem]"
+          className="max-w-[16ch] text-[2.3rem] font-bold leading-[1.08] tracking-[-0.03em] sm:text-[3.4rem] md:text-[4rem]"
         >
           {title}
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
-          className="mt-6 max-w-[52ch] text-sm leading-[1.75] text-white/75 sm:text-[0.98rem]"
+          className="mt-6 max-w-[52ch] text-[0.95rem] leading-[1.75] text-white/80 sm:text-[1.02rem]"
         >
           {description}
         </motion.p>
@@ -77,7 +74,7 @@ export const AnimatedHero = ({
           <Button
             onClick={ctaButton.onClick}
             size="lg"
-            className="cursor-pointer rounded-md border-0 bg-primary px-7 py-3.5 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:bg-primary-dark active:translate-y-px"
+            className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white shadow-cta transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
           >
             {ctaButton.text}
           </Button>
@@ -85,7 +82,7 @@ export const AnimatedHero = ({
             <Button
               onClick={secondaryCta.onClick}
               size="lg"
-              className="cursor-pointer rounded-md border border-white/35 bg-transparent px-7 py-3.5 text-[0.82rem] font-semibold text-white transition-colors duration-200 hover:border-white hover:bg-white hover:text-navy active:translate-y-px"
+              className="cursor-pointer rounded-full border-2 border-white/40 bg-transparent px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-navy motion-reduce:hover:translate-y-0"
             >
               {secondaryCta.text}
             </Button>

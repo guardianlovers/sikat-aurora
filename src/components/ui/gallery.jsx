@@ -127,10 +127,10 @@ export const PhotoGallery = ({
           <span aria-hidden="true" className="h-px w-6 bg-primary/40" />
           Kwentong Síkat — Visual Stories
         </p>
-        <h3 className="z-20 mx-auto mb-4 max-w-2xl text-center font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
+        <h3 className="z-20 mx-auto mb-4 max-w-2xl text-center text-[1.75rem] font-bold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
           Moments From <span className="text-primary">the Field</span>
         </h3>
-        <p className="mx-auto mb-12 max-w-[46ch] text-center text-sm leading-[1.7] text-ink">
+        <p className="mx-auto mb-12 max-w-[46ch] text-center text-sm leading-[1.7] text-navy/75">
           Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
           <span className="hidden lg:inline"> Drag any photo to explore.</span>
         </p>

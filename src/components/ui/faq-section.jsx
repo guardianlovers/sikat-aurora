@@ -21,11 +21,11 @@ const FaqSection = React.forwardRef(
               <span aria-hidden="true" className="h-px w-6 bg-primary/40" />
               FAQ
             </p>
-            <h2 className="mb-4 font-display text-[1.75rem] font-semibold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
+            <h2 className="mb-4 text-[1.75rem] font-bold leading-[1.15] tracking-[-0.01em] text-navy sm:text-[2.1rem]">
               {title}
             </h2>
             {description && (
-              <p className="mx-auto max-w-[54ch] text-sm leading-[1.7] text-ink sm:text-[0.93rem]">{description}</p>
+              <p className="mx-auto max-w-[54ch] text-sm leading-[1.7] text-navy/75 sm:text-[0.93rem]">{description}</p>
             )}
           </motion.div>
 
@@ -48,8 +48,8 @@ const FaqSection = React.forwardRef(
               <div className="mb-4 inline-flex items-center justify-center rounded-md bg-primary-soft p-3 text-primary">
                 <Mail className="h-5 w-5" aria-hidden="true" />
               </div>
-              <p className="mb-1.5 font-display text-[1.2rem] font-semibold text-navy">{contactInfo.title}</p>
-              <p className="mb-6 text-sm leading-relaxed text-ink">{contactInfo.description}</p>
+              <p className="mb-1.5 text-[1.2rem] font-bold text-navy">{contactInfo.title}</p>
+              <p className="mb-6 text-sm leading-relaxed text-navy/75">{contactInfo.description}</p>
               <Button
                 onClick={contactInfo.onContact}
                 className="rounded-md bg-primary px-7 py-3 text-[0.82rem] font-semibold text-white hover:bg-primary-dark"
@@ -88,7 +88,7 @@ const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
       >
         <h3
           className={cn(
-            "font-display text-[1.05rem] font-semibold transition-colors duration-200 sm:text-[1.15rem]",
+            "text-[1.05rem] font-bold transition-colors duration-200 sm:text-[1.15rem]",
             isOpen ? "text-primary" : "text-navy group-hover:text-primary"
           )}
         >
@@ -99,7 +99,7 @@ const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
           transition={{ duration: 0.2 }}
           className={cn(
             "flex-shrink-0 transition-colors duration-200",
-            isOpen ? "text-primary" : "text-ink/50 group-hover:text-primary"
+            isOpen ? "text-primary" : "text-navy/50 group-hover:text-primary"
           )}
         >
           <ChevronDown className="h-5 w-5" aria-hidden="true" />
@@ -113,7 +113,7 @@ const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
             animate={{ height: "auto", opacity: 1, transition: { duration: 0.25, ease: "easeOut" } }}
             exit={{ height: 0, opacity: 0, transition: { duration: 0.2, ease: "easeIn" } }}
           >
-            <p className="max-w-[68ch] pb-6 pr-8 text-sm leading-[1.75] text-ink sm:text-[0.93rem]">
+            <p className="max-w-[68ch] pb-6 pr-8 text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
               {answer}
             </p>
           </motion.div>
