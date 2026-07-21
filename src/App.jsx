@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import logoImg from "./assets/logo.png";
+import heroBanner from "./assets/hero-banner.jpg";
 
 const C = {
   or: "#E55C14",
@@ -209,28 +210,6 @@ function Navbar() {
 
   return (
     <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 999, fontFamily: "'Poppins', sans-serif" }}>
-      {/* Top Utility Bar */}
-      <div style={{ background: "#080F17", color: "rgba(255,255,255,0.75)", fontSize: "0.75rem", padding: "6px 40px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <MapPinIcon size={13} color={C.or} /> Baler, Aurora, Philippines
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.2)", display: "var(--desktop-only, inline)" }}>|</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <Lock size={12} /> Registered Youth NGO · RA 10173 Compliant
-            </span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <a href="mailto:contact@sikataurora.org" style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6, transition: "color 0.2s" }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.75)"}>
-              <MailIcon size={13} color={C.ye} /> contact@sikataurora.org
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Glass Navbar */}
       <nav style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", borderBottom: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 40px" }}>
@@ -274,7 +253,7 @@ function Hero() {
   return (
     <section id="home">
       <AnimatedHero
-        backgroundImageUrl="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80&auto=format&fit=crop"
+        backgroundImageUrl={heroBanner}
         badge="Youth-led NGO · Baler, Aurora, Philippines"
         title={<>Ang pagsikat ay nagsisimula sa <span style={{ color: "#F5C200" }}>pagkilos</span></>}
         description="Síkat-Aurora empowers underserved communities through afterschool programs, literacy drives, and creative arts — built by youth, for youth."
