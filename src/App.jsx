@@ -18,6 +18,7 @@ import {
   UserRound,
   Users,
   X,
+  ZoomIn,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
@@ -143,9 +144,9 @@ function Container({ className, children }) {
 
 // The brand's section marker: black uppercase type in a yellow pill.
 // It stays yellow on dark backgrounds too — that contrast is the point.
-function Eyebrow({ className, align = "left", children }) {
+function Eyebrow({ className, align = "left", dark = false, children }) {
   return (
-    <div className={cn("mb-4", align === "center" && "flex justify-center", className)}>
+    <div className={cn("mb-3", align === "center" && "text-center", className)}>
       <span className="pill-label">{children}</span>
     </div>
   );
@@ -154,7 +155,7 @@ function Eyebrow({ className, align = "left", children }) {
 function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className }) {
   return (
     <div className={cn(align === "center" && "text-center", className)}>
-      {eyebrow && <Eyebrow align={align}>{eyebrow}</Eyebrow>}
+      {eyebrow && <Eyebrow align={align} dark={dark}>{eyebrow}</Eyebrow>}
       <h2
         className={cn(
           "max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.4rem]",
@@ -239,23 +240,97 @@ function Card({ as: Element = "div", className, interactive = true, children, ..
   );
 }
 
-// The deck's "in Photos" pattern: a grid of program photography under a label
+/* ============================= Image Lightbox Modal ============================= */
+
+function ImageLightboxModal({ photo, onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (photo) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "auto";
+    };
+  }, [photo, onClose]);
+
+  if (!photo) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-navy/90 p-4 backdrop-blur-md md:p-8"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 10 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="relative max-h-[92vh] max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-navy p-3 shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            aria-label="Close photo preview"
+            className="absolute right-5 top-5 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white shadow-md transition-all duration-200 hover:scale-110 hover:bg-primary"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="overflow-hidden rounded-xl bg-black/40">
+            <img
+              src={photo.src}
+              alt={photo.alt || "Síkat-Aurora program photo"}
+              className="max-h-[80vh] w-auto max-w-full object-contain mx-auto"
+            />
+          </div>
+          {photo.alt && (
+            <p className="mt-3 text-center text-xs font-medium text-white/80">{photo.alt}</p>
+          )}
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+// The deck's "in Photos" pattern: a grid of program photography under a label, now fully interactive with Lightbox preview
 function PhotoGrid({ label, photos, className }) {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   return (
     <div className={className}>
       {label && <span className="pill-label mb-5 inline-flex">{label}</span>}
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <StaggerContainer className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {photos.map((p) => (
-          <figure key={p.src} className="group overflow-hidden rounded-xl bg-navy/5">
-            <img
-              src={p.src}
-              alt={p.alt}
-              loading="lazy"
-              className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
-            />
-          </figure>
+          <StaggerItem key={p.src}>
+            <figure
+              onClick={() => setSelectedPhoto(p)}
+              className="group relative cursor-zoom-in overflow-hidden rounded-xl bg-navy/5 shadow-xs transition-all duration-300 hover:shadow-md"
+            >
+              <img
+                src={p.src}
+                alt={p.alt}
+                loading="lazy"
+                className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
+              />
+              <div className="absolute inset-0 bg-navy/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-navy shadow-sm">
+                  <ZoomIn className="h-4 w-4" />
+                </span>
+              </div>
+            </figure>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
+
+      <ImageLightboxModal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
     </div>
   );
 }
