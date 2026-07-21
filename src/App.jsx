@@ -166,7 +166,7 @@ function HomePage({ onNavigate }) {
       <section id="home">
         <AnimatedHero
           backgroundImageUrl={heroBanner}
-          badge="Ang pagsíkat ay nagsisimula sa pagkilos."
+          badge="Ang pagsikat ay nagsisimula sa pagkilos."
           title={<>Where the sun rises, <span style={{ color: "#F5C200" }}>the youth rise with it.</span></>}
           description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
           ctaButton={{

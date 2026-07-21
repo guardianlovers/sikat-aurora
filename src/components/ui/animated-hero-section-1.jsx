@@ -71,12 +71,10 @@ export const AnimatedHero = ({
         className="relative z-10 flex flex-col items-start justify-center px-10 max-w-7xl w-full text-white pt-20"
       >
         {badge && (
-          <motion.div variants={itemVariants} className="mb-6">
+          <motion.div variants={itemVariants} className="mb-4">
             <span
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide"
+              className="text-sm md:text-base font-semibold tracking-wide"
               style={{
-                background: "rgba(245,194,0,0.15)",
-                border: "1px solid rgba(245,194,0,0.3)",
                 color: "#F5C200",
               }}
             >
