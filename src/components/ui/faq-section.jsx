@@ -1,11 +1,10 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Mail } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 const FaqSection = React.forwardRef(
-  ({ className, title, description, items, contactInfo, ...props }, ref) => {
+  ({ className, title, description, items, ...props }, ref) => {
     return (
       <section ref={ref} className={cn("w-full py-16 font-sans lg:py-20", className)} {...props}>
         <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
@@ -35,29 +34,6 @@ const FaqSection = React.forwardRef(
               <FaqItem key={index} question={item.question} answer={item.answer} index={index} />
             ))}
           </div>
-
-          {/* Contact */}
-          {contactInfo && (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-16 max-w-md rounded-lg border border-navy/10 bg-white p-8 text-center shadow-card"
-            >
-              <div className="mb-4 inline-flex items-center justify-center rounded-md bg-primary-soft p-3 text-primary">
-                <Mail className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <p className="mb-1.5 text-[1.2rem] font-bold text-navy">{contactInfo.title}</p>
-              <p className="mb-6 text-sm leading-relaxed text-navy/75">{contactInfo.description}</p>
-              <Button
-                onClick={contactInfo.onContact}
-                className="rounded-md bg-primary px-7 py-3 text-[0.82rem] font-semibold text-white hover:bg-primary-dark"
-              >
-                {contactInfo.buttonText}
-              </Button>
-            </motion.div>
-          )}
         </div>
       </section>
     );

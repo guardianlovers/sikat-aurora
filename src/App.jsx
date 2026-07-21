@@ -664,12 +664,6 @@ function HomePage({ onNavigate, onOpenModal }) {
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
-        contactInfo={{
-          title: "Still have questions?",
-          description: "Reach out directly to our volunteer coordination team in Baler, Aurora.",
-          buttonText: "Contact Us via Email",
-          onContact: () => (window.location.href = "mailto:contact@sikataurora.org"),
-        }}
       />
 
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
@@ -1383,12 +1377,6 @@ function FAQPage({ onNavigate, onOpenModal }) {
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
-        contactInfo={{
-          title: "Still have questions?",
-          description: "Reach out directly to our volunteer coordination team in Baler, Aurora.",
-          buttonText: "Contact Us via Email",
-          onContact: () => (window.location.href = "mailto:contact@sikataurora.org"),
-        }}
       />
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
