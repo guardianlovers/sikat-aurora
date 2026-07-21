@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
+import { PhotoGallery } from "@/components/ui/gallery";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/hero-banner.jpg";
 import batangKaliImg from "./assets/batang-kali.png";
@@ -585,9 +586,15 @@ function BlogPage({ onNavigate }) {
         title="Kwentong Síkat"
         subtitle="Stories from the field — by the volunteers, for the community."
       />
-      <section style={{ padding: "90px 40px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
+      <section style={{ padding: "60px 40px 90px", background: C.bg, fontFamily: "'Poppins', sans-serif" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+          {/* Photo Gallery Component */}
+          <PhotoGallery onViewAll={() => {
+            const el = document.getElementById("articles-grid");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }} />
+
+          <div id="articles-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, marginTop: 60 }}>
             {posts.map((p, i) => (
               <div key={i} style={{ background: "#fff", borderRadius: 24, overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 6px 20px rgba(0,0,0,0.03)" }}>
                 <img src={p.img} alt={p.title} style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }} />
