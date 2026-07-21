@@ -122,15 +122,17 @@ export const PhotoGallery = ({
 
   return (
     <div className="py-16 relative font-sans overflow-hidden">
-      <p className="my-2 text-center text-xs font-semibold uppercase tracking-widest text-[#E55C14]">
-        Kwentong Síkat — Visual Stories
-      </p>
-      <h3 className="z-20 mx-auto max-w-2xl text-center text-3xl md:text-4xl font-semibold text-[#0D1F2D] mb-3">
-        Moments From <span className="text-[#E55C14]">the Field</span>
-      </h3>
-      <p className="text-center text-slate-500 text-sm max-w-md mx-auto mb-10 font-light">
-        Interactive photo gallery from Baler, Maria Aurora, San Luis, and Casiguran. Drag any photo to explore!
-      </p>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
+        <p className="my-2 text-center text-xs font-semibold uppercase tracking-widest text-[#E55C14]">
+          Kwentong Síkat — Visual Stories
+        </p>
+        <h3 className="z-20 mx-auto max-w-2xl text-center text-3xl md:text-4xl font-semibold text-[#0D1F2D] mb-3">
+          Moments From <span className="text-[#E55C14]">the Field</span>
+        </h3>
+        <p className="text-center text-slate-500 text-sm max-w-md mx-auto mb-10 font-light">
+          Interactive photo gallery from Baler, Maria Aurora, San Luis, and Casiguran. Drag any photo to explore!
+        </p>
+      </div>
       <div className="relative mb-12 h-[320px] w-full items-center justify-center lg:flex">
         <motion.div
           className="relative mx-auto flex w-full max-w-7xl justify-center"

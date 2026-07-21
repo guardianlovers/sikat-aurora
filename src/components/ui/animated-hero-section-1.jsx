@@ -51,12 +51,13 @@ export const AnimatedHero = ({
         />
       </div>
 
-      {/* Hero Content */}
+      {/* Hero Content — aligned to exact 1280px grid with 40px padding */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 flex flex-col items-start justify-center px-6 sm:px-12 md:px-16 max-w-5xl w-full text-white"
+        className="relative z-10 flex flex-col items-start justify-center max-w-[1280px] w-full text-white mx-auto"
+        style={{ paddingLeft: 40, paddingRight: 40 }}
       >
         {badge && (
           <motion.div variants={itemVariants} className="mb-3">

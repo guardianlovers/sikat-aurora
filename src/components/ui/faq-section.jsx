@@ -15,7 +15,7 @@ const FaqSection = React.forwardRef(
         )}
         {...props}
       >
-        <div className="container mx-auto px-6 max-w-5xl">
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
