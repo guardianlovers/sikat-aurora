@@ -1461,8 +1461,8 @@ function ImpactPage({ onNavigate, onOpenModal }) {
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div>
               <SectionHeading
-                eyebrow="In a Nutshell"
-                title="What five years of youth volunteerism adds up to"
+                eyebrow="Our Reach"
+                title="Five years of youth-led impact across Aurora"
                 className="mb-10"
               />
               <StaggerContainer as="ul" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
@@ -1512,9 +1512,9 @@ function ImpactPage({ onNavigate, onOpenModal }) {
       <Reveal className="border-y border-navy/10 bg-cream py-16 lg:py-24">
         <Container>
           <SectionHeading
-            eyebrow="Our Funding"
-            title="Where the money comes from"
-            lead={`Cash donations and grants received per fiscal year, as published in our transparency report as of ${FUNDING_AS_OF}.`}
+            eyebrow="Transparency"
+            title="Where our funding comes from"
+            lead={`Cash donations and grants received per fiscal year, as published in our public financial report as of ${FUNDING_AS_OF}.`}
             className="mb-12"
           />
 
@@ -1551,9 +1551,9 @@ function ImpactPage({ onNavigate, onOpenModal }) {
         <Container>
           <SectionHeading
             dark
-            eyebrow="Recognition"
-            title="Awards & recognitions"
-            lead="From the municipality of Baler to the ASEAN Youth Forum."
+            eyebrow="Awards & Honors"
+            title="Recognized locally, nationally, and internationally"
+            lead="From municipal SK federations to national foundations and the ASEAN Youth Forum."
             className="mb-12"
           />
           <StaggerContainer as="ul" className="border-t border-white/20">
@@ -1576,9 +1576,9 @@ function ImpactPage({ onNavigate, onOpenModal }) {
       <Reveal className="bg-white py-16 lg:py-24">
         <Container>
           <SectionHeading
-            eyebrow="On the Ground"
-            title="What the recognition looks like in practice"
-            lead="Every award traces back to a Saturday spent with kids somewhere in Aurora."
+            eyebrow="Impact in Action"
+            title="Recognition rooted in real community work"
+            lead="Behind every honor are dedicated youth volunteers teaching children, protecting nature, and empowering communities across Aurora."
             className="mb-12"
           />
           <PhotoGrid
@@ -1606,8 +1606,8 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
         <Container>
           <SectionHeading
             eyebrow="Organizational Structure"
-            title="Youth Leaders Behind the Movement"
-            lead="Meet the executive committee and directorate driving programs across Aurora Province."
+            title="The youth leaders driving the movement"
+            lead="Meet the executive committee and directorate guiding volunteer initiatives across Aurora Province."
             className="mb-12"
           />
 
