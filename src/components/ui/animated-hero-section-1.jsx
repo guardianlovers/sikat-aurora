@@ -32,7 +32,7 @@ export const AnimatedHero = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-[1080px] w-full flex-col items-center justify-center overflow-hidden font-sans",
+        "relative flex min-h-[850px] w-full flex-col items-center justify-center overflow-hidden font-sans",
         className
       )}
     >
@@ -51,12 +51,12 @@ export const AnimatedHero = ({
         />
       </div>
 
-      {/* Hero Content matching Figma node 130-19 */}
+      {/* Hero Content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 flex flex-col items-start justify-center px-8 sm:px-12 md:px-16 max-w-6xl w-full text-white pt-28 pb-16"
+        className="relative z-10 flex flex-col items-start justify-center px-8 sm:px-12 md:px-16 max-w-6xl w-full text-white pt-16 pb-12"
       >
         {badge && (
           <motion.div variants={itemVariants} className="mb-3">
@@ -71,19 +71,19 @@ export const AnimatedHero = ({
 
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.05] max-w-4xl"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold tracking-tight leading-[1.08] max-w-4xl"
         >
           {title}
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
-          className="mt-6 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-white/80 font-normal"
+          className="mt-5 max-w-2xl text-base sm:text-lg md:text-xl leading-relaxed text-white/80 font-normal"
         >
           {description}
         </motion.p>
 
-        <motion.div variants={itemVariants} className="mt-8 sm:mt-10 flex items-center gap-4 flex-wrap">
+        <motion.div variants={itemVariants} className="mt-8 flex items-center gap-4 flex-wrap">
           <Button
             onClick={ctaButton.onClick}
             size="lg"

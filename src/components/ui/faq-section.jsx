@@ -10,7 +10,7 @@ const FaqSection = React.forwardRef(
       <section
         ref={ref}
         className={cn(
-          "py-24 min-h-[1080px] w-full flex flex-col justify-center bg-gradient-to-b from-transparent via-stone-100/60 to-transparent font-sans",
+          "py-20 min-h-[850px] w-full flex flex-col justify-center bg-gradient-to-b from-transparent via-stone-100/60 to-transparent font-sans",
           className
         )}
         {...props}

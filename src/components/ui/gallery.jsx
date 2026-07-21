@@ -121,7 +121,7 @@ export const PhotoGallery = ({
   ];
 
   return (
-    <div className="py-24 min-h-[1080px] flex flex-col justify-center relative font-sans overflow-hidden">
+    <div className="py-20 min-h-[850px] flex flex-col justify-center relative font-sans overflow-hidden">
       <div className="absolute inset-0 max-md:hidden top-[80px] -z-10 h-[300px] w-full bg-transparent bg-[linear-gradient(to_right,#57534e_1px,transparent_1px),linear-gradient(to_bottom,#57534e_1px,transparent_1px)] bg-[size:3rem_3rem] opacity-15 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
       <p className="my-2 text-center text-xs font-semibold uppercase tracking-widest text-[#E55C14]">
         Kwentong Síkat — Visual Stories
