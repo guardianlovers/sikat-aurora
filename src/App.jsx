@@ -22,6 +22,7 @@ import {
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
+import { LEADERS } from "@/lib/leaders";
 import { POSTS, POST_CATEGORIES, formatPostDate } from "@/lib/posts";
 import { CASH_DONATIONS, FUNDING_TOTALS, FUNDING_AS_OF, TOTALS_PERIOD, formatPeso } from "@/lib/funding";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
@@ -123,26 +124,6 @@ function Btn({ variant = "primary", className, children, ...props }) {
       {...props}
     >
       {children}
-    </button>
-  );
-}
-
-// Inline text action — the arrow slides on hover, no button chrome
-function TextLink({ className, dark = false, children, ...props }) {
-  return (
-    <button
-      className={cn(
-        "group inline-flex items-center gap-2 rounded-sm text-[0.82rem] font-semibold transition-colors duration-150",
-        dark ? "text-white hover:text-gold" : "text-primary hover:text-primary-dark",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <ArrowRight
-        className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
-        aria-hidden="true"
-      />
     </button>
   );
 }
@@ -531,19 +512,6 @@ function HomePage({ onNavigate, onOpenModal }) {
           secondaryCta={{ text: "Donate / Be a Sponsor", onClick: () => onNavigate("donate") }}
         />
       </section>
-
-      {/* Established strip */}
-      <Reveal as="div" className="border-y border-navy/10 bg-white">
-        <Container className="flex flex-wrap items-center gap-x-5 gap-y-2 py-4">
-          <Tag className="bg-primary-soft text-primary">Formally Established</Tag>
-          <span className="text-[0.83rem] text-navy/75">
-            August 12, 2021 (International Youth Day) · SEC Reg. No. 2025030194739-03
-          </span>
-          <TextLink className="ml-auto shrink-0" onClick={() => onNavigate("about")}>
-            Read Our History
-          </TextLink>
-        </Container>
-      </Reveal>
 
       {/* About teaser */}
       <Reveal className="bg-white py-16 lg:py-20">
@@ -1344,39 +1312,6 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 /* ============================= Page 5: Leadership ============================= */
 
 function LeadershipPage({ onNavigate, onOpenModal }) {
-  const leaders = [
-    {
-      name: "RJ Belen",
-      title: "Executive Director",
-      role: "Highest official; presides over Executive Committee, executes policies & sets direction.",
-    },
-    {
-      name: "Angelica Matusalem",
-      title: "Deputy Executive Director & Director of Finance",
-      role: "Oversees operations, financial capacity, & procurement.",
-    },
-    {
-      name: "Rachelle Ann Imperial",
-      title: "Director of Internal Affairs",
-      role: "Recruitment & member relations. Deputy: Princess Joy Necesito.",
-    },
-    {
-      name: "Patrisha Mae Abubo",
-      title: "Director of External Affairs",
-      role: "Envoys to partners & aligned organizations. Deputy: Jomari Guttierrez.",
-    },
-    {
-      name: "Reaiah Codiapit",
-      title: "Director of Education & Training",
-      role: "Educational arm & program think tank. Deputy: Jefferson Lising.",
-    },
-    {
-      name: "Cattleya Abuan",
-      title: "Director of Creatives",
-      role: "Brand promotion & online identity. Deputy: John Renuel de Padua.",
-    },
-  ];
-
   return (
     <>
       <PageHeader
@@ -1386,30 +1321,35 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
       />
       <Reveal className="bg-white py-16 lg:py-20">
         <Container>
-          {/* Directory-style roster: a rule per person, initials set in the display face */}
-          <div className="grid gap-x-10 border-t border-navy/15 sm:grid-cols-2 lg:grid-cols-3">
-            {leaders.map((l) => (
-              <div
-                key={l.name}
-                className="group flex gap-4 border-b border-navy/10 py-7 transition-colors duration-200"
-              >
-                <span
-                  className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-primary/25 bg-primary-soft text-[0.95rem] font-bold text-primary transition-colors duration-200 group-hover:bg-primary group-hover:text-white"
-                  aria-hidden="true"
-                >
-                  {l.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-                <div>
-                  <h3 className="text-[1.15rem] font-bold leading-snug text-navy">{l.name}</h3>
-                  <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-primary">
-                    {l.title}
-                  </p>
-                  <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{l.role}</p>
+          <div className="grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+            {LEADERS.map((l) => (
+              <article key={l.name} className="group border-t border-navy/15 py-7">
+                {/* Portrait slot — falls back to initials until a photo is added */}
+                <div className="mb-5 aspect-[4/5] w-full overflow-hidden rounded-2xl bg-primary-soft">
+                  {l.photo ? (
+                    <img
+                      src={l.photo}
+                      alt={l.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <span
+                        className="text-[2.2rem] font-bold text-primary/45 transition-colors duration-200 group-hover:text-primary/60"
+                        aria-hidden="true"
+                      >
+                        {l.initials}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              </div>
+                <h3 className="text-[1.15rem] font-bold leading-snug text-navy">{l.name}</h3>
+                <p className="mt-1 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-primary">
+                  {l.title}
+                </p>
+                <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{l.role}</p>
+              </article>
             ))}
           </div>
         </Container>
