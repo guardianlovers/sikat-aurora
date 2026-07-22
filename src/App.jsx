@@ -212,7 +212,7 @@ function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, cl
 }
 
 const BTN_VARIANTS = {
-  primary: "bg-primary text-white shadow-cta hover:bg-primary-dark",
+  primary: "bg-primary text-white hover:bg-primary-dark",
   gold: "bg-gold text-navy-ink hover:bg-gold-bright",
   dark: "bg-navy text-white hover:bg-navy-ink",
   outline: "border-2 border-navy/20 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white",
@@ -1670,7 +1670,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
                 href="https://bit.ly/sikatfinance"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.85rem] font-semibold text-white no-underline shadow-cta transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[0.85rem] font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
               >
                 Open the Financial Tracker <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>

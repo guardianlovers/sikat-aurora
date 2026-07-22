@@ -111,7 +111,7 @@ export const AnimatedHero = ({
           <Button
             onClick={ctaButton.onClick}
             size="lg"
-            className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white shadow-cta transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
+            className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
           >
             {ctaButton.text}
           </Button>
