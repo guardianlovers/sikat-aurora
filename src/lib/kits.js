@@ -56,6 +56,26 @@ export const KITS = [
     image: booksStack,
     imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
   },
+  {
+    id: "reading-mentor-kit",
+    amount: 1000,
+    name: "Reading Mentor Kit",
+    program: "Abot Ko Ang Libro",
+    blurb: "Sponsor guides, tracking logs, and teaching flashcards for local volunteer reading mentors.",
+    includes: ["Mentor training guidebook", "Student reading progress logs", "Assorted learning flashcards"],
+    image: booksStack,
+    imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
+  },
+  {
+    id: "eco-camp-support",
+    amount: 2500,
+    name: "Eco-Stewardship Camp Support",
+    program: "Ang Batang Kali",
+    blurb: "Provide camp supplies, outdoor stewardship tools, and tree seedlings for nature conservation events.",
+    includes: ["Camp outdoor guide", "Tree seedling for planting", "Reusable camp water flask"],
+    image: booksSpread,
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
+  },
 ];
 
 export const getKit = (id) => KITS.find((k) => k.id === id);
