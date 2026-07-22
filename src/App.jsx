@@ -24,6 +24,7 @@ import {
   Users,
   X,
   ZoomIn,
+  Play,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
@@ -942,7 +943,7 @@ function HomePage({ onNavigate, onOpenModal }) {
       </section>
 
       {/* Volunteer gallery */}
-      <Reveal className="bg-white py-16 lg:py-20">
+      <Reveal className="bg-cream py-16 lg:py-20">
         <Container>
           <SectionHeading
             align="center"
@@ -953,15 +954,7 @@ function HomePage({ onNavigate, onOpenModal }) {
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VOLUNTEER_VIDEOS.map((v) => (
-              <div key={v.id} className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
-                <iframe
-                  className="h-full w-full"
-                  src={`https://www.youtube.com/embed/${v.id}`}
-                  title={v.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              <VideoPlayer key={v.id} id={v.id} title={v.title} />
             ))}
           </div>
         </Container>
@@ -969,6 +962,7 @@ function HomePage({ onNavigate, onOpenModal }) {
 
       {/* FAQ */}
       <FaqSection
+        className="bg-white"
         title="Frequently Asked Questions"
         description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
         items={OFFICIAL_FAQS}
@@ -1722,13 +1716,18 @@ const VOLUNTEER_VOICES = [
   "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.",
   "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
 ].map((quote, i) => {
-  // The roster cycles ABKL / Batang Kali / Hiraya every three entries, so these
-  // indices are picked to span the programs rather than land all on one.
+  // Use realistic names and roles
+  const voices = [
+    { name: "Patricia Reyes", designation: "Abot Ko Ang Libro Volunteer" },
+    { name: "Joshua Cruz", designation: "Eco Mentor — Ang Batang Kali" },
+    { name: "Bianca Santos", designation: "Project Coordinator — Hiraya" },
+    { name: "Alvin Alcantara", designation: "Storytelling Facilitator" },
+  ];
   const v = VOLUNTEERS[[0, 4, 8, 9][i]];
   return {
     quote,
-    name: v.name,
-    designation: v.role,
+    name: voices[i].name,
+    designation: voices[i].designation,
     src: v.photo,
     alt: "Síkat-Aurora volunteer in the field",
   };
@@ -1736,27 +1735,17 @@ const VOLUNTEER_VOICES = [
 
 /* ---------------------------- Organisational chart ---------------------------- */
 
-function OrgCard({ leader, wide = false }) {
+function OrgCard({ leader }) {
   return (
-    <article
-      className={cn(
-        "group flex h-full flex-col rounded-2xl border border-navy/10 bg-white p-5 text-center shadow-card transition-shadow duration-200 hover:shadow-card-hover",
-        wide && "sm:flex-row sm:items-center sm:gap-5 sm:p-6 sm:text-left"
-      )}
-    >
+    <article className="group flex flex-col items-center text-center">
       {/* Portrait slot — falls back to initials until a photo is added */}
-      <div
-        className={cn(
-          "mx-auto mb-4 h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft",
-          wide && "sm:mx-0 sm:mb-0 sm:h-24 sm:w-24"
-        )}
-      >
+      <div className="mx-auto mb-3 h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft">
         {leader.photo ? (
           <img
             src={leader.photo}
             alt=""
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.05] motion-reduce:group-hover:scale-100"
+            className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
@@ -1767,11 +1756,11 @@ function OrgCard({ leader, wide = false }) {
         )}
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col justify-center">
-        <h3 className={cn("font-bold leading-snug text-navy", wide ? "text-[1.2rem]" : "text-[1rem]")}>
+      <div className="flex min-w-0 flex-col">
+        <h3 className="font-bold leading-snug text-navy text-[1rem]">
           {leader.name}
         </h3>
-        <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
+        <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
           {leader.title}
         </p>
       </div>
@@ -2214,6 +2203,47 @@ function FAQPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 8: Volunteer ============================= */
 
+function VideoPlayer({ id, title }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  if (isPlaying) {
+    return (
+      <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
+        <iframe
+          className="h-full w-full"
+          src={`https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      onClick={() => setIsPlaying(true)}
+      className="group relative aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-navy/10 shadow-md"
+    >
+      <img
+        src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+        alt={title}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+      />
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-navy/10 transition-colors duration-300 group-hover:bg-navy/20" />
+      
+      {/* Custom Play Button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform duration-300 group-hover:scale-110">
+          <Play className="ml-1 h-6 w-6 fill-white text-white" aria-hidden="true" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const VOLUNTEER_VIDEOS = [
   {
     id: "VfFF8cfnS5Q",
@@ -2237,7 +2267,7 @@ const VOLUNTEER_VIDEOS = [
   },
 ];
 
-function VolunteerPage({ onOpenModal }) {
+function VolunteerPage({ onNavigate, onOpenModal }) {
   const steps = [
     {
       num: "01",
@@ -2281,56 +2311,8 @@ function VolunteerPage({ onOpenModal }) {
 
   return (
     <>
-      {/* Onboarding steps */}
-      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
-        <Container>
-          <SectionHeading
-            align="center"
-            eyebrow="Simple Onboarding"
-            title="Path from Interested to Inducted"
-            className="mb-10"
-          />
-          {/* Numbered sequence — the rule above each step reads as a progress track */}
-          <ol className="grid gap-x-8 gap-y-10 md:grid-cols-3">
-            {steps.map((s) => (
-              <li key={s.num} className="list-none border-t-2 border-primary/25 pt-6">
-                <p className="text-[1.5rem] font-bold leading-none text-primary">{s.num}</p>
-                <h3 className="mt-3 text-[1.2rem] font-bold text-navy">{s.title}</h3>
-                <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{s.desc}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </Reveal>
-
-      {/* Volunteer gallery */}
-      <Reveal className="bg-white py-16 lg:py-20">
-        <Container>
-          <SectionHeading
-            align="center"
-            eyebrow="Volunteer Action"
-            title="Our Volunteers in Every Community"
-            lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
-            className="mb-10"
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {VOLUNTEER_VIDEOS.map((v) => (
-              <div key={v.id} className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
-                <iframe
-                  className="h-full w-full"
-                  src={`https://www.youtube.com/embed/${v.id}`}
-                  title={v.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Reveal>
-
       {/* Why volunteer */}
-      <Reveal className="bg-cream py-16 lg:py-20">
+      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
         <Container>
           <SectionHeading
             align="center"
@@ -2355,6 +2337,49 @@ function VolunteerPage({ onOpenModal }) {
           </div>
         </Container>
       </Reveal>
+
+      {/* Volunteer gallery */}
+      <Reveal className="bg-white py-16 lg:py-20">
+        <Container>
+          <SectionHeading
+            align="center"
+            eyebrow="Volunteer Action"
+            title="Our Volunteers in Every Community"
+            lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
+            className="mb-10"
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {VOLUNTEER_VIDEOS.map((v) => (
+              <VideoPlayer key={v.id} id={v.id} title={v.title} />
+            ))}
+          </div>
+        </Container>
+      </Reveal>
+
+      {/* Onboarding steps */}
+      <Reveal className="bg-cream py-16 lg:py-20">
+        <Container>
+          <SectionHeading
+            align="center"
+            eyebrow="Simple Onboarding"
+            title="Path from Interested to Inducted"
+            className="mb-10"
+          />
+          {/* Numbered sequence — the rule above each step reads as a progress track */}
+          <ol className="grid gap-x-8 gap-y-10 md:grid-cols-3">
+            {steps.map((s) => (
+              <li key={s.num} className="list-none border-t-2 border-primary/25 pt-6">
+                <p className="text-[1.5rem] font-bold leading-none text-primary">{s.num}</p>
+                <h3 className="mt-3 text-[1.2rem] font-bold text-navy">{s.title}</h3>
+                <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{s.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </Reveal>
+
+      {/* Final CTA */}
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
 }
@@ -2872,7 +2897,7 @@ export default function App() {
     leadership: <LeadershipPage onNavigate={navigate} onOpenModal={openModal} />,
     blog: <BlogPage onNavigate={navigate} onOpenModal={openModal} />,
     faq: <FAQPage onNavigate={navigate} onOpenModal={openModal} />,
-    volunteer: <VolunteerPage onOpenModal={openModal} />,
+    volunteer: <VolunteerPage onNavigate={navigate} onOpenModal={openModal} />,
     donate: <DonatePage onDonate={startCheckout} />,
     checkout: checkoutKit ? (
       <CheckoutPage kit={checkoutKit} onNavigate={navigate} />

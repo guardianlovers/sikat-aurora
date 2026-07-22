@@ -75,6 +75,7 @@ export function AnimatedTestimonials({ testimonials, autoplay = false, className
                 not each blurred-in word as it lands */}
             <div aria-live="polite" aria-atomic="true">
               <p className="text-[1.1rem] italic leading-[1.75] text-navy/80">
+                &ldquo;
                 {current.quote.split(" ").map((word, i) => (
                   <motion.span
                     key={`${active}-${i}`}
@@ -86,6 +87,7 @@ export function AnimatedTestimonials({ testimonials, autoplay = false, className
                     {word}&nbsp;
                   </motion.span>
                 ))}
+                &rdquo;
               </p>
               <div className="mt-6">
                 <h3 className="text-[1.2rem] font-bold text-navy">{current.name}</h3>
