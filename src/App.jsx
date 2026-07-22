@@ -30,7 +30,14 @@ import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
 import { LEADERS } from "@/lib/leaders";
-import { POSTS, POST_CATEGORIES, formatPostDate } from "@/lib/posts";
+import {
+  POSTS,
+  POST_CATEGORIES,
+  formatPostDate,
+  getPost,
+  getPostBody,
+  getRelatedPosts,
+} from "@/lib/posts";
 import { CASH_DONATIONS, FUNDING_TOTALS, FUNDING_AS_OF, TOTALS_PERIOD, formatPeso } from "@/lib/funding";
 import { KITS, getKit } from "@/lib/kits";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
@@ -2025,11 +2032,7 @@ function PostMeta({ post, className, dark = false }) {
 function PostCard({ post }) {
   return (
     <Card as="article" className="group flex flex-col overflow-hidden !rounded-xl">
-      <a
-        href={`#blog/${post.slug}`}
-        onClick={(e) => e.preventDefault()}
-        className="flex flex-1 flex-col no-underline"
-      >
+      <a href={`#blog/${post.slug}`} className="flex flex-1 flex-col no-underline">
         <div className="overflow-hidden">
           <img
             src={post.img}
@@ -2052,6 +2055,102 @@ function PostCard({ post }) {
   );
 }
 
+/* ============================= Page 11: Article ============================= */
+
+function PostPage({ post, onNavigate, onOpenModal }) {
+  const body = getPostBody(post);
+  const related = getRelatedPosts(post);
+
+  return (
+    <>
+      <article>
+        {/* Masthead */}
+        <Reveal className="bg-white pb-10 pt-20 lg:pt-24">
+          <Container className="max-w-3xl">
+            <button
+              onClick={() => onNavigate("blog")}
+              className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 transition-colors duration-150 hover:text-primary"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> All stories
+            </button>
+
+            <Tag className={CATEGORY_STYLES[post.category]}>{post.category}</Tag>
+            <h1 className="mt-4 text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.6rem]">
+              {post.title}
+            </h1>
+            <p className="mt-5 text-[1.05rem] leading-[1.7] text-navy/75">{post.excerpt}</p>
+            <PostMeta post={post} className="mt-6" />
+          </Container>
+        </Reveal>
+
+        <Container className="max-w-4xl">
+          <img
+            src={post.img}
+            alt=""
+            className="h-64 w-full rounded-2xl object-cover sm:h-[26rem]"
+          />
+        </Container>
+
+        {/* Body — max-w-[68ch] keeps the measure readable regardless of viewport */}
+        <Reveal className="bg-white pb-16 pt-12 lg:pb-24">
+          <Container className="max-w-3xl">
+            <div className="max-w-[68ch]">
+              {body.map((block, i) => {
+                if (block.type === "h2") {
+                  return (
+                    <h2
+                      key={i}
+                      className="mt-11 text-[1.35rem] font-bold leading-snug text-navy sm:text-[1.5rem]"
+                    >
+                      {block.text}
+                    </h2>
+                  );
+                }
+                if (block.type === "quote") {
+                  return (
+                    <blockquote
+                      key={i}
+                      className="my-9 border-l-2 border-gold pl-6 text-[1.15rem] italic leading-[1.7] text-navy/80"
+                    >
+                      {block.text}
+                    </blockquote>
+                  );
+                }
+                return (
+                  <p key={i} className="mt-5 text-[1.02rem] leading-[1.85] text-navy/80">
+                    {block.text}
+                  </p>
+                );
+              })}
+            </div>
+
+            <div className="mt-12 border-t border-navy/10 pt-8">
+              <Btn variant="outline" onClick={() => onNavigate("blog")}>
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to all stories
+              </Btn>
+            </div>
+          </Container>
+        </Reveal>
+      </article>
+
+      {related.length > 0 && (
+        <Reveal className="bg-cream py-14 lg:py-20">
+          <Container>
+            <SectionHeading eyebrow="Keep Reading" title="More from the field" className="mb-8" />
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((p) => (
+                <PostCard key={p.slug} post={p} />
+              ))}
+            </div>
+          </Container>
+        </Reveal>
+      )}
+
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
+    </>
+  );
+}
+
 function BlogPage({ onNavigate, onOpenModal }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -2067,7 +2166,6 @@ function BlogPage({ onNavigate, onOpenModal }) {
         <Container>
           <a
             href={`#blog/${featured.slug}`}
-            onClick={(e) => e.preventDefault()}
             className="group grid gap-8 no-underline lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12"
           >
             <div className="overflow-hidden rounded-2xl">
@@ -2921,7 +3019,12 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "");
-      setActivePage(hash || "home");
+      setActivePage((prev) => {
+        // Article cards are plain anchors, so they change the hash without
+        // going through navigate() — scroll to the top the way navigate() does.
+        if (prev !== (hash || "home")) window.scrollTo({ top: 0 });
+        return hash || "home";
+      });
     };
 
     handleHashChange();
@@ -2949,6 +3052,11 @@ export default function App() {
   // A direct link to #checkout has no kit behind it, so fall back to the catalog
   const checkoutKit = getKit(checkoutKitId);
 
+  // Article routes carry a slug: "#blog/five-saturdays-in-zabali". Everything
+  // else is a bare page id, so the segment before the slash is the route.
+  const [routeId, routeParam] = activePage.split("/");
+  const activePost = routeId === "blog" && routeParam ? getPost(routeParam) : null;
+
   const pages = {
     home: <HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
     about: <AboutPage onNavigate={navigate} onOpenModal={openModal} />,
@@ -2968,7 +3076,8 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <Navbar activePage={activePage} onNavigate={navigate} onOpenModal={openModal} />
+      {/* routeId, not activePage — keeps Blog marked current while reading an article */}
+      <Navbar activePage={routeId} onNavigate={navigate} onOpenModal={openModal} />
 
       <VolunteerModal isOpen={isVolunteerModalOpen} onClose={closeModal} />
       <VideoModal videoId={activeVideoId} onClose={closeVideo} />
@@ -2981,7 +3090,11 @@ export default function App() {
           exit={{ opacity: 0, scale: 0.992 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          {pages[activePage] ?? pages.home}
+          {activePost ? (
+            <PostPage post={activePost} onNavigate={navigate} onOpenModal={openModal} />
+          ) : (
+            pages[routeId] ?? pages.home
+          )}
         </motion.main>
       </AnimatePresence>
 

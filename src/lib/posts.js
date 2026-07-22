@@ -115,6 +115,60 @@ export const POSTS = [
   },
 ];
 
+// PLACEHOLDER ARTICLE BODY. Every post shares this until real copy is written,
+// so the article page has something to lay out. It is lorem ipsum rather than
+// plausible English on purpose — invented field reports about real communities
+// would read as genuine once published. Give a post its own copy by adding a
+// `body` array of blocks to its entry above; anything without one falls back
+// to this.
+const PLACEHOLDER_BODY = [
+  {
+    type: "p",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  },
+  {
+    type: "p",
+    text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  },
+  { type: "h2", text: "Sed ut perspiciatis unde omnis" },
+  {
+    type: "p",
+    text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+  },
+  {
+    type: "quote",
+    text: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.",
+  },
+  {
+    type: "p",
+    text: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
+  },
+  { type: "h2", text: "Temporibus autem quibusdam" },
+  {
+    type: "p",
+    text: "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.",
+  },
+  {
+    type: "p",
+    text: "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+  },
+];
+
+export const getPost = (slug) => POSTS.find((p) => p.slug === slug);
+
+export const getPostBody = (post) => post?.body ?? PLACEHOLDER_BODY;
+
+// Same category first, then most recent, excluding the post being read.
+export function getRelatedPosts(post, limit = 3) {
+  if (!post) return [];
+  return POSTS.filter((p) => p.slug !== post.slug)
+    .sort((a, b) => {
+      const sameCat = (p) => (p.category === post.category ? 0 : 1);
+      return sameCat(a) - sameCat(b) || b.date.localeCompare(a.date);
+    })
+    .slice(0, limit);
+}
+
 export function formatPostDate(iso) {
   return new Date(iso).toLocaleDateString("en-PH", {
     year: "numeric",
