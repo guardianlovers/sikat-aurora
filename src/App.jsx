@@ -1718,8 +1718,16 @@ function ImpactPage({ onNavigate, onOpenModal }) {
             photos={[
               { src: recognitionSparkChange, alt: "Síkat-Aurora National Winner, Spark-A-Change Challenge" },
               { src: recognitionAraneta, alt: "J. Amado Araneta Foundation recognition" },
-              PROGRAM_PHOTOS.hiraya[1],
+              PROGRAM_PHOTOS.abkl[0],
+              PROGRAM_PHOTOS.abkl[1],
+              PROGRAM_PHOTOS.abkl[2],
+              PROGRAM_PHOTOS.abkp[0],
+              PROGRAM_PHOTOS.abkp[1],
+              PROGRAM_PHOTOS.abkp[2],
               PROGRAM_PHOTOS.abkp[3],
+              PROGRAM_PHOTOS.hiraya[0],
+              PROGRAM_PHOTOS.hiraya[1],
+              PROGRAM_PHOTOS.hiraya[2],
             ]}
           />
         </Container>
@@ -1764,7 +1772,18 @@ const VOLUNTEER_VOICES = [
 
 function OrgCard({ leader }) {
   return (
-    <article className="group flex flex-col items-center text-center">
+    <motion.article
+      variants={{
+        hidden: { opacity: 0, scale: 0.96, y: 15 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          transition: { duration: 0.5, ease: "easeOut" },
+        },
+      }}
+      className="group flex flex-col items-center text-center"
+    >
       {/* Portrait slot — falls back to initials until a photo is added */}
       <div className="mx-auto mb-3 h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft">
         {leader.photo ? (
@@ -1791,13 +1810,22 @@ function OrgCard({ leader }) {
           {leader.title}
         </p>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
 // Vertical rule joining one tier to the next
 function OrgStem() {
-  return <div className="h-8 w-px shrink-0 bg-navy/20" aria-hidden="true" />;
+  return (
+    <motion.div
+      variants={{
+        hidden: { scaleY: 0, originY: 0 },
+        visible: { scaleY: 1, transition: { duration: 0.4, ease: "easeOut" } },
+      }}
+      className="h-8 w-px shrink-0 bg-navy/20"
+      aria-hidden="true"
+    />
+  );
 }
 
 function OrgChart() {
@@ -1806,7 +1834,7 @@ function OrgChart() {
   const directorate = LEADERS.filter((l) => l.tier === 2);
 
   return (
-    <div className="flex flex-col items-center">
+    <StaggerContainer stagger={0.08} delay={0.05} className="flex flex-col items-center">
       <div className="w-full max-w-xs">
         <OrgCard leader={director} />
       </div>
@@ -1820,20 +1848,26 @@ function OrgChart() {
       <OrgStem />
 
       <div className="relative w-full">
-        {/* Horizontal rule spanning the centres of the first and last columns.
-            With four columns and a 1.5rem gap, each column centre sits
-            12.5% - 0.5625rem in from its edge. */}
-        <div
+        {/* Horizontal rule spanning the centres of the first and last columns. */}
+        <motion.div
+          variants={{
+            hidden: { scaleX: 0 },
+            visible: { scaleX: 1, transition: { duration: 0.5, ease: "easeOut" } },
+          }}
           className="absolute top-0 hidden h-px bg-navy/20 lg:block"
-          style={{ left: "calc(12.5% - 0.5625rem)", right: "calc(12.5% - 0.5625rem)" }}
+          style={{ left: "calc(12.5% - 0.5625rem)", right: "calc(12.5% - 0.5625rem)", originX: 0.5 }}
           aria-hidden="true"
         />
 
-        <StaggerContainer className="grid gap-x-6 gap-y-12 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
+        <div className="grid gap-x-6 gap-y-12 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
           {directorate.map((l) => (
-            <StaggerItem key={l.name} className="relative flex flex-col items-center">
+            <div key={l.name} className="relative flex flex-col items-center">
               {/* Stub dropping from the horizontal rule to this card */}
-              <div
+              <motion.div
+                variants={{
+                  hidden: { scaleY: 0, originY: 0 },
+                  visible: { scaleY: 1, transition: { duration: 0.3, ease: "easeOut" } },
+                }}
                 className="absolute -top-8 left-1/2 hidden h-8 w-px bg-navy/20 lg:block"
                 aria-hidden="true"
               />
@@ -1844,11 +1878,11 @@ function OrgChart() {
                   <OrgCard leader={l.deputy} />
                 </>
               )}
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
-    </div>
+    </StaggerContainer>
   );
 }
 
