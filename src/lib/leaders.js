@@ -69,14 +69,40 @@ const ROSTER = [
   },
 ];
 
-export const LEADERS = ROSTER.map((l, i) => ({
-  ...l,
-  photo: photosBySlug[slugify(l.name)] ?? FILLER_PHOTOS[i % FILLER_PHOTOS.length] ?? null,
-  initials: l.name
+export const LEADERS = ROSTER.map((l, i) => {
+  const leaderPhoto = photosBySlug[slugify(l.name)] ?? FILLER_PHOTOS[i % FILLER_PHOTOS.length] ?? null;
+  const leaderInitials = l.name
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
     .map((n) => n[0])
     .join("")
-    .toUpperCase(),
-}));
+    .toUpperCase();
+
+  let deputyObj = null;
+  if (l.deputy) {
+    const deputyTitle = l.title.replace("Director", "Deputy Director");
+    const deputyPhoto = photosBySlug[slugify(l.deputy)] ?? FILLER_PHOTOS[(i + 10) % FILLER_PHOTOS.length] ?? null;
+    const deputyInitials = l.deputy
+      .split(" ")
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+
+    deputyObj = {
+      name: l.deputy,
+      title: deputyTitle,
+      photo: deputyPhoto,
+      initials: deputyInitials,
+    };
+  }
+
+  return {
+    ...l,
+    photo: leaderPhoto,
+    initials: leaderInitials,
+    deputy: deputyObj,
+  };
+});

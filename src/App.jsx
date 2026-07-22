@@ -1763,11 +1763,6 @@ function OrgCard({ leader }) {
         <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
           {leader.title}
         </p>
-        {leader.deputy && (
-          <p className="mt-1 text-[0.75rem] text-navy/60">
-            <span className="font-semibold text-navy/75">Deputy:</span> {leader.deputy}
-          </p>
-        )}
       </div>
     </article>
   );
@@ -1807,15 +1802,21 @@ function OrgChart() {
           aria-hidden="true"
         />
 
-        <StaggerContainer className="grid gap-6 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
+        <StaggerContainer className="grid gap-x-6 gap-y-12 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
           {directorate.map((l) => (
-            <StaggerItem key={l.name} className="relative">
+            <StaggerItem key={l.name} className="relative flex flex-col items-center">
               {/* Stub dropping from the horizontal rule to this card */}
               <div
                 className="absolute -top-8 left-1/2 hidden h-8 w-px bg-navy/20 lg:block"
                 aria-hidden="true"
               />
               <OrgCard leader={l} />
+              {l.deputy && (
+                <>
+                  <OrgStem />
+                  <OrgCard leader={l.deputy} />
+                </>
+              )}
             </StaggerItem>
           ))}
         </StaggerContainer>
