@@ -1708,6 +1708,109 @@ const VOLUNTEER_VOICES = [
   };
 });
 
+/* ---------------------------- Organisational chart ---------------------------- */
+
+function OrgCard({ leader, wide = false }) {
+  return (
+    <article
+      className={cn(
+        "group flex h-full flex-col rounded-2xl border border-navy/10 bg-white p-5 text-center shadow-card transition-shadow duration-200 hover:shadow-card-hover",
+        wide && "sm:flex-row sm:items-center sm:gap-5 sm:p-6 sm:text-left"
+      )}
+    >
+      {/* Portrait slot — falls back to initials until a photo is added */}
+      <div
+        className={cn(
+          "mx-auto mb-4 h-20 w-20 shrink-0 overflow-hidden rounded-full bg-primary-soft",
+          wide && "sm:mx-0 sm:mb-0 sm:h-24 sm:w-24"
+        )}
+      >
+        {leader.photo ? (
+          <img
+            src={leader.photo}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.05] motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <span className="text-[1.4rem] font-bold text-primary/45" aria-hidden="true">
+              {leader.initials}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <h3 className={cn("font-bold leading-snug text-navy", wide ? "text-[1.2rem]" : "text-[1rem]")}>
+          {leader.name}
+        </h3>
+        <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
+          {leader.title}
+        </p>
+        <p className="mt-2 text-[0.82rem] leading-[1.6] text-navy/70">{leader.role}</p>
+
+        {leader.deputy && (
+          <p className="mt-auto pt-3 text-[0.78rem] text-navy/60">
+            <span className="font-semibold text-navy/75">Deputy:</span> {leader.deputy}
+          </p>
+        )}
+      </div>
+    </article>
+  );
+}
+
+// Vertical rule joining one tier to the next
+function OrgStem() {
+  return <div className="h-8 w-px shrink-0 bg-navy/20" aria-hidden="true" />;
+}
+
+function OrgChart() {
+  const director = LEADERS.find((l) => l.tier === 0);
+  const deputyDirector = LEADERS.find((l) => l.tier === 1);
+  const directorate = LEADERS.filter((l) => l.tier === 2);
+
+  return (
+    <div className="flex flex-col items-center">
+      <div className="w-full max-w-xl">
+        <OrgCard leader={director} wide />
+      </div>
+
+      <OrgStem />
+
+      <div className="w-full max-w-xl">
+        <OrgCard leader={deputyDirector} wide />
+      </div>
+
+      <OrgStem />
+
+      <div className="relative w-full">
+        {/* Horizontal rule spanning the centres of the first and last columns.
+            With four columns and a 1.5rem gap, each column centre sits
+            12.5% - 0.5625rem in from its edge. */}
+        <div
+          className="absolute top-0 hidden h-px bg-navy/20 lg:block"
+          style={{ left: "calc(12.5% - 0.5625rem)", right: "calc(12.5% - 0.5625rem)" }}
+          aria-hidden="true"
+        />
+
+        <StaggerContainer className="grid gap-6 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
+          {directorate.map((l) => (
+            <StaggerItem key={l.name} className="relative">
+              {/* Stub dropping from the horizontal rule to this card */}
+              <div
+                className="absolute -top-8 left-1/2 hidden h-8 w-px bg-navy/20 lg:block"
+                aria-hidden="true"
+              />
+              <OrgCard leader={l} />
+            </StaggerItem>
+          ))}
+        </StaggerContainer>
+      </div>
+    </div>
+  );
+}
+
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
@@ -1720,37 +1823,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
             className="mb-12"
           />
 
-          <StaggerContainer className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
-            {LEADERS.map((l) => (
-              <StaggerItem as="article" key={l.name} className="group flex flex-col">
-                {/* Portrait slot — falls back to initials until a photo is added */}
-                <div className="mb-4 aspect-square w-full overflow-hidden rounded-2xl bg-primary-soft shadow-xs">
-                  {l.photo ? (
-                    <img
-                      src={l.photo}
-                      alt={l.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <span
-                        className="text-[2.2rem] font-bold text-primary/45 transition-colors duration-200 group-hover:text-primary/60"
-                        aria-hidden="true"
-                      >
-                        {l.initials}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <h3 className="text-[1.15rem] font-bold leading-snug text-navy">{l.name}</h3>
-                <p className="mt-1 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-primary">
-                  {l.title}
-                </p>
-                <p className="mt-2 text-sm leading-[1.7] text-navy/75">{l.role}</p>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          <OrgChart />
         </Container>
       </Reveal>
 
@@ -2140,34 +2213,26 @@ function VolunteerPage({ onOpenModal }) {
     },
   ];
 
-  const volunteerGalleries = [
+  const volunteerVideos = [
     {
-      title: "Education Volunteers — Abot Ko Ang Libro",
-      desc: "Volunteers rolling mobile book carts into barangays in Baler, Maria Aurora, and Dipaculao to read and teach children ages 2–14.",
-      img: PROGRAM_PHOTOS.abkl[2].src,
-      location: "Baler & Maria Aurora",
-      tag: "400+ Active Youth",
+      id: "VfFF8cfnS5Q",
+      title: "Síkat-Aurora Volunteer Video 1",
     },
     {
-      title: "Environmental Stewards — Ang Batang Kali",
-      desc: "Youth leaders conducting river cleanups and environmental life skills for children in Dibut, Zabali, and Sitio Cozo.",
-      img: PROGRAM_PHOTOS.abkp[1].src,
-      location: "San Luis & Casiguran",
-      tag: "Coastal Care",
+      id: "OKwnViJL_jY",
+      title: "Síkat-Aurora Volunteer Video 2",
     },
     {
-      title: "Youth Leaders & Mentors — Hiraya Program",
-      desc: "Mentors facilitating leadership workshops and seed grants for student leaders across 30 public high schools in Central Aurora.",
-      img: PROGRAM_PHOTOS.hiraya[0].src,
-      location: "Central Aurora DepEd Schools",
-      tag: "30 Public Schools",
+      id: "9S3pdY9bhx0",
+      title: "Síkat-Aurora Volunteer Video 3",
     },
     {
-      title: "Community Outreach & All-Hands Assemblies",
-      desc: "Volunteers united across 18 partner communities celebrating International Youth Day and community outreach drives.",
-      img: PHOTOS.communityAssembly,
-      location: "Province-wide Aurora",
-      tag: "18 Communities",
+      id: "2VhrjEVrKnM",
+      title: "Síkat-Aurora Volunteer Video 4",
+    },
+    {
+      id: "uDG1b6XAFSY",
+      title: "Síkat-Aurora Volunteer Video 5",
     },
   ];
 
@@ -2196,34 +2261,8 @@ function VolunteerPage({ onOpenModal }) {
 
   return (
     <>
-      <header className="pt-28 lg:pt-36">
-        <Container>
-          <h1 className="text-4xl font-bold tracking-tight text-navy sm:text-5xl">Join Our Volunteer Movement</h1>
-          <p className="mt-4 text-lg text-navy/70">Where Every Youth Has a Voice & Purpose</p>
-          <p className="mt-2 text-navy/60">Admission is 100% free and open to all youth aged 15–30 in Aurora Province.</p>
-        </Container>
-      </header>
-
-      {/* CTA banner */}
-      <Reveal className="bg-cream px-6 pb-12 pt-20 md:px-9 lg:pt-24">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 rounded-lg border-l-2 border-primary bg-navy p-8 text-white sm:p-10">
-          <div>
-            <Eyebrow dark>Ready to Make a Difference?</Eyebrow>
-            <h2 className="max-w-[20ch] text-[1.5rem] font-bold tracking-[-0.01em] sm:text-[1.9rem]">
-              Sign Up to Become a Volunteer
-            </h2>
-            <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-white/70">
-              Takes 2 minutes. Click below to open the application form.
-            </p>
-          </div>
-          <Btn onClick={onOpenModal}>
-            Signify Interest Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Btn>
-        </div>
-      </Reveal>
-
       {/* Onboarding steps */}
-      <Reveal className="bg-cream py-16 lg:py-20">
+      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
         <Container>
           <SectionHeading
             align="center"
@@ -2255,27 +2294,16 @@ function VolunteerPage({ onOpenModal }) {
             className="mb-10"
           />
           <div className="grid gap-6 md:grid-cols-2">
-            {volunteerGalleries.map((v) => (
-              <Card key={v.title} className="group overflow-hidden bg-cream">
-                <div className="overflow-hidden">
-                  <img
-                    src={v.img}
-                    alt={v.title}
-                    className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 sm:h-60"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="border-t border-navy/10 p-6">
-                  <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                    <Tag className="bg-primary-soft text-primary">
-                      <MapPin className="h-3 w-3" aria-hidden="true" /> {v.location}
-                    </Tag>
-                    <Tag className="bg-navy text-gold">{v.tag}</Tag>
-                  </div>
-                  <h3 className="text-[1.2rem] font-bold leading-snug text-navy">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-[1.7] text-navy/75">{v.desc}</p>
-                </div>
-              </Card>
+            {volunteerVideos.map((v) => (
+              <div key={v.id} className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
+                <iframe
+                  className="h-full w-full"
+                  src={`https://www.youtube.com/embed/${v.id}`}
+                  title={v.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
             ))}
           </div>
         </Container>
