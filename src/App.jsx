@@ -1816,13 +1816,13 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
   );
 }
 
-// Four rows off the same roster. Each starts at a different point in the list
+// Three rows off the same roster. Each starts at a different point in the list
 // and runs at its own speed, so the rows never line up into visible columns.
 const rotate = (arr, n) => [...arr.slice(n), ...arr.slice(0, n)];
-const MARQUEE_ROWS = [0, 0.25, 0.5, 0.75].map((fraction, i) => ({
+const MARQUEE_ROWS = [0, 1 / 3, 2 / 3].map((fraction, i) => ({
   volunteers: rotate(VOLUNTEERS, Math.floor(VOLUNTEERS.length * fraction)),
   reverse: i % 2 === 1,
-  duration: [90, 104, 82, 96][i],
+  duration: [90, 104, 82][i],
 }));
 
 function MarqueeRow({ volunteers, reverse = false, hidden = false, duration = 90, onSelectPhoto }) {
