@@ -860,7 +860,10 @@ function HomePage({ onNavigate, onOpenModal }) {
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <p className="text-[0.95rem] leading-snug text-white/75">
-                    <span className="block text-[1.6rem] font-medium leading-tight text-white">{figure}</span>
+                    <SlotFigure
+                      value={figure}
+                      className="block text-[1.6rem] font-medium leading-tight text-white"
+                    />
                     {label}
                   </p>
                 </div>
@@ -2317,16 +2320,11 @@ function TransparencyNote() {
     <div className="overflow-hidden rounded-2xl bg-navy text-white">
       <div className="grid gap-9 p-8 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-14">
         <div>
-          <div className="mb-5 flex items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
-              <HandCoins className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">
-              Transparency
-            </p>
-          </div>
+          <span className="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+            <HandCoins className="h-6 w-6" aria-hidden="true" />
+          </span>
 
-          <h3 className="max-w-[18ch] text-[1.5rem] font-bold leading-[1.2] sm:text-[1.75rem]">
+          <h3 className="text-[1.4rem] font-bold leading-[1.2] sm:text-[1.6rem]">
             Every peso, on the record.
           </h3>
           <p className="mt-3.5 max-w-[50ch] text-[0.88rem] leading-relaxed text-white/70">
@@ -2600,8 +2598,8 @@ function Footer({ onNavigate }) {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
           <div>
-            <div className="mb-4 flex items-center gap-2.5">
-              <img src={logoImg} alt="" className="h-9 w-9 object-contain" />
+            <div className="mb-4 flex items-center gap-3">
+              <img src={logoImg} alt="" className="h-12 w-12 object-contain" />
               <span className="text-[1.05rem] font-bold text-white">Síkat-Aurora Inc.</span>
             </div>
             <p className="mb-5 max-w-[34ch] text-[0.95rem] italic leading-[1.6] text-white/70">
@@ -2648,10 +2646,10 @@ function Footer({ onNavigate }) {
               <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> Baler, Aurora, Philippines
             </p>
             <a
-              href="mailto:contact@sikataurora.org"
+              href="mailto:sikataurora@gmail.com"
               className="mb-4 inline-flex items-center gap-2 rounded-md text-[0.8rem] text-white/60 no-underline transition-colors duration-150 hover:text-white"
             >
-              <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> contact@sikataurora.org
+              <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> sikataurora@gmail.com
             </a>
             <div className="flex gap-2">
               <a
