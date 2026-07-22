@@ -2320,10 +2320,6 @@ function TransparencyNote() {
     <div className="overflow-hidden rounded-2xl bg-navy text-white">
       <div className="grid gap-9 p-8 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-14">
         <div>
-          <span className="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
-            <HandCoins className="h-6 w-6" aria-hidden="true" />
-          </span>
-
           <h3 className="text-[1.4rem] font-bold leading-[1.2] sm:text-[1.6rem]">
             Every peso, on the record.
           </h3>
