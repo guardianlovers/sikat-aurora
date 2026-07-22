@@ -7,6 +7,8 @@ import {
   BookOpen,
   Check,
   HandCoins,
+  HandHeart,
+  Handshake,
   Heart,
   Lock,
   Mail,
@@ -568,7 +570,8 @@ const NAV_ITEMS = [
   { id: "about", label: "About" },
   { id: "programs", label: "Programs" },
   { id: "impact", label: "Impact" },
-  { id: "leadership", label: "Leadership" },
+  // Route id stays "leadership" so existing #leadership links keep working
+  { id: "leadership", label: "The Team" },
   { id: "blog", label: "Blog" },
 ];
 
@@ -989,16 +992,19 @@ const ABOUT_HERO_PHOTOS = [
 
 const VALUES = [
   {
+    Icon: HandHeart,
     title: "Pagmamalasakit",
     desc: "Kumikilos nang may malasakit sa kapwa.",
     gloss: "We act with genuine care for one another.",
   },
   {
+    Icon: Handshake,
     title: "Paggalang",
     desc: "Kumikilos nang may paggalang sa paniniwala, kultura, at saloobin ng mga kasapi at komunidad.",
     gloss: "We act with respect for the beliefs, culture, and views of our members and communities.",
   },
   {
+    Icon: Sprout,
     title: "Pagtugon",
     desc: "Kumikilos upang tumugon sa tunay na mga pangangailangan ng mga tao sa komunidad.",
     gloss: "We act in response to the real needs of the people in the community.",
@@ -1131,17 +1137,29 @@ function AboutPage({ onNavigate, onOpenModal }) {
         </Container>
       </Reveal>
 
-      {/* 3 — Values as a divided vertical stack */}
+      {/* 3 — Values as three centred icon columns */}
       <Reveal className="bg-white py-16 lg:py-24">
-        <Container className="max-w-4xl">
-          <SectionHeading eyebrow="Our Values" title="Ang aming pinanghahawakan" className="mb-12" />
-          <StaggerContainer as="dl" className="border-t border-navy/15">
+        <Container className="max-w-5xl">
+          <SectionHeading
+            eyebrow="Our Values"
+            title="Ang aming pinanghahawakan"
+            align="center"
+            className="mb-14"
+          />
+          <StaggerContainer as="dl" className="grid gap-12 sm:grid-cols-3 sm:gap-8">
             {VALUES.map((v) => (
-              <StaggerItem key={v.title} className="group border-b border-navy/15 py-8 transition-colors duration-200 hover:bg-cream/40 sm:grid sm:grid-cols-[14rem_1fr] sm:gap-8 sm:px-4 sm:rounded-xl">
-                <dt className="text-[1.3rem] font-bold tracking-[-0.01em] text-navy transition-colors duration-200 group-hover:text-primary">{v.title}</dt>
-                <dd className="mt-2 sm:mt-0">
-                  <p className="text-[1rem] leading-[1.7] text-navy/85">{v.desc}</p>
-                  <p className="mt-1.5 text-[0.88rem] italic leading-relaxed text-navy/55">{v.gloss}</p>
+              <StaggerItem key={v.title} className="group text-center">
+                <span className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-primary/25 text-primary transition-colors duration-200 group-hover:border-primary group-hover:bg-primary-soft">
+                  <v.Icon className="h-10 w-10" strokeWidth={1.5} aria-hidden="true" />
+                </span>
+                <dt className="text-[1.15rem] font-bold tracking-[-0.01em] text-navy">{v.title}</dt>
+                <dd>
+                  <p className="mx-auto mt-2.5 max-w-[32ch] text-[0.92rem] leading-[1.6] text-navy/80">
+                    {v.desc}
+                  </p>
+                  <p className="mx-auto mt-2 max-w-[32ch] text-[0.82rem] italic leading-relaxed text-navy/50">
+                    {v.gloss}
+                  </p>
                 </dd>
               </StaggerItem>
             ))}
@@ -2635,7 +2653,7 @@ function Footer({ onNavigate }) {
               <li><FooterLink onClick={() => onNavigate("about")}>About Us</FooterLink></li>
               <li><FooterLink onClick={() => onNavigate("programs")}>Core Programs</FooterLink></li>
               <li><FooterLink onClick={() => onNavigate("impact")}>Impact &amp; Awards</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("leadership")}>Leadership</FooterLink></li>
+              <li><FooterLink onClick={() => onNavigate("leadership")}>The Team</FooterLink></li>
               <li><FooterLink onClick={() => onNavigate("blog")}>Blog — Kwentong Síkat</FooterLink></li>
               <li><FooterLink onClick={() => onNavigate("faq")}>FAQ</FooterLink></li>
             </ul>
