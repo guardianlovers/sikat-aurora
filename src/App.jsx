@@ -3021,6 +3021,14 @@ function Footer({ onNavigate }) {
               >
                 Instagram
               </a>
+              <a
+                href="https://www.tiktok.com/@sikataurora"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-white no-underline transition-colors duration-150 hover:bg-white/[0.12]"
+              >
+                TikTok
+              </a>
             </div>
           </div>
         </div>
