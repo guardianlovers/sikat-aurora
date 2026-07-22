@@ -2317,20 +2317,29 @@ function KitCard({ kit, featured = false, onDonate }) {
 
 function TransparencyNote() {
   return (
-    <div className="rounded-2xl border-l-2 border-gold bg-navy p-6 text-white sm:p-7">
+    <div className="rounded-2xl bg-navy p-6 text-white sm:p-7">
       <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">Transparency</p>
-      <p className="mb-3 mt-2 max-w-[60ch] text-[0.83rem] leading-relaxed text-white/75">
+      <p className="mb-4 mt-2 max-w-[60ch] text-[0.83rem] leading-relaxed text-white/75">
         We publish where every peso goes. Read the full report at{" "}
-        <strong className="font-semibold text-white">bit.ly/sikatfinance</strong>.
+        <strong className="font-semibold text-white">bit.ly/sikatfinance</strong> — or message us
+        directly if you'd rather ask before you give.
       </p>
-      <a
-        href="https://bit.ly/sikatfinance"
-        target="_blank"
-        rel="noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
-      >
-        View Financial Report <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-      </a>
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
+        <a
+          href="https://bit.ly/sikatfinance"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
+        >
+          View Financial Report <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </a>
+        <a
+          href="mailto:contact@sikataurora.org"
+          className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
+        >
+          <Mail className="h-3.5 w-3.5" aria-hidden="true" /> Message Us Directly
+        </a>
+      </div>
     </div>
   );
 }
