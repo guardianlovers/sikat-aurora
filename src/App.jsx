@@ -636,7 +636,7 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-2 lg:flex">
-            <Btn variant="outline" className="px-4 py-2 text-[0.8rem]" onClick={onOpenModal}>
+            <Btn variant="outline" className="px-4 py-2 text-[0.8rem]" onClick={() => go("volunteer")}>
               Volunteer
             </Btn>
             <Btn className="px-4 py-2 text-[0.8rem]" onClick={() => go("donate")}>
@@ -687,10 +687,7 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
                   <Btn
                     variant="outline"
                     className="flex-1"
-                    onClick={() => {
-                      setMobileOpen(false);
-                      onOpenModal();
-                    }}
+                    onClick={() => go("volunteer")}
                   >
                     Volunteer
                   </Btn>
