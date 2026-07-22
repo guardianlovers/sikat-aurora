@@ -1,13 +1,12 @@
 // Sponsorship kits — the "products" on the Donate page.
 //
-// The four images are PLACEHOLDERS. To drop in a real photo, save it into
-// src/assets/donate/kits/ and change that kit's import below to the new
-// filename (e.g. "./…/150-storybooks.jpg"). Landscape, roughly 4:3, is what
-// the card thumbnails are cropped for.
-import storybooksImg from "../assets/donate/kits/150-storybooks.svg";
-import artSuppliesImg from "../assets/donate/kits/500-art-supplies.svg";
-import natureKitImg from "../assets/donate/kits/1500-nature-kit.svg";
-import schoolProjectImg from "../assets/donate/kits/5000-school-project.svg";
+// Only two real kit photos exist so far, both of the Abot Ko Ang Libro
+// storybooks. The nature kit and the school project reuse them as stand-ins, so
+// their thumbnails do NOT picture what is being sponsored. When you have proper
+// photos for those two, drop them in src/assets/donate/kits/ and swap their
+// `image`/`imageAlt` pair below — and rewrite the alt text to match the photo.
+import booksSpread from "../assets/donate/kits/books.jpg";
+import booksStack from "../assets/donate/kits/books1.jpg";
 
 export const KITS = [
   {
@@ -18,8 +17,9 @@ export const KITS = [
     blurb:
       "Seedlings, trowels, gloves and a field workbook — everything one batch of kids needs for a full nature-stewardship session.",
     includes: ["Seedlings & potting soil", "Trowels and gloves", "Field workbook per child"],
-    image: natureKitImg,
-    imageAlt: "Placeholder for a photo of the Batang Kali nature-stewardship kit",
+    // Stand-in photo — shows storybooks, not the nature kit
+    image: booksSpread,
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
     featured: true,
   },
   {
@@ -29,8 +29,8 @@ export const KITS = [
     program: "Abot Ko Ang Libro",
     blurb: "Three storybooks for the Abot Ko Ang Libro mobile cart.",
     includes: ["3 age-appropriate storybooks"],
-    image: storybooksImg,
-    imageAlt: "Placeholder for a photo of the storybook bundle",
+    image: booksStack,
+    imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
   },
   {
     id: "art-supplies",
@@ -39,8 +39,8 @@ export const KITS = [
     program: "Abot Ko Ang Libro",
     blurb: "Art and learning supplies for one Saturday storytelling session.",
     includes: ["Paper, crayons & markers", "Session craft materials"],
-    image: artSuppliesImg,
-    imageAlt: "Placeholder for a photo of the art and learning supplies",
+    image: booksSpread,
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
   },
   {
     id: "school-project",
@@ -49,8 +49,9 @@ export const KITS = [
     program: "Hiraya",
     blurb: "Seed funding for one youth-led Hiraya school project, start to finish.",
     includes: ["Project seed fund", "Materials & logistics", "Mentoring for the youth team"],
-    image: schoolProjectImg,
-    imageAlt: "Placeholder for a photo of a Hiraya school project",
+    // Stand-in photo — shows storybooks, not a Hiraya project
+    image: booksStack,
+    imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
   },
 ];
 

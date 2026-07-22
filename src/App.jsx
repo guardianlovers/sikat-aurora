@@ -918,9 +918,9 @@ function HomePage({ onNavigate, onOpenModal }) {
                     />
                   </div>
                   <div className="border-t border-navy/10 p-6">
-                    <Tag className="mb-3 bg-primary-soft text-primary">{p.center}</Tag>
                     <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
+                    <Tag className="mt-4 bg-primary-soft text-primary">{p.center}</Tag>
                   </div>
                 </Card>
               </StaggerItem>
@@ -2259,14 +2259,6 @@ function KitCard({ kit, featured = false, onDonate }) {
       </div>
 
       <div className={cn("flex flex-1 flex-col p-6", featured && "justify-center p-7 sm:p-9")}>
-        {/* Chips only on the featured card — the grid cards read cleaner without them */}
-        {featured && (
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <Tag className="bg-navy/[0.06] text-navy/70">{kit.program}</Tag>
-            <Tag className="bg-gold/25 text-navy-ink">Most sponsored</Tag>
-          </div>
-        )}
-
         <h3
           className={cn(
             "font-bold leading-snug text-navy",
@@ -2318,30 +2310,55 @@ function KitCard({ kit, featured = false, onDonate }) {
   );
 }
 
+// Message on the left, the two ways to act on the right — the old single
+// column left most of this navy band empty.
 function TransparencyNote() {
   return (
-    <div className="rounded-2xl bg-navy p-6 text-white sm:p-7">
-      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">Transparency</p>
-      <p className="mb-4 mt-2 max-w-[60ch] text-[0.83rem] leading-relaxed text-white/75">
-        We publish where every peso goes. Read the full report at{" "}
-        <strong className="font-semibold text-white">bit.ly/sikatfinance</strong> — or message us
-        directly if you'd rather ask before you give.
-      </p>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
-        <a
-          href="https://bit.ly/sikatfinance"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
-        >
-          View Financial Report <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-        </a>
-        <a
-          href="mailto:contact@sikataurora.org"
-          className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
-        >
-          <Mail className="h-3.5 w-3.5" aria-hidden="true" /> Message Us Directly
-        </a>
+    <div className="overflow-hidden rounded-2xl bg-navy text-white">
+      <div className="grid gap-9 p-8 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-14">
+        <div>
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+              <HandCoins className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">
+              Transparency
+            </p>
+          </div>
+
+          <h3 className="max-w-[18ch] text-[1.5rem] font-bold leading-[1.2] sm:text-[1.75rem]">
+            Every peso, on the record.
+          </h3>
+          <p className="mt-3.5 max-w-[50ch] text-[0.88rem] leading-relaxed text-white/70">
+            We publish where every peso goes — the full ledger is open to anyone who wants to read
+            it. If you'd rather just ask before you give, we'll answer.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3 lg:border-l lg:border-white/10 lg:pl-14">
+          <a
+            href="https://bit.ly/sikatfinance"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center justify-between gap-4 rounded-full bg-gold px-6 py-3.5 text-[0.85rem] font-semibold text-navy-ink no-underline transition-colors duration-200 hover:bg-gold-bright"
+          >
+            View Financial Report
+            <ArrowUpRight
+              className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:group-hover:transform-none"
+              aria-hidden="true"
+            />
+          </a>
+          <a
+            href="https://www.facebook.com/sikataurora/"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-between gap-4 rounded-full border-2 border-white/25 px-6 py-3 text-[0.85rem] font-semibold text-white no-underline transition-colors duration-200 hover:border-white hover:bg-white hover:text-navy"
+          >
+            Message Us Directly
+            <ArrowUpRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+          </a>
+          <p className="mt-1 text-center text-[0.72rem] text-white/45">bit.ly/sikatfinance</p>
+        </div>
       </div>
     </div>
   );
