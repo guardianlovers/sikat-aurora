@@ -1763,6 +1763,11 @@ function OrgCard({ leader }) {
         <p className="mt-0.5 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
           {leader.title}
         </p>
+        {leader.deputy && (
+          <p className="mt-1 text-[0.75rem] text-navy/60">
+            <span className="font-semibold text-navy/75">Deputy:</span> {leader.deputy}
+          </p>
+        )}
       </div>
     </article>
   );
@@ -2290,29 +2295,29 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
     {
       title: "Free Admission",
       desc: "Open to all youth aged 15–30 in Aurora Province with no registration fees.",
-      Icon: Sprout,
+      img: PHOTOS.communityOutreach,
     },
     {
       title: "Direct Impact",
       desc: "Work directly with kids, rivers, and schools in your local community.",
-      Icon: Heart,
+      img: PHOTOS.abkpRiverCleanup,
     },
     {
       title: "Leadership Growth",
       desc: "Build real credentials, organize events, and manage community projects.",
-      Icon: Trophy,
+      img: PHOTOS.hirayaWorkshop,
     },
     {
       title: "Lifelong Community",
       desc: "Join a family of 400+ passionate volunteers who lift each other up.",
-      Icon: Users,
+      img: PHOTOS.volunteersGroup,
     },
   ];
 
   return (
     <>
       {/* Why volunteer */}
-      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
+      <Reveal className="bg-white pb-16 pt-20 lg:pb-20 lg:pt-24">
         <Container>
           <SectionHeading
             align="center"
@@ -2321,25 +2326,28 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
             className="mb-10"
           />
           <div className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
-            {pillars.map(({ title, desc, Icon }) => (
+            {pillars.map(({ title, desc, img }) => (
               <div key={title} className="border-t border-navy/15 pt-6">
-                <Icon className="mb-4 h-5 w-5 text-primary" aria-hidden="true" />
+                <div className="mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl bg-navy/10 shadow-sm">
+                  <img
+                    src={img}
+                    alt={title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 ease-out-expo hover:scale-[1.04]"
+                  />
+                </div>
                 <h3 className="text-[1.15rem] font-bold text-navy">{title}</h3>
-                <p className="mt-2 text-[0.85rem] leading-[1.7] text-navy/75">{desc}</p>
+                <p className="mt-2.5 text-[0.85rem] leading-[1.7] text-navy/75">{desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-14 text-center">
-            <Btn onClick={onOpenModal} className="px-8">
-              Open Volunteer Application Form
-            </Btn>
-          </div>
+
         </Container>
       </Reveal>
 
       {/* Volunteer gallery */}
-      <Reveal className="bg-white py-16 lg:py-20">
+      <Reveal className="bg-cream py-16 lg:py-20">
         <Container>
           <SectionHeading
             align="center"
@@ -2357,7 +2365,7 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
       </Reveal>
 
       {/* Onboarding steps */}
-      <Reveal className="bg-cream py-16 lg:py-20">
+      <Reveal className="bg-white py-16 lg:py-20">
         <Container>
           <SectionHeading
             align="center"
