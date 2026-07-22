@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -331,6 +331,67 @@ function PhotoGrid({ label, photos, className }) {
   );
 }
 
+/* Slot-machine figures: each digit spins through a 0–9 reel before landing.
+   Only digits spin — ₱ , . k M + stay put so "₱1.5M+" still reads correctly. */
+
+const SLOT_REEL = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const SLOT_PASSES = 3; // full 0–9 rotations before the reel settles
+const SLOT_LINE = 1.25; // em per reel cell — also the wrapper's line-height
+
+function SlotDigit({ digit, delay, play }) {
+  // Three passes of 0–9 then the landing digit, so every reel travels the same
+  // distance and they stop left-to-right purely on `delay`.
+  const strip = [...Array(SLOT_PASSES)].flatMap(() => SLOT_REEL).concat(digit);
+
+  return (
+    // clip-path (not overflow-hidden) so the wrapper keeps its text baseline
+    <span
+      className="relative inline-block"
+      style={{ lineHeight: SLOT_LINE, clipPath: "inset(0)" }}
+    >
+      {/* Invisible copy sets the width and the baseline the reel lands on */}
+      <span className="invisible">{digit}</span>
+      <motion.span
+        className="absolute left-0 top-0 flex w-full flex-col"
+        initial={{ y: 0 }}
+        animate={{ y: play ? `-${SLOT_PASSES * 10 * SLOT_LINE}em` : 0 }}
+        transition={{ duration: 1.4, delay, ease: [0.12, 0.8, 0.2, 1] }}
+      >
+        {strip.map((d, i) => (
+          <span key={i} style={{ height: `${SLOT_LINE}em`, lineHeight: SLOT_LINE }}>
+            {d}
+          </span>
+        ))}
+      </motion.span>
+    </span>
+  );
+}
+
+function SlotFigure({ value, className }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduced = useReducedMotion();
+
+  let digitIndex = 0;
+  return (
+    <span ref={ref} className={className}>
+      {/* Screen readers get the plain figure; the reel is decorative */}
+      <span className="sr-only">{value}</span>
+      <span aria-hidden="true">
+        {reduced
+          ? value
+          : [...value].map((ch, i) =>
+              /\d/.test(ch) ? (
+                <SlotDigit key={i} digit={ch} delay={digitIndex++ * 0.09} play={inView} />
+              ) : (
+                <span key={i}>{ch}</span>
+              )
+            )}
+      </span>
+    </span>
+  );
+}
+
 // Stat row in the deck's "In a Nutshell" style: gold icon, bold navy figure
 function StatRow({ Icon, figure, label, dark = false }) {
   return (
@@ -344,7 +405,11 @@ function StatRow({ Icon, figure, label, dark = false }) {
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
       <p className={cn("text-[1.05rem] leading-snug", dark ? "text-white/80" : "text-navy/80")}>
-        <span className={cn("font-medium", dark ? "text-white" : "text-navy")}>{figure}</span> {label}
+        <SlotFigure
+          value={figure}
+          className={cn("font-medium", dark ? "text-white" : "text-navy")}
+        />{" "}
+        {label}
       </p>
     </li>
   );
