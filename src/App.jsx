@@ -883,13 +883,16 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Bento: Abot Ko Ang Libro takes the tall tile, the other two sit beside
+              it, and two field photos fill the remaining cells on wide screens. */}
+          <StaggerContainer className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[15.5rem]">
             {[
               {
                 name: "Abot Ko Ang Libro",
                 center: "Education",
                 img: coreAbklImg,
                 desc: "Mobile library cart bringing books & storytelling to kids ages 2–14.",
+                span: "sm:col-span-2 lg:col-span-1 lg:row-span-2",
               },
               {
                 name: "Ang Batang Kali",
@@ -904,28 +907,47 @@ function HomePage({ onNavigate, onOpenModal }) {
                 desc: "Leadership training & seed funding across 30 DepEd schools.",
               },
             ].map((p) => (
-              <StaggerItem key={p.name}>
-                <Card
-                  className="group cursor-pointer overflow-hidden"
+              <StaggerItem key={p.name} className={p.span}>
+                <div
+                  className="group relative h-full min-h-[15.5rem] cursor-pointer overflow-hidden rounded-2xl shadow-card transition-shadow duration-200 hover:shadow-card-hover"
                   onClick={() => onNavigate("programs")}
                   role="link"
                   tabIndex={0}
                   onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("programs")}
                 >
-                  <div className="overflow-hidden">
-                    <img
-                      src={p.img}
-                      alt={p.name}
-                      className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-                      loading="lazy"
-                    />
+                  <img
+                    src={p.img}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
+                  />
+                  {/* Keeps the copy legible whatever the photo underneath is doing */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-navy-ink via-navy-ink/55 to-transparent"
+                    aria-hidden="true"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <Tag className="mb-2.5 bg-white/15 text-white backdrop-blur-sm">{p.center}</Tag>
+                    <h3 className="text-[1.2rem] font-bold text-white">{p.name}</h3>
+                    <p className="mt-1.5 max-w-[34ch] text-sm leading-relaxed text-white/80">
+                      {p.desc}
+                    </p>
                   </div>
-                  <div className="border-t border-navy/10 p-6">
-                    <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
-                    <Tag className="mt-4 bg-primary-soft text-primary">{p.center}</Tag>
-                  </div>
-                </Card>
+                </div>
+              </StaggerItem>
+            ))}
+
+            {/* Filler tiles — decorative, so they drop out below the bento grid */}
+            {[PROGRAM_PHOTOS.abkp[3], PROGRAM_PHOTOS.hiraya[0]].map((photo) => (
+              <StaggerItem key={photo.src} className="hidden lg:block">
+                <div className="group h-full overflow-hidden rounded-2xl shadow-card">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
+                  />
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -2396,12 +2418,50 @@ function DonatePage({ onDonate }) {
 
 /* ============================= Page 10: Checkout ============================= */
 
+// Server endpoint that creates the PayMongo Checkout Session and returns
+// { checkoutUrl }. It does not exist yet — it needs to run somewhere that can
+// hold PAYMONGO_SECRET_KEY (a Vercel serverless function under /api would do).
+// Until it does, Proceed to Payment surfaces an error instead of pretending.
+const PAYMONGO_CHECKOUT_ENDPOINT = "/api/paymongo/checkout";
+
 function CheckoutPage({ kit, onNavigate }) {
   const [qty, setQty] = useState(1);
-  const [method, setMethod] = useState("gcash");
-  const [done, setDone] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | error
+  const [error, setError] = useState("");
 
   const total = kit.amount * qty;
+
+  // Hands off to PayMongo's hosted checkout, which is where the donor picks
+  // GCash / Maya / card / bank. The session has to be created server-side —
+  // PayMongo's secret key must never reach the browser — so this posts to our
+  // own endpoint and follows the checkout URL it returns.
+  const handleProceed = async (e) => {
+    e.preventDefault();
+    setStatus("loading");
+    setError("");
+
+    try {
+      const res = await fetch(PAYMONGO_CHECKOUT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ kitId: kit.id, quantity: qty, name, email }),
+      });
+
+      if (!res.ok) throw new Error(`Checkout failed (${res.status})`);
+
+      const { checkoutUrl } = await res.json();
+      if (!checkoutUrl) throw new Error("No checkout URL was returned.");
+
+      window.location.href = checkoutUrl;
+    } catch (err) {
+      setStatus("error");
+      setError(
+        `${err.message} — online payment isn't connected yet. Please message us and we'll arrange your donation directly.`
+      );
+    }
+  };
 
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
@@ -2477,68 +2537,53 @@ function CheckoutPage({ kit, onNavigate }) {
           <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
             <h3 className="mb-6 text-[1.35rem] font-bold text-navy">Payment details</h3>
 
-            <div className="mb-5 grid grid-cols-2 gap-2.5" role="radiogroup" aria-label="Payment method">
-              <button
-                role="radio"
-                aria-checked={method === "gcash"}
-                onClick={() => setMethod("gcash")}
-                className={cn(
-                  "rounded-xl border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
-                  method === "gcash"
-                    ? "border-primary bg-primary-soft text-primary"
-                    : "border-navy/15 bg-cream text-navy hover:border-navy/35"
-                )}
-              >
-                GCash / Maya
-              </button>
-              <button
-                role="radio"
-                aria-checked={method === "bank"}
-                onClick={() => setMethod("bank")}
-                className={cn(
-                  "rounded-xl border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
-                  method === "bank"
-                    ? "border-primary bg-primary-soft text-primary"
-                    : "border-navy/15 bg-cream text-navy hover:border-navy/35"
-                )}
-              >
-                Bank Transfer
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              <Field id="donate-name" label="Full Name" placeholder="Juan Dela Cruz" autoComplete="name" />
+            {/* No method picker — PayMongo's hosted checkout collects that itself */}
+            <form onSubmit={handleProceed} className="space-y-4">
+              <Field
+                id="donate-name"
+                label="Full Name"
+                placeholder="Juan Dela Cruz"
+                autoComplete="name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
               <Field
                 id="donate-email"
                 label="Email Address (for receipt)"
                 type="email"
                 placeholder="juan@gmail.com"
                 autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-            </div>
 
-            <Btn
-              variant={done ? "success" : "dark"}
-              className="mt-6 w-full py-3"
-              aria-live="polite"
-              onClick={() => {
-                setDone(true);
-                setTimeout(() => setDone(false), 3500);
-              }}
-            >
-              {done ? (
-                <>
-                  <Check className="h-4 w-4" aria-hidden="true" /> Receipt Sent!
-                </>
-              ) : (
-                <>
-                  <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Pay {formatPeso(total)} Securely
-                </>
-              )}
-            </Btn>
+              <Btn
+                type="submit"
+                variant="dark"
+                className="mt-6 w-full py-3"
+                disabled={status === "loading"}
+              >
+                {status === "loading" ? (
+                  "Redirecting…"
+                ) : (
+                  <>
+                    <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Proceed to Payment
+                  </>
+                )}
+              </Btn>
+            </form>
+
+            {status === "error" && (
+              <p role="alert" className="mt-4 rounded-xl bg-crimson-soft px-4 py-3 text-[0.8rem] leading-relaxed text-crimson">
+                {error}
+              </p>
+            )}
 
             <p className="mt-4 text-center text-[0.75rem] leading-relaxed text-navy/55">
-              You'll get an email receipt and a note telling you which batch your kit reached.
+              You'll choose GCash, Maya, card or bank transfer on the next screen. We'll email your
+              receipt once payment clears.
             </p>
           </div>
         </div>
