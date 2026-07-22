@@ -35,6 +35,7 @@ import { KITS, getKit } from "@/lib/kits";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import logoImg from "./assets/logo.png";
 import heroBanner from "./assets/home/hero-banner/1.jpg";
 import impactVolunteersImg from "./assets/home/impact-in-numbers/400-youth-volunteer.jpg";
@@ -1684,6 +1685,29 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 5: Leadership ============================= */
 
+// PLACEHOLDER QUOTES. Names and roles come from the placeholder roster in
+// lib/volunteers.js, so nobody real is being quoted — and the quotes are lorem
+// ipsum rather than plausible English, so none of this can be mistaken for a
+// genuine endorsement. Replace each `quote` once real volunteer interviews are
+// collected, and point `name`/`designation` at the actual person.
+const VOLUNTEER_VOICES = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.",
+  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident.",
+  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.",
+  "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
+].map((quote, i) => {
+  // The roster cycles ABKL / Batang Kali / Hiraya every three entries, so these
+  // indices are picked to span the programs rather than land all on one.
+  const v = VOLUNTEERS[[0, 4, 8, 9][i]];
+  return {
+    quote,
+    name: v.name,
+    designation: v.role,
+    src: v.photo,
+    alt: "Síkat-Aurora volunteer in the field",
+  };
+});
+
 function LeadershipPage({ onNavigate, onOpenModal }) {
   return (
     <>
@@ -1732,6 +1756,20 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
 
       <VolunteerWall onOpenModal={onOpenModal} />
 
+      {/* Volunteer experience, in their own words */}
+      <Reveal className="bg-white py-16 lg:py-24">
+        <Container>
+          <SectionHeading
+            eyebrow="Volunteer Voices"
+            title="What it's like on the ground"
+            lead="Volunteers on what the work actually asks of them, and what they take home from it."
+            align="center"
+            className="mb-10"
+          />
+          <AnimatedTestimonials testimonials={VOLUNTEER_VOICES} autoplay />
+        </Container>
+      </Reveal>
+
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
     </>
   );
@@ -1778,10 +1816,20 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
   );
 }
 
-function MarqueeRow({ volunteers, reverse = false, hidden = false, onSelectPhoto }) {
+// Four rows off the same roster. Each starts at a different point in the list
+// and runs at its own speed, so the rows never line up into visible columns.
+const rotate = (arr, n) => [...arr.slice(n), ...arr.slice(0, n)];
+const MARQUEE_ROWS = [0, 0.25, 0.5, 0.75].map((fraction, i) => ({
+  volunteers: rotate(VOLUNTEERS, Math.floor(VOLUNTEERS.length * fraction)),
+  reverse: i % 2 === 1,
+  duration: [90, 104, 82, 96][i],
+}));
+
+function MarqueeRow({ volunteers, reverse = false, hidden = false, duration = 90, onSelectPhoto }) {
   return (
     <div className="no-scrollbar overflow-x-auto" aria-hidden={hidden || undefined}>
       <div
+        style={{ animationDuration: `${duration}s` }}
         className={cn(
           "flex w-max animate-marquee",
           "hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]",
@@ -1827,8 +1875,17 @@ function VolunteerWall({ onOpenModal }) {
         aria-label="Síkat-Aurora volunteers"
         tabIndex={0}
       >
-        <MarqueeRow volunteers={VOLUNTEERS} onSelectPhoto={setSelectedPhoto} />
-        <MarqueeRow volunteers={[...VOLUNTEERS].reverse()} reverse hidden onSelectPhoto={setSelectedPhoto} />
+        {MARQUEE_ROWS.map((row, i) => (
+          <MarqueeRow
+            key={i}
+            volunteers={row.volunteers}
+            reverse={row.reverse}
+            duration={row.duration}
+            // Only the first row is read out — the rest repeat the same roster
+            hidden={i > 0}
+            onSelectPhoto={setSelectedPhoto}
+          />
+        ))}
       </div>
 
       <ImageLightboxModal photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
