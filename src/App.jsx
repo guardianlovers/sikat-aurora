@@ -2013,7 +2013,7 @@ function PostMeta({ post, className, dark = false }) {
 
 function PostCard({ post }) {
   return (
-    <Card as="article" className="group flex flex-col overflow-hidden">
+    <Card as="article" className="group flex flex-col overflow-hidden !rounded-xl">
       <a
         href={`#blog/${post.slug}`}
         onClick={(e) => e.preventDefault()}
@@ -2024,16 +2024,15 @@ function PostCard({ post }) {
             src={post.img}
             alt=""
             loading="lazy"
-            className="h-48 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
+            className="h-40 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
           />
         </div>
-        <div className="flex flex-1 flex-col p-6">
-          <h3 className="text-[1.15rem] font-bold leading-snug text-navy transition-colors duration-200 group-hover:text-primary">
+        <div className="flex flex-1 flex-col p-4">
+          <h3 className="text-[1.02rem] font-bold leading-snug text-navy transition-colors duration-200 group-hover:text-primary">
             {post.title}
           </h3>
-          <p className="mb-5 mt-2.5 flex-1 text-[0.88rem] leading-[1.7] text-navy/70">{post.excerpt}</p>
+          <p className="mb-3.5 mt-2 flex-1 text-[0.82rem] leading-[1.7] text-navy/70">{post.excerpt}</p>
           <div className="mt-auto flex flex-wrap items-center gap-2.5">
-            <Tag className={cn("w-fit text-[0.72rem]", CATEGORY_STYLES[post.category])}>{post.category}</Tag>
             <PostMeta post={post} />
           </div>
         </div>
@@ -2123,7 +2122,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
             </div>
           </div>
 
-          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {visible.map((post) => (
                 <motion.div
