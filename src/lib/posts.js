@@ -1,4 +1,5 @@
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
+import logoImg from "@/assets/logo.png";
 
 // SAMPLE CONTENT — placeholder articles so the blog layout can be reviewed.
 // Replace the copy with real field reports before launch; the shape of each
@@ -153,6 +154,18 @@ const PLACEHOLDER_BODY = [
     text: "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
   },
 ];
+
+// Byline. Posts default to the organisation rather than a named person: these
+// are sample articles, and putting a real volunteer's name on writing they did
+// not do would misattribute it. Give a post a real writer by adding
+// `author: { name, role, avatar }` to its entry above.
+const DEFAULT_AUTHOR = {
+  name: "Síkat-Aurora Inc.",
+  role: "Editorial Team",
+  avatar: logoImg,
+};
+
+export const getPostAuthor = (post) => post?.author ?? DEFAULT_AUTHOR;
 
 export const getPost = (slug) => POSTS.find((p) => p.slug === slug);
 

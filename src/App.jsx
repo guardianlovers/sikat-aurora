@@ -36,6 +36,7 @@ import {
   formatPostDate,
   getPost,
   getPostBody,
+  getPostAuthor,
   getRelatedPosts,
 } from "@/lib/posts";
 import { CASH_DONATIONS, FUNDING_TOTALS, FUNDING_AS_OF, TOTALS_PERIOD, formatPeso } from "@/lib/funding";
@@ -2060,6 +2061,7 @@ function PostCard({ post }) {
 function PostPage({ post, onNavigate, onOpenModal }) {
   const body = getPostBody(post);
   const related = getRelatedPosts(post);
+  const author = getPostAuthor(post);
 
   return (
     <>
@@ -2074,16 +2076,32 @@ function PostPage({ post, onNavigate, onOpenModal }) {
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> All stories
             </button>
 
-            <Tag className={CATEGORY_STYLES[post.category]}>{post.category}</Tag>
-            <h1 className="mt-4 text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.6rem]">
+            <h1 className="text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.6rem]">
               {post.title}
             </h1>
             <p className="mt-5 text-[1.05rem] leading-[1.7] text-navy/75">{post.excerpt}</p>
-            <PostMeta post={post} className="mt-6" />
+
+            {/* Byline — avatar, writer, then the date and read time beneath */}
+            <div className="mt-7 flex items-center gap-3 border-t border-navy/10 pt-6">
+              <img
+                src={author.avatar}
+                alt=""
+                className="h-11 w-11 shrink-0 rounded-full border border-navy/10 bg-cream object-contain"
+              />
+              <div className="min-w-0">
+                <p className="text-[0.9rem] font-semibold leading-tight text-navy">{author.name}</p>
+                {author.role && (
+                  <p className="mt-0.5 text-[0.78rem] leading-tight text-navy/55">{author.role}</p>
+                )}
+              </div>
+              <PostMeta post={post} className="ml-auto shrink-0" />
+            </div>
           </Container>
         </Reveal>
 
-        <Container className="max-w-4xl">
+        {/* max-w-3xl matches the masthead and body containers, so the photo
+            lines up with the text rather than bleeding wider than it */}
+        <Container className="max-w-3xl">
           <img
             src={post.img}
             alt=""
@@ -2091,10 +2109,11 @@ function PostPage({ post, onNavigate, onOpenModal }) {
           />
         </Container>
 
-        {/* Body — max-w-[68ch] keeps the measure readable regardless of viewport */}
+        {/* Body shares the masthead's max-w-3xl column so the photo, heading and
+            text all line up. At ~76 characters the measure is still readable. */}
         <Reveal className="bg-white pb-16 pt-12 lg:pb-24">
           <Container className="max-w-3xl">
-            <div className="max-w-[68ch]">
+            <div>
               {body.map((block, i) => {
                 if (block.type === "h2") {
                   return (
