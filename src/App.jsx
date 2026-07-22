@@ -2259,10 +2259,13 @@ function KitCard({ kit, featured = false, onDonate }) {
       </div>
 
       <div className={cn("flex flex-1 flex-col p-6", featured && "justify-center p-7 sm:p-9")}>
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Tag className="bg-navy/[0.06] text-navy/70">{kit.program}</Tag>
-          {featured && <Tag className="bg-gold/25 text-navy-ink">Most sponsored</Tag>}
-        </div>
+        {/* Chips only on the featured card — the grid cards read cleaner without them */}
+        {featured && (
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <Tag className="bg-navy/[0.06] text-navy/70">{kit.program}</Tag>
+            <Tag className="bg-gold/25 text-navy-ink">Most sponsored</Tag>
+          </div>
+        )}
 
         <h3
           className={cn(
