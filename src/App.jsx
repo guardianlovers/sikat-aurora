@@ -596,6 +596,17 @@ const NAV_ITEMS = [
   { id: "blog", label: "Blog" },
 ];
 
+// Browser tab title. Nav labels are reused so the tab always matches the
+// highlighted nav item; the rest are routes with no nav entry of their own.
+const SITE_NAME = "Síkat-Aurora";
+const PAGE_TITLES = {
+  ...Object.fromEntries(NAV_ITEMS.map((item) => [item.id, item.label])),
+  faq: "FAQ",
+  volunteer: "Volunteer",
+  donate: "Donate",
+  checkout: "Checkout",
+};
+
 function Navbar({ activePage, onNavigate, onOpenModal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -1631,7 +1642,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
       </Reveal>
 
       {/* Funding, charted from the published transparency report */}
-      <Reveal className="border-y border-navy/10 bg-cream py-16 lg:py-24">
+      <Reveal className="bg-cream py-16 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow="Transparency"
@@ -2065,9 +2076,11 @@ function PostPage({ post, onNavigate, onOpenModal }) {
 
   return (
     <>
+      {/* No scroll-reveal anywhere on this page — long-form text that fades in
+          as you scroll fights the reading rather than decorating it */}
       <article>
         {/* Masthead */}
-        <Reveal className="bg-white pb-10 pt-20 lg:pt-24">
+        <section className="bg-white pb-10 pt-20 lg:pt-24">
           <Container className="max-w-3xl">
             <button
               onClick={() => onNavigate("blog")}
@@ -2097,7 +2110,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
               <PostMeta post={post} className="ml-auto shrink-0" />
             </div>
           </Container>
-        </Reveal>
+        </section>
 
         {/* max-w-3xl matches the masthead and body containers, so the photo
             lines up with the text rather than bleeding wider than it */}
@@ -2111,7 +2124,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
 
         {/* Body shares the masthead's max-w-3xl column so the photo, heading and
             text all line up. At ~76 characters the measure is still readable. */}
-        <Reveal className="bg-white pb-16 pt-12 lg:pb-24">
+        <section className="bg-white pb-16 pt-12 lg:pb-24">
           <Container className="max-w-3xl">
             <div>
               {body.map((block, i) => {
@@ -2149,11 +2162,11 @@ function PostPage({ post, onNavigate, onOpenModal }) {
               </Btn>
             </div>
           </Container>
-        </Reveal>
+        </section>
       </article>
 
       {related.length > 0 && (
-        <Reveal className="bg-cream py-14 lg:py-20">
+        <section className="bg-cream py-14 lg:py-20">
           <Container>
             <SectionHeading eyebrow="Keep Reading" title="More from the field" className="mb-8" />
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -2162,7 +2175,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
               ))}
             </div>
           </Container>
-        </Reveal>
+        </section>
       )}
 
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
@@ -3075,6 +3088,12 @@ export default function App() {
   // else is a bare page id, so the segment before the slash is the route.
   const [routeId, routeParam] = activePage.split("/");
   const activePost = routeId === "blog" && routeParam ? getPost(routeParam) : null;
+
+  // An article names itself in the tab; every other route uses its nav label
+  useEffect(() => {
+    const label = activePost ? activePost.title : PAGE_TITLES[routeId];
+    document.title = label ? `${SITE_NAME} | ${label}` : SITE_NAME;
+  }, [routeId, activePost]);
 
   const pages = {
     home: <HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
