@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Art &amp; learning supplies placeholder">
+  <rect width="800" height="600" fill="#FBF9F6"/>
+  <rect x="16" y="16" width="768" height="568" rx="20" fill="none" stroke="#1D4A6F" stroke-opacity="0.18" stroke-width="3" stroke-dasharray="14 12"/>
+  <g fill="none" stroke="#1D4A6F" stroke-opacity="0.35" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="308" y="196" width="184" height="140" rx="16"/>
+    <path d="M308 296l52-46 42 36 40-34 50 44"/>
+  </g>
+  <circle cx="356" cy="238" r="15" fill="#FBC21B"/>
+  <text x="400" y="404" text-anchor="middle" font-family="Urbanist, 'Open Sans', sans-serif" font-size="38" font-weight="700" fill="#1D4A6F">Art &amp; learning supplies</text>
+  <text x="400" y="450" text-anchor="middle" font-family="'Open Sans', sans-serif" font-size="25" fill="#1D4A6F" fill-opacity="0.6">One Saturday storytelling session</text>
+  <text x="400" y="516" text-anchor="middle" font-family="'Open Sans', sans-serif" font-size="21" fill="#EC670A">Replace this file with the real photo</text>
+</svg>

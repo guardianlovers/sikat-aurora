@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion } from "framer-motion";
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   BookOpen,
@@ -11,6 +12,8 @@ import {
   Mail,
   MapPin,
   Menu,
+  Minus,
+  Plus,
   Rocket,
   Sprout,
   ThumbsUp,
@@ -26,6 +29,7 @@ import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
 import { LEADERS } from "@/lib/leaders";
 import { POSTS, POST_CATEGORIES, formatPostDate } from "@/lib/posts";
 import { CASH_DONATIONS, FUNDING_TOTALS, FUNDING_AS_OF, TOTALS_PERIOD, formatPeso } from "@/lib/funding";
+import { KITS, getKit } from "@/lib/kits";
 import { AnimatedHero } from "@/components/ui/animated-hero-section-1";
 import { PhotoGallery } from "@/components/ui/gallery";
 import { FaqSection } from "@/components/ui/faq-section";
@@ -2231,142 +2235,296 @@ function VolunteerPage({ onOpenModal }) {
 
 /* ============================= Page 9: Donate ============================= */
 
-function DonatePage() {
-  const [amt, setAmt] = useState(0);
+// Product-style kit card. `featured` lays it out wide with the photo beside
+// the details; the rest stack photo-over-details in the grid below.
+function KitCard({ kit, featured = false, onDonate }) {
+  return (
+    <Card
+      as="article"
+      className={cn(
+        "flex overflow-hidden",
+        featured ? "flex-col lg:flex-row" : "h-full flex-col"
+      )}
+    >
+      <div className={cn("shrink-0 overflow-hidden bg-cream", featured && "lg:w-[46%]")}>
+        <img
+          src={kit.image}
+          alt={kit.imageAlt}
+          loading="lazy"
+          className={cn(
+            "w-full object-cover transition-transform duration-500 hover:scale-[1.03]",
+            featured ? "h-56 lg:h-full lg:min-h-[19rem]" : "aspect-[4/3] h-auto"
+          )}
+        />
+      </div>
+
+      <div className={cn("flex flex-1 flex-col p-6", featured && "justify-center p-7 sm:p-9")}>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <Tag className="bg-navy/[0.06] text-navy/70">{kit.program}</Tag>
+          {featured && <Tag className="bg-gold/25 text-navy-ink">Most sponsored</Tag>}
+        </div>
+
+        <h3
+          className={cn(
+            "font-bold leading-snug text-navy",
+            featured ? "text-[1.45rem]" : "text-[1.05rem]"
+          )}
+        >
+          {kit.name}
+        </h3>
+
+        <p
+          className={cn(
+            "mt-2 leading-relaxed text-navy/70",
+            featured ? "max-w-[46ch] text-[0.95rem]" : "text-[0.85rem]"
+          )}
+        >
+          {kit.blurb}
+        </p>
+
+        {featured && (
+          <ul className="mt-5 flex list-none flex-col gap-2 p-0">
+            {kit.includes.map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-[0.85rem] text-navy/75">
+                <Check className="h-3.5 w-3.5 shrink-0 text-forest" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Price and CTA pinned to the bottom so cards line up across the row */}
+        <div
+          className={cn(
+            "mt-auto flex items-center justify-between gap-4",
+            featured ? "pt-7" : "pt-5"
+          )}
+        >
+          <p className={cn("font-bold text-primary", featured ? "text-[1.9rem]" : "text-[1.35rem]")}>
+            {formatPeso(kit.amount)}
+          </p>
+          <Btn
+            onClick={() => onDonate(kit.id)}
+            className={cn(featured ? "px-8" : "px-6 py-2.5 text-[0.8rem]")}
+          >
+            Donate <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Btn>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function TransparencyNote() {
+  return (
+    <div className="rounded-2xl border-l-2 border-gold bg-navy p-6 text-white sm:p-7">
+      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">Transparency</p>
+      <p className="mb-3 mt-2 max-w-[60ch] text-[0.83rem] leading-relaxed text-white/75">
+        We publish where every peso goes. Read the full report at{" "}
+        <strong className="font-semibold text-white">bit.ly/sikatfinance</strong>.
+      </p>
+      <a
+        href="https://bit.ly/sikatfinance"
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
+      >
+        View Financial Report <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+      </a>
+    </div>
+  );
+}
+
+function DonatePage({ onDonate }) {
+  const featured = KITS.find((k) => k.featured) ?? KITS[0];
+  const rest = KITS.filter((k) => k !== featured);
+
+  return (
+    <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
+      <Container>
+        <SectionHeading
+          eyebrow="Where Your Gift Goes"
+          title="Sponsorship Equivalents"
+          lead="Every kit below is a real bundle we hand out in the field. Pick one and we'll tell you exactly which batch it reached."
+          className="mb-10"
+        />
+
+        <StaggerContainer className="grid gap-6">
+          <StaggerItem>
+            <KitCard kit={featured} featured onDonate={onDonate} />
+          </StaggerItem>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((kit) => (
+              <StaggerItem key={kit.id} className="h-full">
+                <KitCard kit={kit} onDonate={onDonate} />
+              </StaggerItem>
+            ))}
+          </div>
+        </StaggerContainer>
+
+        <div className="mt-10">
+          <TransparencyNote />
+        </div>
+      </Container>
+    </Reveal>
+  );
+}
+
+/* ============================= Page 10: Checkout ============================= */
+
+function CheckoutPage({ kit, onNavigate }) {
+  const [qty, setQty] = useState(1);
   const [method, setMethod] = useState("gcash");
   const [done, setDone] = useState(false);
 
-  const tiers = [
-    { amount: "₱150", equiv: "3 storybooks for the Abot Ko Ang Libro mobile cart" },
-    { amount: "₱500", equiv: "Art & learning supplies for one Saturday storytelling session" },
-    { amount: "₱1,500", equiv: "A full Batang Kali nature-stewardship kit for one batch of kids" },
-    { amount: "₱5,000", equiv: "Seed funding for one youth-led Hiraya school project" },
-  ];
+  const total = kit.amount * qty;
 
   return (
-    <>
-      <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
-        <Container>
-          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-            <div>
-              <SectionHeading
-                eyebrow="Where Your Gift Goes"
-                title="Sponsorship Equivalents"
-                className="mb-7"
-              />
-              <div
-                className="mb-7 flex flex-col gap-3"
-                role="radiogroup"
-                aria-label="Choose a sponsorship amount"
-              >
-                {tiers.map((t, i) => {
-                  const selected = amt === i;
-                  return (
-                    <button
-                      key={t.amount}
-                      role="radio"
-                      aria-checked={selected}
-                      onClick={() => setAmt(i)}
-                      className={cn(
-                        "flex items-center gap-5 rounded-md border px-5 py-4 text-left transition-colors duration-150",
-                        selected
-                          ? "border-primary bg-primary-soft"
-                          : "border-navy/10 bg-white hover:border-navy/30"
-                      )}
-                    >
-                      <span className="w-24 shrink-0 text-[1.3rem] font-bold text-primary">
-                        {t.amount}
-                      </span>
-                      <span className="text-sm leading-snug text-navy">{t.equiv}</span>
-                    </button>
-                  );
-                })}
-              </div>
+    <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
+      <Container>
+        <button
+          onClick={() => onNavigate("donate")}
+          className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 transition-colors duration-150 hover:text-primary"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Back to sponsorship kits
+        </button>
 
-              <div className="rounded-md border-l-2 border-gold bg-navy p-6 text-white">
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gold">Transparency</p>
-                <p className="mb-3 mt-2 text-[0.83rem] leading-relaxed text-white/75">
-                  We publish where every peso goes. Read the full report at{" "}
-                  <strong className="font-semibold text-white">bit.ly/sikatfinance</strong>.
-                </p>
-                <a
-                  href="https://bit.ly/sikatfinance"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-sky no-underline transition-colors duration-150 hover:text-white"
-                >
-                  View Financial Report <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                </a>
+        <SectionHeading eyebrow="Step 2 of 2" title="Confirm your sponsorship" className="mb-9" />
+
+        <div className="grid items-start gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
+          {/* Order summary */}
+          <div className="rounded-2xl border border-navy/10 bg-white p-6 shadow-card sm:p-7">
+            <h3 className="mb-5 text-[1.05rem] font-bold text-navy">Your sponsorship</h3>
+
+            <div className="flex gap-4">
+              <img
+                src={kit.image}
+                alt={kit.imageAlt}
+                className="h-24 w-28 shrink-0 rounded-xl bg-cream object-cover sm:h-28 sm:w-32"
+              />
+              <div className="min-w-0">
+                <Tag className="mb-1.5 bg-navy/[0.06] text-navy/70">{kit.program}</Tag>
+                <p className="font-semibold leading-snug text-navy">{kit.name}</p>
+                <p className="mt-1 text-[0.82rem] text-navy/60">{formatPeso(kit.amount)} each</p>
               </div>
             </div>
 
-            {/* Donation form */}
-            <div className="rounded-lg border border-navy/10 bg-white p-7 shadow-card sm:p-8">
-              <h3 className="mb-6 text-[1.35rem] font-bold text-navy">Donate / Sponsor Now</h3>
-              <div className="mb-5 grid grid-cols-2 gap-2.5" role="radiogroup" aria-label="Payment method">
+            <ul className="mt-5 flex list-none flex-col gap-2 border-t border-navy/10 p-0 pt-5">
+              {kit.includes.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-[0.85rem] text-navy/75">
+                  <Check className="h-3.5 w-3.5 shrink-0 text-forest" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-5 flex items-center justify-between border-t border-navy/10 pt-5">
+              <span className="text-[0.85rem] font-semibold text-navy">Quantity</span>
+              <div className="flex items-center gap-1">
                 <button
-                  role="radio"
-                  aria-checked={method === "gcash"}
-                  onClick={() => setMethod("gcash")}
-                  className={cn(
-                    "rounded-md border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
-                    method === "gcash"
-                      ? "border-primary bg-primary-soft text-primary"
-                      : "border-navy/15 bg-cream text-navy hover:border-navy/35"
-                  )}
+                  onClick={() => setQty((q) => Math.max(1, q - 1))}
+                  disabled={qty <= 1}
+                  aria-label="Decrease quantity"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors duration-150 hover:border-navy/40 disabled:pointer-events-none disabled:opacity-40"
                 >
-                  GCash / Maya
+                  <Minus className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>
+                <span aria-live="polite" className="w-10 text-center font-semibold text-navy">
+                  {qty}
+                </span>
                 <button
-                  role="radio"
-                  aria-checked={method === "bank"}
-                  onClick={() => setMethod("bank")}
-                  className={cn(
-                    "rounded-md border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
-                    method === "bank"
-                      ? "border-primary bg-primary-soft text-primary"
-                      : "border-navy/15 bg-cream text-navy hover:border-navy/35"
-                  )}
+                  onClick={() => setQty((q) => Math.min(99, q + 1))}
+                  disabled={qty >= 99}
+                  aria-label="Increase quantity"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors duration-150 hover:border-navy/40 disabled:pointer-events-none disabled:opacity-40"
                 >
-                  Bank Transfer
+                  <Plus className="h-3.5 w-3.5" aria-hidden="true" />
                 </button>
               </div>
+            </div>
 
-              <div className="space-y-4">
-                <Field id="donate-name" label="Full Name" placeholder="Juan Dela Cruz" autoComplete="name" />
-                <Field
-                  id="donate-email"
-                  label="Email Address (for receipt)"
-                  type="email"
-                  placeholder="juan@gmail.com"
-                  autoComplete="email"
-                />
-              </div>
-
-              <Btn
-                variant={done ? "success" : "dark"}
-                className="mt-6 w-full py-3"
-                aria-live="polite"
-                onClick={() => {
-                  setDone(true);
-                  setTimeout(() => setDone(false), 3500);
-                }}
-              >
-                {done ? (
-                  <>
-                    <Check className="h-4 w-4" aria-hidden="true" /> Receipt Sent!
-                  </>
-                ) : (
-                  <>
-                    <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Proceed to Secure Donation
-                  </>
-                )}
-              </Btn>
+            <div className="mt-5 flex items-baseline justify-between border-t border-navy/10 pt-5">
+              <span className="text-[0.9rem] font-semibold text-navy">Total</span>
+              <span className="text-[1.7rem] font-bold text-primary">{formatPeso(total)}</span>
             </div>
           </div>
-        </Container>
-      </Reveal>
-    </>
+
+          {/* Payment details */}
+          <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
+            <h3 className="mb-6 text-[1.35rem] font-bold text-navy">Payment details</h3>
+
+            <div className="mb-5 grid grid-cols-2 gap-2.5" role="radiogroup" aria-label="Payment method">
+              <button
+                role="radio"
+                aria-checked={method === "gcash"}
+                onClick={() => setMethod("gcash")}
+                className={cn(
+                  "rounded-xl border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
+                  method === "gcash"
+                    ? "border-primary bg-primary-soft text-primary"
+                    : "border-navy/15 bg-cream text-navy hover:border-navy/35"
+                )}
+              >
+                GCash / Maya
+              </button>
+              <button
+                role="radio"
+                aria-checked={method === "bank"}
+                onClick={() => setMethod("bank")}
+                className={cn(
+                  "rounded-xl border px-3 py-2.5 text-[0.82rem] font-semibold transition-colors duration-150",
+                  method === "bank"
+                    ? "border-primary bg-primary-soft text-primary"
+                    : "border-navy/15 bg-cream text-navy hover:border-navy/35"
+                )}
+              >
+                Bank Transfer
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <Field id="donate-name" label="Full Name" placeholder="Juan Dela Cruz" autoComplete="name" />
+              <Field
+                id="donate-email"
+                label="Email Address (for receipt)"
+                type="email"
+                placeholder="juan@gmail.com"
+                autoComplete="email"
+              />
+            </div>
+
+            <Btn
+              variant={done ? "success" : "dark"}
+              className="mt-6 w-full py-3"
+              aria-live="polite"
+              onClick={() => {
+                setDone(true);
+                setTimeout(() => setDone(false), 3500);
+              }}
+            >
+              {done ? (
+                <>
+                  <Check className="h-4 w-4" aria-hidden="true" /> Receipt Sent!
+                </>
+              ) : (
+                <>
+                  <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Pay {formatPeso(total)} Securely
+                </>
+              )}
+            </Btn>
+
+            <p className="mt-4 text-center text-[0.75rem] leading-relaxed text-navy/55">
+              You'll get an email receipt and a note telling you which batch your kit reached.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <TransparencyNote />
+        </div>
+      </Container>
+    </Reveal>
   );
 }
 
@@ -2503,6 +2661,8 @@ export default function App() {
     () => window.location.hash.replace("#", "") || "home"
   );
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
+  // Which sponsorship kit the donor picked, carried from Donate into Checkout
+  const [checkoutKitId, setCheckoutKitId] = useState(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -2524,6 +2684,17 @@ export default function App() {
   const openModal = useCallback(() => setIsVolunteerModalOpen(true), []);
   const closeModal = useCallback(() => setIsVolunteerModalOpen(false), []);
 
+  const startCheckout = useCallback(
+    (kitId) => {
+      setCheckoutKitId(kitId);
+      navigate("checkout");
+    },
+    [navigate]
+  );
+
+  // A direct link to #checkout has no kit behind it, so fall back to the catalog
+  const checkoutKit = getKit(checkoutKitId);
+
   const pages = {
     home: <HomePage onNavigate={navigate} onOpenModal={openModal} />,
     about: <AboutPage onNavigate={navigate} onOpenModal={openModal} />,
@@ -2533,7 +2704,12 @@ export default function App() {
     blog: <BlogPage onNavigate={navigate} onOpenModal={openModal} />,
     faq: <FAQPage onNavigate={navigate} onOpenModal={openModal} />,
     volunteer: <VolunteerPage onOpenModal={openModal} />,
-    donate: <DonatePage />,
+    donate: <DonatePage onDonate={startCheckout} />,
+    checkout: checkoutKit ? (
+      <CheckoutPage kit={checkoutKit} onNavigate={navigate} />
+    ) : (
+      <DonatePage onDonate={startCheckout} />
+    ),
   };
 
   return (
