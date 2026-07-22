@@ -415,7 +415,7 @@ function StatRow({ Icon, figure, label, dark = false }) {
       <p className={cn("text-[1.05rem] leading-snug", dark ? "text-white/80" : "text-navy/80")}>
         <SlotFigure
           value={figure}
-          className={cn("font-medium", dark ? "text-white" : "text-navy")}
+          className={cn("font-bold", dark ? "text-white" : "text-navy")}
         />{" "}
         {label}
       </p>
@@ -782,7 +782,7 @@ const heroBannerModules = import.meta.glob("./assets/home/hero-banner/*.{jpg,jpe
 });
 const HERO_BANNER_IMAGES = Object.values(heroBannerModules);
 
-function HomePage({ onNavigate, onOpenModal }) {
+function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
   return (
     <>
       <section id="home">
@@ -864,7 +864,7 @@ function HomePage({ onNavigate, onOpenModal }) {
                   <p className="text-[0.95rem] leading-snug text-white/75">
                     <SlotFigure
                       value={figure}
-                      className="block text-[1.6rem] font-medium leading-tight text-white"
+                      className="block text-[1.6rem] font-bold leading-tight text-white"
                     />
                     {label}
                   </p>
@@ -946,12 +946,12 @@ function HomePage({ onNavigate, onOpenModal }) {
             align="center"
             eyebrow="Volunteer Action"
             title="Our Volunteers in Every Community"
-            lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
+            lead="Real moments captured across our 18 partner communities in the Province of Aurora."
             className="mb-10"
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VOLUNTEER_VIDEOS.map((v) => (
-              <VideoPlayer key={v.id} id={v.id} title={v.title} />
+              <VideoPlayer key={v.id} id={v.id} title={v.title} onPlay={onPlayVideo} />
             ))}
           </div>
         </Container>
@@ -2206,26 +2206,69 @@ function FAQPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 8: Volunteer ============================= */
 
-function VideoPlayer({ id, title }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  if (isPlaying) {
-    return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
-        <iframe
-          className="h-full w-full"
-          src={`https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
-    );
-  }
+function VideoModal({ videoId, onClose }) {
+  useEffect(() => {
+    if (!videoId) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [videoId, onClose]);
 
   return (
+    <AnimatePresence>
+      {videoId && (
+        <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 sm:p-6 md:p-10">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/85 backdrop-blur-md"
+            aria-hidden="true"
+          />
+
+          {/* Content Box */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="relative z-10 w-full max-w-5xl overflow-hidden rounded-3xl bg-black shadow-2xl"
+          >
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-3 sm:top-3 sm:z-10"
+              aria-label="Close video"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="aspect-video w-full">
+              <iframe
+                className="h-full w-full"
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function VideoPlayer({ id, title, onPlay }) {
+  return (
     <div
-      onClick={() => setIsPlaying(true)}
+      onClick={() => onPlay(id)}
       className="group relative aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-navy/10 shadow-md"
     >
       <img
@@ -2270,7 +2313,7 @@ const VOLUNTEER_VIDEOS = [
   },
 ];
 
-function VolunteerPage({ onNavigate, onOpenModal }) {
+function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
   const steps = [
     {
       num: "01",
@@ -2351,12 +2394,12 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
             align="center"
             eyebrow="Volunteer Action"
             title="Our Volunteers in Every Community"
-            lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
+            lead="Real moments captured across our 18 partner communities in the Province of Aurora."
             className="mb-10"
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VOLUNTEER_VIDEOS.map((v) => (
-              <VideoPlayer key={v.id} id={v.id} title={v.title} />
+              <VideoPlayer key={v.id} id={v.id} title={v.title} onPlay={onPlayVideo} />
             ))}
           </div>
         </Container>
@@ -2519,9 +2562,6 @@ function TransparencyNote() {
 }
 
 function DonatePage({ onDonate }) {
-  const featured = KITS.find((k) => k.featured) ?? KITS[0];
-  const rest = KITS.filter((k) => k !== featured);
-
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
       <Container>
@@ -2532,18 +2572,12 @@ function DonatePage({ onDonate }) {
           className="mb-10"
         />
 
-        <StaggerContainer className="grid gap-6">
-          <StaggerItem>
-            <KitCard kit={featured} featured onDonate={onDonate} />
-          </StaggerItem>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.map((kit) => (
-              <StaggerItem key={kit.id} className="h-full">
-                <KitCard kit={kit} onDonate={onDonate} />
-              </StaggerItem>
-            ))}
-          </div>
+        <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {KITS.map((kit) => (
+            <StaggerItem key={kit.id} className="h-full">
+              <KitCard kit={kit} onDonate={onDonate} />
+            </StaggerItem>
+          ))}
         </StaggerContainer>
 
         <div className="mt-10">
@@ -2869,6 +2903,10 @@ export default function App() {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
   // Which sponsorship kit the donor picked, carried from Donate into Checkout
   const [checkoutKitId, setCheckoutKitId] = useState(null);
+  const [activeVideoId, setActiveVideoId] = useState(null);
+
+  const playVideo = useCallback((videoId) => setActiveVideoId(videoId), []);
+  const closeVideo = useCallback(() => setActiveVideoId(null), []);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -2902,14 +2940,14 @@ export default function App() {
   const checkoutKit = getKit(checkoutKitId);
 
   const pages = {
-    home: <HomePage onNavigate={navigate} onOpenModal={openModal} />,
+    home: <HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
     about: <AboutPage onNavigate={navigate} onOpenModal={openModal} />,
     programs: <ProgramsPage onNavigate={navigate} onOpenModal={openModal} />,
     impact: <ImpactPage onNavigate={navigate} onOpenModal={openModal} />,
     leadership: <LeadershipPage onNavigate={navigate} onOpenModal={openModal} />,
     blog: <BlogPage onNavigate={navigate} onOpenModal={openModal} />,
     faq: <FAQPage onNavigate={navigate} onOpenModal={openModal} />,
-    volunteer: <VolunteerPage onNavigate={navigate} onOpenModal={openModal} />,
+    volunteer: <VolunteerPage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
     donate: <DonatePage onDonate={startCheckout} />,
     checkout: checkoutKit ? (
       <CheckoutPage kit={checkoutKit} onNavigate={navigate} />
@@ -2923,6 +2961,7 @@ export default function App() {
       <Navbar activePage={activePage} onNavigate={navigate} onOpenModal={openModal} />
 
       <VolunteerModal isOpen={isVolunteerModalOpen} onClose={closeModal} />
+      <VideoModal videoId={activeVideoId} onClose={closeVideo} />
 
       <AnimatePresence mode="wait">
         <motion.main

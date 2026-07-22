@@ -128,10 +128,10 @@ export const PhotoGallery = ({
             <span className="pill-label">VISUAL STORIES</span>
           </div>
           <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
-            Moments from the field
+            Stories of Hope &amp; Change
           </h2>
           <p className="mx-auto mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
-            Snapshots from Baler, Maria Aurora, San Luis, and Casiguran.
+            Glimpses of youth-led volunteer programs and environmental stewardship across the Province of Aurora.
             <span className="hidden lg:inline"> Drag any photo to explore.</span>
           </p>
         </div>
