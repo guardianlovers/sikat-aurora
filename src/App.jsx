@@ -415,7 +415,7 @@ function StatRow({ Icon, figure, label, dark = false }) {
       <p className={cn("text-[1.05rem] leading-snug", dark ? "text-white/80" : "text-navy/80")}>
         <SlotFigure
           value={figure}
-          className={cn("font-bold", dark ? "text-white" : "text-navy")}
+          className={cn("font-extrabold font-display", dark ? "text-white" : "text-navy")}
         />{" "}
         {label}
       </p>
@@ -864,7 +864,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
                   <p className="text-[0.95rem] leading-snug text-white/75">
                     <SlotFigure
                       value={figure}
-                      className="block text-[1.6rem] font-bold leading-tight text-white"
+                      className="block text-[1.7rem] font-extrabold font-display leading-tight text-white"
                     />
                     {label}
                   </p>
