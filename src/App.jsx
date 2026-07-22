@@ -365,6 +365,7 @@ function Field({ id, label, children, ...inputProps }) {
 
 function VolunteerModal({ isOpen, onClose }) {
   const [submitted, setSubmitted] = useState(false);
+  const [program, setProgram] = useState("");
 
   // Escape to close + lock body scroll while open
   useEffect(() => {
@@ -409,68 +410,81 @@ function VolunteerModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ duration: 0.22, ease: EASE }}
-            className="relative z-10 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg border-t-2 border-primary bg-white p-7 shadow-modal sm:p-9"
+            className="relative z-10 flex max-h-[88vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-modal"
           >
             <button
               onClick={onClose}
               aria-label="Close dialog"
-              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-md text-navy/75 transition-colors duration-150 hover:bg-cream hover:text-navy"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full text-navy/60 transition-colors duration-150 hover:bg-navy/[0.06] hover:text-navy"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            <Eyebrow>Join Síkat-Aurora</Eyebrow>
-            <h3 id="volunteer-modal-title" className="text-[1.5rem] font-bold text-navy">
-              Sign Up &amp; Signify Interest
-            </h3>
-            <p className="mb-7 mt-2 text-sm leading-relaxed text-navy/75">
-              Takes 2 minutes — our membership team will reach out within 48 hours.
-            </p>
+            {/* Header stays put; only the form below it scrolls */}
+            <div className="shrink-0 px-7 pb-5 pt-8 sm:px-9">
+              <Eyebrow>Join Síkat-Aurora</Eyebrow>
+              <h3 id="volunteer-modal-title" className="text-[1.5rem] font-bold text-navy">
+                Sign Up &amp; Signify Interest
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-navy/75">
+                Takes 2 minutes — our membership team will reach out within 48 hours.
+              </p>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field id="vol-first-name" label="First name" required placeholder="Juan" autoComplete="given-name" />
-                <Field id="vol-last-name" label="Last name" required placeholder="Dela Cruz" autoComplete="family-name" />
-              </div>
+            <div className="scroll-slim min-h-0 flex-1 overflow-y-auto px-7 pb-8 sm:px-9">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field id="vol-first-name" label="First name" required placeholder="Juan" autoComplete="given-name" />
+                  <Field id="vol-last-name" label="Last name" required placeholder="Dela Cruz" autoComplete="family-name" />
+                </div>
 
-              <Field id="vol-email" label="Email address" type="email" required placeholder="juan@gmail.com" autoComplete="email" />
-              <Field id="vol-mobile" label="Mobile number" type="tel" required placeholder="0917 123 4567" autoComplete="tel" />
+                <Field id="vol-email" label="Email address" type="email" required placeholder="juan@gmail.com" autoComplete="email" />
+                <Field id="vol-mobile" label="Mobile number" type="tel" required placeholder="0917 123 4567" autoComplete="tel" />
 
-              <Field id="vol-program" label="Program of interest">
-                <select id="vol-program" className="form-input">
-                  <option>Select a program...</option>
-                  <option>Abot Ko Ang Libro (Education)</option>
-                  <option>Ang Batang Kali (Environment)</option>
-                  <option>Hiraya (Active Citizenship)</option>
-                  <option>Any program where needed</option>
-                </select>
-              </Field>
+                <Field id="vol-program" label="Program of interest">
+                  <select
+                    id="vol-program"
+                    required
+                    value={program}
+                    onChange={(e) => setProgram(e.target.value)}
+                    className={cn("form-select", !program && "form-select-muted")}
+                  >
+                    <option value="" disabled>
+                      Select a program...
+                    </option>
+                    <option>Abot Ko Ang Libro (Education)</option>
+                    <option>Ang Batang Kali (Environment)</option>
+                    <option>Hiraya (Active Citizenship)</option>
+                    <option>Any program where needed</option>
+                  </select>
+                </Field>
 
-              <Field id="vol-age" label="Age group (15–30 y/o)">
-                <select id="vol-age" className="form-input">
-                  <option>15–18 years old</option>
-                  <option>19–24 years old</option>
-                  <option>25–30 years old</option>
-                </select>
-              </Field>
+                <Field id="vol-age" label="Age group (15–30 y/o)">
+                  <select id="vol-age" className="form-select" defaultValue="15–18 years old">
+                    <option>15–18 years old</option>
+                    <option>19–24 years old</option>
+                    <option>25–30 years old</option>
+                  </select>
+                </Field>
 
-              <Btn
-                type="submit"
-                variant={submitted ? "success" : "primary"}
-                className="mt-2 w-full py-3"
-                aria-live="polite"
-              >
-                {submitted ? (
-                  <>
-                    <Check className="h-4 w-4" aria-hidden="true" /> Interest Signified! Welcome to Síkat
-                  </>
-                ) : (
-                  <>
-                    Submit Application <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </>
-                )}
-              </Btn>
-            </form>
+                <Btn
+                  type="submit"
+                  variant={submitted ? "success" : "primary"}
+                  className="mt-2 w-full py-3"
+                  aria-live="polite"
+                >
+                  {submitted ? (
+                    <>
+                      <Check className="h-4 w-4" aria-hidden="true" /> Interest Signified! Welcome to Síkat
+                    </>
+                  ) : (
+                    <>
+                      Submit Application <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </>
+                  )}
+                </Btn>
+              </form>
+            </div>
           </motion.div>
         </div>
       )}
