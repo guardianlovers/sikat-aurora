@@ -74,9 +74,7 @@ export function AnimatedTestimonials({ testimonials, autoplay = false, className
             {/* Announced as one block so a screen reader hears the whole quote,
                 not each blurred-in word as it lands */}
             <div aria-live="polite" aria-atomic="true">
-              <h3 className="text-[1.3rem] font-bold text-navy">{current.name}</h3>
-              <p className="mt-1 text-[0.85rem] text-navy/55">{current.designation}</p>
-              <p className="mt-6 text-[1rem] leading-[1.75] text-navy/80">
+              <p className="text-[1.1rem] italic leading-[1.75] text-navy/80">
                 {current.quote.split(" ").map((word, i) => (
                   <motion.span
                     key={`${active}-${i}`}
@@ -89,6 +87,10 @@ export function AnimatedTestimonials({ testimonials, autoplay = false, className
                   </motion.span>
                 ))}
               </p>
+              <div className="mt-6">
+                <h3 className="text-[1.2rem] font-bold text-navy">{current.name}</h3>
+                <p className="mt-1 text-[0.85rem] text-navy/55">{current.designation}</p>
+              </div>
             </div>
           </motion.div>
 

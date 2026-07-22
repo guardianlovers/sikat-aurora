@@ -941,6 +941,32 @@ function HomePage({ onNavigate, onOpenModal }) {
         <PhotoGallery onViewAll={() => onNavigate("blog")} />
       </section>
 
+      {/* Volunteer gallery */}
+      <Reveal className="bg-white py-16 lg:py-20">
+        <Container>
+          <SectionHeading
+            align="center"
+            eyebrow="Volunteer Action"
+            title="Our Volunteers in Every Community"
+            lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
+            className="mb-10"
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {VOLUNTEER_VIDEOS.map((v) => (
+              <div key={v.id} className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
+                <iframe
+                  className="h-full w-full"
+                  src={`https://www.youtube.com/embed/${v.id}`}
+                  title={v.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Reveal>
+
       {/* FAQ */}
       <FaqSection
         title="Frequently Asked Questions"
@@ -1721,7 +1747,7 @@ function OrgCard({ leader, wide = false }) {
       {/* Portrait slot — falls back to initials until a photo is added */}
       <div
         className={cn(
-          "mx-auto mb-4 h-20 w-20 shrink-0 overflow-hidden rounded-full bg-primary-soft",
+          "mx-auto mb-4 h-28 w-28 shrink-0 overflow-hidden rounded-full bg-primary-soft",
           wide && "sm:mx-0 sm:mb-0 sm:h-24 sm:w-24"
         )}
       >
@@ -1734,27 +1760,20 @@ function OrgCard({ leader, wide = false }) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <span className="text-[1.4rem] font-bold text-primary/45" aria-hidden="true">
+            <span className="text-[1.8rem] font-bold text-primary/45" aria-hidden="true">
               {leader.initials}
             </span>
           </div>
         )}
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col justify-center">
         <h3 className={cn("font-bold leading-snug text-navy", wide ? "text-[1.2rem]" : "text-[1rem]")}>
           {leader.name}
         </h3>
         <p className="mt-1 text-[0.68rem] font-bold uppercase tracking-[0.09em] text-primary">
           {leader.title}
         </p>
-        <p className="mt-2 text-[0.82rem] leading-[1.6] text-navy/70">{leader.role}</p>
-
-        {leader.deputy && (
-          <p className="mt-auto pt-3 text-[0.78rem] text-navy/60">
-            <span className="font-semibold text-navy/75">Deputy:</span> {leader.deputy}
-          </p>
-        )}
       </div>
     </article>
   );
@@ -1772,14 +1791,14 @@ function OrgChart() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full max-w-xl">
-        <OrgCard leader={director} wide />
+      <div className="w-full max-w-xs">
+        <OrgCard leader={director} />
       </div>
 
       <OrgStem />
 
-      <div className="w-full max-w-xl">
-        <OrgCard leader={deputyDirector} wide />
+      <div className="w-full max-w-xs">
+        <OrgCard leader={deputyDirector} />
       </div>
 
       <OrgStem />
@@ -1817,6 +1836,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
       <Reveal className="bg-white pb-16 pt-20 lg:pb-24 lg:pt-24">
         <Container>
           <SectionHeading
+            align="center"
             eyebrow="Organizational Structure"
             title="The youth leaders driving the movement"
             lead="Meet the executive committee and directorate guiding volunteer initiatives across Aurora Province."
@@ -2194,6 +2214,29 @@ function FAQPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 8: Volunteer ============================= */
 
+const VOLUNTEER_VIDEOS = [
+  {
+    id: "VfFF8cfnS5Q",
+    title: "Síkat-Aurora Volunteer Video 1",
+  },
+  {
+    id: "OKwnViJL_jY",
+    title: "Síkat-Aurora Volunteer Video 2",
+  },
+  {
+    id: "9S3pdY9bhx0",
+    title: "Síkat-Aurora Volunteer Video 3",
+  },
+  {
+    id: "2VhrjEVrKnM",
+    title: "Síkat-Aurora Volunteer Video 4",
+  },
+  {
+    id: "uDG1b6XAFSY",
+    title: "Síkat-Aurora Volunteer Video 5",
+  },
+];
+
 function VolunteerPage({ onOpenModal }) {
   const steps = [
     {
@@ -2210,29 +2253,6 @@ function VolunteerPage({ onOpenModal }) {
       num: "03",
       title: "Commit to principles",
       desc: "Demonstrate willingness to adhere to principles, rules, and policies — including finding a replacement if unavailable for a signed-up program.",
-    },
-  ];
-
-  const volunteerVideos = [
-    {
-      id: "VfFF8cfnS5Q",
-      title: "Síkat-Aurora Volunteer Video 1",
-    },
-    {
-      id: "OKwnViJL_jY",
-      title: "Síkat-Aurora Volunteer Video 2",
-    },
-    {
-      id: "9S3pdY9bhx0",
-      title: "Síkat-Aurora Volunteer Video 3",
-    },
-    {
-      id: "2VhrjEVrKnM",
-      title: "Síkat-Aurora Volunteer Video 4",
-    },
-    {
-      id: "uDG1b6XAFSY",
-      title: "Síkat-Aurora Volunteer Video 5",
     },
   ];
 
@@ -2293,8 +2313,8 @@ function VolunteerPage({ onOpenModal }) {
             lead="Real moments captured across our 18 partner communities in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran."
             className="mb-10"
           />
-          <div className="grid gap-6 md:grid-cols-2">
-            {volunteerVideos.map((v) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {VOLUNTEER_VIDEOS.map((v) => (
               <div key={v.id} className="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-md">
                 <iframe
                   className="h-full w-full"
