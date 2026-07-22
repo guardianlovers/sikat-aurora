@@ -88,11 +88,18 @@ const REVEAL_VARIANTS = {
 function Reveal({ className, children, variant = "fadeUp", as = "section", ...props }) {
   const Comp = motion[as];
   const chosenVariant = REVEAL_VARIANTS[variant] || REVEAL_VARIANTS.fadeUp;
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Comp
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      whileInView={isReady ? "visible" : "hidden"}
+      viewport={{ once: true, margin: "0px 0px -100px 0px" }}
       variants={chosenVariant}
       className={className}
       {...props}
@@ -105,11 +112,18 @@ function Reveal({ className, children, variant = "fadeUp", as = "section", ...pr
 // Container that automatically staggers direct children as they enter the viewport
 function StaggerContainer({ className, children, stagger = 0.12, delay = 0, as = "div", ...props }) {
   const Comp = motion[as];
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Comp
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-30px" }}
+      whileInView={isReady ? "visible" : "hidden"}
+      viewport={{ once: true, margin: "0px 0px -80px 0px" }}
       variants={{
         hidden: { opacity: 0 },
         visible: {
