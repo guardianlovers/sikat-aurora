@@ -314,9 +314,6 @@ function ImageLightboxModal({ photo, onClose }) {
               className="max-h-[80vh] w-auto max-w-full object-contain mx-auto"
             />
           </div>
-          {photo.alt && (
-            <p className="mt-3 text-center text-xs font-medium text-white/80">{photo.alt}</p>
-          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
