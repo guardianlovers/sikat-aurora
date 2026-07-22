@@ -132,7 +132,6 @@ export const PhotoGallery = ({
           </h2>
           <p className="mx-auto mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
             Glimpses of youth-led volunteer programs and environmental stewardship across the Province of Aurora.
-            <span className="hidden lg:inline"> Drag any photo to explore.</span>
           </p>
         </div>
       </div>
