@@ -883,16 +883,13 @@ function HomePage({ onNavigate, onOpenModal }) {
             </Btn>
           </div>
 
-          {/* Bento: Abot Ko Ang Libro takes the tall tile, the other two sit beside
-              it, and two field photos fill the remaining cells on wide screens. */}
-          <StaggerContainer className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:auto-rows-[15.5rem]">
+          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 name: "Abot Ko Ang Libro",
                 center: "Education",
                 img: coreAbklImg,
                 desc: "Mobile library cart bringing books & storytelling to kids ages 2–14.",
-                span: "sm:col-span-2 lg:col-span-1 lg:row-span-2",
               },
               {
                 name: "Ang Batang Kali",
@@ -907,47 +904,28 @@ function HomePage({ onNavigate, onOpenModal }) {
                 desc: "Leadership training & seed funding across 30 DepEd schools.",
               },
             ].map((p) => (
-              <StaggerItem key={p.name} className={p.span}>
-                <div
-                  className="group relative h-full min-h-[15.5rem] cursor-pointer overflow-hidden rounded-2xl shadow-card transition-shadow duration-200 hover:shadow-card-hover"
+              <StaggerItem key={p.name}>
+                <Card
+                  className="group cursor-pointer overflow-hidden"
                   onClick={() => onNavigate("programs")}
                   role="link"
                   tabIndex={0}
                   onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("programs")}
                 >
-                  <img
-                    src={p.img}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
-                  />
-                  {/* Keeps the copy legible whatever the photo underneath is doing */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-navy-ink via-navy-ink/55 to-transparent"
-                    aria-hidden="true"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-6">
-                    <Tag className="mb-2.5 bg-white/15 text-white backdrop-blur-sm">{p.center}</Tag>
-                    <h3 className="text-[1.2rem] font-bold text-white">{p.name}</h3>
-                    <p className="mt-1.5 max-w-[34ch] text-sm leading-relaxed text-white/80">
-                      {p.desc}
-                    </p>
+                  <div className="overflow-hidden">
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+                      loading="lazy"
+                    />
                   </div>
-                </div>
-              </StaggerItem>
-            ))}
-
-            {/* Filler tiles — decorative, so they drop out below the bento grid */}
-            {[PROGRAM_PHOTOS.abkp[3], PROGRAM_PHOTOS.hiraya[0]].map((photo) => (
-              <StaggerItem key={photo.src} className="hidden lg:block">
-                <div className="group h-full overflow-hidden rounded-2xl shadow-card">
-                  <img
-                    src={photo.src}
-                    alt={photo.alt}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
-                  />
-                </div>
+                  <div className="border-t border-navy/10 p-6">
+                    <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
+                    <Tag className="mt-4 bg-primary-soft text-primary">{p.center}</Tag>
+                  </div>
+                </Card>
               </StaggerItem>
             ))}
           </StaggerContainer>
