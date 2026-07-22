@@ -2381,6 +2381,12 @@ function VolunteerPage({ onNavigate, onOpenModal }) {
               </li>
             ))}
           </ol>
+
+          <div className="mt-14 text-center">
+            <Btn onClick={onOpenModal} className="px-8">
+              Open Volunteer Application Form
+            </Btn>
+          </div>
         </Container>
       </Reveal>
 
