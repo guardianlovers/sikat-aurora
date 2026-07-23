@@ -930,15 +930,10 @@ function ProgramHorizontalScrubDeck() {
 
   return (
     <div ref={containerRef} className="relative h-[220vh] bg-cream">
-      <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden py-8">
-        <Container className="mb-6">
+      <div className="sticky top-0 flex h-screen w-full flex-col overflow-hidden pt-24 pb-6 lg:pt-28 lg:pb-8">
+        <Container className="mb-4 shrink-0">
           <div className="flex flex-wrap items-end justify-between gap-5">
-            <div>
-              <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-navy/50">
-                Scroll down to scrub through core initiatives
-              </p>
-            </div>
+            <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
                 {[0, 1, 2].map((idx) => (
@@ -960,8 +955,8 @@ function ProgramHorizontalScrubDeck() {
           </div>
         </Container>
 
-        <Container className="max-w-6xl">
-          <div className="flex flex-col md:flex-row h-auto md:h-[480px] w-full gap-4 transition-all duration-500">
+        <Container className="flex-1 flex flex-col min-h-0 pb-2">
+          <div className="flex flex-col md:flex-row flex-1 min-h-0 w-full gap-3 transition-all duration-500">
             {deckData.map((p, i) => {
               const isActive = activeIndex === i;
               return (
@@ -977,83 +972,58 @@ function ProgramHorizontalScrubDeck() {
                     }
                   }}
                   className={cn(
-                    "relative cursor-pointer overflow-hidden rounded-3xl transition-all duration-500 ease-out-expo flex flex-col justify-between p-5 sm:p-6",
+                    "relative cursor-pointer overflow-hidden rounded-2xl transition-all duration-500 ease-out-expo flex flex-col",
                     isActive
-                      ? "flex-[3.5] shadow-2xl border border-white/20 ring-1 ring-black/10"
-                      : "bg-white/90 backdrop-blur-md text-navy flex-[1] border border-navy/10 hover:border-navy/30 hover:shadow-md"
+                      ? "flex-1 md:flex-[4] shadow-2xl"
+                      : "h-24 md:h-auto md:flex-[1] shadow-md hover:shadow-lg group"
                   )}
                 >
-                  {/* Photo Background (Full bleed for active, subtle watermark for inactive) */}
-                  <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-                    <img
-                      src={p.img}
-                      alt=""
-                      className={cn(
-                        "h-full w-full object-cover transition-all duration-500",
-                        isActive ? "opacity-100 scale-100" : "opacity-10 scale-105 filter grayscale contrast-125"
-                      )}
-                    />
-                    <div
-                      className={cn(
-                        "absolute inset-0 transition-opacity duration-500",
-                        isActive
-                          ? "bg-gradient-to-t from-black/80 via-black/20 to-transparent"
-                          : "bg-white/85"
-                      )}
-                    />
-                  </div>
-
-                  {/* Top Header Row */}
-                  <div className="relative z-10 flex items-center justify-between">
-                    {isActive ? (
-                      <span className="text-[0.66rem] font-extrabold uppercase tracking-[0.14em] text-white/80">
-                        {p.center}
-                      </span>
-                    ) : (
-                      <span className="text-xl font-black tracking-wider text-navy/25">
-                        0{i + 1}
-                      </span>
+                  {/* Full photo background — always visible */}
+                  <img
+                    src={p.img}
+                    alt={`${p.name} program`}
+                    className={cn(
+                      "absolute inset-0 h-full w-full object-cover transition-all duration-700",
+                      isActive ? "scale-100" : "scale-105 group-hover:scale-110"
                     )}
+                  />
 
-                    <span
-                      className={cn(
-                        "shrink-0 rounded-full px-3 py-1 text-[0.64rem] font-extrabold uppercase tracking-wider transition-all duration-300",
-                        isActive
-                          ? "bg-black/30 text-white backdrop-blur-md border border-white/20 shadow-md"
-                          : "bg-primary-soft text-primary border border-primary/15"
-                      )}
-                    >
-                      {p.badge}
-                    </span>
-                  </div>
+                  {/* Black overlay gradient — active only */}
+                  {isActive && (
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  )}
 
-                  {/* Card Content Area */}
-                  {isActive ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="relative z-10 mt-auto rounded-2xl bg-black/40 p-5 sm:p-6 backdrop-blur-xl border border-white/20 shadow-2xl text-white"
-                    >
-                      <span className="text-[0.66rem] font-extrabold uppercase tracking-[0.14em] text-gold">
-                        {p.center}
+                  {/* Top badge — active only */}
+                  {isActive && (
+                    <div className="relative z-10 flex items-center justify-end p-5">
+                      <span
+                        className="rounded-full bg-white/15 px-3 py-1 text-[0.64rem] font-extrabold uppercase tracking-wider text-white backdrop-blur-xl border border-white/25"
+                      >
+                        {p.badge}
                       </span>
-                      <h3 className="mt-1 text-2xl sm:text-3xl font-extrabold leading-tight text-white drop-shadow-md">
-                        {p.name}
-                      </h3>
-                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/90 max-w-[48ch]">
-                        {p.desc}
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <div className="relative z-10 mt-auto pt-4 space-y-1">
-                      <span className="text-[0.62rem] font-extrabold uppercase tracking-wider text-primary">
-                        {p.center}
-                      </span>
-                      <h3 className="text-xl font-extrabold leading-tight text-navy">{p.shortName}</h3>
-                      <p className="text-[0.68rem] font-medium leading-tight text-navy/60 line-clamp-2">
-                        {p.desc}
-                      </p>
+                    </div>
+                  )}
+
+                  {/* Active card content with black overlay */}
+                  {isActive && (
+                    <div className="relative z-10 mt-auto">
+                      <div className="relative p-5 sm:p-6">
+                        <motion.div
+                          initial={{ opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                        >
+                          <span className="text-[0.66rem] font-extrabold uppercase tracking-[0.14em] text-gold drop-shadow-sm">
+                            {p.center}
+                          </span>
+                          <h3 className="mt-1 text-2xl sm:text-3xl font-extrabold leading-tight text-white drop-shadow-md">
+                            {p.name}
+                          </h3>
+                          <p className="mt-2 text-sm leading-relaxed text-white/90 max-w-[48ch] drop-shadow-sm">
+                            {p.desc}
+                          </p>
+                        </motion.div>
+                      </div>
                     </div>
                   )}
                 </motion.div>
@@ -3500,9 +3470,6 @@ function FinalCTA({ onNavigate, onOpenModal }) {
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Btn onClick={onOpenModal} className="px-8">
             Become a Volunteer
-          </Btn>
-          <Btn to="/donate" variant="onDark" className="px-8">
-            Fuel Our Cause / Sponsor
           </Btn>
         </div>
       </Container>
