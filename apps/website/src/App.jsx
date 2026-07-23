@@ -930,7 +930,7 @@ function ProgramHorizontalScrubDeck() {
 
   return (
     <div ref={containerRef} className="relative h-[220vh] bg-cream">
-      <div className="sticky top-0 flex h-screen w-full flex-col overflow-hidden pt-24 pb-6 lg:pt-28 lg:pb-8">
+      <div className="sticky top-0 flex h-screen w-full flex-col overflow-hidden pt-24 pb-[60px] lg:pt-28 lg:pb-[60px]">
         <Container className="mb-4 shrink-0">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
@@ -955,7 +955,7 @@ function ProgramHorizontalScrubDeck() {
           </div>
         </Container>
 
-        <Container className="flex-1 flex flex-col min-h-0 pb-2">
+        <Container className="flex-1 flex flex-col min-h-0 pb-[60px]">
           <div className="flex flex-col md:flex-row flex-1 min-h-0 w-full gap-3 transition-all duration-500">
             {deckData.map((p, i) => {
               const isActive = activeIndex === i;
@@ -1163,7 +1163,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
       </Reveal>
 
       {/* Impact stats teaser */}
-      <Reveal className="bg-navy py-16 text-white lg:py-20">
+      <Reveal className="bg-navy py-28 text-white lg:py-36">
         <Container>
           <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
             <SectionHeading
