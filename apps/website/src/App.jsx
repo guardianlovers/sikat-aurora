@@ -938,7 +938,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
         <AnimatedHero
           images={HERO_BANNER_IMAGES}
           backgroundImageUrl={heroBanner}
-          badge="SÍKAT-AURORA INC."
+          badge="YOUTH LITERACY MOVEMENT"
           title={
             <>
               Ang pagsíkat ay
@@ -946,9 +946,9 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               <span className="text-gold">nagsisimula sa pagkilos.</span>
             </>
           }
-          description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
-          ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
-          secondaryCta={{ text: "Donate / Be a Sponsor", to: "/donate" }}
+          description="Síkat-Aurora is a youth-led movement bringing books, mentorship, and opportunity to underserved communities across Aurora. Powered by 400+ passionate youth volunteers and visionary sponsors, we turn hope into real literacy for 1,100+ children where the Philippine sun rises first."
+          ctaButton={{ text: "Join as a Volunteer", onClick: onOpenModal }}
+          secondaryCta={{ text: "Fuel Our Mission / Sponsor", to: "/donate" }}
         />
       </section>
 
@@ -958,13 +958,11 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
           <div>
             <SectionHeading
               eyebrow="Who We Are"
-              title="A new face of youth volunteerism in Aurora"
+              title="A Rising Generation of Youth Volunteers &amp; Sponsors"
             />
             <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
-              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
-              nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning{" "}
-              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
-              volunteers where the Philippine sun rises first.
+              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a youth-led, youth-serving movement. The name <em>Síkat</em>, meaning{" "}
+              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to young volunteers and generous sponsors rising together where the Philippine sun rises first to ensure no child in Aurora is left without the gift of reading.
             </p>
             <Btn to="/about" variant="dark">
               Learn More About Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -2654,8 +2652,9 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
         <Container>
           <SectionHeading
             align="center"
-            eyebrow="Why Volunteer"
-            title="What You Gain as a Síkat Volunteer"
+            eyebrow="Join the Youth Corps"
+            title="Step Up. Teach. Transform Lives in Aurora."
+            lead="Your time, passion, and heart can unlock a child's future. Join over 400 youth volunteers creating real educational change across 18 partner communities."
             className="mb-10"
           />
           <div className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
@@ -2703,7 +2702,7 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
           <SectionHeading
             align="center"
             eyebrow="Simple Onboarding"
-            title="Path from Interested to Inducted"
+            title="3 Simple Steps to Join Our Volunteer Corps"
             className="mb-10"
           />
           {/* Numbered sequence — the rule above each step reads as a progress track */}
@@ -2816,11 +2815,10 @@ function TransparencyNote() {
       <div className="grid gap-9 p-8 sm:p-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-14">
         <div>
           <h3 className="text-[1.4rem] font-bold leading-[1.2] sm:text-[1.6rem]">
-            Every peso, on the record.
+            100% Transparent. Every Peso Accounted For.
           </h3>
           <p className="mt-3.5 max-w-[50ch] text-[0.88rem] leading-relaxed text-white/70">
-            We publish where every peso goes — the full ledger is open to anyone who wants to read
-            it. If you'd rather just ask before you give, we'll answer.
+            We publish our complete financial ledger publicly. 100% of your sponsorship goes directly toward community learning materials, volunteer literacy cart operations, and student kits.
           </p>
         </div>
 
@@ -3077,17 +3075,17 @@ function FinalCTA({ onNavigate, onOpenModal }) {
       <Container className="max-w-3xl">
         {/* Sized to hold two balanced lines at every width */}
         <h2 className="mx-auto max-w-[22ch] text-balance text-[clamp(1.35rem,6.4vw,2.75rem)] font-bold leading-[1.15] tracking-[-0.015em]">
-          Handa ka na bang sumíkat kasama namin?
+          Handa ka na bang sumíkat at maglingkod kasama namin?
         </h2>
         <p className="mx-auto mt-5 max-w-[52ch] text-sm leading-[1.75] text-white/70 sm:text-[0.95rem]">
-          Join over 400 youth volunteers across Baler and Aurora Province in building a brighter future.
+          Join over 400 youth volunteers and visionaries across Baler and Aurora Province in empowering the next generation of learners.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Btn onClick={onOpenModal} className="px-8">
             Become a Volunteer
           </Btn>
           <Btn to="/donate" variant="onDark" className="px-8">
-            Donate / Be a Sponsor
+            Fuel Our Cause / Sponsor
           </Btn>
         </div>
       </Container>
