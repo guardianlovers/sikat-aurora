@@ -2093,10 +2093,10 @@ const rotate = (arr, n) => [...arr.slice(n), ...arr.slice(0, n)];
 const MARQUEE_ROWS = [0, 1 / 3, 2 / 3].map((fraction, i) => ({
   volunteers: rotate(VOLUNTEERS, Math.floor(VOLUNTEERS.length * fraction)),
   reverse: i % 2 === 1,
-  duration: [90, 104, 82][i],
+  duration: [180, 210, 160][i],
 }));
 
-function MarqueeRow({ volunteers, reverse = false, hidden = false, duration = 90, onSelectPhoto }) {
+function MarqueeRow({ volunteers, reverse = false, hidden = false, duration = 180, onSelectPhoto }) {
   return (
     <div className="no-scrollbar overflow-x-auto" aria-hidden={hidden || undefined}>
       <div
@@ -2110,7 +2110,7 @@ function MarqueeRow({ volunteers, reverse = false, hidden = false, duration = 90
       >
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex shrink-0 list-none" aria-hidden={copy === 1 || undefined}>
-            {[...volunteers, ...volunteers].map((v, i) => (
+            {volunteers.map((v, i) => (
               <li key={`${copy}-${i}-${v.id}`} className="w-32 shrink-0 pr-5 sm:w-40">
                 <VolunteerCard volunteer={v} onSelectPhoto={onSelectPhoto} />
               </li>
