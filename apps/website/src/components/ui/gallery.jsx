@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -11,38 +11,20 @@ import moment4 from "@/assets/home/moments-from-the-field/4.jpg";
 import moment5 from "@/assets/home/moments-from-the-field/5.jpg";
 
 export const PhotoGallery = ({
-  animationDelay = 0.3,
+  animationDelay = 0.1,
   onViewAll,
   viewAllTo = "/blog",
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const visibilityTimer = setTimeout(() => {
-      setIsVisible(true);
-    }, animationDelay * 1000);
-
-    const animationTimer = setTimeout(
-      () => {
-        setIsLoaded(true);
-      },
-      (animationDelay + 0.4) * 1000
-    );
-
-    return () => {
-      clearTimeout(visibilityTimer);
-      clearTimeout(animationTimer);
-    };
-  }, [animationDelay]);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-60px" });
 
   const containerVariants = {
-    hidden: { opacity: 1 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.05,
       },
     },
   };
@@ -52,19 +34,21 @@ export const PhotoGallery = ({
       x: 0,
       y: 0,
       rotate: 0,
-      scale: 1,
+      scale: 0.9,
+      opacity: 0,
     }),
     visible: (custom) => ({
       x: custom.x,
       y: custom.y,
       rotate: 0,
       scale: 1,
+      opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 70,
-        damping: 12,
+        stiffness: 65,
+        damping: 13,
         mass: 1,
-        delay: custom.order * 0.15,
+        delay: custom.order * 0.12,
       },
     }),
   };
@@ -123,7 +107,7 @@ export const PhotoGallery = ({
   ];
 
   return (
-    <div className="relative overflow-hidden py-16 font-sans lg:py-20">
+    <div ref={containerRef} className="relative overflow-hidden py-16 font-sans lg:py-20">
       <div className="mx-auto w-full max-w-7xl px-6 text-center md:px-9">
         <div className="mb-3">
           <div className="mb-3 flex justify-center">
@@ -159,14 +143,14 @@ export const PhotoGallery = ({
         <motion.div
           className="relative mx-auto flex w-full max-w-7xl justify-center"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isVisible ? 1 : 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <motion.div
             className="relative flex w-full justify-center"
             variants={containerVariants}
             initial="hidden"
-            animate={isLoaded ? "visible" : "hidden"}
+            animate={isInView ? "visible" : "hidden"}
           >
             <div className="relative h-[300px] w-[300px]">
               {[...photos].reverse().map((photo) => (

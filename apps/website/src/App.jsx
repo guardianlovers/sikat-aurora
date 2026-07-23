@@ -1122,69 +1122,36 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
       </section>
 
       {/* About teaser */}
-      <Reveal className="bg-white py-16 lg:py-24 overflow-hidden">
-        <Container className="grid items-center gap-8 lg:grid-cols-[1fr_1.35fr_1fr] lg:gap-10">
-          {/* Left column: stacked photo frames */}
-          <div className="hidden lg:flex flex-col gap-6 items-end">
-            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 -rotate-2">
-              <img
-                src={whoWeAre1}
-                alt="Síkat-Aurora volunteers gathered"
-                className="h-48 w-60 object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 rotate-2">
-              <img
-                src={whoWeAre2}
-                alt="Community outreach in Aurora"
-                className="h-44 w-60 object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          {/* Middle column: centered text content */}
-          <div className="text-center">
-            <div className="mb-4 flex justify-center">
+      <Reveal className="bg-white py-16 lg:py-20">
+        <Container className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+          <div>
+            <div className="mb-4">
               <span className="pill-label">WHO WE ARE</span>
             </div>
-            <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
-              A youth-led movement building a new face of volunteerism in Aurora
+            <h2 className="max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
+              A new face of youth volunteerism in Aurora
             </h2>
-            <div className="mx-auto my-5 h-1 w-12 rounded-full bg-gold" />
-            <p className="mx-auto mb-7 max-w-[50ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.95rem]">
-              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> provides free after-school programs in education, environment, and active citizenship — powered entirely by young volunteers, for the communities they come from.
+            <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
+              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
+              nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning{" "}
+              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
+              volunteers rising together where the Philippine sun rises first.
             </p>
             <Btn to="/about" variant="dark">
               Learn More About Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
-
-          {/* Right column: stacked photo frames */}
-          <div className="hidden lg:flex flex-col gap-6 items-start">
-            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 rotate-2">
-              <img
-                src={whoWeAre3}
-                alt="Youth volunteers with books and supplies"
-                className="h-44 w-60 object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 -rotate-2">
-              <img
-                src={whoWeAre4}
-                alt="Volunteer celebration"
-                className="h-48 w-60 object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          <img
+            src={homeWhoWeAre}
+            alt="Síkat-Aurora volunteers in the field"
+            className="w-full rounded-2xl shadow-sm object-cover"
+            loading="lazy"
+          />
         </Container>
       </Reveal>
 
       {/* Impact stats teaser */}
-      <Reveal className="bg-navy py-28 text-white lg:py-36">
+      <Reveal className="bg-navy py-14 text-white lg:py-16">
         <Container>
           <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
             <SectionHeading
@@ -1246,11 +1213,13 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
             lead="Real moments captured across our 18 partner communities in the Province of Aurora."
             className="mb-10"
           />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer as="div" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VOLUNTEER_VIDEOS.map((v) => (
-              <VideoPlayer key={v.id} id={v.id} title={v.title} onPlay={onPlayVideo} />
+              <StaggerItem key={v.id}>
+                <VideoPlayer id={v.id} title={v.title} onPlay={onPlayVideo} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </Container>
       </Reveal>
 
@@ -1701,7 +1670,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
               <StaggerContainer className={cn("w-full", i % 2 === 0 ? "lg:max-w-xl lg:pl-4" : "lg:ml-auto lg:max-w-xl lg:pr-4")}>
                 <StaggerItem>
                   <Eyebrow>Core Program</Eyebrow>
-                  <h2 className="max-w-[20ch] text-[1.6rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2rem]">
+                  <h2 className="max-w-[30ch] text-[1.6rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2rem]">
                     {p.name}
                   </h2>
                 </StaggerItem>
@@ -2911,26 +2880,32 @@ function VideoModal({ videoId, onClose }) {
 
 function VideoPlayer({ id, title, onPlay }) {
   return (
-    <div
+    <motion.div
       onClick={() => onPlay(id)}
-      className="group relative aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-navy/10 shadow-md"
+      whileHover={{ scale: 1.03, y: -6 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group relative aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-navy/10 shadow-lg hover:shadow-2xl transition-shadow duration-300"
     >
       <img
         src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
         alt={`Video thumbnail: ${title}`}
         loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-110"
       />
       {/* Subtle overlay */}
-      <div className="absolute inset-0 bg-navy/10 transition-colors duration-300 group-hover:bg-navy/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-navy/20 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
       
       {/* Custom Play Button */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform duration-300 group-hover:scale-110">
-          <Play className="ml-1 h-6 w-6 fill-white text-white" aria-hidden="true" />
-        </div>
+        <motion.div
+          whileHover={{ scale: 1.15 }}
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white shadow-2xl ring-4 ring-white/30 transition-transform duration-300 group-hover:scale-110 group-hover:bg-gold"
+        >
+          <Play className="ml-1 h-7 w-7 fill-white text-white" aria-hidden="true" />
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
