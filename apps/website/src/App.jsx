@@ -948,6 +948,7 @@ function ProgramHorizontalScrubDeck() {
                 <motion.div
                   key={p.id}
                   layout
+                  onMouseEnter={() => setActiveIndex(i)}
                   onClick={() => {
                     if (isActive) {
                       navigate("/programs");
