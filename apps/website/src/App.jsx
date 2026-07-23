@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
-import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion, useScroll, useMotionValueEvent } from "framer-motion";
 import { animate, createTimeline, stagger } from "animejs";
 import {
   ArrowLeft,
@@ -856,6 +856,228 @@ function Navbar({ onOpenModal }) {
   );
 }
 
+// Horizontal scroll-scrub card deck transition for core programs
+function ProgramHorizontalScrubDeck() {
+  const containerRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const deckData = [
+    {
+      id: "abkl",
+      badge: "AGES 2–14",
+      name: "Abot Ko Ang Libro",
+      shortName: "ABKL",
+      center: "Education",
+      bgActive: "bg-primary text-white",
+      desc: "A mobile library cart bringing books, reading mentorship, and storytelling to children across remote barangays in Aurora Province.",
+      bullets: [
+        "MOBILE LIBRARY CART",
+        "STORYTELLING & READING SESSIONS",
+        "READING MENTORSHIP",
+        "BOOK DONATION DRIVES",
+      ],
+      img: coreAbklImg,
+    },
+    {
+      id: "abkp",
+      badge: "AGES 8–15",
+      name: "Ang Batang Kali",
+      shortName: "ABKP",
+      center: "Environment",
+      bgActive: "bg-forest text-white",
+      desc: "Environmental life skills and stewardship training helping youth protect rivers, coasts, and rich natural ecosystems.",
+      bullets: [
+        "RIVER & COASTAL STEWARDSHIP",
+        "ENVIRONMENTAL LIFE SKILLS",
+        "KALI SUMMIT & ECO CAMPS",
+        "YOUTH ECO-MENTORS",
+      ],
+      img: coreAbkpImg,
+    },
+    {
+      id: "hiraya",
+      badge: "30+ SCHOOLS",
+      name: "Hiraya: Paglinang sa Kasanayan",
+      shortName: "Hiraya",
+      center: "Active Citizenship",
+      bgActive: "bg-navy text-white",
+      desc: "Leadership training and seed funding equipping student leaders to launch impactful community initiatives across DepEd schools.",
+      bullets: [
+        "YOUTH LEADERSHIP TRAINING",
+        "PROJECT SEED FUNDING",
+        "MAKABAGONG BAYANI ADVOCACY",
+        "DEPED SCHOOL PARTNERSHIPS",
+      ],
+      img: coreHirayaImg,
+    },
+  ];
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest < 0.35) {
+      setActiveIndex(0);
+    } else if (latest < 0.7) {
+      setActiveIndex(1);
+    } else {
+      setActiveIndex(2);
+    }
+  });
+
+  return (
+    <div ref={containerRef} className="relative h-[220vh] bg-cream">
+      <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden py-8">
+        <Container className="mb-6">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <div>
+              <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-navy/50">
+                Scroll down to scrub through core initiatives
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1.5">
+                {[0, 1, 2].map((idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIndex(idx)}
+                    className={cn(
+                      "h-2.5 rounded-full transition-all duration-300",
+                      activeIndex === idx ? "w-8 bg-primary" : "w-2.5 bg-navy/20 hover:bg-navy/40"
+                    )}
+                    aria-label={`Select program ${idx + 1}`}
+                  />
+                ))}
+              </div>
+              <Btn to="/programs">
+                Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Btn>
+            </div>
+          </div>
+        </Container>
+
+        <Container className="max-w-6xl">
+          <div className="flex flex-col md:flex-row h-auto md:h-[460px] w-full gap-4 transition-all duration-500">
+            {deckData.map((p, i) => {
+              const isActive = activeIndex === i;
+              return (
+                <motion.div
+                  key={p.id}
+                  layout
+                  onClick={() => setActiveIndex(i)}
+                  className={cn(
+                    "relative cursor-pointer overflow-hidden rounded-3xl border transition-all duration-500 ease-out-expo flex flex-col justify-between p-6 sm:p-8",
+                    isActive
+                      ? `${p.bgActive} flex-[3.5] shadow-xl border-transparent`
+                      : "bg-white text-navy flex-[1] border-navy/10 hover:border-navy/25 hover:shadow-md"
+                  )}
+                >
+                  {/* Photo Overlay for Active Card */}
+                  {isActive && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 0.18 }}
+                      transition={{ duration: 0.4 }}
+                      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+                    >
+                      <img src={p.img} alt="" className="h-full w-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    </motion.div>
+                  )}
+
+                  {/* Top Header Row */}
+                  <div className="relative z-10 flex items-start justify-between gap-4">
+                    <div>
+                      <span
+                        className={cn(
+                          "text-[0.68rem] font-bold uppercase tracking-[0.12em]",
+                          isActive ? "text-white/80" : "text-primary"
+                        )}
+                      >
+                        {p.center}
+                      </span>
+                      <h3
+                        className={cn(
+                          "mt-1 font-bold leading-tight transition-all duration-300",
+                          isActive ? "text-2xl sm:text-3xl text-white" : "text-lg text-navy line-clamp-2"
+                        )}
+                      >
+                        {isActive ? p.name : p.shortName}
+                      </h3>
+                    </div>
+
+                    {/* Duration / Age Badge */}
+                    <span
+                      className={cn(
+                        "shrink-0 rounded-full px-3.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-wider transition-all duration-300",
+                        isActive
+                          ? "bg-white/20 text-white backdrop-blur-md border border-white/20"
+                          : "bg-primary-soft text-primary"
+                      )}
+                    >
+                      {p.badge}
+                    </span>
+                  </div>
+
+                  {/* Bottom Content Area */}
+                  <div className="relative z-10 mt-auto pt-6">
+                    {isActive ? (
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, ease: "easeOut" }}
+                      >
+                        <p className="max-w-[52ch] text-sm leading-relaxed text-white/90 sm:text-base">
+                          {p.desc}
+                        </p>
+
+                        <div className="mt-6 flex flex-wrap gap-2">
+                          {p.bullets.map((bullet) => (
+                            <span
+                              key={bullet}
+                              className="rounded-lg bg-white/15 px-3 py-1.5 text-[0.62rem] font-extrabold uppercase tracking-wider text-white backdrop-blur-md border border-white/10"
+                            >
+                              {bullet}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="mt-6 pt-2">
+                          <Link
+                            to="/programs"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.scrollTo({ top: 0 });
+                            }}
+                            className="inline-flex items-center gap-2 text-sm font-bold text-white underline underline-offset-4 hover:opacity-90"
+                          >
+                            Explore {p.shortName} Program <ArrowRight className="h-4 w-4" />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div className="hidden md:block space-y-1.5 text-navy/60">
+                        {p.bullets.slice(0, 3).map((bullet) => (
+                          <p key={bullet} className="text-[0.62rem] font-bold uppercase tracking-wider truncate">
+                            • {bullet}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </Container>
+      </div>
+    </div>
+  );
+}
+
 /* ============================= Page header ============================= */
 
 function PageHeader({ eyebrow, title, subtitle }) {
@@ -1027,61 +1249,8 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
         </Container>
       </Reveal>
 
-      {/* Core programs teaser */}
-      <Reveal className="bg-cream py-16 lg:py-20">
-        <Container>
-          <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
-            <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
-            <Btn to="/programs">
-              Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Btn>
-          </div>
-
-          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Abot Ko Ang Libro",
-                center: "Education",
-                img: coreAbklImg,
-                desc: "Mobile library cart bringing books & storytelling to kids ages 2–14.",
-              },
-              {
-                name: "Ang Batang Kali",
-                center: "Environment",
-                img: coreAbkpImg,
-                desc: "Environmental life skills for youth ages 8–15 protecting nature.",
-              },
-              {
-                name: "Hiraya",
-                center: "Active Citizenship",
-                img: coreHirayaImg,
-                desc: "Leadership training & seed funding across 30 DepEd schools.",
-              },
-            ].map((p) => (
-              <StaggerItem key={p.name}>
-                <Card
-                  to="/programs"
-                  className="group cursor-pointer overflow-hidden"
-                >
-                  <div className="overflow-hidden">
-                    <img
-                      src={p.img}
-                      alt={`${p.name} - ${p.center} core program in Aurora`}
-                      className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="border-t border-navy/10 p-6">
-                    <h3 className="text-[1.2rem] font-bold text-navy">{p.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-navy/75">{p.desc}</p>
-                    <Tag className="mt-4 bg-primary-soft text-primary">{p.center}</Tag>
-                  </div>
-                </Card>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </Container>
-      </Reveal>
+      {/* Core programs horizontal scroll-scrub card deck */}
+      <ProgramHorizontalScrubDeck />
 
       {/* Photo gallery teaser */}
       <section className="bg-white">
