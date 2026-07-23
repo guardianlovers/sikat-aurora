@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion } from "framer-motion";
+import { animate, createTimeline, stagger } from "animejs";
 import {
   ArrowLeft,
   ArrowRight,
@@ -2605,6 +2606,60 @@ const VOLUNTEER_VIDEOS = [
   },
 ];
 
+/* ============================= Anime.js Section Wrapper ============================= */
+
+function AnimeSection({ className, children, selector = ".anime-target", delayFactor = 100 }) {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    // Set initial target opacity to zero to prevent layout flash before animation triggers
+    const targets = el.querySelectorAll(selector);
+    targets.forEach((t) => {
+      t.style.opacity = "0";
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (targets.length > 0) {
+              animate(targets, {
+                translateY: [45, 0],
+                opacity: [0, 1],
+                scale: [0.95, 1],
+                duration: 950,
+                delay: stagger(delayFactor),
+                ease: "outExpo",
+              });
+            } else {
+              animate(el, {
+                translateY: [35, 0],
+                opacity: [0, 1],
+                duration: 850,
+                ease: "outExpo",
+              });
+            }
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [selector, delayFactor]);
+
+  return (
+    <section ref={sectionRef} className={className}>
+      {children}
+    </section>
+  );
+}
+
 function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
   const steps = [
     {
@@ -2650,18 +2705,18 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
   return (
     <>
       {/* Why volunteer */}
-      <Reveal className="bg-white pb-16 pt-20 lg:pb-20 lg:pt-24">
+      <AnimeSection className="bg-white pb-16 pt-20 lg:pb-20 lg:pt-24" selector=".anime-pillar" delayFactor={120}>
         <Container>
           <SectionHeading
             align="center"
             eyebrow="Join the Youth Corps"
             title="Step Up. Teach. Transform Lives in Aurora."
             lead="Your time, passion, and heart can unlock a child's future. Join over 400 youth volunteers creating real educational change across 18 partner communities."
-            className="mb-10"
+            className="mb-10 anime-pillar"
           />
           <div className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
             {pillars.map(({ title, desc, img }) => (
-              <div key={title} className="border-t border-navy/15 pt-6">
+              <div key={title} className="anime-pillar border-t border-navy/15 pt-6 will-change-transform">
                 <div className="mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl bg-navy/10 shadow-sm">
                   <img
                     src={img}
@@ -2675,42 +2730,42 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
               </div>
             ))}
           </div>
-
-
         </Container>
-      </Reveal>
+      </AnimeSection>
 
       {/* Volunteer gallery */}
-      <Reveal className="bg-cream py-16 lg:py-20">
+      <AnimeSection className="bg-cream py-16 lg:py-20" selector=".anime-video" delayFactor={140}>
         <Container>
           <SectionHeading
             align="center"
             eyebrow="Volunteer Action"
             title="Our Volunteers in Every Community"
             lead="Real moments captured across our 18 partner communities in the Province of Aurora."
-            className="mb-10"
+            className="mb-10 anime-video"
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VOLUNTEER_VIDEOS.map((v) => (
-              <VideoPlayer key={v.id} id={v.id} title={v.title} onPlay={onPlayVideo} />
+              <div key={v.id} className="anime-video will-change-transform">
+                <VideoPlayer id={v.id} title={v.title} onPlay={onPlayVideo} />
+              </div>
             ))}
           </div>
         </Container>
-      </Reveal>
+      </AnimeSection>
 
       {/* Onboarding steps */}
-      <Reveal className="bg-white py-16 lg:py-20">
+      <AnimeSection className="bg-white py-16 lg:py-20" selector=".anime-step" delayFactor={150}>
         <Container>
           <SectionHeading
             align="center"
             eyebrow="Simple Onboarding"
             title="3 Simple Steps to Join Our Volunteer Corps"
-            className="mb-10"
+            className="mb-10 anime-step"
           />
           {/* Numbered sequence — the rule above each step reads as a progress track */}
           <ol className="grid gap-x-8 gap-y-10 md:grid-cols-3">
             {steps.map((s) => (
-              <li key={s.num} className="list-none border-t-2 border-primary/25 pt-6">
+              <li key={s.num} className="anime-step list-none border-t-2 border-primary/25 pt-6 will-change-transform">
                 <p className="text-[1.5rem] font-bold leading-none text-primary">{s.num}</p>
                 <h3 className="mt-3 text-[1.2rem] font-bold text-navy">{s.title}</h3>
                 <p className="mt-2.5 text-sm leading-[1.7] text-navy/75">{s.desc}</p>
@@ -2718,13 +2773,13 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
             ))}
           </ol>
 
-          <div className="mt-14 text-center">
+          <div className="anime-step mt-14 text-center">
             <Btn onClick={onOpenModal} className="px-8">
               Open Volunteer Application Form
             </Btn>
           </div>
         </Container>
-      </Reveal>
+      </AnimeSection>
 
       {/* Final CTA */}
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
