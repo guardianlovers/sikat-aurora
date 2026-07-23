@@ -938,7 +938,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
         <AnimatedHero
           images={HERO_BANNER_IMAGES}
           backgroundImageUrl={heroBanner}
-          badge="YOUTH LITERACY MOVEMENT"
+          badge="SÍKAT-AURORA INC."
           title={
             <>
               Ang pagsíkat ay
@@ -946,9 +946,9 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               <span className="text-gold">nagsisimula sa pagkilos.</span>
             </>
           }
-          description="Síkat-Aurora is a youth-led movement bringing books, mentorship, and opportunity to underserved communities across Aurora. Powered by 400+ passionate youth volunteers and visionary sponsors, we turn hope into real literacy for 1,100+ children where the Philippine sun rises first."
-          ctaButton={{ text: "Join as a Volunteer", onClick: onOpenModal }}
-          secondaryCta={{ text: "Fuel Our Mission / Sponsor", to: "/donate" }}
+          description="A youth-led movement empowering 1,100+ children through literacy, books, and mentorship across Aurora — powered by volunteers and sponsors."
+          ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
+          secondaryCta={{ text: "Donate / Be a Sponsor", to: "/donate" }}
         />
       </section>
 
