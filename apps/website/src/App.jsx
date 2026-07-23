@@ -3171,9 +3171,8 @@ function PrivacyPage({ onNavigate, onOpenModal }) {
 
       <section className="bg-white py-16 lg:py-24 font-sans">
         <Container className="max-w-4xl space-y-10">
-          <div className="rounded-2xl border border-primary/20 bg-primary-soft/60 p-6 sm:p-8">
-            <h2 className="text-xl font-bold text-navy flex items-center gap-2">
-              <Lock className="h-5 w-5 text-primary" aria-hidden="true" />
+          <div>
+            <h2 className="text-xl font-bold text-navy">
               Data Minimization &amp; Purpose Limitation
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-navy/80 sm:text-base">
@@ -3196,12 +3195,9 @@ function PrivacyPage({ onNavigate, onOpenModal }) {
               <p className="mt-3 text-sm leading-relaxed sm:text-base">
                 All online monetary transactions are processed through <strong>PayMongo</strong>, a PCI DSS Level 1 certified third-party payment gateway.
               </p>
-              <div className="mt-4 rounded-xl border border-navy/10 bg-cream p-5">
-                <p className="text-xs font-semibold text-navy uppercase tracking-wider">🔒 Security Guarantee</p>
-                <p className="mt-1 text-sm leading-relaxed text-navy/80">
-                  Síkat-Aurora Inc. <strong>never handles, processes, or stores</strong> credit card numbers, CVVs, GCash PINs, Maya passwords, or bank login credentials on our servers. All financial authentication takes place on PayMongo's secure hosted payment portal.
-                </p>
-              </div>
+              <p className="mt-3 text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. <strong>never handles, processes, or stores</strong> credit card numbers, CVVs, GCash PINs, Maya passwords, or bank login credentials on our servers. All financial authentication takes place on PayMongo's secure hosted payment portal.
+              </p>
             </div>
 
             <div>
