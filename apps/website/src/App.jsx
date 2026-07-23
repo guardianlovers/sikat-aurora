@@ -388,7 +388,7 @@ function PhotoGrid({ label, photos, className }) {
             >
               <img
                 src={p.src}
-                alt={p.alt}
+                alt={p.alt || "Síkat-Aurora program photo"}
                 loading="lazy"
                 className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
               />
@@ -1063,7 +1063,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
                   <div className="overflow-hidden">
                     <img
                       src={p.img}
-                      alt={p.name}
+                      alt={`${p.name} - ${p.center} core program in Aurora`}
                       className="h-52 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
                       loading="lazy"
                     />
@@ -2064,7 +2064,7 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
         {volunteer.photo ? (
           <img
             src={volunteer.photo}
-            alt={volunteer.name || "Síkat-Aurora volunteer"}
+            alt={volunteer.name ? `${volunteer.name} - ${volunteer.role || 'Síkat-Aurora volunteer'}` : "Síkat-Aurora volunteer"}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100"
           />
@@ -2199,7 +2199,7 @@ function PostCard({ post }) {
         <div className="overflow-hidden">
           <img
             src={post.img}
-            alt={post.title || "Síkat-Aurora story photo"}
+            alt={post.title ? `Story feature photo for ${post.title}` : "Síkat-Aurora story photo"}
             loading="lazy"
             className="h-40 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
           />
@@ -2250,7 +2250,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
             <div className="mt-7 flex items-center gap-3 border-t border-navy/10 pt-6">
               <img
                 src={author.avatar}
-                alt={author.name || "Author avatar"}
+                alt={author.name ? `Portrait of author ${author.name}` : "Author portrait"}
                 className="h-11 w-11 shrink-0 rounded-full border border-navy/10 bg-cream object-contain"
               />
               <div className="min-w-0">
@@ -2269,7 +2269,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
         <Container className="max-w-3xl">
           <img
             src={post.img}
-            alt={post.title || "Síkat-Aurora story main photo"}
+            alt={post.title ? `Main article photo for ${post.title}` : "Síkat-Aurora story main photo"}
             className="h-64 w-full rounded-2xl object-cover sm:h-[26rem]"
           />
         </Container>
@@ -2355,7 +2355,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
             <div className="overflow-hidden rounded-2xl">
               <img
                 src={featured.img}
-                alt={featured.title || "Featured Síkat-Aurora story"}
+                alt={featured.title ? `Featured Kwentong Síkat story: ${featured.title}` : "Featured Síkat-Aurora story photo"}
                 className="h-64 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 sm:h-[26rem]"
               />
             </div>
@@ -2565,7 +2565,7 @@ function VideoPlayer({ id, title, onPlay }) {
     >
       <img
         src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
-        alt={title}
+        alt={`Video thumbnail: ${title}`}
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
       />
@@ -2665,7 +2665,7 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
                 <div className="mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl bg-navy/10 shadow-sm">
                   <img
                     src={img}
-                    alt={title}
+                    alt={`Síkat-Aurora volunteer pillar - ${title}`}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 ease-out-expo hover:scale-[1.04]"
                   />
