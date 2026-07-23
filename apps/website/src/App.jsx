@@ -502,6 +502,9 @@ function Field({ id, label, children, ...inputProps }) {
 function VolunteerModal({ isOpen, onClose }) {
   const [submitted, setSubmitted] = useState(false);
   const [program, setProgram] = useState("");
+  const [ageGroup, setAgeGroup] = useState("15–17 years old");
+  const [agreedPrivacy, setAgreedPrivacy] = useState(false);
+  const [agreedParental, setAgreedParental] = useState(false);
 
   // Escape to close + lock body scroll while open
   useEffect(() => {
@@ -523,6 +526,16 @@ function VolunteerModal({ isOpen, onClose }) {
 
     if (!isValidEmail(cleanEmail)) {
       alert("Please enter a valid email address.");
+      return;
+    }
+
+    if (!agreedPrivacy) {
+      alert("Please consent to the Privacy & Data Management Policy.");
+      return;
+    }
+
+    if ((ageGroup === "15–17 years old" || ageGroup.includes("15–17") || ageGroup.includes("15–18")) && !agreedParental) {
+      alert("Parent/guardian permission is required for applicants aged 15–17.");
       return;
     }
 
@@ -605,16 +618,51 @@ function VolunteerModal({ isOpen, onClose }) {
                 </Field>
 
                 <Field id="vol-age" label="Age group (15–30 y/o)">
-                  <select id="vol-age" className="form-select" defaultValue="15–18 years old">
-                    <option>15–18 years old</option>
-                    <option>19–24 years old</option>
-                    <option>25–30 years old</option>
+                  <select
+                    id="vol-age"
+                    className="form-select"
+                    value={ageGroup}
+                    onChange={(e) => setAgeGroup(e.target.value)}
+                  >
+                    <option value="15–17 years old">15–17 years old</option>
+                    <option value="18–24 years old">18–24 years old</option>
+                    <option value="25–30 years old">25–30 years old</option>
                   </select>
                 </Field>
 
-                <p className="mt-3 text-[0.75rem] text-navy/60">
-                  🔒 <strong>Data Minimization Notice:</strong> We collect only necessary details to process your application. Your information is never shared or sold.
-                </p>
+                <div className="space-y-3 pt-2">
+                  <label className="flex items-start gap-2.5 text-[0.8rem] leading-snug text-navy/80 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={agreedPrivacy}
+                      onChange={(e) => setAgreedPrivacy(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary shrink-0"
+                    />
+                    <span>
+                      I have read the{" "}
+                      <Link to="/privacy" target="_blank" className="font-semibold text-primary underline">
+                        Privacy &amp; Data Management Policy
+                      </Link>{" "}
+                      and consent to the collection and use of my information for my volunteer application.
+                    </span>
+                  </label>
+
+                  {(ageGroup === "15–17 years old" || ageGroup.includes("15–17") || ageGroup.includes("15–18")) && (
+                    <label className="flex items-start gap-2.5 text-[0.8rem] leading-snug text-navy/80 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        required
+                        checked={agreedParental}
+                        onChange={(e) => setAgreedParental(e.target.checked)}
+                        className="mt-0.5 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary shrink-0"
+                      />
+                      <span>
+                        I confirm that I have permission from my parent or legal guardian to submit this application and participate in Síkat-Aurora activities.
+                      </span>
+                    </label>
+                  )}
+                </div>
 
                 <Btn
                   type="submit"
