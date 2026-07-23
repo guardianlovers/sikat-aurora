@@ -934,24 +934,9 @@ function ProgramHorizontalScrubDeck() {
         <Container className="mb-4 shrink-0">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                {[0, 1, 2].map((idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveIndex(idx)}
-                    className={cn(
-                      "h-2.5 rounded-full transition-all duration-300",
-                      activeIndex === idx ? "w-8 bg-primary" : "w-2.5 bg-navy/20 hover:bg-navy/40"
-                    )}
-                    aria-label={`Select program ${idx + 1}`}
-                  />
-                ))}
-              </div>
-              <Btn to="/programs">
-                Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Btn>
-            </div>
+            <Btn to="/programs">
+              Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Btn>
           </div>
         </Container>
 
