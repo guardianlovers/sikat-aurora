@@ -3132,8 +3132,6 @@ function Footer() {
               <li><FooterLink to="/leadership">The Team</FooterLink></li>
               <li><FooterLink to="/blog">Blog — Kwentong Síkat</FooterLink></li>
               <li><FooterLink to="/faq">FAQ</FooterLink></li>
-              <li><FooterLink to="/privacy">Privacy Policy</FooterLink></li>
-              <li><FooterLink to="/terms">Terms of Use</FooterLink></li>
             </ul>
           </nav>
 
