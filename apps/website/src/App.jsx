@@ -8,6 +8,7 @@ import {
   ArrowUpRight,
   BookOpen,
   Check,
+  ChevronDown,
   HandCoins,
   HandHeart,
   Handshake,
@@ -31,6 +32,7 @@ import {
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
 import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
+import { FORMER_COHORTS, FOUNDERS } from "@/lib/formerVolunteers";
 import { LEADERS } from "@/lib/leaders";
 import {
   POSTS,
@@ -2023,8 +2025,10 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
 
       <VolunteerWall onOpenModal={onOpenModal} />
 
+      <FormerVolunteers />
+
       {/* Volunteer experience, in their own words */}
-      <Reveal className="bg-white py-16 lg:py-24">
+      <Reveal className="bg-cream py-16 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow="Volunteer Voices"
@@ -2164,6 +2168,205 @@ function VolunteerWall({ onOpenModal }) {
           </p>
         </Container>
       )}
+    </Reveal>
+  );
+}
+
+// One collapsible cohort of alumni. Names flow across responsive columns,
+// matching the roster layout used elsewhere on the page.
+
+// Departments always read in this order: executive, then internal, external,
+// finance & logistics, education, and creatives last. Within a department the
+// Director comes before their Deputy.
+const DEPARTMENT_ORDER = [/executive|founder/i, /internal/i, /external/i, /finance|logistics/i, /education/i, /creatives/i];
+function roleRank(role = "") {
+  const dept = DEPARTMENT_ORDER.findIndex((re) => re.test(role));
+  const base = dept === -1 ? DEPARTMENT_ORDER.length : dept;
+  return base * 2 + (/deputy/i.test(role) ? 1 : 0);
+}
+
+function FormerCohort({ cohort, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const panelId = `term-${cohort.term.replace(/[^0-9]/g, "")}`;
+  const members = [...cohort.members].sort((a, b) => roleRank(a.role) - roleRank(b.role));
+
+  return (
+    <div className="border-b border-navy/10">
+      <h3>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls={panelId}
+          className="flex w-full items-center gap-2.5 py-5 text-left text-[1.15rem] font-bold text-primary transition-colors duration-150 hover:text-primary/80"
+        >
+          <ChevronDown
+            className={cn(
+              "h-5 w-5 shrink-0 transition-transform duration-300 ease-out-expo",
+              open && "rotate-180"
+            )}
+            aria-hidden="true"
+          />
+          Executive Committee {cohort.term}
+        </button>
+      </h3>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id={panelId}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <ul className="columns-1 gap-x-8 pb-7 sm:columns-2 lg:columns-3 [&>li]:break-inside-avoid">
+              {members.map((member, i) => (
+                <li key={`${member.name}-${i}`} className="pb-3.5 break-inside-avoid">
+                  <p className="text-[1.05rem] font-semibold leading-snug text-navy">
+                    {member.name}
+                  </p>
+                  {member.role && (
+                    <p className="mt-0.5 text-[0.8rem] font-medium uppercase tracking-[0.015em] text-primary/80">
+                      {member.role}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// Color themes cycling through the signature colors of the Síkat-Aurora logo
+const FOUNDER_CARD_BG = [
+  { bg: "bg-[#BD0005]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#BD0005]/95" }, // 0: RJ Belen (Crimson Red)
+  { bg: "bg-[#EC670A]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#EC670A]/95" }, // 1: Rachelle Ann Imperial (Primary Orange)
+  { bg: "bg-[#9DD4F2]", text: "text-navy", pattern: "stroke-navy/25", hoverBg: "bg-[#9DD4F2]/95" },   // 2: Reaiah Codiapit (Sky Blue)
+  { bg: "bg-[#006B1E]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#006B1E]/95" }, // 3: Crystal Lei Pena (Forest Green)
+  { bg: "bg-[#FBC21B]", text: "text-navy", pattern: "stroke-navy/25", hoverBg: "bg-[#FBC21B]/95" },  // 4: Geraldine Guerrero (Sun Gold)
+  { bg: "bg-[#1D4A6F]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#1D4A6F]/95" }, // 5: Julie May Pecson (Deep Navy)
+  { bg: "bg-[#BD0005]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#BD0005]/95" }, // 6: Ryan Angelo Caliwag (Crimson Red)
+];
+
+function FounderCard({ founder, index }) {
+  const theme = FOUNDER_CARD_BG[index % FOUNDER_CARD_BG.length];
+  const bioText =
+    founder.bio ||
+    `Co-founder of Síkat-Aurora; youth leader championing educational development and community empowerment across Aurora Province.`;
+
+  return (
+    <div className="group flex w-full flex-col items-center text-center">
+      {/* Smaller Rounded Rectangular Card */}
+      <div
+        className={cn(
+          "relative aspect-[4/4.2] w-full overflow-hidden rounded-xl shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md",
+          theme.bg
+        )}
+      >
+        {/* Organic Fingerprint / Wave SVG Line Pattern */}
+        <svg
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-35"
+          viewBox="0 0 200 220"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M -20 110 C 20 40, 180 40, 220 110 C 180 180, 20 180, -20 110"
+            className={theme.pattern}
+            strokeWidth="3"
+          />
+          <path
+            d="M -40 110 C 10 20, 190 20, 240 110 C 190 200, 10 200, -40 110"
+            className={theme.pattern}
+            strokeWidth="2.5"
+          />
+          <path
+            d="M 0 110 C 30 60, 170 60, 200 110 C 170 160, 30 160, 0 110"
+            className={theme.pattern}
+            strokeWidth="2"
+          />
+          <circle cx="100" cy="110" r="35" className={theme.pattern} strokeWidth="2" />
+          <circle cx="100" cy="110" r="65" className={theme.pattern} strokeWidth="2" />
+          <circle cx="100" cy="110" r="95" className={theme.pattern} strokeWidth="2" />
+        </svg>
+
+        {/* Photo (clean, 100% visible in normal state) */}
+        {founder.photo ? (
+          <img
+            src={founder.photo}
+            alt={founder.name}
+            loading="lazy"
+            className="relative z-10 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105"
+          />
+        ) : (
+          <div className="relative z-10 flex h-full w-full flex-col items-center justify-center p-3 text-center">
+            <span className={cn("text-2xl font-extrabold tracking-wider opacity-90", theme.text)}>
+              {founder.initials}
+            </span>
+          </div>
+        )}
+
+        {/* Hover Bio / Description Overlay */}
+        <div
+          className={cn(
+            "absolute inset-0 z-20 flex flex-col justify-center p-3 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100",
+            theme.hoverBg
+          )}
+        >
+          <p className={cn("text-[0.68rem] font-semibold leading-tight drop-shadow-sm", theme.text)}>
+            {bioText}
+          </p>
+        </div>
+      </div>
+
+      {/* Label under card */}
+      <div className="mt-2.5 flex flex-col items-center text-center">
+        {founder.role && (
+          <p className="text-[0.64rem] font-extrabold uppercase tracking-[0.06em] text-navy/70">
+            {founder.role}
+          </p>
+        )}
+        <h4 className="mt-0.5 text-[0.88rem] font-bold leading-tight text-navy">
+          {founder.name}
+        </h4>
+      </div>
+    </div>
+  );
+}
+
+// Past leadership, grouped by term year, shown as collapsible lists.
+function FormerVolunteers() {
+  return (
+    <Reveal className="bg-white py-16 lg:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow="Past Leadership"
+          title="The leaders who stepped up before"
+          lead="The former executives and directors who steered Síkat-Aurora in earlier terms and paved the way for the team leading it today."
+          className="mb-12"
+        />
+
+        {FOUNDERS.length > 0 && (
+          <div className="mb-16 text-center">
+            <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+              {FOUNDERS.map((founder, i) => (
+                <FounderCard key={`${founder.name}-${i}`} founder={founder} index={i} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="border-t border-navy/10 pt-4">
+          {FORMER_COHORTS.map((cohort, i) => (
+            <FormerCohort key={cohort.term} cohort={cohort} defaultOpen={i === 0} />
+          ))}
+        </div>
+      </Container>
     </Reveal>
   );
 }
