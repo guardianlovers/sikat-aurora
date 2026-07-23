@@ -3147,8 +3147,11 @@ function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/[0.06] pt-6 text-center text-xs text-white/50">
+        <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <p>© 2026 Síkat-Aurora Inc. All rights reserved.</p>
+          <div>
+            <FooterLink to="/privacy">Privacy Policy &amp; Data Security</FooterLink>
+          </div>
         </div>
       </div>
     </footer>
