@@ -3165,68 +3165,312 @@ function PrivacyPage({ onNavigate, onOpenModal }) {
     <>
       <PageHeader
         eyebrow="Data Protection & Compliance"
-        title="Privacy Policy & Security"
-        subtitle="How Síkat-Aurora Inc. collects, protects, and minimizes personal data under RA 10173 (Data Privacy Act of 2012), GDPR, and PCI DSS compliance."
+        title="Privacy & Data Management Policy"
+        subtitle="Effective Date: July 23, 2026 | Last Updated: July 23, 2026"
       />
 
-      <section className="bg-white py-16 lg:py-24 font-sans">
+      <section className="bg-white py-16 lg:py-24 font-sans text-navy/80">
         <Container className="max-w-4xl space-y-10">
-          <div>
-            <h2 className="text-xl font-bold text-navy">
-              Data Minimization &amp; Purpose Limitation
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-navy/80 sm:text-base">
-              Síkat-Aurora Inc. enforces strict data minimization principles. We only collect the minimal personal data required to process volunteer applications or donation sponsorships. We never sell, rent, or trade your personal data to third parties.
+          <div className="space-y-4">
+            <p className="text-base leading-relaxed sm:text-lg text-navy font-medium">
+              Síkat-Aurora Inc. respects your privacy and is committed to handling personal information responsibly, securely, and transparently.
+            </p>
+            <p className="text-sm leading-relaxed sm:text-base">
+              This Privacy &amp; Data Management Policy explains what information we collect through our website and activities, why we collect it, how we use and protect it, and how you may exercise your rights under Republic Act No. 10173, otherwise known as the Data Privacy Act of 2012.
             </p>
           </div>
 
-          <div className="space-y-8 text-navy/80">
-            <div>
-              <h3 className="text-lg font-bold text-navy">1. Information We Collect</h3>
-              <p className="mt-2 text-sm leading-relaxed sm:text-base">We collect only necessary information provided directly by you:</p>
-              <ul className="mt-3 list-disc pl-5 space-y-2 text-sm sm:text-base">
-                <li><strong>Volunteer Applications:</strong> First name, last name, email address, mobile number, age group, and program preference.</li>
-                <li><strong>Donation Sponsorships:</strong> Full name, email address, selected sponsorship kit, and quantity.</li>
+          <div className="space-y-10">
+            {/* 1. Information We Collect */}
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-navy">1. Information We Collect</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                We collect only the information reasonably necessary to manage our programs, volunteer activities, donations, communications, and community documentation.
+              </p>
+              
+              <div className="space-y-3">
+                <h3 className="text-base font-bold text-navy">Volunteer Applications</h3>
+                <p className="text-sm leading-relaxed sm:text-base">When you apply or signify interest as a volunteer, we may collect:</p>
+                <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                  <li>First and last name</li>
+                  <li>Email address</li>
+                  <li>Mobile number</li>
+                  <li>Age or age group</li>
+                  <li>Preferred program</li>
+                  <li>Availability, skills, interests, or location</li>
+                  <li>Parent or guardian information when required</li>
+                  <li>Attendance, training, and activity participation records</li>
+                </ul>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <h3 className="text-base font-bold text-navy">Donation and Sponsorship Information</h3>
+                <p className="text-sm leading-relaxed sm:text-base">When you donate or sponsor a program, we may collect:</p>
+                <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                  <li>Full name</li>
+                  <li>Email address</li>
+                  <li>Selected sponsorship kit or program</li>
+                  <li>Donation amount and quantity</li>
+                  <li>Payment status and transaction reference</li>
+                  <li>Information needed to issue a confirmation or receipt</li>
+                </ul>
+                <p className="text-sm leading-relaxed sm:text-base pt-1">
+                  Síkat-Aurora Inc. does not directly collect or store credit card numbers, CVVs, electronic-wallet PINs, one-time passwords, bank passwords, or similar financial credentials.
+                </p>
+                <p className="text-sm leading-relaxed sm:text-base">
+                  When online payments become available, payment information will be processed through PayMongo or another authorized third-party payment provider under that provider’s own privacy and security policies.
+                </p>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <h3 className="text-base font-bold text-navy">Communications</h3>
+                <p className="text-sm leading-relaxed sm:text-base">
+                  When you contact us through email, social media, forms, or other channels, we may collect your name, contact information, message, attachments, and any information needed to respond to your concern.
+                </p>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <h3 className="text-base font-bold text-navy">Website and Technical Information</h3>
+                <p className="text-sm leading-relaxed sm:text-base">
+                  Our website and hosting providers may automatically process limited technical information, such as:
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                  <li>Internet Protocol address</li>
+                  <li>Browser and device type</li>
+                  <li>Date and time of access</li>
+                  <li>Pages visited</li>
+                  <li>Referring website</li>
+                  <li>Security and error logs</li>
+                </ul>
+                <p className="text-sm leading-relaxed sm:text-base pt-1">
+                  This information may be used to maintain website security, identify technical problems, and understand general website usage.
+                </p>
+              </div>
+            </div>
+
+            {/* 2. Why We Process Personal Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">2. Why We Process Personal Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">We may use personal information to:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Review and respond to volunteer applications</li>
+                <li>Coordinate orientations, programs, and community activities</li>
+                <li>Communicate with volunteers, donors, partners, and participants</li>
+                <li>Verify age, eligibility, permission, or participation requirements</li>
+                <li>Process and document donations and sponsorships</li>
+                <li>Issue donation confirmations or receipts</li>
+                <li>Maintain attendance and organizational records</li>
+                <li>Document and report program activities and impact</li>
+                <li>Respond to questions, complaints, and privacy requests</li>
+                <li>Protect children, participants, volunteers, and partner communities</li>
+                <li>Maintain the security and functionality of the website</li>
+                <li>Comply with legal, accounting, regulatory, and organizational requirements</li>
               </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold text-navy">2. Payment Processing Security &amp; PCI DSS Compliance</h3>
-              <p className="mt-3 text-sm leading-relaxed sm:text-base">
-                All online monetary transactions are processed through <strong>PayMongo</strong>, a PCI DSS Level 1 certified third-party payment gateway.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed sm:text-base">
-                Síkat-Aurora Inc. <strong>never handles, processes, or stores</strong> credit card numbers, CVVs, GCash PINs, Maya passwords, or bank login credentials on our servers. All financial authentication takes place on PayMongo's secure hosted payment portal.
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                We will not use personal information for purposes that are incompatible with the reason it was originally collected without providing appropriate notice or obtaining additional consent when required.
               </p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-navy">3. Technical Data Protection &amp; Security</h3>
-              <p className="mt-3 text-sm leading-relaxed sm:text-base">
-                We implement industry-standard technical safeguards including HTTPS encryption in transit, strict Content Security Policy (CSP) directives, X-Content-Type-Options, X-Frame-Options, and referrer policy protections to safeguard your data against unauthorized access, alteration, or disclosure.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold text-navy">4. Your Data Privacy Rights (RA 10173, GDPR, CCPA)</h3>
-              <p className="mt-3 text-sm leading-relaxed sm:text-base">
-                Under the Data Privacy Act of 2012 (Republic Act No. 10173), GDPR, and CCPA, you have the right to:
-              </p>
-              <ul className="mt-3 list-disc pl-5 space-y-2 text-sm sm:text-base">
-                <li>Access the personal information we hold about you.</li>
-                <li>Request correction or updates to inaccurate data.</li>
-                <li>Request complete erasure or deletion of your volunteer record or personal data from our systems.</li>
-                <li>Object to data processing or withdraw your consent at any time.</li>
+            {/* 3. Lawful Basis for Processing */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">3. Lawful Basis for Processing</h2>
+              <p className="text-sm leading-relaxed sm:text-base">Depending on the situation, we may process personal information based on:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Your consent</li>
+                <li>Steps taken at your request, such as reviewing a volunteer application</li>
+                <li>The performance of an agreement or organizational commitment</li>
+                <li>Compliance with a legal obligation</li>
+                <li>Protection of the vital interests and safety of participants</li>
+                <li>The legitimate interests of Síkat-Aurora Inc., provided these do not override the rights and freedoms of the individual</li>
               </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Age and other information classified as sensitive personal information will be handled only when necessary and with the appropriate lawful basis.
+              </p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-navy">5. Contact Our Data Protection Team</h3>
-              <p className="mt-3 text-sm leading-relaxed sm:text-base">
-                If you have questions regarding this Privacy Policy or wish to exercise your data privacy rights, please email us at:
+            {/* 4. Children and Young Participants */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">4. Children and Young Participants</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. works with children and young people. We recognize that information concerning minors requires additional care and protection.
               </p>
-              <p className="mt-2 font-semibold text-primary">
-                Email: sikataurora@gmail.com
+              <p className="text-sm leading-relaxed sm:text-base">
+                Applicants below 18 years old may be required to provide permission from a parent or legal guardian before joining an activity or submitting additional personal information.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                We limit the personal information collected from children to what is necessary for participation, safety, program implementation, documentation, and reporting.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                We do not intentionally publish a child’s home address, personal contact information, school records, medical information, or other details that may expose the child to unnecessary risk.
+              </p>
+            </div>
+
+            {/* 5. Photographs and Videos of Children */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">5. Photographs and Videos of Children</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                All identifiable photographs and videos of children published by Síkat-Aurora Inc. are used only after appropriate consent has been obtained from a parent or legal guardian, or after an authorized partner school, community organization, or institution has confirmed that the required consent was secured.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">Photographs and videos may be used for:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Program documentation</li>
+                <li>Accomplishment and transparency reports</li>
+                <li>Educational materials</li>
+                <li>Organizational publications</li>
+                <li>Social-media and website updates</li>
+                <li>Volunteer and partner recognition</li>
+                <li>Fundraising and community-awareness activities</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Síkat-Aurora Inc. aims to portray every child respectfully, safely, and with dignity. We will not intentionally publish content that humiliates, exploits, discriminates against, or creates an unreasonable safety risk for a child.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Where consent cannot be verified, identifiable photographs or videos of the child should not be published.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                A parent, legal guardian, or authorized representative may request the review or removal of a child’s photograph or video by emailing <a href="mailto:sikataurora@gmail.com" className="text-primary underline">sikataurora@gmail.com</a> and providing enough information to identify the content.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Removal requests will be reviewed promptly. We will make reasonable efforts to remove the content from platforms under our control, although previously shared or independently copied content may remain outside our direct control.
+              </p>
+            </div>
+
+            {/* 6. Sharing of Personal Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">6. Sharing of Personal Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">We do not sell, rent, or trade personal information.</p>
+              <p className="text-sm leading-relaxed sm:text-base">We may share limited information only when reasonably necessary with:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Authorized officers, staff members, or volunteers</li>
+                <li>Partner schools, barangays, organizations, or program coordinators</li>
+                <li>Website, database, cloud-storage, email, and hosting providers</li>
+                <li>Payment processors when online donations are available</li>
+                <li>Accountants, auditors, or authorized professional advisers</li>
+                <li>Government agencies or authorities when required by law</li>
+                <li>Emergency responders when necessary to protect someone’s health or safety</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Anyone given access to nonpublic personal information must handle it confidentially and only for the authorized purpose.
+              </p>
+            </div>
+
+            {/* 7. Data Retention */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">7. Data Retention</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                We retain personal information only for as long as reasonably necessary for the purpose for which it was collected.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">As a general guide:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Unsuccessful or inactive volunteer applications may be retained for up to 12 months</li>
+                <li>Active volunteer and participation records may be retained during the volunteer’s involvement and for up to three years afterward</li>
+                <li>General inquiries may be retained for up to two years after resolution</li>
+                <li>Donation and accounting records may be retained for the period required by applicable accounting, tax, audit, and nonprofit regulations</li>
+                <li>Media-consent and program-documentation records may be retained while the related photographs, videos, reports, or publications remain in legitimate organizational use</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Information may be retained longer when necessary for legal claims, safeguarding concerns, investigations, audits, or compliance with law.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                When information is no longer needed, we will take reasonable steps to securely delete, anonymize, or dispose of it.
+              </p>
+            </div>
+
+            {/* 8. Data Security */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">8. Data Security</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. uses reasonable organizational, physical, and technical safeguards appropriate to the nature of the information being processed.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">These may include:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Restricting access to authorized individuals</li>
+                <li>Using password-protected accounts and systems</li>
+                <li>Using HTTPS encryption for website communications</li>
+                <li>Limiting the information collected through forms</li>
+                <li>Reviewing access to organizational files and accounts</li>
+                <li>Maintaining confidentiality obligations</li>
+                <li>Using trusted hosting, database, and payment providers</li>
+                <li>Responding to suspected security incidents and data breaches</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                No online system can be guaranteed to be completely secure. However, we will take reasonable steps to prevent unauthorized access, loss, alteration, misuse, or disclosure.
+              </p>
+            </div>
+
+            {/* 9. Third-Party Services */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">9. Third-Party Services</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Our website may connect to or contain content from services such as:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>PayMongo</li>
+                <li>Vercel</li>
+                <li>Supabase</li>
+                <li>YouTube</li>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>TikTok</li>
+                <li>Google services</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                These providers may independently process technical, account, or transaction information under their own terms and privacy policies.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Following an external link or interacting with embedded content may allow the third-party provider to collect information about your device or activity.
+              </p>
+            </div>
+
+            {/* 10. Your Data Privacy Rights */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">10. Your Data Privacy Rights</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Subject to the Data Privacy Act of 2012 and applicable limitations, you may have the right to:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Be informed about the processing of your personal information</li>
+                <li>Request access to personal information held about you</li>
+                <li>Request correction of inaccurate or incomplete information</li>
+                <li>Object to certain types of processing</li>
+                <li>Withdraw consent when processing is based on consent</li>
+                <li>Request deletion, erasure, or blocking when legally appropriate</li>
+                <li>Request data portability when applicable</li>
+                <li>File a complaint with the National Privacy Commission</li>
+                <li>Seek compensation when you have suffered damage due to unlawful processing</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Withdrawing consent will not invalidate processing that was lawfully performed before the withdrawal.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Some information may need to be retained despite a deletion request when required by law, necessary for safeguarding, or needed to establish or defend legal claims.
+              </p>
+            </div>
+
+            {/* 11. Privacy Requests */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">11. Privacy Requests</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                To request access, correction, withdrawal of consent, removal of a photograph, or deletion of personal information, contact:
+              </p>
+              <div className="mt-2 text-sm leading-relaxed sm:text-base">
+                <p className="font-semibold text-navy">Síkat-Aurora Inc.</p>
+                <p>Baler, Aurora, Philippines</p>
+                <p>Email: <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a></p>
+              </div>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Please provide sufficient information for us to verify your identity and locate the relevant record. We may request additional verification to protect the information from unauthorized disclosure.
+              </p>
+            </div>
+
+            {/* 12. Changes to This Policy */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">12. Changes to This Policy</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                We may update this Privacy &amp; Data Management Policy when our programs, website features, service providers, data practices, or legal obligations change.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The updated policy will be published on this page with a revised “Last Updated” date.
               </p>
             </div>
           </div>
