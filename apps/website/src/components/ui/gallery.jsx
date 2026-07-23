@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import moment5 from "@/assets/home/moments-from-the-field/5.jpg";
 export const PhotoGallery = ({
   animationDelay = 0.3,
   onViewAll,
+  viewAllTo = "/blog",
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -194,12 +196,23 @@ export const PhotoGallery = ({
       </div>
 
       <div className="flex w-full justify-center">
-        <Button
-          onClick={onViewAll}
-          className="rounded-full bg-primary px-8 py-3.5 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark"
-        >
-          Read All Kwentong Síkat Stories
-        </Button>
+        {viewAllTo || typeof onViewAll === "string" ? (
+          <Button
+            asChild
+            className="rounded-full bg-primary px-8 py-3.5 text-[0.85rem] font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark"
+          >
+            <Link to={viewAllTo || onViewAll} onClick={() => window.scrollTo({ top: 0 })}>
+              Read All Kwentong Síkat Stories
+            </Link>
+          </Button>
+        ) : (
+          <Button
+            onClick={onViewAll}
+            className="rounded-full bg-primary px-8 py-3.5 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark"
+          >
+            Read All Kwentong Síkat Stories
+          </Button>
+        )}
       </div>
     </div>
   );

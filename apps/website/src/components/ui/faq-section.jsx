@@ -1,12 +1,29 @@
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FaqSection = React.forwardRef(
-  ({ className, title, description, items, ...props }, ref) => {
+  ({ className, title, description, items = [], ...props }, ref) => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": items.map((item) => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer,
+        },
+      })),
+    };
+
     return (
       <section ref={ref} className={cn("w-full bg-cream py-16 font-sans lg:py-20", className)} {...props}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
         <div className="mx-auto w-full max-w-7xl px-6 md:px-9">
           {/* Header */}
           <motion.div
@@ -40,7 +57,7 @@ const FaqSection = React.forwardRef(
 );
 FaqSection.displayName = "FaqSection";
 
-// Internal accordion item — button controls the answer panel via aria-expanded/aria-controls
+// Internal accordion item — answer panel stays in DOM for crawlers/SEO while height/opacity animate
 const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const panelId = React.useId();
@@ -80,20 +97,22 @@ const FaqItem = React.forwardRef(({ question, answer, index }, ref) => {
           <ChevronDown className="h-5 w-5" aria-hidden="true" />
         </motion.span>
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            id={panelId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1, transition: { duration: 0.25, ease: "easeOut" } }}
-            exit={{ height: 0, opacity: 0, transition: { duration: 0.2, ease: "easeIn" } }}
-          >
-            <p className="max-w-[68ch] pb-6 pr-8 text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
-              {answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-hidden={!isOpen}
+        initial={false}
+        animate={{
+          height: isOpen ? "auto" : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="overflow-hidden"
+      >
+        <p className="max-w-[68ch] pb-6 pr-8 text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
+          {answer}
+        </p>
+      </motion.div>
     </motion.div>
   );
 });
