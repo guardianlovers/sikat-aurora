@@ -958,11 +958,13 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
           <div>
             <SectionHeading
               eyebrow="Who We Are"
-              title="A Rising Generation of Youth Volunteers &amp; Sponsors"
+              title="A new face of youth volunteerism in Aurora"
             />
             <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
-              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a youth-led, youth-serving movement. The name <em>Síkat</em>, meaning{" "}
-              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to young volunteers and generous sponsors rising together where the Philippine sun rises first to ensure no child in Aurora is left without the gift of reading.
+              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
+              nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning{" "}
+              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
+              volunteers rising together where the Philippine sun rises first.
             </p>
             <Btn to="/about" variant="dark">
               Learn More About Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
