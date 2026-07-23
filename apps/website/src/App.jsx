@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { motion, AnimatePresence, MotionConfig, useInView, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -211,6 +212,20 @@ function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, cl
   );
 }
 
+/* ============================= Input Sanitization & Validation ============================= */
+
+function sanitizeInput(str) {
+  if (typeof str !== "string") return "";
+  return str
+    .replace(/<[^>]*>?/gm, "")
+    .replace(/[<>'"]/g, "")
+    .trim();
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 const BTN_VARIANTS = {
   primary: "bg-primary text-white hover:bg-primary-dark",
   gold: "bg-gold text-navy-ink hover:bg-gold-bright",
@@ -222,19 +237,42 @@ const BTN_VARIANTS = {
 
 // Rounded buttons match the brand's pill vocabulary; the lift on hover is small
 // enough to read as feedback rather than decoration.
-function Btn({ variant = "primary", className, children, ...props }) {
+function Btn({ variant = "primary", className, children, to, href, onClick, ...props }) {
+  const classes = cn(
+    "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-3 text-[0.85rem] font-semibold no-underline",
+    "transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 motion-reduce:hover:translate-y-0",
+    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+    "disabled:pointer-events-none disabled:opacity-50",
+    BTN_VARIANTS[variant],
+    className
+  );
+
+  if (to) {
+    return (
+      <Link
+        to={to}
+        className={classes}
+        onClick={(e) => {
+          window.scrollTo({ top: 0 });
+          if (onClick) onClick(e);
+        }}
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a href={href} className={classes} onClick={onClick} {...props}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <button
-      className={cn(
-        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-3 text-[0.85rem] font-semibold",
-        "transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 motion-reduce:hover:translate-y-0",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-        "disabled:pointer-events-none disabled:opacity-50",
-        BTN_VARIANTS[variant],
-        className
-      )}
-      {...props}
-    >
+    <button className={classes} onClick={onClick} {...props}>
       {children}
     </button>
   );
@@ -255,11 +293,17 @@ function Tag({ className, children }) {
 
 // Rounded card with a soft border; hover lifts and warms the shadow.
 // `as` lets callers pick a semantic element (e.g. "article" for a post).
-function Card({ as: Element = "div", className, interactive = true, children, ...props }) {
+function Card({ as: Element = "div", className, interactive = true, children, to, onClick, ...props }) {
+  const Component = to ? Link : Element;
   return (
-    <Element
+    <Component
+      to={to}
+      onClick={(e) => {
+        if (to) window.scrollTo({ top: 0 });
+        if (onClick) onClick(e);
+      }}
       className={cn(
-        "rounded-2xl border border-navy/10 bg-white shadow-card",
+        "rounded-2xl border border-navy/10 bg-white shadow-card no-underline",
         interactive &&
           "transition-all duration-200 ease-out-expo hover:-translate-y-1 hover:border-navy/15 hover:shadow-card-hover motion-reduce:hover:translate-y-0",
         className
@@ -267,7 +311,7 @@ function Card({ as: Element = "div", className, interactive = true, children, ..
       {...props}
     >
       {children}
-    </Element>
+    </Component>
   );
 }
 
@@ -473,6 +517,15 @@ function VolunteerModal({ isOpen, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const rawEmail = form.elements["vol-email"]?.value || "";
+    const cleanEmail = sanitizeInput(rawEmail);
+
+    if (!isValidEmail(cleanEmail)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -559,6 +612,10 @@ function VolunteerModal({ isOpen, onClose }) {
                   </select>
                 </Field>
 
+                <p className="mt-3 text-[0.75rem] text-navy/60">
+                  🔒 <strong>Data Minimization Notice:</strong> We collect only necessary details to process your application. Your information is never shared or sold.
+                </p>
+
                 <Btn
                   type="submit"
                   variant={submitted ? "success" : "primary"}
@@ -587,13 +644,12 @@ function VolunteerModal({ isOpen, onClose }) {
 /* ============================= Navigation ============================= */
 
 const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "programs", label: "Programs" },
-  { id: "impact", label: "Impact" },
-  // Route id stays "leadership" so existing #leadership links keep working
-  { id: "leadership", label: "The Team" },
-  { id: "blog", label: "Blog" },
+  { id: "home", label: "Home", path: "/" },
+  { id: "about", label: "About", path: "/about" },
+  { id: "programs", label: "Programs", path: "/programs" },
+  { id: "impact", label: "Impact", path: "/impact" },
+  { id: "leadership", label: "The Team", path: "/leadership" },
+  { id: "blog", label: "Blog", path: "/blog" },
 ];
 
 // Browser tab title. Nav labels are reused so the tab always matches the
@@ -602,17 +658,27 @@ const SITE_NAME = "Síkat-Aurora";
 const PAGE_TITLES = {
   ...Object.fromEntries(NAV_ITEMS.map((item) => [item.id, item.label])),
   faq: "FAQ",
+  privacy: "Privacy Policy & Security",
   volunteer: "Volunteer",
   donate: "Donate",
   checkout: "Checkout",
 };
 
-function Navbar({ activePage, onNavigate, onOpenModal }) {
+function Navbar({ onOpenModal }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const go = (id) => {
+  // Determine which nav item is active based on the current path
+  const activePath = location.pathname;
+  const activeNavId = NAV_ITEMS.find(
+    (item) => item.path === "/" ? activePath === "/" : activePath.startsWith(item.path)
+  )?.id || "home";
+
+  const go = (path) => {
     setMobileOpen(false);
-    onNavigate(id);
+    navigate(path);
+    window.scrollTo({ top: 0 });
   };
 
   return (
@@ -623,31 +689,29 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 md:px-9">
           {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              go("home");
-            }}
+          <Link
+            to="/"
+            onClick={() => { setMobileOpen(false); window.scrollTo({ top: 0 }); }}
             className="flex shrink-0 items-center gap-2.5 rounded-md no-underline"
           >
-            <img src={logoImg} alt="" className="h-9 w-9 object-contain" />
+            <img src={logoImg} alt="Síkat-Aurora Logo" className="h-9 w-9 object-contain" />
             <span className="text-[1.05rem] font-bold tracking-[-0.02em] text-navy">
               Síkat<span className="text-primary">-Aurora</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav — active page marked by a sliding underline rule */}
           <div className="relative hidden items-center gap-1 lg:flex">
             {NAV_ITEMS.map((item) => {
-              const isActive = activePage === item.id;
+              const isActive = activeNavId === item.id;
               return (
-                <button
+                <Link
                   key={item.id}
-                  onClick={() => go(item.id)}
+                  to={item.path}
+                  onClick={() => window.scrollTo({ top: 0 })}
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "relative rounded-sm px-3.5 py-2 text-[0.82rem] transition-colors duration-200",
+                    "relative rounded-sm px-3.5 py-2 text-[0.82rem] no-underline transition-colors duration-200",
                     isActive ? "font-semibold text-primary" : "font-medium text-navy/70 hover:text-navy"
                   )}
                 >
@@ -659,17 +723,17 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
-                </button>
+                </Link>
               );
             })}
           </div>
 
           {/* Desktop actions */}
           <div className="hidden items-center gap-2 lg:flex">
-            <Btn variant="outline" className="px-4 py-2 text-[0.8rem]" onClick={() => go("volunteer")}>
+            <Btn to="/volunteer" variant="outline" className="px-4 py-2 text-[0.8rem]">
               Volunteer
             </Btn>
-            <Btn className="px-4 py-2 text-[0.8rem]" onClick={() => go("donate")}>
+            <Btn to="/donate" className="px-4 py-2 text-[0.8rem]">
               Donate
             </Btn>
           </div>
@@ -699,29 +763,35 @@ function Navbar({ activePage, onNavigate, onOpenModal }) {
             >
               <div className="space-y-1 px-5 py-4">
                 {NAV_ITEMS.map((item) => (
-                  <button
+                  <Link
                     key={item.id}
-                    onClick={() => go(item.id)}
-                    aria-current={activePage === item.id ? "page" : undefined}
+                    to={item.path}
+                    onClick={() => { setMobileOpen(false); window.scrollTo({ top: 0 }); }}
+                    aria-current={activeNavId === item.id ? "page" : undefined}
                     className={cn(
-                      "block w-full border-l-2 px-4 py-2.5 text-left text-sm transition-colors duration-150",
-                      activePage === item.id
+                      "block w-full border-l-2 px-4 py-2.5 text-left text-sm no-underline transition-colors duration-150",
+                      activeNavId === item.id
                         ? "border-primary bg-primary-soft font-semibold text-primary"
                         : "border-transparent font-medium text-navy hover:border-navy/20 hover:bg-navy/5"
                     )}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 ))}
                 <div className="flex gap-2.5 pt-3">
                   <Btn
+                    to="/volunteer"
                     variant="outline"
                     className="flex-1"
-                    onClick={() => go("volunteer")}
+                    onClick={() => setMobileOpen(false)}
                   >
                     Volunteer
                   </Btn>
-                  <Btn className="flex-1" onClick={() => go("donate")}>
+                  <Btn
+                    to="/donate"
+                    className="flex-1"
+                    onClick={() => setMobileOpen(false)}
+                  >
                     Donate
                   </Btn>
                 </div>
@@ -829,7 +899,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
           }
           description="Síkat-Aurora is a youth-led, youth-serving nonprofit bringing free after-school programs in education, environment, and active citizenship to underserved communities in Aurora — powered entirely by volunteers."
           ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
-          secondaryCta={{ text: "Donate / Be a Sponsor", onClick: () => onNavigate("donate") }}
+          secondaryCta={{ text: "Donate / Be a Sponsor", to: "/donate" }}
         />
       </section>
 
@@ -847,7 +917,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
               volunteers where the Philippine sun rises first.
             </p>
-            <Btn variant="dark" onClick={() => onNavigate("about")}>
+            <Btn to="/about" variant="dark">
               Learn More About Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
@@ -869,7 +939,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               eyebrow="Impact in Numbers"
               title="The premier platform for youth volunteerism"
             />
-            <Btn variant="onDark" onClick={() => onNavigate("impact")}>
+            <Btn to="/impact" variant="onDark">
               See Full Impact &amp; Awards <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
@@ -910,7 +980,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
         <Container>
           <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
             <SectionHeading eyebrow="Core Programs" title="Three programs, one rising community" />
-            <Btn onClick={() => onNavigate("programs")}>
+            <Btn to="/programs">
               Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
@@ -938,11 +1008,8 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
             ].map((p) => (
               <StaggerItem key={p.name}>
                 <Card
+                  to="/programs"
                   className="group cursor-pointer overflow-hidden"
-                  onClick={() => onNavigate("programs")}
-                  role="link"
-                  tabIndex={0}
-                  onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onNavigate("programs")}
                 >
                   <div className="overflow-hidden">
                     <img
@@ -1268,9 +1335,10 @@ function AboutPage({ onNavigate, onOpenModal }) {
               { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for youth leaders across 30 DepEd schools." },
             ].map((p) => (
               <StaggerItem as="li" key={p.name}>
-                <button
-                  onClick={() => onNavigate("programs")}
-                  className="group flex w-full items-center gap-6 border-b border-navy/15 py-7 text-left transition-all duration-200 hover:bg-cream/50 sm:px-4 sm:rounded-xl"
+                <Link
+                  to="/programs"
+                  onClick={() => window.scrollTo({ top: 0 })}
+                  className="group flex w-full items-center gap-6 border-b border-navy/15 py-7 text-left no-underline transition-all duration-200 hover:bg-cream/50 sm:px-4 sm:rounded-xl"
                 >
                   <div className="flex-1">
                     <p className="text-[0.7rem] font-bold uppercase tracking-[0.1em] text-primary">{p.center}</p>
@@ -1283,12 +1351,12 @@ function AboutPage({ onNavigate, onOpenModal }) {
                     className="h-5 w-5 shrink-0 text-navy/40 transition-all duration-200 group-hover:translate-x-1.5 group-hover:text-primary motion-reduce:group-hover:translate-x-0"
                     aria-hidden="true"
                   />
-                </button>
+                </Link>
               </StaggerItem>
             ))}
           </StaggerContainer>
           <div className="mt-10">
-            <Btn onClick={() => onNavigate("programs")}>
+            <Btn to="/programs">
               Explore All Programs <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
@@ -1321,7 +1389,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
             <Btn onClick={onOpenModal}>
               Become a Volunteer <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
-            <Btn variant="outline" onClick={() => onNavigate("faq")}>
+            <Btn to="/faq" variant="outline">
               Read the FAQ
             </Btn>
           </div>
@@ -1789,7 +1857,7 @@ function OrgCard({ leader }) {
         {leader.photo ? (
           <img
             src={leader.photo}
-            alt=""
+            alt={leader.name || "Síkat-Aurora team leader"}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
           />
@@ -2078,11 +2146,11 @@ function PostMeta({ post, className, dark = false }) {
 function PostCard({ post }) {
   return (
     <Card as="article" className="group flex flex-col overflow-hidden !rounded-xl">
-      <a href={`#blog/${post.slug}`} className="flex flex-1 flex-col no-underline">
+      <Link to={`/blog/${post.slug}`} className="flex flex-1 flex-col no-underline">
         <div className="overflow-hidden">
           <img
             src={post.img}
-            alt=""
+            alt={post.title || "Síkat-Aurora story photo"}
             loading="lazy"
             className="h-40 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
           />
@@ -2096,7 +2164,7 @@ function PostCard({ post }) {
             <PostMeta post={post} />
           </div>
         </div>
-      </a>
+      </Link>
     </Card>
   );
 }
@@ -2116,12 +2184,13 @@ function PostPage({ post, onNavigate, onOpenModal }) {
         {/* Masthead */}
         <section className="bg-white pb-10 pt-20 lg:pt-24">
           <Container className="max-w-3xl">
-            <button
-              onClick={() => onNavigate("blog")}
-              className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 transition-colors duration-150 hover:text-primary"
+            <Link
+              to="/blog"
+              onClick={() => window.scrollTo({ top: 0 })}
+              className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 no-underline transition-colors duration-150 hover:text-primary"
             >
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> All stories
-            </button>
+            </Link>
 
             <h1 className="text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.6rem]">
               {post.title}
@@ -2132,7 +2201,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
             <div className="mt-7 flex items-center gap-3 border-t border-navy/10 pt-6">
               <img
                 src={author.avatar}
-                alt=""
+                alt={author.name || "Author avatar"}
                 className="h-11 w-11 shrink-0 rounded-full border border-navy/10 bg-cream object-contain"
               />
               <div className="min-w-0">
@@ -2151,7 +2220,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
         <Container className="max-w-3xl">
           <img
             src={post.img}
-            alt=""
+            alt={post.title || "Síkat-Aurora story main photo"}
             className="h-64 w-full rounded-2xl object-cover sm:h-[26rem]"
           />
         </Container>
@@ -2191,7 +2260,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
             </div>
 
             <div className="mt-12 border-t border-navy/10 pt-8">
-              <Btn variant="outline" onClick={() => onNavigate("blog")}>
+              <Btn to="/blog" variant="outline">
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back to all stories
               </Btn>
             </div>
@@ -2237,7 +2306,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
             <div className="overflow-hidden rounded-2xl">
               <img
                 src={featured.img}
-                alt=""
+                alt={featured.title || "Featured Síkat-Aurora story"}
                 className="h-64 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 sm:h-[26rem]"
               />
             </div>
@@ -2785,6 +2854,15 @@ function CheckoutPage({ kit, onNavigate }) {
   // own endpoint and follows the checkout URL it returns.
   const handleProceed = async (e) => {
     e.preventDefault();
+    const cleanName = sanitizeInput(name);
+    const cleanEmail = sanitizeInput(email);
+
+    if (!isValidEmail(cleanEmail)) {
+      setStatus("error");
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     setStatus("loading");
     setError("");
 
@@ -2792,7 +2870,7 @@ function CheckoutPage({ kit, onNavigate }) {
       const res = await fetch(PAYMONGO_CHECKOUT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kitId: kit.id, quantity: qty, name, email }),
+        body: JSON.stringify({ kitId: kit.id, quantity: qty, name: cleanName, email: cleanEmail }),
       });
 
       if (!res.ok) throw new Error(`Checkout failed (${res.status})`);
@@ -2812,12 +2890,13 @@ function CheckoutPage({ kit, onNavigate }) {
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
       <Container>
-        <button
-          onClick={() => onNavigate("donate")}
-          className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 transition-colors duration-150 hover:text-primary"
+        <Link
+          to="/donate"
+          onClick={() => window.scrollTo({ top: 0 })}
+          className="mb-7 inline-flex items-center gap-1.5 rounded-md text-[0.82rem] font-semibold text-navy/70 no-underline transition-colors duration-150 hover:text-primary"
         >
-          <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Back to sponsorship kits
-        </button>
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Change kit selection
+        </Link>
 
         <SectionHeading eyebrow="Step 2 of 2" title="Confirm your sponsorship" className="mb-9" />
 
@@ -2927,9 +3006,8 @@ function CheckoutPage({ kit, onNavigate }) {
               </p>
             )}
 
-            <p className="mt-4 text-center text-[0.75rem] leading-relaxed text-navy/55">
-              You'll choose GCash, Maya, card or bank transfer on the next screen. We'll email your
-              receipt once payment clears.
+            <p className="mt-4 text-center text-[0.78rem] font-medium leading-relaxed text-navy/70">
+              🔒 <strong>PCI DSS Compliant Checkout:</strong> Payment choice (GCash, Maya, card, bank transfer) happens securely on PayMongo's PCI DSS certified portal. Síkat-Aurora never touches or stores your card or banking credentials.
             </p>
           </div>
         </div>
@@ -2959,7 +3037,7 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           <Btn onClick={onOpenModal} className="px-8">
             Become a Volunteer
           </Btn>
-          <Btn variant="onDark" onClick={() => onNavigate("donate")} className="px-8">
+          <Btn to="/donate" variant="onDark" className="px-8">
             Donate / Be a Sponsor
           </Btn>
         </div>
@@ -2968,25 +3046,26 @@ function FinalCTA({ onNavigate, onOpenModal }) {
   );
 }
 
-function FooterLink({ onClick, children }) {
+function FooterLink({ to, children }) {
   return (
-    <button
-      onClick={onClick}
-      className="rounded-md p-0 text-left text-[0.8rem] text-white/60 transition-colors duration-150 hover:text-white"
+    <Link
+      to={to}
+      onClick={() => window.scrollTo({ top: 0 })}
+      className="rounded-md p-0 text-left text-[0.8rem] text-white/60 no-underline transition-colors duration-150 hover:text-white"
     >
       {children}
-    </button>
+    </Link>
   );
 }
 
-function Footer({ onNavigate }) {
+function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black px-6 pb-7 pt-16 text-white/60 md:px-9">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <img src={logoImg} alt="" className="h-12 w-12 object-contain" />
+              <img src={logoImg} alt="Síkat-Aurora Logo" className="h-12 w-12 object-contain" />
               <span className="text-[1.05rem] font-bold text-white">Síkat-Aurora Inc.</span>
             </div>
             <p className="mb-5 max-w-[34ch] text-[0.95rem] italic leading-[1.6] text-white/70">
@@ -3000,20 +3079,21 @@ function Footer({ onNavigate }) {
           <nav aria-label="Footer — explore pages">
             <h4 className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white/90">Explore Pages</h4>
             <ul className="flex list-none flex-col gap-2 p-0">
-              <li><FooterLink onClick={() => onNavigate("about")}>About Us</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("programs")}>Core Programs</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("impact")}>Impact &amp; Awards</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("leadership")}>The Team</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("blog")}>Blog — Kwentong Síkat</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("faq")}>FAQ</FooterLink></li>
+              <li><FooterLink to="/about">About Us</FooterLink></li>
+              <li><FooterLink to="/programs">Core Programs</FooterLink></li>
+              <li><FooterLink to="/impact">Impact &amp; Awards</FooterLink></li>
+              <li><FooterLink to="/leadership">The Team</FooterLink></li>
+              <li><FooterLink to="/blog">Blog — Kwentong Síkat</FooterLink></li>
+              <li><FooterLink to="/faq">FAQ</FooterLink></li>
+              <li><FooterLink to="/privacy">Privacy Policy</FooterLink></li>
             </ul>
           </nav>
 
           <nav aria-label="Footer — get involved">
             <h4 className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-white/90">Get Involved</h4>
             <ul className="flex list-none flex-col gap-2 p-0">
-              <li><FooterLink onClick={() => onNavigate("volunteer")}>Become a Volunteer</FooterLink></li>
-              <li><FooterLink onClick={() => onNavigate("donate")}>Donate</FooterLink></li>
+              <li><FooterLink to="/volunteer">Become a Volunteer</FooterLink></li>
+              <li><FooterLink to="/donate">Donate</FooterLink></li>
               <li>
                 <a
                   href="https://bit.ly/sikatfinance"
@@ -3075,110 +3155,206 @@ function Footer({ onNavigate }) {
   );
 }
 
+/* ============================= Page: Privacy & Security ============================= */
+
+function PrivacyPage({ onNavigate, onOpenModal }) {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Data Protection & Compliance"
+        title="Privacy Policy & Security"
+        subtitle="How Síkat-Aurora Inc. collects, protects, and minimizes personal data under RA 10173 (Data Privacy Act of 2012), GDPR, and PCI DSS compliance."
+      />
+
+      <section className="bg-white py-16 lg:py-24 font-sans">
+        <Container className="max-w-4xl space-y-10">
+          <div className="rounded-2xl border border-primary/20 bg-primary-soft/60 p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-navy flex items-center gap-2">
+              <Lock className="h-5 w-5 text-primary" aria-hidden="true" />
+              Data Minimization &amp; Purpose Limitation
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-navy/80 sm:text-base">
+              Síkat-Aurora Inc. enforces strict data minimization principles. We only collect the minimal personal data required to process volunteer applications or donation sponsorships. We never sell, rent, or trade your personal data to third parties.
+            </p>
+          </div>
+
+          <div className="space-y-8 text-navy/80">
+            <div>
+              <h3 className="text-lg font-bold text-navy">1. Information We Collect</h3>
+              <p className="mt-2 text-sm leading-relaxed sm:text-base">We collect only necessary information provided directly by you:</p>
+              <ul className="mt-3 list-disc pl-5 space-y-2 text-sm sm:text-base">
+                <li><strong>Volunteer Applications:</strong> First name, last name, email address, mobile number, age group, and program preference.</li>
+                <li><strong>Donation Sponsorships:</strong> Full name, email address, selected sponsorship kit, and quantity.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-navy">2. Payment Processing Security &amp; PCI DSS Compliance</h3>
+              <p className="mt-3 text-sm leading-relaxed sm:text-base">
+                All online monetary transactions are processed through <strong>PayMongo</strong>, a PCI DSS Level 1 certified third-party payment gateway.
+              </p>
+              <div className="mt-4 rounded-xl border border-navy/10 bg-cream p-5">
+                <p className="text-xs font-semibold text-navy uppercase tracking-wider">🔒 Security Guarantee</p>
+                <p className="mt-1 text-sm leading-relaxed text-navy/80">
+                  Síkat-Aurora Inc. <strong>never handles, processes, or stores</strong> credit card numbers, CVVs, GCash PINs, Maya passwords, or bank login credentials on our servers. All financial authentication takes place on PayMongo's secure hosted payment portal.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-navy">3. Technical Data Protection &amp; Security</h3>
+              <p className="mt-3 text-sm leading-relaxed sm:text-base">
+                We implement industry-standard technical safeguards including HTTPS encryption in transit, strict Content Security Policy (CSP) directives, X-Content-Type-Options, X-Frame-Options, and referrer policy protections to safeguard your data against unauthorized access, alteration, or disclosure.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-navy">4. Your Data Privacy Rights (RA 10173, GDPR, CCPA)</h3>
+              <p className="mt-3 text-sm leading-relaxed sm:text-base">
+                Under the Data Privacy Act of 2012 (Republic Act No. 10173), GDPR, and CCPA, you have the right to:
+              </p>
+              <ul className="mt-3 list-disc pl-5 space-y-2 text-sm sm:text-base">
+                <li>Access the personal information we hold about you.</li>
+                <li>Request correction or updates to inaccurate data.</li>
+                <li>Request complete erasure or deletion of your volunteer record or personal data from our systems.</li>
+                <li>Object to data processing or withdraw your consent at any time.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-navy">5. Contact Our Data Protection Team</h3>
+              <p className="mt-3 text-sm leading-relaxed sm:text-base">
+                If you have questions regarding this Privacy Policy or wish to exercise your data privacy rights, please email us at:
+              </p>
+              <p className="mt-2 font-semibold text-primary">
+                Email: sikataurora@gmail.com
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
+    </>
+  );
+}
+
+/* ============================= Article page wrapper ============================= */
+
+function ArticlePageWrapper({ onNavigate, onOpenModal }) {
+  const { slug } = useParams();
+  const post = getPost(slug);
+
+  useEffect(() => {
+    document.title = post ? `${SITE_NAME} | ${post.title}` : `${SITE_NAME} | Article Not Found`;
+  }, [post]);
+
+  if (!post) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center bg-cream">
+        <Container className="text-center">
+          <h1 className="text-[2rem] font-bold text-navy">Article not found</h1>
+          <p className="mt-3 text-navy/60">The story you’re looking for doesn’t exist or has been removed.</p>
+          <Link to="/blog" className="mt-6 inline-block rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white no-underline hover:bg-primary-dark">
+            Back to Blog
+          </Link>
+        </Container>
+      </div>
+    );
+  }
+
+  return <PostPage post={post} onNavigate={onNavigate} onOpenModal={onOpenModal} />;
+}
+
 /* ============================= App shell ============================= */
 
+// Maps old page IDs (used by child components) to React Router paths.
+const PAGE_ID_TO_PATH = {
+  home: "/",
+  about: "/about",
+  programs: "/programs",
+  impact: "/impact",
+  leadership: "/leadership",
+  blog: "/blog",
+  faq: "/faq",
+  volunteer: "/volunteer",
+  donate: "/donate",
+  checkout: "/checkout",
+};
+
 export default function App() {
-  // Initialize from the URL hash so deep links render the right page immediately
-  const [activePage, setActivePage] = useState(
-    () => window.location.hash.replace("#", "") || "home"
-  );
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
-  // Which sponsorship kit the donor picked, carried from Donate into Checkout
   const [checkoutKitId, setCheckoutKitId] = useState(null);
   const [activeVideoId, setActiveVideoId] = useState(null);
+  const location = useLocation();
+  const routerNavigate = useNavigate();
 
   const playVideo = useCallback((videoId) => setActiveVideoId(videoId), []);
   const closeVideo = useCallback(() => setActiveVideoId(null), []);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      setActivePage((prev) => {
-        // Article cards are plain anchors, so they change the hash without
-        // going through navigate() — scroll to the top the way navigate() does.
-        if (prev !== (hash || "home")) window.scrollTo({ top: 0 });
-        return hash || "home";
-      });
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  const navigate = useCallback((pageId) => {
-    setActivePage(pageId);
-    window.location.hash = pageId === "home" ? "" : pageId;
-    window.scrollTo({ top: 0 });
-  }, []);
-
   const openModal = useCallback(() => setIsVolunteerModalOpen(true), []);
   const closeModal = useCallback(() => setIsVolunteerModalOpen(false), []);
+
+  // Compatibility wrapper: child components still call onNavigate("about")
+  // and this translates to router navigation.
+  const navigate = useCallback(
+    (pageId) => {
+      const path = PAGE_ID_TO_PATH[pageId] || `/${pageId}`;
+      routerNavigate(path);
+      window.scrollTo({ top: 0 });
+    },
+    [routerNavigate]
+  );
 
   const startCheckout = useCallback(
     (kitId) => {
       setCheckoutKitId(kitId);
-      navigate("checkout");
+      routerNavigate("/checkout");
+      window.scrollTo({ top: 0 });
     },
-    [navigate]
+    [routerNavigate]
   );
 
-  // A direct link to #checkout has no kit behind it, so fall back to the catalog
+  // A direct link to /checkout has no kit behind it, so fall back to the catalog
   const checkoutKit = getKit(checkoutKitId);
 
-  // Article routes carry a slug: "#blog/five-saturdays-in-zabali". Everything
-  // else is a bare page id, so the segment before the slash is the route.
-  const [routeId, routeParam] = activePage.split("/");
-  const activePost = routeId === "blog" && routeParam ? getPost(routeParam) : null;
-
-  // An article names itself in the tab; every other route uses its nav label
+  // Update page title based on current route
   useEffect(() => {
-    const label = activePost ? activePost.title : PAGE_TITLES[routeId];
-    document.title = label ? `${SITE_NAME} | ${label}` : SITE_NAME;
-  }, [routeId, activePost]);
-
-  const pages = {
-    home: <HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
-    about: <AboutPage onNavigate={navigate} onOpenModal={openModal} />,
-    programs: <ProgramsPage onNavigate={navigate} onOpenModal={openModal} />,
-    impact: <ImpactPage onNavigate={navigate} onOpenModal={openModal} />,
-    leadership: <LeadershipPage onNavigate={navigate} onOpenModal={openModal} />,
-    blog: <BlogPage onNavigate={navigate} onOpenModal={openModal} />,
-    faq: <FAQPage onNavigate={navigate} onOpenModal={openModal} />,
-    volunteer: <VolunteerPage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />,
-    donate: <DonatePage onDonate={startCheckout} />,
-    checkout: checkoutKit ? (
-      <CheckoutPage kit={checkoutKit} onNavigate={navigate} />
-    ) : (
-      <DonatePage onDonate={startCheckout} />
-    ),
-  };
+    const pathSegment = location.pathname.split("/")[1] || "home";
+    const title = PAGE_TITLES[pathSegment];
+    document.title = title ? `${SITE_NAME} | ${title}` : SITE_NAME;
+  }, [location.pathname]);
 
   return (
     <MotionConfig reducedMotion="user">
-      {/* routeId, not activePage — keeps Blog marked current while reading an article */}
-      <Navbar activePage={routeId} onNavigate={navigate} onOpenModal={openModal} />
+      <Navbar onOpenModal={openModal} />
 
       <VolunteerModal isOpen={isVolunteerModalOpen} onClose={closeModal} />
       <VideoModal videoId={activeVideoId} onClose={closeVideo} />
 
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={activePage}
-          initial={{ opacity: 0, scale: 0.992 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.992 }}
-          transition={{ duration: 0.5, ease: EASE }}
-        >
-          {activePost ? (
-            <PostPage post={activePost} onNavigate={navigate} onOpenModal={openModal} />
-          ) : (
-            pages[routeId] ?? pages.home
-          )}
-        </motion.main>
-      </AnimatePresence>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />} />
+          <Route path="/about" element={<AboutPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/programs" element={<ProgramsPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/impact" element={<ImpactPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/leadership" element={<LeadershipPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/blog" element={<BlogPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/blog/:slug" element={<ArticlePageWrapper onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/faq" element={<FAQPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/privacy" element={<PrivacyPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/volunteer" element={<VolunteerPage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />} />
+          <Route path="/donate" element={<DonatePage onDonate={startCheckout} />} />
+          <Route path="/checkout" element={
+            checkoutKit
+              ? <CheckoutPage kit={checkoutKit} onNavigate={navigate} />
+              : <DonatePage onDonate={startCheckout} />
+          } />
+          {/* Catch-all: redirect to home */}
+          <Route path="*" element={<HomePage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />} />
+        </Routes>
+      </main>
 
-      <Footer onNavigate={navigate} />
+      <Footer />
     </MotionConfig>
   );
 }

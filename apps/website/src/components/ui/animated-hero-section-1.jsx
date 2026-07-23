@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -108,21 +109,46 @@ export const AnimatedHero = ({
         </motion.p>
 
         <motion.div variants={itemVariants} className="mt-9 flex flex-wrap items-center gap-3">
-          <Button
-            onClick={ctaButton.onClick}
-            size="lg"
-            className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
-          >
-            {ctaButton.text}
-          </Button>
-          {secondaryCta && (
+          {ctaButton.to ? (
             <Button
-              onClick={secondaryCta.onClick}
+              asChild
               size="lg"
-              className="cursor-pointer rounded-full border-2 border-white/40 bg-transparent px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-navy motion-reduce:hover:translate-y-0"
+              className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
             >
-              {secondaryCta.text}
+              <Link to={ctaButton.to} onClick={() => window.scrollTo({ top: 0 })}>
+                {ctaButton.text}
+              </Link>
             </Button>
+          ) : (
+            <Button
+              onClick={ctaButton.onClick}
+              size="lg"
+              className="cursor-pointer rounded-full border-0 bg-primary px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary-dark motion-reduce:hover:translate-y-0"
+            >
+              {ctaButton.text}
+            </Button>
+          )}
+
+          {secondaryCta && (
+            secondaryCta.to ? (
+              <Button
+                asChild
+                size="lg"
+                className="cursor-pointer rounded-full border-2 border-white/40 bg-transparent px-8 py-4 text-[0.85rem] font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-navy motion-reduce:hover:translate-y-0"
+              >
+                <Link to={secondaryCta.to} onClick={() => window.scrollTo({ top: 0 })}>
+                  {secondaryCta.text}
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                onClick={secondaryCta.onClick}
+                size="lg"
+                className="cursor-pointer rounded-full border-2 border-white/40 bg-transparent px-8 py-4 text-[0.85rem] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-navy motion-reduce:hover:translate-y-0"
+              >
+                {secondaryCta.text}
+              </Button>
+            )
           )}
         </motion.div>
       </motion.div>
