@@ -132,7 +132,7 @@ export const PhotoGallery = ({
           <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
             Stories of Hope &amp; Change
           </h2>
-          <p className="mx-auto mt-3 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
+          <p className="mx-auto mt-3 mb-3 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
             Glimpses of youth-led volunteer programs and environmental stewardship across the Province of Aurora.
           </p>
         </div>
