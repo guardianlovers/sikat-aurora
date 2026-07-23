@@ -73,8 +73,8 @@ export const PhotoGallery = ({
     {
       id: 1,
       order: 0,
-      x: "-420px",
-      y: "18px",
+      x: "-610px",
+      y: "0px",
       zIndex: 50,
       direction: "left",
       src: moment1,
@@ -83,8 +83,8 @@ export const PhotoGallery = ({
     {
       id: 2,
       order: 1,
-      x: "-210px",
-      y: "38px",
+      x: "-305px",
+      y: "16px",
       zIndex: 40,
       direction: "left",
       src: moment2,
@@ -94,7 +94,7 @@ export const PhotoGallery = ({
       id: 3,
       order: 2,
       x: "0px",
-      y: "10px",
+      y: "-8px",
       zIndex: 30,
       direction: "right",
       src: moment3,
@@ -103,8 +103,8 @@ export const PhotoGallery = ({
     {
       id: 4,
       order: 3,
-      x: "210px",
-      y: "28px",
+      x: "305px",
+      y: "10px",
       zIndex: 20,
       direction: "right",
       src: moment4,
@@ -113,8 +113,8 @@ export const PhotoGallery = ({
     {
       id: 5,
       order: 4,
-      x: "420px",
-      y: "50px",
+      x: "610px",
+      y: "28px",
       zIndex: 10,
       direction: "left",
       src: moment5,
@@ -123,23 +123,23 @@ export const PhotoGallery = ({
   ];
 
   return (
-    <div className="relative overflow-hidden py-16 font-sans lg:py-24">
+    <div className="relative overflow-hidden py-16 font-sans lg:py-20">
       <div className="mx-auto w-full max-w-7xl px-6 text-center md:px-9">
-        <div className="mb-12">
-          <div className="mb-4 flex justify-center">
+        <div className="mb-3">
+          <div className="mb-3 flex justify-center">
             <span className="pill-label">VISUAL STORIES</span>
           </div>
           <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
             Stories of Hope &amp; Change
           </h2>
-          <p className="mx-auto mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
+          <p className="mx-auto mt-3 max-w-[54ch] text-[0.95rem] leading-[1.7] text-navy/75">
             Glimpses of youth-led volunteer programs and environmental stewardship across the Province of Aurora.
           </p>
         </div>
       </div>
 
       {/* Small screens: swipeable photo strip (the draggable fan needs a wide viewport) */}
-      <div className="mb-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 lg:hidden">
+      <div className="mb-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 lg:hidden">
         {photos.map((photo) => (
           <img
             key={photo.id}
@@ -155,7 +155,7 @@ export const PhotoGallery = ({
       </div>
 
       {/* Large screens: draggable photo fan */}
-      <div className="relative mb-14 hidden h-[420px] w-full items-center justify-center lg:flex">
+      <div className="relative mb-8 hidden h-[360px] w-full items-center justify-center lg:flex">
         <motion.div
           className="relative mx-auto flex w-full max-w-7xl justify-center"
           initial={{ opacity: 0 }}
