@@ -960,7 +960,7 @@ function ProgramHorizontalScrubDeck() {
         </Container>
 
         <Container className="max-w-6xl">
-          <div className="flex flex-col md:flex-row h-auto md:h-[460px] w-full gap-4 transition-all duration-500">
+          <div className="flex flex-col md:flex-row h-auto md:h-[480px] w-full gap-4 transition-all duration-500">
             {deckData.map((p, i) => {
               const isActive = activeIndex === i;
               return (
@@ -969,97 +969,107 @@ function ProgramHorizontalScrubDeck() {
                   layout
                   onClick={() => setActiveIndex(i)}
                   className={cn(
-                    "relative cursor-pointer overflow-hidden rounded-3xl border transition-all duration-500 ease-out-expo flex flex-col justify-between p-6 sm:p-8",
+                    "relative cursor-pointer overflow-hidden rounded-3xl transition-all duration-500 ease-out-expo flex flex-col justify-between p-5 sm:p-6",
                     isActive
-                      ? `${p.bgActive} flex-[3.5] shadow-xl border-transparent`
-                      : "bg-white text-navy flex-[1] border-navy/10 hover:border-navy/25 hover:shadow-md"
+                      ? "flex-[3.5] shadow-2xl border border-white/30 ring-1 ring-white/20"
+                      : "bg-white/80 backdrop-blur-md text-navy flex-[1] border border-navy/10 hover:border-navy/25 hover:bg-white shadow-sm"
                   )}
                 >
-                  {/* Photo Overlay for Active Card */}
+                  {/* Full-Bleed Background Photo with Glass Gradient Overlay */}
                   {isActive && (
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.18 }}
-                      transition={{ duration: 0.4 }}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
                     >
                       <img src={p.img} alt="" className="h-full w-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25" />
                     </motion.div>
                   )}
 
-                  {/* Top Header Row */}
-                  <div className="relative z-10 flex items-start justify-between gap-4">
+                  {/* Top Header Row — Frosted Glass Panel when Active */}
+                  <div
+                    className={cn(
+                      "relative z-10 flex items-start justify-between gap-4 transition-all duration-300",
+                      isActive
+                        ? "rounded-2xl bg-white/10 p-4 sm:p-5 backdrop-blur-xl border border-white/20 shadow-lg text-white"
+                        : "p-2"
+                    )}
+                  >
                     <div>
                       <span
                         className={cn(
-                          "text-[0.68rem] font-bold uppercase tracking-[0.12em]",
-                          isActive ? "text-white/80" : "text-primary"
+                          "text-[0.68rem] font-bold uppercase tracking-[0.14em]",
+                          isActive ? "text-gold" : "text-primary"
                         )}
                       >
                         {p.center}
                       </span>
                       <h3
                         className={cn(
-                          "mt-1 font-bold leading-tight transition-all duration-300",
-                          isActive ? "text-2xl sm:text-3xl text-white" : "text-lg text-navy line-clamp-2"
+                          "mt-1 font-extrabold leading-tight transition-all duration-300",
+                          isActive ? "text-2xl sm:text-3xl text-white drop-shadow-md" : "text-lg text-navy line-clamp-2"
                         )}
                       >
                         {isActive ? p.name : p.shortName}
                       </h3>
                     </div>
 
-                    {/* Duration / Age Badge */}
+                    {/* Duration / Age Glass Badge */}
                     <span
                       className={cn(
                         "shrink-0 rounded-full px-3.5 py-1 text-[0.68rem] font-extrabold uppercase tracking-wider transition-all duration-300",
                         isActive
-                          ? "bg-white/20 text-white backdrop-blur-md border border-white/20"
-                          : "bg-primary-soft text-primary"
+                          ? "bg-white/20 text-white backdrop-blur-md border border-white/30 shadow-sm"
+                          : "bg-primary-soft text-primary border border-primary/20"
                       )}
                     >
                       {p.badge}
                     </span>
                   </div>
 
-                  {/* Bottom Content Area */}
-                  <div className="relative z-10 mt-auto pt-6">
+                  {/* Bottom Content Area — Frosted Glass Panel when Active */}
+                  <div className="relative z-10 mt-auto pt-4">
                     {isActive ? (
                       <motion.div
-                        initial={{ opacity: 0, y: 12 }}
+                        initial={{ opacity: 0, y: 14 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.35, ease: "easeOut" }}
+                        className="rounded-2xl bg-white/10 p-5 sm:p-6 backdrop-blur-xl border border-white/20 shadow-2xl text-white"
                       >
-                        <p className="max-w-[52ch] text-sm leading-relaxed text-white/90 sm:text-base">
+                        <p className="max-w-[52ch] text-sm leading-relaxed text-white/95 sm:text-[0.95rem] drop-shadow-sm">
                           {p.desc}
                         </p>
 
-                        <div className="mt-6 flex flex-wrap gap-2">
+                        {/* Glassmorphic Bullet Pills */}
+                        <div className="mt-5 flex flex-wrap gap-2">
                           {p.bullets.map((bullet) => (
                             <span
                               key={bullet}
-                              className="rounded-lg bg-white/15 px-3 py-1.5 text-[0.62rem] font-extrabold uppercase tracking-wider text-white backdrop-blur-md border border-white/10"
+                              className="rounded-xl bg-white/15 px-3 py-1.5 text-[0.62rem] font-extrabold uppercase tracking-wider text-white backdrop-blur-md border border-white/25 shadow-sm transition-all hover:bg-white/25"
                             >
                               {bullet}
                             </span>
                           ))}
                         </div>
 
-                        <div className="mt-6 pt-2">
+                        {/* Glass CTA Button */}
+                        <div className="mt-5 pt-1">
                           <Link
                             to="/programs"
                             onClick={(e) => {
                               e.stopPropagation();
                               window.scrollTo({ top: 0 });
                             }}
-                            className="inline-flex items-center gap-2 text-sm font-bold text-white underline underline-offset-4 hover:opacity-90"
+                            className="inline-flex items-center gap-2 rounded-xl bg-white/20 px-4 py-2 text-xs sm:text-sm font-extrabold text-white backdrop-blur-md border border-white/30 shadow-md transition-all hover:bg-white/30 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
                           >
                             Explore {p.shortName} Program <ArrowRight className="h-4 w-4" />
                           </Link>
                         </div>
                       </motion.div>
                     ) : (
-                      <div className="hidden md:block space-y-1.5 text-navy/60">
+                      <div className="hidden md:block p-2 space-y-1.5 text-navy/60">
                         {p.bullets.slice(0, 3).map((bullet) => (
                           <p key={bullet} className="text-[0.62rem] font-bold uppercase tracking-wider truncate">
                             • {bullet}
