@@ -73,8 +73,8 @@ export const PhotoGallery = ({
     {
       id: 1,
       order: 0,
-      x: "-320px",
-      y: "15px",
+      x: "-420px",
+      y: "18px",
       zIndex: 50,
       direction: "left",
       src: moment1,
@@ -83,8 +83,8 @@ export const PhotoGallery = ({
     {
       id: 2,
       order: 1,
-      x: "-160px",
-      y: "32px",
+      x: "-210px",
+      y: "38px",
       zIndex: 40,
       direction: "left",
       src: moment2,
@@ -94,7 +94,7 @@ export const PhotoGallery = ({
       id: 3,
       order: 2,
       x: "0px",
-      y: "8px",
+      y: "10px",
       zIndex: 30,
       direction: "right",
       src: moment3,
@@ -103,8 +103,8 @@ export const PhotoGallery = ({
     {
       id: 4,
       order: 3,
-      x: "160px",
-      y: "22px",
+      x: "210px",
+      y: "28px",
       zIndex: 20,
       direction: "right",
       src: moment4,
@@ -113,8 +113,8 @@ export const PhotoGallery = ({
     {
       id: 5,
       order: 4,
-      x: "320px",
-      y: "44px",
+      x: "420px",
+      y: "50px",
       zIndex: 10,
       direction: "left",
       src: moment5,
@@ -123,9 +123,9 @@ export const PhotoGallery = ({
   ];
 
   return (
-    <div className="relative overflow-hidden py-16 font-sans lg:py-20">
+    <div className="relative overflow-hidden py-16 font-sans lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-6 text-center md:px-9">
-        <div className="mb-10">
+        <div className="mb-12">
           <div className="mb-4 flex justify-center">
             <span className="pill-label">VISUAL STORIES</span>
           </div>
@@ -139,7 +139,7 @@ export const PhotoGallery = ({
       </div>
 
       {/* Small screens: swipeable photo strip (the draggable fan needs a wide viewport) */}
-      <div className="mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 lg:hidden">
+      <div className="mb-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 lg:hidden">
         {photos.map((photo) => (
           <img
             key={photo.id}
@@ -147,7 +147,7 @@ export const PhotoGallery = ({
             alt={photo.alt}
             loading="lazy"
             className={cn(
-              "h-44 w-44 shrink-0 snap-center rounded-md border-4 border-white object-cover shadow-card-hover",
+              "h-60 w-60 shrink-0 snap-center rounded-lg border-4 border-white object-cover shadow-card-hover",
               photo.direction === "left" ? "-rotate-1" : "rotate-1"
             )}
           />
@@ -155,7 +155,7 @@ export const PhotoGallery = ({
       </div>
 
       {/* Large screens: draggable photo fan */}
-      <div className="relative mb-12 hidden h-[320px] w-full items-center justify-center lg:flex">
+      <div className="relative mb-14 hidden h-[420px] w-full items-center justify-center lg:flex">
         <motion.div
           className="relative mx-auto flex w-full max-w-7xl justify-center"
           initial={{ opacity: 0 }}
@@ -168,7 +168,7 @@ export const PhotoGallery = ({
             initial="hidden"
             animate={isLoaded ? "visible" : "hidden"}
           >
-            <div className="relative h-[220px] w-[220px]">
+            <div className="relative h-[300px] w-[300px]">
               {[...photos].reverse().map((photo) => (
                 <motion.div
                   key={photo.id}
@@ -182,8 +182,8 @@ export const PhotoGallery = ({
                   }}
                 >
                   <Photo
-                    width={220}
-                    height={220}
+                    width={300}
+                    height={300}
                     src={photo.src}
                     alt={photo.alt}
                     direction={photo.direction}

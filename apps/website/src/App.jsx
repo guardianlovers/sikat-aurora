@@ -3471,6 +3471,9 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           <Btn onClick={onOpenModal} className="px-8">
             Become a Volunteer
           </Btn>
+          <Btn to="/donate" variant="onDark" className="px-8">
+            Fuel Our Cause / Sponsor
+          </Btn>
         </div>
       </Container>
     </Reveal>
