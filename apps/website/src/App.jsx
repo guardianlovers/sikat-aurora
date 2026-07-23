@@ -1122,29 +1122,64 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
       </section>
 
       {/* About teaser */}
-      <Reveal className="bg-white py-16 lg:py-20">
-        <Container className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-          <div>
-            <SectionHeading
-              eyebrow="Who We Are"
-              title="A new face of youth volunteerism in Aurora"
-            />
-            <p className="mb-7 mt-5 max-w-[54ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.93rem]">
-              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> — formerly Síkat-Baler — is a
-              nonprofit, youth-led, and youth-serving organization. The name <em>Síkat</em>, meaning{" "}
-              <strong className="font-semibold text-navy">"rise,"</strong> pays tribute to a new generation of
-              volunteers rising together where the Philippine sun rises first.
+      <Reveal className="bg-white py-16 lg:py-24 overflow-hidden">
+        <Container className="grid items-center gap-8 lg:grid-cols-[1fr_1.35fr_1fr] lg:gap-10">
+          {/* Left column: stacked photo frames */}
+          <div className="hidden lg:flex flex-col gap-6 items-end">
+            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 -rotate-2">
+              <img
+                src={whoWeAre1}
+                alt="Síkat-Aurora volunteers gathered"
+                className="h-48 w-60 object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 rotate-2">
+              <img
+                src={whoWeAre2}
+                alt="Community outreach in Aurora"
+                className="h-44 w-60 object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          {/* Middle column: centered text content */}
+          <div className="text-center">
+            <div className="mb-4 flex justify-center">
+              <span className="pill-label">WHO WE ARE</span>
+            </div>
+            <h2 className="mx-auto max-w-[20ch] text-[1.9rem] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[2.4rem]">
+              A youth-led movement building a new face of volunteerism in Aurora
+            </h2>
+            <div className="mx-auto my-5 h-1 w-12 rounded-full bg-gold" />
+            <p className="mx-auto mb-7 max-w-[50ch] text-sm leading-[1.75] text-navy/75 sm:text-[0.95rem]">
+              <strong className="font-semibold text-navy">Síkat-Aurora Inc.</strong> provides free after-school programs in education, environment, and active citizenship — powered entirely by young volunteers, for the communities they come from.
             </p>
             <Btn to="/about" variant="dark">
               Learn More About Us <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Btn>
           </div>
-          <img
-            src={homeWhoWeAre}
-            alt="Síkat-Aurora volunteers and children at a community assembly"
-            className="w-full rounded-lg"
-            loading="lazy"
-          />
+
+          {/* Right column: stacked photo frames */}
+          <div className="hidden lg:flex flex-col gap-6 items-start">
+            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 rotate-2">
+              <img
+                src={whoWeAre3}
+                alt="Youth volunteers with books and supplies"
+                className="h-44 w-60 object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="overflow-hidden rounded-2xl border-4 border-white bg-navy shadow-xl transition-all duration-300 hover:scale-105 hover:rotate-0 -rotate-2">
+              <img
+                src={whoWeAre4}
+                alt="Volunteer celebration"
+                className="h-48 w-60 object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </Container>
       </Reveal>
 
