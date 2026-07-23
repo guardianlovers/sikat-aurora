@@ -707,6 +707,7 @@ const PAGE_TITLES = {
   ...Object.fromEntries(NAV_ITEMS.map((item) => [item.id, item.label])),
   faq: "FAQ",
   privacy: "Privacy Policy & Security",
+  terms: "Terms of Use",
   volunteer: "Volunteer",
   donate: "Donate",
   checkout: "Checkout",
@@ -3134,6 +3135,7 @@ function Footer() {
               <li><FooterLink to="/blog">Blog — Kwentong Síkat</FooterLink></li>
               <li><FooterLink to="/faq">FAQ</FooterLink></li>
               <li><FooterLink to="/privacy">Privacy Policy</FooterLink></li>
+              <li><FooterLink to="/terms">Terms of Use</FooterLink></li>
             </ul>
           </nav>
 
@@ -3197,8 +3199,9 @@ function Footer() {
 
         <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <p>© 2026 Síkat-Aurora Inc. All rights reserved.</p>
-          <div>
+          <div className="flex gap-4">
             <FooterLink to="/privacy">Privacy Policy &amp; Data Security</FooterLink>
+            <FooterLink to="/terms">Terms of Use</FooterLink>
           </div>
         </div>
       </div>
@@ -3530,6 +3533,483 @@ function PrivacyPage({ onNavigate, onOpenModal }) {
   );
 }
 
+/* ============================= Page: Terms of Use ============================= */
+
+function TermsPage({ onNavigate, onOpenModal }) {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Legal &amp; Organizational Policies"
+        title="Terms of Use"
+        subtitle="Effective Date: July 23, 2026 | Last Updated: July 23, 2026"
+      />
+
+      <section className="bg-white py-16 lg:py-24 font-sans text-navy/80">
+        <Container className="max-w-4xl space-y-10">
+          <div className="space-y-4">
+            <p className="text-base leading-relaxed sm:text-lg text-navy font-medium">
+              Welcome to the official website of Síkat-Aurora Inc.
+            </p>
+            <p className="text-sm leading-relaxed sm:text-base">
+              These Terms of Use govern your access to and use of the Síkat-Aurora Inc. website, including its pages, articles, photographs, videos, volunteer forms, donation features, and other content or services made available through the website.
+            </p>
+            <p className="text-sm leading-relaxed sm:text-base">
+              By accessing or using this website, submitting a form, or making a donation through the website, you acknowledge that you have read and agree to these Terms of Use and our{" "}
+              <Link to="/privacy" className="text-primary font-semibold underline">
+                Privacy &amp; Data Management Policy
+              </Link>.
+            </p>
+            <p className="text-sm leading-relaxed sm:text-base">
+              If you do not agree with these Terms, please discontinue your use of the website.
+            </p>
+          </div>
+
+          <div className="space-y-10">
+            {/* 1. About Síkat-Aurora Inc. */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">1. About Síkat-Aurora Inc.</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. is a youth-led and youth-serving nonprofit organization based in Baler, Aurora, Philippines.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The website provides information about the organization’s programs, activities, impact, volunteers, partnerships, donation initiatives, community stories, and opportunities to participate.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Information published on the website is provided primarily for public awareness, volunteer engagement, community education, fundraising, documentation, and organizational transparency.
+              </p>
+            </div>
+
+            {/* 2. Permitted Use of the Website */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">2. Permitted Use of the Website</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                You may use the website for lawful, personal, educational, and noncommercial purposes, including:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Learning about Síkat-Aurora Inc. and its programs</li>
+                <li>Reading organizational news, reports, and community stories</li>
+                <li>Applying or signifying interest as a volunteer</li>
+                <li>Contacting the organization</li>
+                <li>Making a donation or sponsoring a program</li>
+                <li>Sharing official website links through social media or other platforms</li>
+                <li>Accessing publicly available organizational resources</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Your use of the website must not interfere with its security, operation, accessibility, or the rights and safety of Síkat-Aurora Inc., its volunteers, program participants, partners, donors, or community members.
+              </p>
+            </div>
+
+            {/* 3. Prohibited Activities */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">3. Prohibited Activities</h2>
+              <p className="text-sm leading-relaxed sm:text-base">You may not use the website to:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Violate any Philippine law or applicable regulation</li>
+                <li>Submit false, misleading, fraudulent, or incomplete information</li>
+                <li>Impersonate another person, volunteer, partner, donor, or representative of Síkat-Aurora Inc.</li>
+                <li>Attempt to gain unauthorized access to the website, database, forms, accounts, or administrative systems</li>
+                <li>Introduce malware, harmful code, automated attacks, or other materials that may damage the website</li>
+                <li>Scrape, harvest, or collect names, contact details, images, or other personal information from the website</li>
+                <li>Misuse information about children, learners, volunteers, donors, or partner communities</li>
+                <li>Copy or use the Síkat-Aurora name, logo, branding, or materials in a way that falsely suggests endorsement or partnership</li>
+                <li>Alter, manipulate, or misrepresent photographs, videos, statements, reports, or other organizational content</li>
+                <li>Use website content for harassment, discrimination, exploitation, misinformation, or unlawful commercial activity</li>
+                <li>Circumvent any security, access, copyright, or privacy protection implemented on the website</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Síkat-Aurora Inc. may restrict access, preserve relevant records, and report suspected unlawful activity to the appropriate authorities.
+              </p>
+            </div>
+
+            {/* 4. Volunteer Applications */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">4. Volunteer Applications</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Submitting a volunteer application or interest form does not automatically guarantee membership, acceptance, placement, participation, or assignment to a specific program or activity.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">Volunteer applications may be reviewed based on:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Age and eligibility requirements</li>
+                <li>Program needs and available opportunities</li>
+                <li>Location and availability</li>
+                <li>Completion of orientations or required training</li>
+                <li>Safeguarding and community-protection requirements</li>
+                <li>Compliance with organizational principles, policies, and codes of conduct</li>
+                <li>The safety and best interests of learners and partner communities</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Applicants must provide accurate and current information.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Applicants who are below 18 years old may be required to obtain permission from a parent or legal guardian before participating in an activity.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Accepted volunteers may be required to follow additional volunteer agreements, safeguarding policies, confidentiality requirements, event guidelines, and codes of conduct. Those additional policies form part of the conditions of participation.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. reserves the right to decline, suspend, remove, or reassign a volunteer when reasonably necessary for safety, program integrity, organizational needs, misconduct, policy violations, or the protection of participants.
+              </p>
+            </div>
+
+            {/* 5. Donations and Sponsorships */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">5. Donations and Sponsorships</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Donations made to Síkat-Aurora Inc. are voluntary and are intended to support its nonprofit programs, community activities, learners, volunteers, and organizational operations.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                When you select a donation kit, sponsorship option, or specific program, Síkat-Aurora Inc. will make reasonable efforts to use the donation for the stated purpose.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                However, actual community needs, availability of materials, supplier prices, program schedules, emergencies, and operational circumstances may change. Síkat-Aurora Inc. may therefore substitute items or redirect funds to a closely related program need when reasonably necessary to preserve the intended charitable purpose of the donation.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                A sponsorship kit shown on the website represents the type of support funded by the corresponding donation. It does not necessarily mean that the donor is purchasing a specific physical product or that a particular item will be delivered to the donor.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Reasonable payment-processing, banking, administrative, transportation, documentation, and program-delivery costs may be deducted when necessary to implement the relevant activity.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. may provide donation acknowledgments, transaction confirmations, or receipts when available. These documents should not be treated as confirmation of tax deductibility unless expressly stated.
+              </p>
+            </div>
+
+            {/* 6. Payment Processing */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">6. Payment Processing</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                When online payment becomes available, payments may be processed by PayMongo or another authorized third-party payment provider.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The payment provider may independently collect and process information required to complete the transaction, such as payment-method details, transaction information, device information, and identity-verification data.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. does not directly request or store credit card numbers, CVVs, electronic-wallet PINs, one-time passwords, bank passwords, or similar financial credentials through its website.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">You are responsible for ensuring that:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>The payment information you provide is accurate</li>
+                <li>You are authorized to use the selected payment method</li>
+                <li>You review the amount before confirming the transaction</li>
+                <li>You do not share your PIN, password, CVV, or one-time password with anyone claiming to represent Síkat-Aurora Inc.</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1 font-semibold text-navy">
+                Síkat-Aurora Inc. will never ask you to disclose your electronic-wallet PIN, bank password, CVV, or one-time password through email, private message, telephone call, or volunteer form.
+              </p>
+            </div>
+
+            {/* 7. Donation Refunds and Transaction Errors */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">7. Donation Refunds and Transaction Errors</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Donations are generally final once successfully processed and allocated for program use.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">A refund or transaction review may be considered when:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>The same donation was charged more than once because of a technical error</li>
+                <li>An incorrect amount was processed</li>
+                <li>The transaction was unauthorized</li>
+                <li>The donation was accepted for a program that Síkat-Aurora Inc. can no longer implement</li>
+                <li>A refund is required by applicable law or payment-provider rules</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Requests should be sent to <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a> as soon as reasonably possible and should include the donor’s name, email address, transaction date, amount, and transaction reference.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Approved refunds may be reduced by nonrefundable charges imposed by banks or payment processors, where legally permitted.
+              </p>
+            </div>
+
+            {/* 8. Photographs and Videos of Children */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">8. Photographs and Videos of Children</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. works with children and young people and treats their safety, privacy, and dignity as a priority.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Identifiable photographs and videos of children may be published only when appropriate consent has been documented from a parent or legal guardian, or when an authorized partner school, community organization, or institution has confirmed that the required consent was obtained.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">Photographs and videos may be used for legitimate organizational purposes such as:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Program documentation</li>
+                <li>Accomplishment and transparency reports</li>
+                <li>Educational and advocacy materials</li>
+                <li>Organizational publications</li>
+                <li>Website and social-media updates</li>
+                <li>Volunteer and partner recognition</li>
+                <li>Fundraising and community-awareness activities</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Publication on the Síkat-Aurora website does not give website visitors permission to freely reuse photographs or videos of children.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Unless written permission has been obtained from Síkat-Aurora Inc. and any other required rights holder, users must not:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Download or copy identifiable photographs or videos of children</li>
+                <li>Repost the content on another page, account, website, or publication</li>
+                <li>Crop, edit, manipulate, or combine the content with other media</li>
+                <li>Use the content in advertisements, promotions, fundraising activities, or artificial-intelligence systems</li>
+                <li>Use facial recognition, image scraping, profiling, or similar technologies on the content</li>
+                <li>Add captions, comments, or context that may humiliate, sexualize, exploit, discriminate against, misrepresent, or endanger a child</li>
+                <li>Attempt to identify, locate, contact, or obtain additional personal information about a child appearing in the content</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Sharing a direct link to an official Síkat-Aurora webpage or social-media post is permitted, provided the content is not altered or presented misleadingly.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                A parent, legal guardian, or authorized representative may request the review or removal of a child’s photograph or video by contacting <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a>.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. will make reasonable efforts to remove approved content from platforms and accounts under its control. However, it may not be able to remove copies that have already been downloaded, independently reposted, archived, or distributed by third parties.
+              </p>
+            </div>
+
+            {/* 9. Intellectual Property */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">9. Intellectual Property</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Unless otherwise indicated, the website and its original content are owned by, licensed to, or used with permission by Síkat-Aurora Inc.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">Protected materials may include:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>The Síkat-Aurora name and logo</li>
+                <li>Website design, layout, and graphics</li>
+                <li>Photographs and videos</li>
+                <li>Articles, captions, stories, reports, and program descriptions</li>
+                <li>Illustrations, publications, training materials, and downloadable resources</li>
+                <li>Campaign names, program identities, and branding elements</li>
+                <li>Databases, compilations, and original website materials</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                You may view and share direct links to publicly available pages for personal, informational, or educational purposes.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                You may not reproduce, republish, sell, license, distribute, modify, translate, publicly display, or commercially use substantial portions of the website without prior written permission.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Nothing in these Terms transfers ownership of any intellectual property to the website user.
+              </p>
+            </div>
+
+            {/* 10. User Communications and Submitted Materials */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">10. User Communications and Submitted Materials</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                When you submit information through a volunteer form, donation form, email, or other communication channel, you confirm that:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>The information is accurate to the best of your knowledge</li>
+                <li>You have the right to submit the information</li>
+                <li>The submission does not violate another person’s privacy, intellectual-property rights, or legal rights</li>
+                <li>The submission does not contain malicious, unlawful, defamatory, discriminatory, or exploitative material</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                You retain ownership of original material you submit.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                However, when you voluntarily provide testimonials, event photographs, stories, quotations, designs, or other materials for publication, you grant Síkat-Aurora Inc. a nonexclusive, royalty-free permission to review, store, reproduce, edit for length or clarity, and publish the material for the purpose communicated to you.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Additional consent will be obtained when required, particularly when the material contains personal information or depicts a child.
+              </p>
+            </div>
+
+            {/* 11. Accuracy of Website Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">11. Accuracy of Website Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. aims to keep website information accurate and current. However, program schedules, volunteer opportunities, donation needs, impact figures, leadership information, partnerships, and other details may change.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Website content is provided for general information and should not be treated as professional, legal, financial, medical, or emergency advice.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                An announcement, application form, or donation option appearing on the website does not guarantee that the relevant opportunity remains available.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                When an important decision depends on website information, you may contact Síkat-Aurora Inc. to confirm the latest details.
+              </p>
+            </div>
+
+            {/* 12. Community Stories and Impact Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">12. Community Stories and Impact Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Stories, photographs, testimonials, and impact reports may describe real programs, volunteers, learners, and communities.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. may shorten, anonymize, translate, or edit certain information to protect privacy, improve clarity, or avoid revealing sensitive details.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Impact figures may be based on organizational records, attendance reports, partner confirmations, funding reports, and reasonable estimates available at the time of publication.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Any correction request concerning a published story, figure, name, photograph, or program detail may be sent to <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a>.
+              </p>
+            </div>
+
+            {/* 13. Third-Party Websites and Services */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">13. Third-Party Websites and Services</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The website may contain links to services operated by third parties, including social-media platforms, payment providers, video platforms, transparency-report services, and partner websites.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. does not control and is not responsible for the content, availability, security, data practices, or policies of independent third-party websites.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Accessing an external link is subject to the third party’s own terms and privacy policy.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                A link to another website does not automatically mean that Síkat-Aurora Inc. endorses every statement, service, product, or activity appearing on that website.
+              </p>
+            </div>
+
+            {/* 14. Website Availability and Security */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">14. Website Availability and Security</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. may update, suspend, restrict, or discontinue any portion of the website when necessary for maintenance, security, program changes, legal compliance, or organizational operations.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The organization does not guarantee that the website will always be uninterrupted, error-free, or free from harmful components.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Users are responsible for maintaining appropriate security protections on their own devices and internet connections.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Security concerns, suspected vulnerabilities, fraudulent messages, or misuse of the organization’s identity should be reported privately to <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a>. Users should not publicly disclose a security vulnerability before the organization has had a reasonable opportunity to investigate it.
+              </p>
+            </div>
+
+            {/* 15. Disclaimer and Limitation of Liability */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">15. Disclaimer and Limitation of Liability</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The website and its content are provided on an “as available” basis.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                To the fullest extent permitted by law, Síkat-Aurora Inc. will not be responsible for indirect, incidental, or consequential loss arising solely from:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Temporary website unavailability</li>
+                <li>Reliance on outdated or incomplete general information</li>
+                <li>A third-party website or service</li>
+                <li>Unauthorized alteration or reuse of website content</li>
+                <li>Events outside the organization’s reasonable control</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Nothing in these Terms excludes responsibility that cannot legally be excluded, including responsibility arising from fraud, willful misconduct, gross negligence, or violations of applicable data-protection obligations.
+              </p>
+            </div>
+
+            {/* 16. Privacy and Personal Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">16. Privacy and Personal Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Personal information submitted through the website is handled according to the Síkat-Aurora Inc.{" "}
+                <Link to="/privacy" className="text-primary font-semibold underline">
+                  Privacy &amp; Data Management Policy
+                </Link>.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">The Privacy &amp; Data Management Policy explains:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>What personal information may be collected</li>
+                <li>Why and how it is processed</li>
+                <li>Who may receive it</li>
+                <li>How long it may be retained</li>
+                <li>How it is protected</li>
+                <li>How individuals may exercise their privacy rights</li>
+                <li>How photographs and videos of children are managed</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                By submitting personal information, you acknowledge that you have reviewed the applicable privacy notice.
+              </p>
+            </div>
+
+            {/* 17. Reporting Misuse or Requesting Removal */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">17. Reporting Misuse or Requesting Removal</h2>
+              <p className="text-sm leading-relaxed sm:text-base">You may contact Síkat-Aurora Inc. to report:</p>
+              <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
+                <li>Unauthorized use of the organization’s name or logo</li>
+                <li>Fraudulent donation requests</li>
+                <li>Misuse of photographs or videos</li>
+                <li>Publication of inaccurate personal information</li>
+                <li>Content that may place a child or participant at risk</li>
+                <li>Copyright or intellectual-property concerns</li>
+                <li>Suspected security vulnerabilities</li>
+                <li>Other violations of these Terms</li>
+              </ul>
+              <p className="text-sm leading-relaxed sm:text-base pt-1">
+                Reports should include the relevant webpage, social-media post, screenshot, account name, or other information that may help the organization investigate.
+              </p>
+              <div className="mt-2 text-sm leading-relaxed sm:text-base">
+                <p className="font-semibold text-navy">Síkat-Aurora Inc.</p>
+                <p>Baler, Aurora, Philippines</p>
+                <p>Email: <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a></p>
+              </div>
+            </div>
+
+            {/* 18. Changes to These Terms */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">18. Changes to These Terms</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Síkat-Aurora Inc. may update these Terms when website features, donation methods, volunteer processes, programs, service providers, or legal requirements change.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                The revised Terms will be published on this page with an updated revision date.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Continued use of the website after the updated Terms become effective constitutes acceptance of the revised Terms.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Material changes affecting personal-information processing will also be reflected in the Privacy &amp; Data Management Policy or an appropriate privacy notice.
+              </p>
+            </div>
+
+            {/* 19. Governing Law */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">19. Governing Law</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                These Terms are governed by the laws of the Republic of the Philippines.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Any complaint or dispute should first be raised with Síkat-Aurora Inc. so that the organization has a reasonable opportunity to investigate and respond.
+              </p>
+              <p className="text-sm leading-relaxed sm:text-base">
+                Nothing in these Terms prevents a person from filing a complaint with the National Privacy Commission, another appropriate government agency, or a court with proper jurisdiction.
+              </p>
+            </div>
+
+            {/* 20. Severability */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">20. Severability</h2>
+              <p className="text-sm leading-relaxed sm:text-base">
+                If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions will continue to apply to the fullest extent permitted by law.
+              </p>
+            </div>
+
+            {/* 21. Contact Information */}
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-navy">21. Contact Information</h2>
+              <p className="text-sm leading-relaxed sm:text-base">Questions about these Terms of Use may be sent to:</p>
+              <div className="mt-2 text-sm leading-relaxed sm:text-base">
+                <p className="font-semibold text-navy">Síkat-Aurora Inc.</p>
+                <p>Baler, Aurora, Philippines</p>
+                <p>Email: <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a></p>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
+    </>
+  );
+}
+
 /* ============================= Article page wrapper ============================= */
 
 function ArticlePageWrapper({ onNavigate, onOpenModal }) {
@@ -3571,6 +4051,7 @@ const PAGE_ID_TO_PATH = {
   volunteer: "/volunteer",
   donate: "/donate",
   checkout: "/checkout",
+  terms: "/terms",
 };
 
 export default function App() {
@@ -3633,6 +4114,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<ArticlePageWrapper onNavigate={navigate} onOpenModal={openModal} />} />
           <Route path="/faq" element={<FAQPage onNavigate={navigate} onOpenModal={openModal} />} />
           <Route path="/privacy" element={<PrivacyPage onNavigate={navigate} onOpenModal={openModal} />} />
+          <Route path="/terms" element={<TermsPage onNavigate={navigate} onOpenModal={openModal} />} />
           <Route path="/volunteer" element={<VolunteerPage onNavigate={navigate} onOpenModal={openModal} onPlayVideo={playVideo} />} />
           <Route path="/donate" element={<DonatePage onDonate={startCheckout} />} />
           <Route path="/checkout" element={
