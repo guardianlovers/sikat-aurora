@@ -2,11 +2,10 @@
 
 This repository contains the official frontend web applications for **Síkat-Aurora Inc.**, a youth-led community organization in Baler, Aurora, Philippines.
 
-The repository is organized as an `npm workspaces` monorepo containing two separate React applications powered by a single Supabase backend:
+The repository is organized as an `npm workspaces` monorepo containing:
 
 1. **Public Website** (`apps/website`): Fast, public-facing, responsive site with program details, leadership, transparent funding tracker, and dynamic blog powered by Supabase.
-2. **Private CMS** (`apps/cms`): Secure publishing dashboard for authorized volunteers to author, edit, and publish stories, manage media, and configure categories.
-3. **Shared Package** (`packages/shared`): Shared Supabase client, constants, and type definitions.
+2. **Shared Package** (`packages/shared`): Shared Supabase client, constants, and type definitions.
 
 ---
 
@@ -15,8 +14,7 @@ The repository is organized as an `npm workspaces` monorepo containing two separ
 ```
 .
 ├── apps/
-│   ├── website/             # Public web app (React + Vite + Tailwind + Framer Motion)
-│   └── cms/                 # Private CMS app (React + Vite + Tailwind + Tiptap + Supabase)
+│   └── website/             # Public web app (React + Vite + Tailwind + Framer Motion)
 ├── packages/
 │   └── shared/              # Shared Supabase client, constants, and JSDoc types
 ├── supabase/
@@ -44,17 +42,14 @@ npm install
 
 ### 2. Environment Configuration
 
-Copy `.env.example` in both app directories:
+Copy `.env.example` in the app directory:
 
 ```bash
 # Public website environment
 cp apps/website/.env.example apps/website/.env
-
-# Private CMS environment
-cp apps/cms/.env.example apps/cms/.env
 ```
 
-Fill in your Supabase project credentials in both `.env` files:
+Fill in your Supabase project credentials:
 ```env
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=your-anon-key
@@ -66,28 +61,18 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-anon-key
 
 ## Development
 
-Start both applications in parallel or individually:
-
 ```bash
 # Run public website (default: http://localhost:5173)
 npm run dev --workspace=apps/website
-
-# Run private CMS (default: http://localhost:5174)
-npm run dev --workspace=apps/cms
 ```
 
 ---
 
 ## Build for Production
 
-Build both applications for production deployment:
-
 ```bash
 # Build public website -> apps/website/dist
 npm run build --workspace=apps/website
-
-# Build private CMS -> apps/cms/dist
-npm run build --workspace=apps/cms
 ```
 
 ---

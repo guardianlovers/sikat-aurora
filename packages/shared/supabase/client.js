@@ -2,7 +2,6 @@ import { createClient } from "@supabase/supabase-js";
 
 /**
  * Create a Supabase browser client.
- * Both apps (website and cms) call this with their own env vars.
  * Never use the service-role key here — only the publishable (anon) key.
  */
 export function createSupabaseClient(supabaseUrl, supabaseAnonKey) {
