@@ -9,9 +9,7 @@
   ],
   "scripts": {
     "dev:website": "npm run dev --workspace=apps/website",
-    "dev:cms": "npm run dev --workspace=apps/cms",
     "build:website": "npm run build --workspace=apps/website",
-    "build:cms": "npm run build --workspace=apps/cms",
     "build": "npm run build --workspaces --if-present",
     "lint": "eslint .",
     "preview": "vite preview"
