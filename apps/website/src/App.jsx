@@ -1613,7 +1613,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
         { name: "Brgy. Dibut", url: "https://www.facebook.com/media/set/?set=a.371452035079739&type=3" },
         { name: "Casiguran", url: "https://www.facebook.com/media/set/?set=a.341001421918892&type=3" },
         { name: "Sitio Ilaya", url: "https://www.facebook.com/media/set/?set=a.558837003007907&type=3" },
-        { name: "KALI Summit 2026", url: "https://www.facebook.com/media/set/?set=a.1059197203432640&type=3" },
+        { name: "Calantas", url: "https://www.facebook.com/media/set/?set=a.1059197203432640&type=3" },
         { name: "Training of Trainers", url: "https://www.facebook.com/media/set/?set=a.871082465577449&type=3" },
       ],
       img: coreAbkpImg,
