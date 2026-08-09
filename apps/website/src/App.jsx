@@ -3464,11 +3464,14 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           Join over 400 youth volunteers and visionaries across Baler and Aurora Province in empowering the next generation of learners.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Btn onClick={onOpenModal} className="px-8">
-            Become a Volunteer
+          <Btn to="/donate" className="px-8">
+            Donate
           </Btn>
-          <Btn to="/donate" variant="onDark" className="px-8">
-            Fuel Our Cause / Sponsor
+          <Btn onClick={onOpenModal} variant="onDark" className="px-8">
+            Volunteer
+          </Btn>
+          <Btn href="mailto:sikataurora@gmail.com" variant="onDark" className="px-8">
+            Partner With Us
           </Btn>
         </div>
       </Container>
