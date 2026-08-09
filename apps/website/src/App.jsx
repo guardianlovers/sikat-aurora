@@ -1977,29 +1977,50 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 5: Leadership ============================= */
 
-// PLACEHOLDER QUOTES. Names and roles come from the placeholder roster in
-// lib/volunteers.js, so nobody real is being quoted — and the quotes are lorem
-// ipsum rather than plausible English, so none of this can be mistaken for a
-// genuine endorsement. Replace each `quote` once real volunteer interviews are
-// collected, and point `name`/`designation` at the actual person.
+// Real #KwentongSikat testimonials. Photos are still drawn from the generic
+// volunteer pool in lib/volunteers.js — swap in each person's actual portrait
+// once real headshots (not the branded quote-card graphics) are available.
 const VOLUNTEER_VOICES = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.",
-  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident.",
-  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore.",
-  "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
-].map((quote, i) => {
-  // Use realistic names and roles
-  const voices = [
-    { name: "Patricia Reyes", designation: "Abot Ko Ang Libro Volunteer" },
-    { name: "Joshua Cruz", designation: "Eco Mentor — Ang Batang Kali" },
-    { name: "Bianca Santos", designation: "Project Coordinator — Hiraya" },
-    { name: "Alvin Alcantara", designation: "Storytelling Facilitator" },
-  ];
-  const v = VOLUNTEERS[[0, 4, 8, 9][i]];
+  {
+    quote:
+      "Yung ginagawa ni Sikat, at nung nakilala ko si Sikat... there is something. Nag-grow ako as a person—hindi lang the way kung paano mag salita at kung paano makisalamuha sa mga bata. Isa ako sa patunay na hindi lamang basta organization ang Sikat-Aurora dahil sa Sikat ay nagkaroon din ako ng mga bagong kaibigan na pamilya ang turingan.",
+    name: "April Jay Sanggawa",
+    designation: "Sumikat noong 2024",
+  },
+  {
+    quote:
+      "Buwan iyon ng Setyembre, ikatlong buwan simula noong ako'y lumugmok at hinde mahanap ang daan papunta sa liwanag. Hinde ko alam na ['yung pagsali ko sa Sikat] na pala ang simula ng unti unting pumapasok ang liwanag muli sa aking buhay. Liwanag na dala ng Sikat-Aurora. Liwanag ng pag-asa, muling pagsibol, isa pang pagkakataon at liwanag na inspirasyon.",
+    name: "Patrisha Mae Abubo, 21",
+    designation: "Sumikat noong 2023",
+  },
+  {
+    quote:
+      "Through Síkat, I met many others like me, and it was a dream come true for me to bond with people who share the same advocacy—to empower and educate young minds and, most importantly, to conserve our nature and learn how to blend with it.",
+    name: "Mashi Amazona, 23",
+    designation: "Sumikat noong 2023",
+  },
+  {
+    quote:
+      "Natuwa ako [sa Sikat] dahil matagal na akong naghahanap ng organization na kung saan pwede akong mag volunteer work. [At sa tulong ng Sikat], mas natutunan kong maging grateful sa kung anong meron ako at mas naging maunawain dahil sa iba't ibang batang nakakasalamuha at kapwa ko volunteers.",
+    name: "Ginelle Torrano, 25",
+    designation: "Sumikat noong 2021",
+  },
+  {
+    quote:
+      "Sikat [has become] my favorite. I don't know but part of me heals every time na I volunteer for Sikat, maybe because nakikita ko yung sarili ko sakanila, kasi just like them, laman din ako ng mga ganitong klaseng proyekto nung bata ako. I am happy to give back through new children, to the new generation.",
+    name: "Shiela Margallo, 23",
+    designation: "Sumikat noong 2022",
+  },
+  {
+    quote:
+      "Ako ay produkto rin ng mga kabataang boluntaryo na naglilingkod para sa bayan. Noong ako'y 5 taong gulang ay pinangako ko sa aking sarili na kapag may sapat na akong kaalaman at kakayahan, magiging gaya rin nila ako. Tinuruan ako ng Sikat kung paano maging matalino at maingat sa bawat salita at talata na namumutawi sa aking mga labi. Ito'y dapat kapupulutan ng aral at tatatak sa isipan ng bawat bata.",
+    name: "Riah Ofracio, 18",
+    designation: "Sumikat noong 2024",
+  },
+].map((voice, i) => {
+  const v = VOLUNTEERS[[0, 4, 8, 9, 12, 15][i]];
   return {
-    quote,
-    name: voices[i].name,
-    designation: voices[i].designation,
+    ...voice,
     src: v.photo,
     alt: "Síkat-Aurora Inc. volunteer in the field",
   };
