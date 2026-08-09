@@ -1,4 +1,4 @@
-// Program photography, extracted from official Síkat-Aurora core program assets.
+// Program photography, extracted from official Síkat-Aurora Inc. core program assets.
 // Grouped per program so galleries and cards always pull matching imagery.
 
 import whoWeAre1 from "@/assets/about/who-we-are/1.jpg";

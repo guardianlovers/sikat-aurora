@@ -1,4 +1,4 @@
-// Figures published by Síkat-Aurora in its own funding report.
+// Figures published by Síkat-Aurora Inc. in its own funding report.
 // Source: the organization's brand deck / bit.ly/sikatfinance, as of May 4, 2026.
 // These are real published numbers — do not adjust them to make a chart look
 // tidier. Update them only from a newer transparency report.

@@ -72,7 +72,7 @@ export const PhotoGallery = ({
       zIndex: 40,
       direction: "left",
       src: moment2,
-      alt: "Síkat-Aurora volunteers and children",
+      alt: "Síkat-Aurora Inc. volunteers and children",
     },
     {
       id: 3,

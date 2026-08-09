@@ -22,7 +22,7 @@ export const KITS = [
     includes: ["Lorem ipsum dolor sit", "Consectetur adipiscing elit", "Sed do eiusmod tempor"],
     // Stand-in photo — shows storybooks, not the nature kit
     image: booksSpread,
-    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
     featured: true,
   },
   {
@@ -43,7 +43,7 @@ export const KITS = [
     blurb: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     includes: ["Lorem ipsum dolor sit", "Consectetur adipiscing elit"],
     image: booksSpread,
-    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
   },
   {
     id: "school-project",
@@ -74,7 +74,7 @@ export const KITS = [
     blurb: "Provide camp supplies, outdoor stewardship tools, and tree seedlings for nature conservation events.",
     includes: ["Camp outdoor guide", "Tree seedling for planting", "Reusable camp water flask"],
     image: booksSpread,
-    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora reading corner",
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
   },
 ];
 
