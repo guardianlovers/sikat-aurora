@@ -365,7 +365,7 @@ function ImageLightboxModal({ photo, onClose }) {
           <div className="overflow-hidden rounded-xl bg-black/40">
             <img
               src={photo.src}
-              alt={photo.alt || "Síkat-Aurora program photo"}
+              alt={photo.alt || "Síkat-Aurora Inc. program photo"}
               className="max-h-[80vh] w-auto max-w-full object-contain mx-auto"
             />
           </div>
@@ -391,7 +391,7 @@ function PhotoGrid({ label, photos, className }) {
             >
               <img
                 src={p.src}
-                alt={p.alt || "Síkat-Aurora program photo"}
+                alt={p.alt || "Síkat-Aurora Inc. program photo"}
                 loading="lazy"
                 className="h-32 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100 sm:h-40"
               />
@@ -583,7 +583,7 @@ function VolunteerModal({ isOpen, onClose }) {
 
             {/* Header stays put; only the form below it scrolls */}
             <div className="shrink-0 px-7 pb-5 pt-8 sm:px-9">
-              <Eyebrow>Join Síkat-Aurora</Eyebrow>
+              <Eyebrow>Join Síkat-Aurora Inc.</Eyebrow>
               <h3 id="volunteer-modal-title" className="text-[1.5rem] font-bold text-navy">
                 Sign Up &amp; Signify Interest
               </h3>
@@ -661,7 +661,7 @@ function VolunteerModal({ isOpen, onClose }) {
                         className="mt-0.5 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary shrink-0"
                       />
                       <span>
-                        I confirm that I have permission from my parent or legal guardian to submit this application and participate in Síkat-Aurora activities.
+                        I confirm that I have permission from my parent or legal guardian to submit this application and participate in Síkat-Aurora Inc. activities.
                       </span>
                     </label>
                   )}
@@ -882,7 +882,7 @@ function ProgramHorizontalScrubDeck() {
     {
       id: "abkp",
       badge: "AGES 8–15",
-      name: "Ang Batang Kali",
+      name: "Ang Kali Program",
       shortName: "ABKP",
       center: "Environment",
       bgActive: "bg-forest text-white",
@@ -1062,7 +1062,7 @@ const HOME_IMPACT_STATS = [
     label: "youth volunteers",
     photo: {
       src: impactVolunteersImg,
-      alt: "The Síkat-Aurora volunteer corps gathered for a group photo",
+      alt: "The Síkat-Aurora Inc. volunteer corps gathered for a group photo",
     },
   },
   {
@@ -1089,7 +1089,7 @@ const HOME_IMPACT_STATS = [
     label: "donations and grants",
     photo: {
       src: impactDonationsImg,
-      alt: "Donation packs laid out beside the Síkat-Aurora banner, ready for distribution",
+      alt: "Donation packs laid out beside the Síkat-Aurora Inc. banner, ready for distribution",
     },
   },
 ];
@@ -1117,7 +1117,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
           }
           description="A youth-led movement empowering 1,100+ children through literacy, books, and mentorship across Aurora — powered by volunteers and sponsors."
           ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
-          secondaryCta={{ text: "Donate / Be a Sponsor", to: "/donate" }}
+          secondaryCta={{ text: "Be a Sponsor", to: "/donate" }}
         />
       </section>
 
@@ -1143,7 +1143,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
           </div>
           <img
             src={homeWhoWeAre}
-            alt="Síkat-Aurora volunteers in the field"
+            alt="Síkat-Aurora Inc. volunteers in the field"
             className="w-full rounded-2xl shadow-sm object-cover"
             loading="lazy"
           />
@@ -1151,7 +1151,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
       </Reveal>
 
       {/* Impact stats teaser */}
-      <Reveal className="bg-navy py-14 text-white lg:py-16">
+      <Reveal className="bg-navy py-20 text-white lg:py-24">
         <Container>
           <div className="mb-12 flex flex-wrap items-end justify-between gap-5">
             <SectionHeading
@@ -1227,7 +1227,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
       <FaqSection
         className="bg-white"
         title="Frequently Asked Questions"
-        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
+        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora Inc.."
         items={OFFICIAL_FAQS}
       />
 
@@ -1268,10 +1268,10 @@ function SunRays({ className, rays = 12 }) {
 
 // Flanking the About statement — one from each program, plus the assembly
 const ABOUT_HERO_PHOTOS = [
-  { src: whoWeAre1, alt: "Síkat-Aurora youth volunteers at a community program" },
+  { src: whoWeAre1, alt: "Síkat-Aurora Inc. youth volunteers at a community program" },
   { src: whoWeAre2, alt: "Volunteers engaging with local children in Aurora" },
-  { src: whoWeAre3, alt: "Youth leaders at a Síkat-Aurora program activity" },
-  { src: whoWeAre4, alt: "Síkat-Aurora community assembly and outreach" },
+  { src: whoWeAre3, alt: "Youth leaders at a Síkat-Aurora Inc. program activity" },
+  { src: whoWeAre4, alt: "Síkat-Aurora Inc. community assembly and outreach" },
 ];
 
 const VALUES = [
@@ -1457,7 +1457,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
           <figure className="relative min-h-[300px] overflow-hidden lg:min-h-[560px]">
             <img
               src={howWeStartedImg}
-              alt="Síkat-Aurora how we started — where the Philippine sun rises first"
+              alt="Síkat-Aurora Inc. how we started — where the Philippine sun rises first"
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
             />
           </figure>
@@ -1543,8 +1543,8 @@ function AboutPage({ onNavigate, onOpenModal }) {
           />
           <ol className="grid gap-8 sm:grid-cols-3">
             {[
-              { n: "01", t: "Signify your interest", d: "Follow the Síkat-Aurora page and let us know you want in." },
-              { n: "02", t: "Attend three events", d: "Join at least three Síkat-Aurora events within three months." },
+              { n: "01", t: "Signify your interest", d: "Follow the Síkat-Aurora Inc. page and let us know you want in." },
+              { n: "02", t: "Attend three events", d: "Join at least three Síkat-Aurora Inc. events within three months." },
               { n: "03", t: "Commit to the principles", d: "Adhere to the organization's principles, rules, and policies." },
             ].map((s) => (
               <li key={s.n} className="list-none border-t-2 border-gold pt-5">
@@ -1868,7 +1868,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
                 />
                 <img
                   src={PHOTOS.volunteersGroup}
-                  alt="Síkat-Aurora youth volunteers together at a program"
+                  alt="Síkat-Aurora Inc. youth volunteers together at a program"
                   loading="lazy"
                   className="h-40 w-full rounded-2xl object-cover shadow-sm transition-transform duration-500 hover:scale-[1.03] sm:h-52"
                 />
@@ -1895,7 +1895,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
               <div className="overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-sm">
                 <img
                   src={PHOTOS.communityOutreach}
-                  alt="Síkat-Aurora community impact and financial transparency"
+                  alt="Síkat-Aurora Inc. community impact and financial transparency"
                   className="h-64 w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-72"
                 />
               </div>
@@ -1953,7 +1953,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
           />
           <PhotoGrid
             photos={[
-              { src: recognitionSparkChange, alt: "Síkat-Aurora National Winner, Spark-A-Change Challenge" },
+              { src: recognitionSparkChange, alt: "Síkat-Aurora Inc. National Winner, Spark-A-Change Challenge" },
               { src: recognitionAraneta, alt: "J. Amado Araneta Foundation recognition" },
               PROGRAM_PHOTOS.abkl[0],
               PROGRAM_PHOTOS.abkl[1],
@@ -2001,7 +2001,7 @@ const VOLUNTEER_VOICES = [
     name: voices[i].name,
     designation: voices[i].designation,
     src: v.photo,
-    alt: "Síkat-Aurora volunteer in the field",
+    alt: "Síkat-Aurora Inc. volunteer in the field",
   };
 });
 
@@ -2026,7 +2026,7 @@ function OrgCard({ leader }) {
         {leader.photo ? (
           <img
             src={leader.photo}
-            alt={leader.name || "Síkat-Aurora team leader"}
+            alt={leader.name || "Síkat-Aurora Inc. team leader"}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
           />
@@ -2180,13 +2180,13 @@ function VolunteerCard({ volunteer, onSelectPhoto }) {
   return (
     <figure
       className="group cursor-pointer"
-      onClick={() => volunteer.photo && onSelectPhoto?.({ src: volunteer.photo, alt: volunteer.name ? `${volunteer.name} - ${volunteer.role}` : "Síkat-Aurora volunteer" })}
+      onClick={() => volunteer.photo && onSelectPhoto?.({ src: volunteer.photo, alt: volunteer.name ? `${volunteer.name} - ${volunteer.role}` : "Síkat-Aurora Inc. volunteer" })}
     >
       <div className="relative aspect-square overflow-hidden rounded-2xl border border-navy/10 bg-cream">
         {volunteer.photo ? (
           <img
             src={volunteer.photo}
-            alt={volunteer.name ? `${volunteer.name} - ${volunteer.role || 'Síkat-Aurora volunteer'}` : "Síkat-Aurora volunteer"}
+            alt={volunteer.name ? `${volunteer.name} - ${volunteer.role || 'Síkat-Aurora Inc. volunteer'}` : "Síkat-Aurora Inc. volunteer"}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105 motion-reduce:group-hover:scale-100"
           />
@@ -2249,7 +2249,7 @@ function VolunteerWall({ onOpenModal }) {
           <SectionHeading
             eyebrow="Our Volunteers"
             title="The 400+ behind every program"
-            lead="Síkat-Aurora runs entirely on youth volunteers from across Aurora Province."
+            lead="Síkat-Aurora Inc. runs entirely on youth volunteers from across Aurora Province."
           />
           <Btn variant="outline" onClick={onOpenModal}>
             Join Them <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -2260,7 +2260,7 @@ function VolunteerWall({ onOpenModal }) {
       <div
         className="group relative space-y-5"
         role="region"
-        aria-label="Síkat-Aurora volunteers"
+        aria-label="Síkat-Aurora Inc. volunteers"
         tabIndex={0}
       >
         {MARQUEE_ROWS.map((row, i) => (
@@ -2359,7 +2359,7 @@ function FormerCohort({ cohort, defaultOpen = false }) {
   );
 }
 
-// Color themes cycling through the signature colors of the Síkat-Aurora logo
+// Color themes cycling through the signature colors of the Síkat-Aurora Inc. logo
 const FOUNDER_CARD_BG = [
   { bg: "bg-[#BD0005]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#BD0005]/95" }, // 0: RJ Belen (Crimson Red)
   { bg: "bg-[#EC670A]", text: "text-white", pattern: "stroke-white/25", hoverBg: "bg-[#EC670A]/95" }, // 1: Rachelle Ann Imperial (Primary Orange)
@@ -2374,7 +2374,7 @@ function FounderCard({ founder, index }) {
   const theme = FOUNDER_CARD_BG[index % FOUNDER_CARD_BG.length];
   const bioText =
     founder.bio ||
-    `Co-founder of Síkat-Aurora; youth leader championing educational development and community empowerment across Aurora Province.`;
+    `Co-founder of Síkat-Aurora Inc.; youth leader championing educational development and community empowerment across Aurora Province.`;
 
   return (
     <div className="group flex w-full flex-col items-center text-center">
@@ -2464,7 +2464,7 @@ function FormerVolunteers() {
         <SectionHeading
           eyebrow="Past Leadership"
           title="The leaders who stepped up before"
-          lead="The former executives and directors who steered Síkat-Aurora in earlier terms and paved the way for the team leading it today."
+          lead="The former executives and directors who steered Síkat-Aurora Inc. in earlier terms and paved the way for the team leading it today."
           className="mb-12"
         />
 
@@ -2520,7 +2520,7 @@ function PostCard({ post }) {
         <div className="overflow-hidden">
           <img
             src={post.img}
-            alt={post.title ? `Story feature photo for ${post.title}` : "Síkat-Aurora story photo"}
+            alt={post.title ? `Story feature photo for ${post.title}` : "Síkat-Aurora Inc. story photo"}
             loading="lazy"
             className="h-40 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.04] motion-reduce:group-hover:scale-100"
           />
@@ -2590,7 +2590,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
         <Container className="max-w-3xl">
           <img
             src={post.img}
-            alt={post.title ? `Main article photo for ${post.title}` : "Síkat-Aurora story main photo"}
+            alt={post.title ? `Main article photo for ${post.title}` : "Síkat-Aurora Inc. story main photo"}
             className="h-64 w-full rounded-2xl object-cover sm:h-[26rem]"
           />
         </Container>
@@ -2676,7 +2676,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
             <div className="overflow-hidden rounded-2xl">
               <img
                 src={featured.img}
-                alt={featured.title ? `Featured Kwentong Síkat story: ${featured.title}` : "Featured Síkat-Aurora story photo"}
+                alt={featured.title ? `Featured Kwentong Síkat story: ${featured.title}` : "Featured Síkat-Aurora Inc. story photo"}
                 className="h-64 w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 sm:h-[26rem]"
               />
             </div>
@@ -2775,12 +2775,12 @@ const OFFICIAL_FAQS = [
       "Síkat-Aurora Inc., formerly Síkat-Baler, is a youth-led, youth-serving nonprofit organization based in Baler, Aurora, Philippines. Established on August 12, 2021 — International Youth Day — it provides free after-school programs in education, environment, and active citizenship, powered by 400+ youth volunteers.",
   },
   {
-    question: "How can I volunteer with Síkat-Aurora in Baler, Aurora?",
+    question: "How can I volunteer with Síkat-Aurora Inc. in Baler, Aurora?",
     answer:
-      "Admission is free and open to all youth aged 15–30 in Aurora. Simply follow the Síkat-Aurora Facebook page, signify your interest, then attend at least three (3) events within three months while committing to the organization's principles, rules, and policies.",
+      "Admission is free and open to all youth aged 15–30 in Aurora. Simply follow the Síkat-Aurora Inc. Facebook page, signify your interest, then attend at least three (3) events within three months while committing to the organization's principles, rules, and policies.",
   },
   {
-    question: "Is Síkat-Aurora a registered nonprofit organization?",
+    question: "Is Síkat-Aurora Inc. a registered nonprofit organization?",
     answer:
       "Yes. Síkat-Aurora Inc. is formally registered as a nonprofit organization in the Philippines.",
   },
@@ -2790,14 +2790,14 @@ const OFFICIAL_FAQS = [
       "You can give through our donation drive or become a program sponsor — every peso translates directly to books, learning kits, and youth training in Aurora. We publish a full transparency report at bit.ly/sikatfinance.",
   },
   {
-    question: "What programs does Síkat-Aurora run?",
+    question: "What programs does Síkat-Aurora Inc. run?",
     answer:
       "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Batang Kali (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora).",
   },
   {
-    question: "Where does Síkat-Aurora operate?",
+    question: "Where does Síkat-Aurora Inc. operate?",
     answer:
-      "Síkat-Aurora serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora.",
+      "Síkat-Aurora Inc. serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora.",
   },
 ];
 
@@ -2809,7 +2809,7 @@ function FAQPage({ onNavigate, onOpenModal }) {
       <FaqSection
         className="pt-20 lg:pt-24"
         title="Frequently Asked Questions"
-        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora."
+        description="Everything you need to know about volunteerism, programs, and supporting Síkat-Aurora Inc.."
         items={OFFICIAL_FAQS}
       />
       <FinalCTA onNavigate={onNavigate} onOpenModal={onOpenModal} />
@@ -2912,23 +2912,23 @@ function VideoPlayer({ id, title, onPlay }) {
 const VOLUNTEER_VIDEOS = [
   {
     id: "VfFF8cfnS5Q",
-    title: "Síkat-Aurora Volunteer Video 1",
+    title: "Síkat-Aurora Inc. Volunteer Video 1",
   },
   {
     id: "OKwnViJL_jY",
-    title: "Síkat-Aurora Volunteer Video 2",
+    title: "Síkat-Aurora Inc. Volunteer Video 2",
   },
   {
     id: "9S3pdY9bhx0",
-    title: "Síkat-Aurora Volunteer Video 3",
+    title: "Síkat-Aurora Inc. Volunteer Video 3",
   },
   {
     id: "2VhrjEVrKnM",
-    title: "Síkat-Aurora Volunteer Video 4",
+    title: "Síkat-Aurora Inc. Volunteer Video 4",
   },
   {
     id: "uDG1b6XAFSY",
-    title: "Síkat-Aurora Volunteer Video 5",
+    title: "Síkat-Aurora Inc. Volunteer Video 5",
   },
 ];
 
@@ -2991,12 +2991,12 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
     {
       num: "01",
       title: "Signify your interest",
-      desc: "Follow the Síkat-Aurora Facebook page and reach out. Engaging with and sharing posts counts as your first show of support.",
+      desc: "Follow the Síkat-Aurora Inc. Facebook page and reach out. Engaging with and sharing posts counts as your first show of support.",
     },
     {
       num: "02",
       title: "Attend 3 events",
-      desc: "Join at least three (3) Síkat-Aurora events within three months of signifying interest. Show up, help out, get to know the community.",
+      desc: "Join at least three (3) Síkat-Aurora Inc. events within three months of signifying interest. Show up, help out, get to know the community.",
     },
     {
       num: "03",
@@ -3046,7 +3046,7 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
                 <div className="mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl bg-navy/10 shadow-sm">
                   <img
                     src={img}
-                    alt={`Síkat-Aurora volunteer pillar - ${title}`}
+                    alt={`Síkat-Aurora Inc. volunteer pillar - ${title}`}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 ease-out-expo hover:scale-[1.04]"
                   />
@@ -3437,7 +3437,7 @@ function CheckoutPage({ kit, onNavigate }) {
             )}
 
             <p className="mt-4 text-center text-[0.78rem] font-medium leading-relaxed text-navy/70">
-              🔒 <strong>PCI DSS Compliant Checkout:</strong> Payment choice (GCash, Maya, card, bank transfer) happens securely on PayMongo's PCI DSS certified portal. Síkat-Aurora never touches or stores your card or banking credentials.
+              🔒 <strong>PCI DSS Compliant Checkout:</strong> Payment choice (GCash, Maya, card, bank transfer) happens securely on PayMongo's PCI DSS certified portal. Síkat-Aurora Inc. never touches or stores your card or banking credentials.
             </p>
           </div>
         </div>
@@ -3464,11 +3464,14 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           Join over 400 youth volunteers and visionaries across Baler and Aurora Province in empowering the next generation of learners.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Btn onClick={onOpenModal} className="px-8">
-            Become a Volunteer
+          <Btn to="/donate" className="px-8">
+            Donate
           </Btn>
-          <Btn to="/donate" variant="onDark" className="px-8">
-            Fuel Our Cause / Sponsor
+          <Btn onClick={onOpenModal} variant="onDark" className="px-8">
+            Volunteer
+          </Btn>
+          <Btn href="mailto:sikataurora@gmail.com" variant="onDark" className="px-8">
+            Partner With Us
           </Btn>
         </div>
       </Container>
@@ -3495,7 +3498,7 @@ function Footer() {
         <div className="mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <img src={logoImg} alt="Síkat-Aurora Logo" className="h-12 w-12 object-contain" />
+              <img src={logoImg} alt="Síkat-Aurora Inc. Logo" className="h-12 w-12 object-contain" />
               <span className="text-[1.05rem] font-bold text-white">Síkat-Aurora Inc.</span>
             </div>
             <p className="mb-5 max-w-[34ch] text-[0.95rem] italic leading-[1.6] text-white/70">
@@ -3990,7 +3993,7 @@ function TermsPage({ onNavigate, onOpenModal }) {
                 <li>Introduce malware, harmful code, automated attacks, or other materials that may damage the website</li>
                 <li>Scrape, harvest, or collect names, contact details, images, or other personal information from the website</li>
                 <li>Misuse information about children, learners, volunteers, donors, or partner communities</li>
-                <li>Copy or use the Síkat-Aurora name, logo, branding, or materials in a way that falsely suggests endorsement or partnership</li>
+                <li>Copy or use the Síkat-Aurora Inc. name, logo, branding, or materials in a way that falsely suggests endorsement or partnership</li>
                 <li>Alter, manipulate, or misrepresent photographs, videos, statements, reports, or other organizational content</li>
                 <li>Use website content for harassment, discrimination, exploitation, misinformation, or unlawful commercial activity</li>
                 <li>Circumvent any security, access, copyright, or privacy protection implemented on the website</li>
@@ -4119,7 +4122,7 @@ function TermsPage({ onNavigate, onOpenModal }) {
                 <li>Fundraising and community-awareness activities</li>
               </ul>
               <p className="text-sm leading-relaxed sm:text-base pt-1">
-                Publication on the Síkat-Aurora website does not give website visitors permission to freely reuse photographs or videos of children.
+                Publication on the Síkat-Aurora Inc. website does not give website visitors permission to freely reuse photographs or videos of children.
               </p>
               <p className="text-sm leading-relaxed sm:text-base">
                 Unless written permission has been obtained from Síkat-Aurora Inc. and any other required rights holder, users must not:
@@ -4134,7 +4137,7 @@ function TermsPage({ onNavigate, onOpenModal }) {
                 <li>Attempt to identify, locate, contact, or obtain additional personal information about a child appearing in the content</li>
               </ul>
               <p className="text-sm leading-relaxed sm:text-base pt-1">
-                Sharing a direct link to an official Síkat-Aurora webpage or social-media post is permitted, provided the content is not altered or presented misleadingly.
+                Sharing a direct link to an official Síkat-Aurora Inc. webpage or social-media post is permitted, provided the content is not altered or presented misleadingly.
               </p>
               <p className="text-sm leading-relaxed sm:text-base">
                 A parent, legal guardian, or authorized representative may request the review or removal of a child’s photograph or video by contacting <a href="mailto:sikataurora@gmail.com" className="text-primary font-semibold underline">sikataurora@gmail.com</a>.
@@ -4152,7 +4155,7 @@ function TermsPage({ onNavigate, onOpenModal }) {
               </p>
               <p className="text-sm leading-relaxed sm:text-base">Protected materials may include:</p>
               <ul className="list-disc pl-5 space-y-1 text-sm sm:text-base">
-                <li>The Síkat-Aurora name and logo</li>
+                <li>The Síkat-Aurora Inc. name and logo</li>
                 <li>Website design, layout, and graphics</li>
                 <li>Photographs and videos</li>
                 <li>Articles, captions, stories, reports, and program descriptions</li>

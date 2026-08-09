@@ -106,7 +106,7 @@ export const POSTS = [
   },
   {
     slug: "becoming-sikat-aurora",
-    title: "From Síkat-Baler to Síkat-Aurora",
+    title: "From Síkat-Baler to Síkat-Aurora Inc.",
     excerpt:
       "On outgrowing a single town, registering as a nonprofit, and what changes when your name has to carry a whole province.",
     category: "Updates",
