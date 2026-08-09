@@ -705,7 +705,7 @@ const NAV_ITEMS = [
 
 // Browser tab title. Nav labels are reused so the tab always matches the
 // highlighted nav item; the rest are routes with no nav entry of their own.
-const SITE_NAME = "Síkat-Aurora";
+const SITE_NAME = "Síkat-Aurora Inc.";
 const PAGE_TITLES = {
   ...Object.fromEntries(NAV_ITEMS.map((item) => [item.id, item.label])),
   faq: "FAQ",
@@ -746,9 +746,9 @@ function Navbar({ onOpenModal }) {
             onClick={() => { setMobileOpen(false); window.scrollTo({ top: 0 }); }}
             className="flex shrink-0 items-center gap-2.5 rounded-md no-underline"
           >
-            <img src={logoImg} alt="Síkat-Aurora Logo" className="h-9 w-9 object-contain" />
+            <img src={logoImg} alt="Síkat-Aurora Inc. Logo" className="h-9 w-9 object-contain" />
             <span className="text-[1.05rem] font-bold tracking-[-0.02em] text-navy">
-              Síkat<span className="text-primary">-Aurora</span>
+              Síkat<span className="text-primary">-Aurora</span> Inc.
             </span>
           </Link>
 
