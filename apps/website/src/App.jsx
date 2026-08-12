@@ -2418,7 +2418,7 @@ function FounderCard({ founder, index }) {
       {/* Smaller Rounded Rectangular Card */}
       <div
         className={cn(
-          "relative aspect-[4/4.2] w-full overflow-hidden rounded-xl shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md",
+          "relative aspect-[4/4.2] w-full overflow-hidden rounded-xl shadow-sm",
           theme.bg
         )}
       >
@@ -2449,13 +2449,13 @@ function FounderCard({ founder, index }) {
           <circle cx="100" cy="110" r="95" className={theme.pattern} strokeWidth="2" />
         </svg>
 
-        {/* Photo (clean, 100% visible in normal state) */}
+        {/* Photo */}
         {founder.photo ? (
           <img
             src={founder.photo}
             alt={founder.name}
             loading="lazy"
-            className="relative z-10 h-full w-full object-cover transition-transform duration-500 ease-out-expo group-hover:scale-105"
+            className="relative z-10 h-full w-full object-cover"
           />
         ) : (
           <div className="relative z-10 flex h-full w-full flex-col items-center justify-center p-3 text-center">
@@ -2464,18 +2464,6 @@ function FounderCard({ founder, index }) {
             </span>
           </div>
         )}
-
-        {/* Hover Bio / Description Overlay */}
-        <div
-          className={cn(
-            "absolute inset-0 z-20 flex flex-col justify-center p-3 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-            theme.hoverBg
-          )}
-        >
-          <p className={cn("text-[0.68rem] font-semibold leading-tight drop-shadow-sm", theme.text)}>
-            {bioText}
-          </p>
-        </div>
       </div>
 
       {/* Label under card */}
