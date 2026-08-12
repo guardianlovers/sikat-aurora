@@ -3297,6 +3297,7 @@ function DonatePage({ onDonate }) {
           eyebrow="Where Your Gift Goes"
           title="Sponsorship Equivalents"
           lead="Every kit below is a real bundle we hand out in the field. Pick one and we'll tell you exactly which batch it reached."
+          leadClassName="max-w-none"
           className="mb-10"
         />
 
@@ -3458,7 +3459,7 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           Handa ka na bang sumíkat at maglingkod kasama namin?
         </h2>
         <p className="mx-auto mt-5 max-w-[52ch] text-sm leading-[1.75] text-white/70 sm:text-[0.95rem]">
-          Join over 400 youth volunteers and visionaries across Baler and Aurora Province in empowering the next generation of learners.
+          Join over 400 youth volunteers and visionaries across Aurora Province in empowering the next generation of learners.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Btn to="/donate" className="px-8">

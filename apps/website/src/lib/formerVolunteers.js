@@ -116,6 +116,10 @@ const photosBySlug = Object.fromEntries(
   })
 );
 
+import rjImg from "../assets/past-leaders/rj-belen.png";
+import rachelleImg from "../assets/past-leaders/rachelle.png";
+import reaiahImg from "../assets/past-leaders/reaiah.png";
+
 // Founders — rendered as a final section beneath the term list.
 // TO ADD OR UPDATE A PHOTO & BIO:
 //   1. Drop a portrait into src/assets/leadership/ named after the slug
@@ -127,19 +131,19 @@ const RAW_FOUNDERS = [
   {
     name: "RJ Belen",
     role: "Co-Founder",
-    photo: "",
+    photo: rjImg,
     bio: "Co-founder and Executive Director of Síkat-Aurora Inc.; youth leader driving community development and educational initiatives in Aurora Province.",
   },
   {
     name: "Rachelle Ann Imperial",
     role: "Co-Founder",
-    photo: "",
+    photo: rachelleImg,
     bio: "Co-founder of Síkat-Aurora Inc.; director for internal affairs guiding organizational growth and volunteer development.",
   },
   {
     name: "Reaiah Codiapit",
     role: "Co-Founder",
-    photo: "",
+    photo: reaiahImg,
     bio: "Co-founder of Síkat-Aurora Inc.; education and training director championing literacy and youth leadership programs.",
   },
   {
