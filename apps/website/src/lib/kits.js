@@ -14,24 +14,24 @@ import booksStack from "../assets/donate/kits/books1.jpg";
 export const KITS = [
   {
     id: "nature-kit",
-    amount: 1500,
-    name: "Batang Kali Nature-Stewardship Kit",
+    amount: 500,
+    name: "KALI Kit",
     program: "Ang Kali Program",
     blurb:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua veniam.",
-    includes: ["Lorem ipsum dolor sit", "Consectetur adipiscing elit", "Sed do eiusmod tempor"],
-    // Stand-in photo — shows storybooks, not the nature kit
+      "A starter kit for every Ang Kali Program volunteer and partner — everything they carry into the field.",
+    includes: ["Tote Bag", "Tumbler", "Notebook", "Ballpen", "SÍKAT ID Lace"],
+    // Stand-in photo — shows storybooks, not the KALI kit
     image: booksSpread,
     imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
     featured: true,
   },
   {
     id: "storybooks",
-    amount: 150,
-    name: "Storybook Bundle",
+    amount: 125,
+    name: "Story Book",
     program: "Abot Ko Ang Libro",
-    blurb: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.",
-    includes: ["Lorem ipsum dolor sit"],
+    blurb: "1 Story Book = ₱125. Sponsor a storybook for the mobile library cart.",
+    includes: ["1 Story Book"],
     image: booksStack,
     imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
   },
