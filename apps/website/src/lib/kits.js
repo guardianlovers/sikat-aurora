@@ -5,6 +5,7 @@
 // `image`/`imageAlt` pair, rewriting the alt text to match the new photo.
 import booksSpread from "../assets/donate/kits/books.jpg";
 import booksStack from "../assets/donate/kits/books1.jpg";
+import sukbitBags from "../assets/donate/kits/sukbit.jpg";
 
 export const KITS = [
   {
@@ -14,9 +15,8 @@ export const KITS = [
     program: "Abot Ko Ang Libro",
     blurb: "A school supplies kit for a learner in our partner communities.",
     includes: ["Mini Noche Buena Package", "Pencil", "Notebook", "Eraser", "Sharpener"],
-    // Stand-in photo — shows storybooks, not the Sukbit kit
-    image: booksSpread,
-    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
+    image: sukbitBags,
+    imageAlt: "Síkat-Aurora Inc. tote bags ready for the Sukbit kit",
   },
   {
     id: "nature-kit",
