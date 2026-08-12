@@ -16,7 +16,7 @@ export const KITS = [
     id: "nature-kit",
     amount: 1500,
     name: "Batang Kali Nature-Stewardship Kit",
-    program: "Ang Batang Kali",
+    program: "Ang Kali Program",
     blurb:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua veniam.",
     includes: ["Lorem ipsum dolor sit", "Consectetur adipiscing elit", "Sed do eiusmod tempor"],
@@ -70,7 +70,7 @@ export const KITS = [
     id: "eco-camp-support",
     amount: 2500,
     name: "Eco-Stewardship Camp Support",
-    program: "Ang Batang Kali",
+    program: "Ang Kali Program",
     blurb: "Provide camp supplies, outdoor stewardship tools, and tree seedlings for nature conservation events.",
     includes: ["Camp outdoor guide", "Tree seedling for planting", "Reusable camp water flask"],
     image: booksSpread,

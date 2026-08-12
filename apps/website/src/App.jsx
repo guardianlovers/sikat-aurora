@@ -614,7 +614,7 @@ function VolunteerModal({ isOpen, onClose }) {
                       Select a program...
                     </option>
                     <option>Abot Ko Ang Libro (Education)</option>
-                    <option>Ang Batang Kali (Environment)</option>
+                    <option>Ang Kali Program (Environment)</option>
                     <option>Hiraya (Active Citizenship)</option>
                     <option>Any program where needed</option>
                   </select>
@@ -883,7 +883,7 @@ function ProgramHorizontalScrubDeck() {
       id: "abkp",
       badge: "AGES 8–15",
       name: "Ang Kali Program",
-      shortName: "ABKP",
+      shortName: "AKP",
       center: "Environment",
       bgActive: "bg-forest text-white",
       desc: "Environmental life skills and stewardship training helping youth protect rivers, coasts, and rich natural ecosystems.",
@@ -1500,7 +1500,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
           <StaggerContainer as="ul" className="border-t border-navy/15">
             {[
               { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 2–14." },
-              { name: "Ang Batang Kali", center: "Environment", desc: "Life skills helping youth ages 8–15 grow into stewards of nature." },
+              { name: "Ang Kali Program", center: "Environment", desc: "Life skills helping youth ages 8–15 grow into stewards of nature." },
               { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for youth leaders across 30 DepEd schools." },
             ].map((p) => (
               <StaggerItem as="li" key={p.name}>
@@ -1605,8 +1605,8 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
     },
     {
       center: "Environment",
-      name: "Ang Batang Kali",
-      shortName: "ABKP",
+      name: "Ang Kali Program",
+      shortName: "AKP",
       duration: "5 Saturdays / 3 days",
       desc: "A life skills program helping youth ages 8–15 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
       communities: [
@@ -2088,19 +2088,12 @@ function OrgStem() {
 
 function OrgChart() {
   const director = LEADERS.find((l) => l.tier === 0);
-  const deputyDirector = LEADERS.find((l) => l.tier === 1);
   const directorate = LEADERS.filter((l) => l.tier === 2);
 
   return (
     <StaggerContainer stagger={0.08} delay={0.05} className="flex flex-col items-center">
       <div className="w-full max-w-xs">
         <OrgCard leader={director} />
-      </div>
-
-      <OrgStem />
-
-      <div className="w-full max-w-xs">
-        <OrgCard leader={deputyDirector} />
       </div>
 
       <OrgStem />
@@ -2113,11 +2106,11 @@ function OrgChart() {
             visible: { scaleX: 1, transition: { duration: 0.5, ease: "easeOut" } },
           }}
           className="absolute top-0 hidden h-px bg-navy/20 lg:block"
-          style={{ left: "calc(12.5% - 0.5625rem)", right: "calc(12.5% - 0.5625rem)", originX: 0.5 }}
+          style={{ left: "calc(10% - 0.5625rem)", right: "calc(10% - 0.5625rem)", originX: 0.5 }}
           aria-hidden="true"
         />
 
-        <div className="grid gap-x-6 gap-y-12 pt-0 sm:grid-cols-2 lg:grid-cols-4 lg:pt-8">
+        <div className="grid gap-x-6 gap-y-12 pt-0 sm:grid-cols-2 lg:grid-cols-5 lg:pt-8">
           {directorate.map((l) => (
             <div key={l.name} className="relative flex flex-col items-center">
               {/* Stub dropping from the horizontal rule to this card */}
@@ -2513,7 +2506,7 @@ function FormerVolunteers() {
 
 const CATEGORY_STYLES = {
   "Abot Ko Ang Libro": "bg-primary-soft text-primary",
-  "Ang Batang Kali": "bg-forest-soft text-forest",
+  "Ang Kali Program": "bg-forest-soft text-forest",
   Hiraya: "bg-sky-soft text-navy",
   Updates: "bg-gold/25 text-navy-ink",
 };
@@ -2813,7 +2806,7 @@ const OFFICIAL_FAQS = [
   {
     question: "What programs does Síkat-Aurora Inc. run?",
     answer:
-      "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Batang Kali (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora).",
+      "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Kali Program (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora).",
   },
   {
     question: "Where does Síkat-Aurora Inc. operate?",
@@ -3491,7 +3484,13 @@ function FinalCTA({ onNavigate, onOpenModal }) {
           <Btn onClick={onOpenModal} variant="onDark" className="px-8">
             Volunteer
           </Btn>
-          <Btn href="mailto:sikataurora@gmail.com" variant="onDark" className="px-8">
+          <Btn
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=sikataurora@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="onDark"
+            className="px-8"
+          >
             Partner With Us
           </Btn>
         </div>

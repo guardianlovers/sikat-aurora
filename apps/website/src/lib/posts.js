@@ -7,7 +7,7 @@ import logoImg from "@/assets/logo.png";
 export const POST_CATEGORIES = [
   "All",
   "Abot Ko Ang Libro",
-  "Ang Batang Kali",
+  "Ang Kali Program",
   "Hiraya",
   "Updates",
 ];
@@ -49,7 +49,7 @@ export const POSTS = [
     title: "From Dibut to Cozo: Batang Kali by the Water",
     excerpt:
       "How a river cleanup turned into a lifelong promise between a group of kids and their coastline.",
-    category: "Ang Batang Kali",
+    category: "Ang Kali Program",
     date: "2026-06-14",
     readTime: "7 min read",
     img: PROGRAM_PHOTOS.abkp[0].src,
@@ -59,7 +59,7 @@ export const POSTS = [
     title: "What the River Carries",
     excerpt:
       "Three sessions spent counting what washes downstream in San Luis — and what the kids decided to do about it.",
-    category: "Ang Batang Kali",
+    category: "Ang Kali Program",
     date: "2026-05-17",
     readTime: "5 min read",
     img: PROGRAM_PHOTOS.abkp[1].src,
@@ -69,7 +69,7 @@ export const POSTS = [
     title: "Stewards, Not Visitors: Rethinking Environmental Life Skills",
     excerpt:
       "Why we stopped running one-off cleanups and built a five-Saturday curriculum around the places kids already know.",
-    category: "Ang Batang Kali",
+    category: "Ang Kali Program",
     date: "2026-04-26",
     readTime: "6 min read",
     img: PROGRAM_PHOTOS.abkp[3].src,
