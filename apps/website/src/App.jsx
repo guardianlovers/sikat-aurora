@@ -2361,7 +2361,7 @@ function FormerCohort({ cohort, defaultOpen = false }) {
             )}
             aria-hidden="true"
           />
-          Executive Committee {cohort.term}
+          Leadership Team {cohort.term}
         </button>
       </h3>
 
