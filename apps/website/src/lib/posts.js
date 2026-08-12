@@ -379,6 +379,68 @@ export const POSTS = [
       },
     ],
   },
+  {
+    slug: "what-kali-summit-2026-reminded-me",
+    title: "What KALI Summit 2026 Reminded Me",
+    excerpt:
+      "Two days of listening to learners in Calantas brought Gera back to the environmental advocacy — and the version of herself — she'd quietly stopped making time for.",
+    category: "Ang Kali Program",
+    date: "2026-07-20",
+    readTime: "2 min read",
+    img: getFolderPhotos("Gera Guerrero", "1")[0] || PHOTOS.communityOutreach,
+    author: { name: "Gera Guerrero", role: "Volunteer", avatar: logoImg },
+    body: [
+      {
+        type: "p",
+        text: "I didn't expect KALI Summit 2026 to affect me this much.",
+      },
+      {
+        type: "p",
+        text: "I signed up because I wanted to volunteer again. It had been a while since I joined a volunteer program, and honestly, I was just excited to hold a camera again. I forgot how much I missed documenting, and working alongside other creatives. But looking back now, documenting wasn't the biggest thing I took away from KALI.",
+      },
+      {
+        type: "p",
+        text: "For two days, I sat there listening to discussions with the learners. I found myself listening as much as they were. There were moments when I caught myself thinking, I used to care so much about this.",
+      },
+      {
+        type: "p",
+        text: "Environmental advocacy was something I genuinely loved. I used to practice sustainability, zero waste, and advocate for how our everyday choices affect the communities around us. Then life became busy. I got so used to focusing on work and daily responsibilities that I barely noticed I had stopped making time for it.",
+      },
+      {
+        type: "p",
+        text: "Being in Calantas reminded me why it mattered in the first place.",
+      },
+      {
+        type: "image",
+        src: getFolderPhotos("Gera Guerrero", "1")[0],
+        alt: "Síkat-Aurora Inc. volunteers at KALI Summit 2026 in Calantas",
+      },
+      {
+        type: "p",
+        text: "There was something very genuine about the way the learners participated. They were attentive, curious, and excited to learn, and knowing the effort it takes for some of them to attend school and the responsibilities some of them already carry at such a young age.",
+      },
+      {
+        type: "p",
+        text: "It made me hope that what we shared would not end as just another two-day program. I hope they continue to receive opportunities long after we leave, because these learners will eventually become the teachers, police officers, leaders, and citizens of their own communities. The support we give them now may feel small, but when that kind of care is sustained, it can shape how they grow, how they serve others, and how they create change where they are.",
+      },
+      {
+        type: "p",
+        text: "After those two days, I realized how much I had missed this side of myself. I had spent so much time growing in my career that I had quietly stopped making time for the things that once shaped me. The part of me that cared about the environment, enjoyed being in communities, and loved using a camera to tell stories.",
+      },
+      {
+        type: "p",
+        text: "Joining KALI felt like reconnecting with the version of myself who was sitting at Madison's Café four years ago, throwing ideas around the table and believing that this little project could grow into something meaningful.",
+      },
+      {
+        type: "p",
+        text: "Last weekend, I got to see the impact we had only hoped for back then.",
+      },
+      {
+        type: "p",
+        text: "Thank you, Síkat-Aurora, for bringing me back to that. 🌱",
+      },
+    ],
+  },
 ];
 
 // Byline. Posts default to the organisation rather than a named person: these
