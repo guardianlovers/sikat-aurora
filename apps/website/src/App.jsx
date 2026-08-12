@@ -1068,7 +1068,7 @@ const HOME_IMPACT_STATS = [
   },
   {
     Icon: BookOpen,
-    figure: "1,100+",
+    figure: "1,364",
     label: "learners reached",
     photo: {
       src: impactLearnersImg,
@@ -1125,7 +1125,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               <span className="text-gold">nagsisimula sa pagkilos.</span>
             </>
           }
-          description="A youth-led movement empowering 1,100+ children through literacy, books, and mentorship across Aurora — powered by youth volunteers."
+          description="A youth-led movement empowering 1,364 children through literacy, books, and mentorship across Aurora — powered by youth volunteers."
           ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
           secondaryCta={{ text: "Be a Sponsor", to: "/donate" }}
         />
@@ -1795,7 +1795,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
   const stats = [
     { Icon: Rocket, figure: "2021", label: "formally established" },
     { Icon: Users, figure: "400+", label: "youth volunteers" },
-    { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
+    { Icon: BookOpen, figure: "1,364", label: "learners reached" },
     { Icon: MapPin, figure: "23", label: "partner communities" },
     { Icon: ThumbsUp, figure: "5k+", label: "followers on Facebook" },
     { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
