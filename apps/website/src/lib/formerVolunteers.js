@@ -119,6 +119,9 @@ const photosBySlug = Object.fromEntries(
 import rjImg from "../assets/past-leaders/rj-belen.png";
 import rachelleImg from "../assets/past-leaders/rachelle.png";
 import reaiahImg from "../assets/past-leaders/reaiah.png";
+import crystalImg from "../assets/past-leaders/Crystal.jpg";
+import geraImg from "../assets/leadership/geraldine-guerrero.png";
+import ryanImg from "../assets/past-leaders/Ryan-Caliwag.jpg";
 
 // Founders — rendered as a final section beneath the term list.
 // TO ADD OR UPDATE A PHOTO & BIO:
@@ -149,13 +152,13 @@ const RAW_FOUNDERS = [
   {
     name: "Crystal Lei Pena",
     role: "Co-Founder",
-    photo: "",
+    photo: crystalImg,
     bio: "Co-founder of Síkat-Aurora Inc.; passionate advocate for community outreach and youth empowerment across Aurora.",
   },
   {
     name: "Geraldine Guerrero",
     role: "Co-Founder",
-    photo: "",
+    photo: geraImg,
     bio: "Co-founder of Síkat-Aurora Inc.; creative and communications leader dedicated to amplifying community stories.",
   },
   {
@@ -167,7 +170,7 @@ const RAW_FOUNDERS = [
   {
     name: "Ryan Angelo Caliwag",
     role: "Co-Founder",
-    photo: "",
+    photo: ryanImg,
     bio: "Co-founder of Síkat-Aurora Inc.; external affairs director building strategic partnerships and community coalitions.",
   },
 ];
