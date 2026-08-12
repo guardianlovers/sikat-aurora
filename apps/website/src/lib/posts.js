@@ -34,7 +34,7 @@ export const POSTS = [
     excerpt:
       "From 20 volunteers raising ₱170,000 for typhoon relief in Dingalan, to a province-wide movement — the story of how Síkat-Aurora came to be.",
     category: "Updates",
-    date: "2026-04-12",
+    date: "2026-08-12",
     readTime: "5 min read",
     img: PHOTOS.communityAssembly,
     body: [
