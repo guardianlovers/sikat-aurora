@@ -3317,17 +3317,74 @@ function DonatePage({ onDonate }) {
 
 /* ============================= Page 10: Checkout ============================= */
 
-// Paste the embed URL of the Google Form here once it's created (Form ->
-// Send -> embed <> -> copy the iframe "src"). The form should collect Full
-// Name, Email, and a file-upload question for proof of payment. Until this
-// is set, a placeholder shows instead of a broken iframe.
-const SPONSORSHIP_FORM_EMBED_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfFgF8w6KzbHXZny9E6ay5fsekpiygmVsBUxMFqcevWqCWixw/viewform?embedded=true";
+// Paste the Google Apps Script Web App URL here once it's deployed — see
+// the setup steps in the code comment above the deploy instructions in the
+// project docs. It should accept a POST of JSON { name, email, proofLink,
+// kitName, quantity, total } and append it as a row to your Sheet. Until
+// this is set, submissions show an error instead of silently failing.
+const SPONSORSHIP_SUBMIT_URL = "";
 
 function CheckoutPage({ kit, onNavigate }) {
   const [qty, setQty] = useState(1);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [proofLink, setProofLink] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [error, setError] = useState("");
 
   const total = kit.amount * qty;
+
+  // Apps Script Web Apps don't send CORS headers, so a normal fetch() can't
+  // read the response — this fires the request in "no-cors" mode and
+  // optimistically shows success once it's sent. Use text/plain instead of
+  // application/json so the browser treats it as a simple request (a JSON
+  // content-type would trigger a preflight OPTIONS request, which Apps
+  // Script doesn't handle).
+  const handleSubmitSponsorship = async (e) => {
+    e.preventDefault();
+    const cleanName = sanitizeInput(name);
+    const cleanEmail = sanitizeInput(email);
+    const cleanLink = sanitizeInput(proofLink);
+
+    if (!cleanName) {
+      setStatus("error");
+      setError("Please enter your full name.");
+      return;
+    }
+    if (!isValidEmail(cleanEmail)) {
+      setStatus("error");
+      setError("Please enter a valid email address.");
+      return;
+    }
+    if (!SPONSORSHIP_SUBMIT_URL) {
+      setStatus("error");
+      setError("Submissions aren't connected yet. Please message us on Facebook and we'll confirm your sponsorship directly.");
+      return;
+    }
+
+    setStatus("loading");
+    setError("");
+
+    try {
+      await fetch(SPONSORSHIP_SUBMIT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: cleanName,
+          email: cleanEmail,
+          proofLink: cleanLink,
+          kitName: kit.name,
+          quantity: qty,
+          total,
+        }),
+      });
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setError(`${err.message} — please message us on Facebook and we'll confirm your sponsorship directly.`);
+    }
+  };
 
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
@@ -3425,27 +3482,65 @@ function CheckoutPage({ kit, onNavigate }) {
               )}
             </div>
 
-            {/* Step 2: confirm sponsorship via embedded form */}
+            {/* Step 2: confirm sponsorship via our own form */}
             <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
               <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 2 — Tell Us About It</h3>
               <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
                 Share your name, email, and a link to your payment screenshot so we can confirm your sponsorship.
               </p>
 
-              {SPONSORSHIP_FORM_EMBED_URL ? (
-                <iframe
-                  src={SPONSORSHIP_FORM_EMBED_URL}
-                  title="Sponsorship confirmation form"
-                  className="h-[1789px] w-full rounded-xl border border-navy/10"
-                >
-                  Loading…
-                </iframe>
-              ) : (
-                <div className="flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-navy/20 bg-cream px-6 py-10 text-center">
-                  <p className="text-[0.85rem] font-medium leading-relaxed text-navy/50">
-                    Sponsorship form coming soon
+              {status === "success" ? (
+                <div className="flex flex-col items-center gap-2 rounded-xl bg-forest-soft px-6 py-10 text-center">
+                  <Check className="h-8 w-8 text-forest" aria-hidden="true" />
+                  <p className="text-[0.9rem] font-semibold text-navy">Thank you for sponsoring!</p>
+                  <p className="text-[0.82rem] leading-relaxed text-navy/70">
+                    We've received your details and will confirm your sponsorship by email.
                   </p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmitSponsorship} className="space-y-4">
+                  <Field
+                    id="sponsor-name"
+                    label="Full Name"
+                    placeholder="Juan Dela Cruz"
+                    autoComplete="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <Field
+                    id="sponsor-email"
+                    label="Email Address"
+                    type="email"
+                    placeholder="juan@gmail.com"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <Field
+                    id="sponsor-proof"
+                    label="Link to Payment Screenshot"
+                    placeholder="Google Drive or Photos link"
+                    value={proofLink}
+                    onChange={(e) => setProofLink(e.target.value)}
+                  />
+
+                  <Btn
+                    type="submit"
+                    variant="dark"
+                    className="mt-2 w-full py-3"
+                    disabled={status === "loading"}
+                  >
+                    {status === "loading" ? "Submitting…" : "Submit Sponsorship"}
+                  </Btn>
+
+                  {status === "error" && (
+                    <p role="alert" className="rounded-xl bg-crimson-soft px-4 py-3 text-[0.8rem] leading-relaxed text-crimson">
+                      {error}
+                    </p>
+                  )}
+                </form>
               )}
             </div>
           </div>
