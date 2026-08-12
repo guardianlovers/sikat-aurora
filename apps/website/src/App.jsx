@@ -2635,6 +2635,23 @@ function PostPage({ post, onNavigate, onOpenModal }) {
                     </blockquote>
                   );
                 }
+                if (block.type === "image") {
+                  return (
+                    <figure key={i} className="my-9">
+                      <img
+                        src={block.src}
+                        alt={block.alt || `Photo from ${post.title}`}
+                        loading="lazy"
+                        className="h-64 w-full rounded-2xl object-cover sm:h-[26rem]"
+                      />
+                      {block.caption && (
+                        <figcaption className="mt-2.5 text-center text-[0.82rem] text-navy/55">
+                          {block.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  );
+                }
                 return (
                   <p key={i} className="mt-5 text-[1.02rem] leading-[1.85] text-navy/80">
                     {block.text}
