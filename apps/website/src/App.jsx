@@ -63,7 +63,7 @@ import whoWeAre1 from "./assets/about/who-we-are/1.jpg";
 import whoWeAre2 from "./assets/about/who-we-are/2.jpg";
 import whoWeAre3 from "./assets/about/who-we-are/3.jpg";
 import whoWeAre4 from "./assets/about/who-we-are/4.jpg";
-import homeWhoWeAre from "./assets/home/who-we-are/Who We Are NEW.jpg";
+import homeWhoWeAre from "./assets/home/who-we-are/use-this-image.jpg";
 import sunImg from "./assets/about/vision-mission/sun.png";
 import recognitionSparkChange from "./assets/impact/recognitions/spark-a-change.jpg";
 import recognitionAraneta from "./assets/impact/recognitions/488223845_10225500053268278_7311255336231534549_n.jpg";
