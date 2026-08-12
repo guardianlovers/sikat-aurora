@@ -1068,7 +1068,7 @@ const HOME_IMPACT_STATS = [
   },
   {
     Icon: BookOpen,
-    figure: "1,364",
+    figure: "2,289",
     label: "learners reached",
     photo: {
       src: impactLearnersImg,
