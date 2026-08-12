@@ -3319,7 +3319,8 @@ function DonatePage({ onDonate }) {
 // Send -> embed <> -> copy the iframe "src"). The form should collect Full
 // Name, Email, and a file-upload question for proof of payment. Until this
 // is set, a placeholder shows instead of a broken iframe.
-const SPONSORSHIP_FORM_EMBED_URL = "";
+const SPONSORSHIP_FORM_EMBED_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfFgF8w6KzbHXZny9E6ay5fsekpiygmVsBUxMFqcevWqCWixw/viewform?embedded=true";
 
 function CheckoutPage({ kit, onNavigate }) {
   const [qty, setQty] = useState(1);
@@ -3426,14 +3427,14 @@ function CheckoutPage({ kit, onNavigate }) {
             <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
               <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 2 — Tell Us About It</h3>
               <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
-                Share your name, email, and a screenshot of your payment so we can confirm your sponsorship.
+                Share your name, email, and a link to your payment screenshot so we can confirm your sponsorship.
               </p>
 
               {SPONSORSHIP_FORM_EMBED_URL ? (
                 <iframe
                   src={SPONSORSHIP_FORM_EMBED_URL}
                   title="Sponsorship confirmation form"
-                  className="h-[640px] w-full rounded-xl border border-navy/10"
+                  className="h-[1789px] w-full rounded-xl border border-navy/10"
                 >
                   Loading…
                 </iframe>
