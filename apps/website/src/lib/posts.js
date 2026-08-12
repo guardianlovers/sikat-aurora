@@ -158,7 +158,7 @@ export const POSTS = [
   },
   {
     slug: "our-first-eight-months",
-    title: "Field Notes — Our First Eight Months of Abot Ko Ang Libro",
+    title: "Our First Eight Months of Abot Ko Ang Libro",
     excerpt:
       "From a pioneer cycle in Brgy. Ilaya to almost 500 learners reached in eight months — RJ looks back at every first that shaped ABKL into what it is today.",
     category: "Abot Ko Ang Libro",
