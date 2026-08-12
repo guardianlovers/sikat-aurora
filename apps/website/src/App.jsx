@@ -2146,7 +2146,7 @@ function LeadershipPage({ onNavigate, onOpenModal }) {
             align="center"
             eyebrow="Organizational Structure"
             title="The youth leaders driving the movement"
-            lead="Meet the executive committee and directorate guiding volunteer initiatives across Aurora Province."
+            lead="Meet the leadership team guiding volunteer initiatives across Aurora Province."
             className="mb-12"
           />
 
