@@ -36,7 +36,7 @@ export const KITS = [
     amount: 125,
     name: "Story Book",
     program: "Abot Ko Ang Libro",
-    blurb: "1 Story Book = ₱125. Sponsor a storybook for the mobile library cart.",
+    blurb: "Sponsor a storybook for the mobile library cart.",
     includes: ["1 Story Book"],
     image: booksStack,
     imageAlt: "A stack of Filipino storybooks on an Abot Ko Ang Libro shelf",
