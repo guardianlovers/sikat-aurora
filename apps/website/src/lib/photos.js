@@ -49,10 +49,10 @@ export const PROGRAM_PHOTOS = {
     { src: abkl4, alt: "Storytelling interaction with local children" },
   ],
   abkp: [
-    { src: abkp1, alt: "Ang Kali Program youth environmental activity" },
+    { src: abkp1, alt: "KALI Program youth environmental activity" },
     { src: abkp2, alt: "Youth leaders taking part in nature conservation" },
     { src: abkp3, alt: "Tree planting and environmental life skills workshop" },
-    { src: abkp4, alt: "Ang Kali Program participants gathered outdoors" },
+    { src: abkp4, alt: "KALI Program participants gathered outdoors" },
   ],
   hiraya: [
     { src: hiraya1, alt: "Youth leaders participating in Hiraya active citizenship training" },

@@ -22,7 +22,7 @@ function getFolderPhotos(writer, postNumber) {
 export const POST_CATEGORIES = [
   "All",
   "Abot Ko Ang Libro",
-  "Ang Kali Program",
+  "KALI Program",
   "Hiraya",
   "Updates",
 ];
@@ -384,7 +384,7 @@ export const POSTS = [
     title: "What KALI Summit 2026 Reminded Me",
     excerpt:
       "Two days of listening to learners in Calantas brought Gera back to the environmental advocacy — and the version of herself — she'd quietly stopped making time for.",
-    category: "Ang Kali Program",
+    category: "KALI Program",
     date: "2026-07-20",
     readTime: "2 min read",
     img: getFolderPhotos("Gera Guerrero", "1")[0] || PHOTOS.communityOutreach,

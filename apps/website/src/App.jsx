@@ -615,7 +615,7 @@ function VolunteerModal({ isOpen, onClose }) {
                       Select a program...
                     </option>
                     <option>Abot Ko Ang Libro (Education)</option>
-                    <option>Ang Kali Program (Environment)</option>
+                    <option>KALI Program (Environment)</option>
                     <option>Hiraya (Active Citizenship)</option>
                     <option>Any program where needed</option>
                   </select>
@@ -866,7 +866,7 @@ function ProgramHorizontalScrubDeck() {
   const deckData = [
     {
       id: "abkl",
-      badge: "AGES 2–14",
+      badge: "AGES 6–9",
       name: "Abot Ko Ang Libro",
       shortName: "ABKL",
       center: "Education",
@@ -882,8 +882,8 @@ function ProgramHorizontalScrubDeck() {
     },
     {
       id: "abkp",
-      badge: "AGES 8–15",
-      name: "Ang Kali Program",
+      badge: "AGES 10–16",
+      name: "KALI Program",
       shortName: "AKP",
       center: "Environment",
       bgActive: "bg-forest text-white",
@@ -903,7 +903,7 @@ function ProgramHorizontalScrubDeck() {
       shortName: "Hiraya",
       center: "Active Citizenship",
       bgActive: "bg-navy text-white",
-      desc: "Leadership training and seed funding equipping student leaders to launch impactful community initiatives across DepEd schools.",
+      desc: "Leadership training and seed funding for aspiring youth leaders in Aurora.",
       bullets: [
         "YOUTH LEADERSHIP TRAINING",
         "PROJECT SEED FUNDING",
@@ -1077,7 +1077,7 @@ const HOME_IMPACT_STATS = [
   },
   {
     Icon: MapPin,
-    figure: "18",
+    figure: "23",
     label: "partner communities",
     photo: {
       src: impactCommunitiesImg,
@@ -1104,7 +1104,7 @@ const HERO_BANNER_IMAGES = Object.values(heroBannerModules);
 // Drop the GCash/bank QR code into src/assets/donate/ named "qr" (e.g.
 // "qr.jpg") and it appears on the checkout page automatically — no code
 // change needed. Until then, a placeholder box shows instead.
-const qrCodeModules = import.meta.glob("./assets/donate/qr.{jpg,jpeg,png,webp}", {
+const qrCodeModules = import.meta.glob("./assets/donate/{qr,QR,Qr,qR}.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}", {
   eager: true,
   import: "default",
 });
@@ -1220,7 +1220,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
             align="center"
             eyebrow="Volunteer Action"
             title="Our Volunteers in Every Community"
-            lead="Real moments captured across our 18 partner communities in the Province of Aurora."
+            lead="Real moments captured across our 23 partner communities in the Province of Aurora."
             className="mb-10"
           />
           <StaggerContainer as="div" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -1510,9 +1510,9 @@ function AboutPage({ onNavigate, onOpenModal }) {
           />
           <StaggerContainer as="ul" className="border-t border-navy/15">
             {[
-              { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 2–14." },
-              { name: "Ang Kali Program", center: "Environment", desc: "Life skills helping youth ages 8–15 grow into stewards of nature." },
-              { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for youth leaders across 30 DepEd schools." },
+              { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 6–9." },
+              { name: "KALI Program", center: "Environment", desc: "Life skills helping youth ages 10–16 grow into stewards of nature." },
+              { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for aspiring youth leaders in Aurora." },
             ].map((p) => (
               <StaggerItem as="li" key={p.name}>
                 <Link
@@ -1590,7 +1590,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       name: "Abot Ko Ang Libro",
       shortName: "ABKL",
       duration: "5 consecutive Saturdays",
-      desc: "A mobile library cart that brings books closer to kids ages 2–14 through storytelling sessions and book borrowing — rolling into barangays across Baler, Maria Aurora, and Dipaculao.",
+      desc: "A mobile library cart that brings books closer to kids ages 6–9 through storytelling sessions and book borrowing — rolling into barangays across Baler, Maria Aurora, and Dipaculao.",
       communities: [
         { name: "Brgy. Zabali", url: "https://www.facebook.com/media/set/?set=a.196219879269623&type=3" },
         { name: "Brgy. Calabuanan", url: "https://www.facebook.com/media/set/?set=a.804815785537451&type=3" },
@@ -1616,10 +1616,10 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
     },
     {
       center: "Environment",
-      name: "Ang Kali Program",
+      name: "KALI Program",
       shortName: "AKP",
       duration: "5 Saturdays / 3 days",
-      desc: "A life skills program helping youth ages 8–15 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
+      desc: "A life skills program helping youth ages 10–16 grow into protectors and stewards of nature — from the rivers of San Luis to the coasts of Casiguran.",
       communities: [
         { name: "Brgy. Dibut", url: "https://www.facebook.com/media/set/?set=a.371452035079739&type=3" },
         { name: "Casiguran", url: "https://www.facebook.com/media/set/?set=a.341001421918892&type=3" },
@@ -1637,7 +1637,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
       name: "Hiraya: Paglinang sa Kasanayan ng mga Makabagong Bayani ng Aurora",
       shortName: "Hiraya",
       duration: "1–2 days",
-      desc: "A leadership training equipping aspiring youth leaders with essential skills, knowledge, and initial funding necessary to excel in their roles and make a positive impact in their schools and communities.",
+      desc: "Leadership training and seed funding for aspiring youth leaders in Aurora.",
       communities: [
         { name: "Maria Aurora", url: "https://www.facebook.com/media/set/?set=a.1000689259283435&type=3" },
         { name: "Baler Linggo ng Kabataan", url: "https://www.facebook.com/media/set/?set=a.857540020265027&type=3" },
@@ -1796,7 +1796,7 @@ function ImpactPage({ onNavigate, onOpenModal }) {
     { Icon: Rocket, figure: "2021", label: "formally established" },
     { Icon: Users, figure: "400+", label: "youth volunteers" },
     { Icon: BookOpen, figure: "1,100+", label: "learners reached" },
-    { Icon: MapPin, figure: "18", label: "partner communities" },
+    { Icon: MapPin, figure: "23", label: "partner communities" },
     { Icon: ThumbsUp, figure: "5k+", label: "followers on Facebook" },
     { Icon: HandCoins, figure: "₱1.5M+", label: "donations and grants" },
   ];
@@ -2529,7 +2529,7 @@ function FormerVolunteers() {
 
 const CATEGORY_STYLES = {
   "Abot Ko Ang Libro": "bg-primary-soft text-primary",
-  "Ang Kali Program": "bg-forest-soft text-forest",
+  "KALI Program": "bg-forest-soft text-forest",
   Hiraya: "bg-sky-soft text-navy",
   Updates: "bg-gold/25 text-navy-ink",
 };
@@ -2846,12 +2846,12 @@ const OFFICIAL_FAQS = [
   {
     question: "What programs does Síkat-Aurora Inc. run?",
     answer:
-      "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 2–14), Ang Kali Program (an environmental life skills program for youth ages 8–15), and Hiraya (a leadership training with seed funding for aspiring youth leaders across 30+ DepEd schools in Central Aurora).",
+      "Three core programs: Abot Ko Ang Libro (a mobile library cart with storytelling for kids ages 6–9), KALI Program (an environmental life skills program for youth ages 10–16), and Hiraya (leadership training and seed funding for aspiring youth leaders in Aurora).",
   },
   {
     question: "Where does Síkat-Aurora Inc. operate?",
     answer:
-      "Síkat-Aurora Inc. serves 18 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora.",
+      "Síkat-Aurora Inc. serves 23 partner communities across the province of Aurora, Philippines — including barangays in Baler, Maria Aurora, Dipaculao, San Luis, and Casiguran, plus public schools throughout Central Aurora.",
   },
 ];
 
@@ -3120,7 +3120,7 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
             align="center"
             eyebrow="Volunteer Action"
             title="Our Volunteers in Every Community"
-            lead="Real moments captured across our 18 partner communities in the Province of Aurora."
+            lead="Real moments captured across our 23 partner communities in the Province of Aurora."
             className="mb-10 anime-video"
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -3326,65 +3326,7 @@ const SPONSORSHIP_SUBMIT_URL = "";
 
 function CheckoutPage({ kit, onNavigate }) {
   const [qty, setQty] = useState(1);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [proofLink, setProofLink] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
-  const [error, setError] = useState("");
-
   const total = kit.amount * qty;
-
-  // Apps Script Web Apps don't send CORS headers, so a normal fetch() can't
-  // read the response — this fires the request in "no-cors" mode and
-  // optimistically shows success once it's sent. Use text/plain instead of
-  // application/json so the browser treats it as a simple request (a JSON
-  // content-type would trigger a preflight OPTIONS request, which Apps
-  // Script doesn't handle).
-  const handleSubmitSponsorship = async (e) => {
-    e.preventDefault();
-    const cleanName = sanitizeInput(name);
-    const cleanEmail = sanitizeInput(email);
-    const cleanLink = sanitizeInput(proofLink);
-
-    if (!cleanName) {
-      setStatus("error");
-      setError("Please enter your full name.");
-      return;
-    }
-    if (!isValidEmail(cleanEmail)) {
-      setStatus("error");
-      setError("Please enter a valid email address.");
-      return;
-    }
-    if (!SPONSORSHIP_SUBMIT_URL) {
-      setStatus("error");
-      setError("Submissions aren't connected yet. Please message us on Facebook and we'll confirm your sponsorship directly.");
-      return;
-    }
-
-    setStatus("loading");
-    setError("");
-
-    try {
-      await fetch(SPONSORSHIP_SUBMIT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          name: cleanName,
-          email: cleanEmail,
-          proofLink: cleanLink,
-          kitName: kit.name,
-          quantity: qty,
-          total,
-        }),
-      });
-      setStatus("success");
-    } catch (err) {
-      setStatus("error");
-      setError(`${err.message} — please message us on Facebook and we'll confirm your sponsorship directly.`);
-    }
-  };
 
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
@@ -3397,7 +3339,7 @@ function CheckoutPage({ kit, onNavigate }) {
           <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" /> Change kit selection
         </Link>
 
-        <SectionHeading eyebrow="Step 2 of 2" title="Confirm your sponsorship" className="mb-9" />
+        <SectionHeading title="Confirm your sponsorship" className="mb-9" />
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
           {/* Order summary */}
@@ -3457,91 +3399,41 @@ function CheckoutPage({ kit, onNavigate }) {
             </div>
           </div>
 
-          {/* How to sponsor */}
-          <div className="flex flex-col gap-6">
-            {/* Step 1: pay via QR */}
-            <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
-              <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 1 — Scan to Pay</h3>
-              <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
-                Send {formatPeso(total)} via GCash or bank transfer using the QR code below.
+          {/* Payment & Proof */}
+          <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8 flex flex-col items-center text-center">
+            <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Scan to Pay & Submit Proof</h3>
+            <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
+              Send {formatPeso(total)} via GCash or bank transfer using the QR code below, then upload your proof of donation to complete your sponsorship.
+            </p>
+
+            {QR_CODE_IMAGE ? (
+              <img
+                src={QR_CODE_IMAGE}
+                alt="Síkat-Aurora Inc. GCash / bank transfer QR code"
+                className="mx-auto h-56 w-56 rounded-xl border border-navy/10 object-contain shadow-sm"
+              />
+            ) : (
+              <div className="mx-auto flex h-56 w-56 flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-navy/20 bg-cream text-center">
+                <QrCode className="h-8 w-8 text-navy/30" aria-hidden="true" />
+                <p className="px-4 text-[0.75rem] font-medium leading-snug text-navy/50">
+                  QR code coming soon
+                </p>
+              </div>
+            )}
+
+            <div className="mt-6 w-full pt-5 border-t border-navy/10 flex flex-col items-center gap-3">
+              <p className="text-[0.83rem] font-medium text-navy/70">
+                Done with your payment? Click below to submit your receipt:
               </p>
-
-              {QR_CODE_IMAGE ? (
-                <img
-                  src={QR_CODE_IMAGE}
-                  alt="Síkat-Aurora Inc. GCash / bank transfer QR code"
-                  className="mx-auto h-52 w-52 rounded-xl border border-navy/10 object-contain"
-                />
-              ) : (
-                <div className="mx-auto flex h-52 w-52 flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-navy/20 bg-cream text-center">
-                  <QrCode className="h-8 w-8 text-navy/30" aria-hidden="true" />
-                  <p className="px-4 text-[0.75rem] font-medium leading-snug text-navy/50">
-                    QR code coming soon
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Step 2: confirm sponsorship via our own form */}
-            <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
-              <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 2 — Tell Us About It</h3>
-              <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
-                Share your name, email, and a link to your payment screenshot so we can confirm your sponsorship.
-              </p>
-
-              {status === "success" ? (
-                <div className="flex flex-col items-center gap-2 rounded-xl bg-forest-soft px-6 py-10 text-center">
-                  <Check className="h-8 w-8 text-forest" aria-hidden="true" />
-                  <p className="text-[0.9rem] font-semibold text-navy">Thank you for sponsoring!</p>
-                  <p className="text-[0.82rem] leading-relaxed text-navy/70">
-                    We've received your details and will confirm your sponsorship by email.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmitSponsorship} className="space-y-4">
-                  <Field
-                    id="sponsor-name"
-                    label="Full Name"
-                    placeholder="Juan Dela Cruz"
-                    autoComplete="name"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                  <Field
-                    id="sponsor-email"
-                    label="Email Address"
-                    type="email"
-                    placeholder="juan@gmail.com"
-                    autoComplete="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Field
-                    id="sponsor-proof"
-                    label="Link to Payment Screenshot"
-                    placeholder="Google Drive or Photos link"
-                    value={proofLink}
-                    onChange={(e) => setProofLink(e.target.value)}
-                  />
-
-                  <Btn
-                    type="submit"
-                    variant="dark"
-                    className="mt-2 w-full py-3"
-                    disabled={status === "loading"}
-                  >
-                    {status === "loading" ? "Submitting…" : "Submit Sponsorship"}
-                  </Btn>
-
-                  {status === "error" && (
-                    <p role="alert" className="rounded-xl bg-crimson-soft px-4 py-3 text-[0.8rem] leading-relaxed text-crimson">
-                      {error}
-                    </p>
-                  )}
-                </form>
-              )}
+              <Btn
+                href="https://forms.gle/rrWz9cXduax8bcUj7"
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="primary"
+                className="w-full py-3.5 flex items-center justify-center gap-2 text-[0.92rem]"
+              >
+                Upload Proof of Donation <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Btn>
             </div>
           </div>
         </div>

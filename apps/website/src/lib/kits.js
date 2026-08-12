@@ -22,9 +22,9 @@ export const KITS = [
     id: "nature-kit",
     amount: 500,
     name: "KALI Kit",
-    program: "Ang Kali Program",
+    program: "KALI Program",
     blurb:
-      "A starter kit for every Ang Kali Program volunteer and partner — everything they carry into the field.",
+      "A starter kit for every KALI Program volunteer and partner — everything they carry into the field.",
     includes: ["Tote Bag", "Tumbler", "Notebook", "Ballpen", "SÍKAT ID Lace"],
     // Stand-in photo — shows storybooks, not the KALI kit
     image: booksSpread,
