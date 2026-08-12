@@ -8,6 +8,17 @@ import booksStack from "../assets/donate/kits/books1.jpg";
 
 export const KITS = [
   {
+    id: "sukbit",
+    amount: 500,
+    name: "Sukbit",
+    program: "Abot Ko Ang Libro",
+    blurb: "A school supplies kit for a learner in our partner communities.",
+    includes: ["Mini Noche Buena Package", "Pencil", "Notebook", "Eraser", "Sharpener"],
+    // Stand-in photo — shows storybooks, not the Sukbit kit
+    image: booksSpread,
+    imageAlt: "Storybooks and backpacks laid out for distribution at a Síkat-Aurora Inc. reading corner",
+  },
+  {
     id: "nature-kit",
     amount: 500,
     name: "KALI Kit",
