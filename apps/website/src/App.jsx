@@ -2703,17 +2703,17 @@ function BlogPage({ onNavigate, onOpenModal }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const featured = [...POSTS].sort((a, b) => b.date.localeCompare(a.date))[0];
-  const rest = POSTS.filter((p) => p !== featured);
   const visible =
-    activeCategory === "All" ? rest : rest.filter((p) => p.category === activeCategory);
+    activeCategory === "All" ? POSTS : POSTS.filter((p) => p.category === activeCategory);
 
   return (
     <>
       {/* Lead story */}
       <Reveal className="border-b border-navy/10 bg-white pb-14 pt-20 lg:pb-16 lg:pt-24">
         <Container>
-          <a
-            href={`#blog/${featured.slug}`}
+          <Link
+            to={`/blog/${featured.slug}`}
+            onClick={() => window.scrollTo({ top: 0 })}
             className="group grid gap-8 no-underline lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12"
           >
             <div className="overflow-hidden rounded-2xl">
@@ -2743,7 +2743,7 @@ function BlogPage({ onNavigate, onOpenModal }) {
                 />
               </span>
             </div>
-          </a>
+          </Link>
         </Container>
       </Reveal>
 
