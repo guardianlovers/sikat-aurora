@@ -1,6 +1,6 @@
 # Síkat-Aurora Security & Compliance Policy
 
-This document outlines the security architecture, data protection policies, and secure development practices enforced across Síkat-Aurora Inc. applications (`apps/website` and `apps/cms`).
+This document outlines the security architecture, data protection policies, and secure development practices enforced across the Síkat-Aurora Inc. public website (`apps/website`).
 
 ---
 
@@ -32,7 +32,7 @@ All static hosting servers and meta tags enforce the following mandatory HTTP se
 | Security Header | Configured Value | Security Function |
 | :--- | :--- | :--- |
 | `X-Content-Type-Options` | `nosniff` | Blocks MIME-type spoofing & content sniffing |
-| `X-Frame-Options` | `DENY` (website) / `SAMEORIGIN` (CMS) | Mitigates framing & clickjacking attacks |
+| `X-Frame-Options` | `DENY` | Mitigates framing & clickjacking attacks |
 | `Referrer-Policy` | `no-referrer-when-downgrade` | Prevents referrer leakage over insecure connections |
 | `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` | Forces encrypted HTTPS connections |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=()` | Disables unauthorized browser hardware APIs |

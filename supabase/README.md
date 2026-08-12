@@ -1,6 +1,6 @@
-# Supabase — Síkat-Aurora CMS
+# Supabase — Síkat-Aurora
 
-This directory contains the database schema and seed data for the Síkat-Aurora CMS.
+This directory contains the database schema and seed data for the Síkat-Aurora blog backend (posts, categories, media, profiles/roles).
 
 ## Structure
 
@@ -33,7 +33,7 @@ npx supabase db push
 
 In Supabase Dashboard → Authentication → Settings → Auth Providers:
 - **Disable** "Enable sign up" to prevent public registration.
-- Users should only be created by admins through the CMS.
+- Users should only be created by admins via the Supabase Dashboard.
 
 ### 4. Create the First Admin User
 
