@@ -898,7 +898,7 @@ function ProgramHorizontalScrubDeck() {
     },
     {
       id: "hiraya",
-      badge: "30+ SCHOOLS",
+      badge: "AGES 13–30",
       name: "Hiraya: Paglinang sa Kasanayan",
       shortName: "Hiraya",
       center: "Active Citizenship",
