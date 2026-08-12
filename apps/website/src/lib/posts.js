@@ -1,19 +1,23 @@
 import { PHOTOS } from "@/lib/photos";
 import logoImg from "@/assets/logo.png";
 
-// Drop a photo into src/assets/blog/ named after the post's slug (e.g.
-// "our-first-eight-months.jpg") and it is picked up automatically — no code
-// change needed. Until then, posts fall back to a generic program photo.
-const blogPhotoModules = import.meta.glob("../assets/blog/*.{jpg,jpeg,png,webp}", {
+// Source material lives at src/assets/blog/<Writer Name>/<post number>/ —
+// drop text.txt and photos in a numbered folder under the writer's name and
+// the photos are picked up automatically here (by folder, sorted by
+// filename). The post entry below still has to be written by hand — this
+// only wires up the images.
+const blogPhotoModules = import.meta.glob("../assets/blog/*/*/*.{jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 });
-const blogPhotosBySlug = Object.fromEntries(
-  Object.entries(blogPhotoModules).map(([path, src]) => [
-    path.split("/").pop().replace(/\.(jpg|jpeg|png|webp)$/i, "").toLowerCase(),
-    src,
-  ])
-);
+
+function getFolderPhotos(writer, postNumber) {
+  const needle = `/${writer}/${postNumber}/`;
+  return Object.entries(blogPhotoModules)
+    .filter(([path]) => path.includes(needle))
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, src]) => src);
+}
 
 export const POST_CATEGORIES = [
   "All",
@@ -32,7 +36,7 @@ export const POSTS = [
     category: "Updates",
     date: "2026-04-12",
     readTime: "5 min read",
-    img: blogPhotosBySlug["becoming-sikat-aurora"] || PHOTOS.communityAssembly,
+    img: PHOTOS.communityAssembly,
     featured: true,
     body: [
       {
@@ -160,7 +164,8 @@ export const POSTS = [
     category: "Abot Ko Ang Libro",
     date: "2022-03-10",
     readTime: "7 min read",
-    img: blogPhotosBySlug["our-first-eight-months"] || PHOTOS.communityAssembly,
+    img: getFolderPhotos("RJ Belen", "1")[0] || PHOTOS.communityAssembly,
+    author: { name: "RJ Belen", role: "Co-Founder", avatar: logoImg },
     body: [
       {
         type: "p",
@@ -180,7 +185,7 @@ export const POSTS = [
       },
       {
         type: "image",
-        src: blogPhotosBySlug["our-first-eight-months-2"],
+        src: getFolderPhotos("RJ Belen", "1")[1],
         alt: "Abot Ko Ang Libro storytelling session during an early ABKL cycle",
       },
       {
@@ -189,7 +194,7 @@ export const POSTS = [
       },
       {
         type: "image",
-        src: blogPhotosBySlug["our-first-eight-months-3"],
+        src: getFolderPhotos("RJ Belen", "1")[2],
         alt: "ABKL co-leads mobilizing volunteers during a Saturday cycle",
       },
       {
@@ -210,7 +215,7 @@ export const POSTS = [
       },
       {
         type: "image",
-        src: blogPhotosBySlug["our-first-eight-months-4"],
+        src: getFolderPhotos("RJ Belen", "1")[3],
         alt: "Kids joining an Abot Ko Ang Libro reading session",
       },
       {
@@ -251,7 +256,8 @@ export const POSTS = [
     category: "Updates",
     date: "2023-11-04",
     readTime: "6 min read",
-    img: blogPhotosBySlug["a-full-circle-moment-in-sitio-aguang"] || PHOTOS.communityOutreach,
+    img: getFolderPhotos("RJ Belen", "2")[0] || PHOTOS.communityOutreach,
+    author: { name: "RJ Belen", role: "Co-Founder", avatar: logoImg },
     body: [
       {
         type: "p",
@@ -275,7 +281,7 @@ export const POSTS = [
       },
       {
         type: "image",
-        src: blogPhotosBySlug["a-full-circle-moment-in-sitio-aguang-2"],
+        src: getFolderPhotos("RJ Belen", "2")[1],
         alt: "Síkat-Aurora volunteers during the Sitio Aguang debrief session",
       },
       {
@@ -296,7 +302,7 @@ export const POSTS = [
       },
       {
         type: "image",
-        src: blogPhotosBySlug["a-full-circle-moment-in-sitio-aguang-3"],
+        src: getFolderPhotos("RJ Belen", "2")[2],
         alt: "Síkat-Aurora volunteers gathered in Sitio Aguang",
       },
       {
@@ -310,6 +316,67 @@ export const POSTS = [
       {
         type: "p",
         text: "Síkat-Aurora, ang layo na nang narating natin pero malayo layo pa rin ang ating lakbayin. Kaya tuloy lang sa pagsíkat. 🌅",
+      },
+    ],
+  },
+  {
+    slug: "dalawang-bayani-ng-bansa-topnhs",
+    title: "Dalawang Bayani ng Bansa: Reading Rizal and Bonifacio with TOPNHS Students",
+    excerpt:
+      "A return visit to Teresita Ong Palmero NHS, where round-robin reading of Rene Villanueva's 'Dalawang Bayani ng Bansa' sparks a student's reflection on justice, poverty, and what makes someone a hero.",
+    category: "Abot Ko Ang Libro",
+    date: "2026-06-09",
+    readTime: "2 min read",
+    img: getFolderPhotos("Reaiah Codiapit", "1")[0] || PHOTOS.communityOutreach,
+    author: { name: "Reaiah Codiapit", role: "Co-Founder", avatar: logoImg },
+    body: [
+      {
+        type: "p",
+        text: "Four days ago, we went to Teresita Ong Palmero NHS. Galing na rin kami dito last year, at ang nakakatuwa, narito pa rin ang books sponsored by Bell Kenz Foundation.",
+      },
+      {
+        type: "p",
+        text: "What makes this encounter special is we get to read these books with TOPNHS students.",
+      },
+      {
+        type: "p",
+        text: "And this time, we encourage them to choose which book they want to read together as a group.",
+      },
+      {
+        type: "p",
+        text: "Para mas engaging, ginawa namin ang round-robin reading.",
+      },
+      {
+        type: "p",
+        text: "Bawat isa ay may pagkakataong buklatin, basahin, at ipaliwanag ang bawat pahina ng libro sa mas simple at relax na paraan.",
+      },
+      {
+        type: "p",
+        text: "Tampok sa aming kwentuhan ang librong isinulat ni Rene Villanueva na pinamagatang “Dalawang Bayani ng Bansa”.",
+      },
+      {
+        type: "p",
+        text: "Nakakatuwa na sa pamamagitan ng pagbabasa nito, mas nagiging bukas ang mga bata sa kaaalaman tungkol sa buhay ni Rizal at Bonifacio — na kung saan hindi nasusukat ang pagkakaiba ng katayuan, pinagdaanan, at kalagayan sa lipunan para kilalanin bilang isang bayani.",
+      },
+      {
+        type: "p",
+        text: "At iyan ang isinulat ni Joana Marie ng tanungin kung anong maitutulong ng kwento sa mga Filipino.",
+      },
+      {
+        type: "p",
+        text: "Nahuli man siyang nakasama sa aming pagbabasa, may isinulat na hanggang ngayon ay tumatak sa akin.",
+      },
+      {
+        type: "p",
+        text: "“Para sa akin, mahirap o mayaman, kaya pa rin nating ipaglaban ang ating karapatan”",
+      },
+      {
+        type: "p",
+        text: "Sana sa huli, hindi na kailangang ipaglaban ang karapatan. Wala nang labanan. Wala nang ingay.. hindi dahil may natalo o nanalo, o may nanakop, kundi dahil natatamasa at nararanasan na ng bawat Filipino ang karapatang noong una pa lamang ay naibigay na sa kanila.",
+      },
+      {
+        type: "p",
+        text: "At bago tuluyang mangyari 'yan, dito muna ang mga bata.. mag-aaral, magbabasa at nanamnamin ang mga aral na ititinuturo ng librong abot kamay na nila. Salamat sa mga aklat ng Ibong Adarna",
       },
     ],
   },
