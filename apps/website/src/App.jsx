@@ -616,7 +616,7 @@ function VolunteerModal({ isOpen, onClose }) {
                     </option>
                     <option>Abot Ko Ang Libro (Education)</option>
                     <option>KALI Program (Environment)</option>
-                    <option>Hiraya (Active Citizenship)</option>
+                    <option>Hiraya Leadership Program (Active Citizenship)</option>
                     <option>Any program where needed</option>
                   </select>
                 </Field>
@@ -899,7 +899,7 @@ function ProgramHorizontalScrubDeck() {
     {
       id: "hiraya",
       badge: "AGES 13–30",
-      name: "Hiraya: Paglinang sa Kasanayan",
+      name: "Hiraya Leadership Program",
       shortName: "Hiraya",
       center: "Active Citizenship",
       bgActive: "bg-navy text-white",
@@ -1512,7 +1512,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
             {[
               { name: "Abot Ko Ang Libro", center: "Education", desc: "A mobile library cart bringing books and storytelling to kids ages 6–9." },
               { name: "KALI Program", center: "Environment", desc: "Life skills helping youth ages 10–16 grow into stewards of nature." },
-              { name: "Hiraya", center: "Active Citizenship", desc: "Leadership training and seed funding for aspiring youth leaders in Aurora." },
+              { name: "Hiraya Leadership Program", center: "Active Citizenship", desc: "Leadership training and seed funding for aspiring youth leaders in Aurora." },
             ].map((p) => (
               <StaggerItem as="li" key={p.name}>
                 <Link
@@ -1634,7 +1634,7 @@ function ProgramsPage({ onNavigate, onOpenModal }) {
     },
     {
       center: "Active Citizenship",
-      name: "Hiraya: Paglinang sa Kasanayan ng mga Makabagong Bayani ng Aurora",
+      name: "Hiraya Leadership Program",
       shortName: "Hiraya",
       duration: "1–2 days",
       desc: "Leadership training and seed funding for aspiring youth leaders in Aurora.",
@@ -2531,6 +2531,7 @@ const CATEGORY_STYLES = {
   "Abot Ko Ang Libro": "bg-primary-soft text-primary",
   "KALI Program": "bg-forest-soft text-forest",
   Hiraya: "bg-sky-soft text-navy",
+  "Hiraya Leadership Program": "bg-sky-soft text-navy",
   Updates: "bg-gold/25 text-navy-ink",
 };
 
