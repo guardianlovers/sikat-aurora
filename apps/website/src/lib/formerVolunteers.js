@@ -93,8 +93,11 @@ export const FORMER_COHORTS = [
 
 import { slugify } from "@/lib/volunteers";
 
-// Automatically match photos in src/assets/leadership/ by filename slug
-const photoModules = import.meta.glob("../assets/leadership/*.{jpg,jpeg,png,webp}", {
+// Automatically match photos in src/assets/leadership/ and src/assets/past-leaders/ by filename slug
+const photoModules = import.meta.glob([
+  "../assets/leadership/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+  "../assets/past-leaders/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
+], {
   eager: true,
   import: "default",
 });
@@ -102,7 +105,13 @@ const photoModules = import.meta.glob("../assets/leadership/*.{jpg,jpeg,png,webp
 const photosBySlug = Object.fromEntries(
   Object.entries(photoModules).map(([path, src]) => {
     let slug = path.split("/").pop().replace(/\.(jpg|jpeg|png|webp)$/i, "").toLowerCase();
-    if (slug === "rj") slug = "rj-belen";
+    if (slug === "rj" || slug === "rj-belen") slug = "rj-belen";
+    if (slug === "rachelle" || slug === "rachelle-ann-imperial" || slug === "rachelle-imperial") slug = "rachelle-ann-imperial";
+    if (slug === "reaiah" || slug === "reaiah-codiapit") slug = "reaiah-codiapit";
+    if (slug === "crystal" || slug === "crystal-lei-pena") slug = "crystal-lei-pena";
+    if (slug === "geraldine" || slug === "geraldine-guerrero" || slug === "gera-guerrero") slug = "geraldine-guerrero";
+    if (slug === "julie" || slug === "julie-may-pecson" || slug === "julie-ann-pecson") slug = "julie-may-pecson";
+    if (slug === "ryan" || slug === "ryan-angelo-caliwag" || slug === "ryan-caliwag") slug = "ryan-angelo-caliwag";
     return [slug, src];
   })
 );
