@@ -1,5 +1,5 @@
 /**
- * JSDoc type definitions for the Síkat-Aurora CMS.
+ * JSDoc type definitions for the Síkat-Aurora Supabase schema.
  * These serve as documentation and IDE hints since the project uses plain JS.
  */
 

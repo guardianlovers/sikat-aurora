@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Síkat-Aurora platform enforces strict security separation between the **public-facing website** (`apps/website`) and the **internal CMS application** (`apps/cms`), while both applications share a single Supabase backend.
+The Síkat-Aurora platform enforces strict security separation between anonymous, read-only access to the **public-facing website** (`apps/website`) and authenticated, role-based access for content management, both against a single Supabase backend. There is currently no dedicated CMS frontend app in this repo — authenticated content management (posts, categories, media, users) happens directly through the Supabase Dashboard/SQL Editor until a CMS UI is built.
 
 ```
                   ┌──────────────────────┐
@@ -15,8 +15,8 @@ The Síkat-Aurora platform enforces strict security separation between the **pub
   [Anon key: READ ONLY]            [Anon key + Auth JWT]
             │                                 │
      ┌──────▼──────┐                   ┌──────▼──────┐
-     │ Public Site │                   │ Private CMS │
-     │ (Website)   │                   │ (Dashboard) │
+     │ Public Site │                   │ Authenticated│
+     │ (Website)   │                   │ Content Mgmt │
      └─────────────┘                   └─────────────┘
 ```
 
@@ -24,9 +24,9 @@ The Síkat-Aurora platform enforces strict security separation between the **pub
 
 ## 1. Authentication & Access Control
 
-- **No Public Sign-Ups**: Public user registration is disabled in Supabase Auth settings. Volunteer accounts are created exclusively by administrators through the CMS.
-- **Session Management**: The CMS uses Supabase Auth with persistent JWT sessions, automatic token refresh, and URL-detected session handling.
-- **Inactive Account Locks**: Accounts marked `is_active = false` in `public.profiles` are automatically blocked from accessing CMS features by `ProtectedRoute.jsx` and database RLS.
+- **No Public Sign-Ups**: Public user registration is disabled in Supabase Auth settings. Volunteer accounts are created exclusively by administrators via the Supabase Dashboard.
+- **Session Management**: Authenticated tooling uses Supabase Auth with persistent JWT sessions, automatic token refresh, and URL-detected session handling.
+- **Inactive Account Locks**: Accounts marked `is_active = false` in `public.profiles` are automatically blocked from content-management access by database RLS.
 
 ---
 
@@ -66,7 +66,7 @@ Role checks call `public.get_user_role()`, a `SECURITY DEFINER` SQL function tha
 ## 4. Storage Security (`blog-media` Bucket)
 
 - **Bucket Access**: `public = true` (allows clean CDN image rendering on the public site).
-- **Upload Policies**: Only authenticated users with a valid CMS profile (`public.get_user_role() IS NOT NULL`) can insert objects.
+- **Upload Policies**: Only authenticated users with a valid profile role (`public.get_user_role() IS NOT NULL`) can insert objects.
 - **File Validation**: Restricted to accepted image MIME types (`image/jpeg`, `image/png`, `image/webp`, `image/gif`) and capped at **5 MB**.
 - **Deletion Policies**: Only `admin` role users can delete files from storage.
 
