@@ -37,7 +37,6 @@ export const POSTS = [
     date: "2026-04-12",
     readTime: "5 min read",
     img: PHOTOS.communityAssembly,
-    featured: true,
     body: [
       {
         type: "p",
@@ -227,11 +226,11 @@ export const POSTS = [
         text: "But on the other hand, we, in SÍKAT BALER, will surely miss singing the ‘O Kay Sarap Magbasa’ and ‘Paalam Na’ songs with them. We will miss waking up early on a Saturday to meet and tell a story to them. We will miss hearing the anecdotes of parents every cycle:",
       },
       {
-        type: "p",
+        type: "quote",
         text: "“Naku sir. Sila na nga po ang gumigising sa amin tuwing Sabado kasi excited mag-ABKL.”",
       },
       {
-        type: "p",
+        type: "quote",
         text: "“Si Nicolas sir binibilang ang araw bago mag Sabado kasi excited na bumalik kayo at mag ABKL.”",
       },
       {
@@ -367,7 +366,7 @@ export const POSTS = [
         text: "Nahuli man siyang nakasama sa aming pagbabasa, may isinulat na hanggang ngayon ay tumatak sa akin.",
       },
       {
-        type: "p",
+        type: "quote",
         text: "“Para sa akin, mahirap o mayaman, kaya pa rin nating ipaglaban ang ating karapatan”",
       },
       {

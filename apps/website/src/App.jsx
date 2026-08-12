@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PHOTOS, PROGRAM_PHOTOS } from "@/lib/photos";
-import { VOLUNTEERS, ROSTER_IS_EMPTY } from "@/lib/volunteers";
+import { VOLUNTEERS, ROSTER_IS_EMPTY, slugify } from "@/lib/volunteers";
 import { FORMER_COHORTS, FOUNDERS } from "@/lib/formerVolunteers";
 import { LEADERS } from "@/lib/leaders";
 import {
@@ -1115,7 +1115,7 @@ function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
               <span className="text-gold">nagsisimula sa pagkilos.</span>
             </>
           }
-          description="A youth-led movement empowering 1,100+ children through literacy, books, and mentorship across Aurora — powered by volunteers and sponsors."
+          description="A youth-led movement empowering 1,100+ children through literacy, books, and mentorship across Aurora — powered by youth volunteers."
           ctaButton={{ text: "Become a Volunteer", onClick: onOpenModal }}
           secondaryCta={{ text: "Be a Sponsor", to: "/donate" }}
         />
@@ -1977,9 +1977,20 @@ function ImpactPage({ onNavigate, onOpenModal }) {
 
 /* ============================= Page 5: Leadership ============================= */
 
-// Real #KwentongSikat testimonials. Photos are still drawn from the generic
-// volunteer pool in lib/volunteers.js — swap in each person's actual portrait
-// once real headshots (not the branded quote-card graphics) are available.
+// Real #KwentongSikat testimonials. Portraits are matched by filename slug —
+// drop a photo into src/assets/volunteer-voices/ named after the person
+// (e.g. "mashi-amazona.jpg") and it is picked up automatically here.
+const voiceModules = import.meta.glob("./assets/volunteer-voices/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+const voicePhotosBySlug = Object.fromEntries(
+  Object.entries(voiceModules).map(([path, src]) => [
+    path.split("/").pop().replace(/\.(jpg|jpeg|png|webp)$/i, "").toLowerCase(),
+    src,
+  ])
+);
+
 const VOLUNTEER_VOICES = [
   {
     quote:
@@ -1990,39 +2001,40 @@ const VOLUNTEER_VOICES = [
   {
     quote:
       "Buwan iyon ng Setyembre, ikatlong buwan simula noong ako'y lumugmok at hinde mahanap ang daan papunta sa liwanag. Hinde ko alam na ['yung pagsali ko sa Sikat] na pala ang simula ng unti unting pumapasok ang liwanag muli sa aking buhay. Liwanag na dala ng Sikat-Aurora. Liwanag ng pag-asa, muling pagsibol, isa pang pagkakataon at liwanag na inspirasyon.",
-    name: "Patrisha Mae Abubo, 21",
+    name: "Patrisha Mae Abubo",
     designation: "Sumikat noong 2023",
   },
   {
     quote:
       "Through Síkat, I met many others like me, and it was a dream come true for me to bond with people who share the same advocacy—to empower and educate young minds and, most importantly, to conserve our nature and learn how to blend with it.",
-    name: "Mashi Amazona, 23",
+    name: "Mashi Amazona",
     designation: "Sumikat noong 2023",
   },
   {
     quote:
       "Natuwa ako [sa Sikat] dahil matagal na akong naghahanap ng organization na kung saan pwede akong mag volunteer work. [At sa tulong ng Sikat], mas natutunan kong maging grateful sa kung anong meron ako at mas naging maunawain dahil sa iba't ibang batang nakakasalamuha at kapwa ko volunteers.",
-    name: "Ginelle Torrano, 25",
+    name: "Ginelle Torrano",
     designation: "Sumikat noong 2021",
   },
   {
     quote:
       "Sikat [has become] my favorite. I don't know but part of me heals every time na I volunteer for Sikat, maybe because nakikita ko yung sarili ko sakanila, kasi just like them, laman din ako ng mga ganitong klaseng proyekto nung bata ako. I am happy to give back through new children, to the new generation.",
-    name: "Shiela Margallo, 23",
+    name: "Shiela Margallo",
     designation: "Sumikat noong 2022",
   },
   {
     quote:
       "Ako ay produkto rin ng mga kabataang boluntaryo na naglilingkod para sa bayan. Noong ako'y 5 taong gulang ay pinangako ko sa aking sarili na kapag may sapat na akong kaalaman at kakayahan, magiging gaya rin nila ako. Tinuruan ako ng Sikat kung paano maging matalino at maingat sa bawat salita at talata na namumutawi sa aking mga labi. Ito'y dapat kapupulutan ng aral at tatatak sa isipan ng bawat bata.",
-    name: "Riah Ofracio, 18",
+    name: "Riah Ofracio",
     designation: "Sumikat noong 2024",
   },
 ].map((voice, i) => {
   const v = VOLUNTEERS[[0, 4, 8, 9, 12, 15][i]];
+  const realPhoto = voicePhotosBySlug[slugify(voice.name)];
   return {
     ...voice,
-    src: v.photo,
-    alt: "Síkat-Aurora Inc. volunteer in the field",
+    src: realPhoto || v.photo,
+    alt: `${voice.name}, Síkat-Aurora Inc. volunteer`,
   };
 });
 
@@ -2690,7 +2702,7 @@ function PostPage({ post, onNavigate, onOpenModal }) {
 function BlogPage({ onNavigate, onOpenModal }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const featured = POSTS.find((p) => p.featured) ?? POSTS[0];
+  const featured = [...POSTS].sort((a, b) => b.date.localeCompare(a.date))[0];
   const rest = POSTS.filter((p) => p !== featured);
   const visible =
     activeCategory === "All" ? rest : rest.filter((p) => p.category === activeCategory);
@@ -3068,7 +3080,7 @@ function VolunteerPage({ onNavigate, onOpenModal, onPlayVideo }) {
             align="center"
             eyebrow="Join the Youth Corps"
             title="Step Up. Teach. Transform Lives in Aurora."
-            lead="Your time, passion, and heart can unlock a child's future. Join over 400 youth volunteers creating real educational change across 18 partner communities."
+            lead="Your time, passion, and heart can unlock a child's future. Join over 400 youth volunteers creating real educational change across Aurora."
             className="mb-10 anime-pillar"
           />
           <div className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
