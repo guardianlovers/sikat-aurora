@@ -13,12 +13,12 @@ import {
   HandHeart,
   Handshake,
   Heart,
-  Lock,
   Mail,
   MapPin,
   Menu,
   Minus,
   Plus,
+  QrCode,
   Rocket,
   Sprout,
   ThumbsUp,
@@ -1099,6 +1099,15 @@ const heroBannerModules = import.meta.glob("./assets/home/hero-banner/*.{jpg,jpe
   import: "default",
 });
 const HERO_BANNER_IMAGES = Object.values(heroBannerModules);
+
+// Drop the GCash/bank QR code into src/assets/donate/ named "qr" (e.g.
+// "qr.jpg") and it appears on the checkout page automatically — no code
+// change needed. Until then, a placeholder box shows instead.
+const qrCodeModules = import.meta.glob("./assets/donate/qr.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+const QR_CODE_IMAGE = Object.values(qrCodeModules)[0] || null;
 
 function HomePage({ onNavigate, onOpenModal, onPlayVideo }) {
   return (
@@ -3306,59 +3315,16 @@ function DonatePage({ onDonate }) {
 
 /* ============================= Page 10: Checkout ============================= */
 
-// Server endpoint that creates the PayMongo Checkout Session and returns
-// { checkoutUrl }. It does not exist yet — it needs to run somewhere that can
-// hold PAYMONGO_SECRET_KEY (a Vercel serverless function under /api would do).
-// Until it does, Proceed to Payment surfaces an error instead of pretending.
-const PAYMONGO_CHECKOUT_ENDPOINT = "/api/paymongo/checkout";
+// Paste the embed URL of the Google Form here once it's created (Form ->
+// Send -> embed <> -> copy the iframe "src"). The form should collect Full
+// Name, Email, and a file-upload question for proof of payment. Until this
+// is set, a placeholder shows instead of a broken iframe.
+const SPONSORSHIP_FORM_EMBED_URL = "";
 
 function CheckoutPage({ kit, onNavigate }) {
   const [qty, setQty] = useState(1);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | error
-  const [error, setError] = useState("");
 
   const total = kit.amount * qty;
-
-  // Hands off to PayMongo's hosted checkout, which is where the donor picks
-  // GCash / Maya / card / bank. The session has to be created server-side —
-  // PayMongo's secret key must never reach the browser — so this posts to our
-  // own endpoint and follows the checkout URL it returns.
-  const handleProceed = async (e) => {
-    e.preventDefault();
-    const cleanName = sanitizeInput(name);
-    const cleanEmail = sanitizeInput(email);
-
-    if (!isValidEmail(cleanEmail)) {
-      setStatus("error");
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    setStatus("loading");
-    setError("");
-
-    try {
-      const res = await fetch(PAYMONGO_CHECKOUT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kitId: kit.id, quantity: qty, name: cleanName, email: cleanEmail }),
-      });
-
-      if (!res.ok) throw new Error(`Checkout failed (${res.status})`);
-
-      const { checkoutUrl } = await res.json();
-      if (!checkoutUrl) throw new Error("No checkout URL was returned.");
-
-      window.location.href = checkoutUrl;
-    } catch (err) {
-      setStatus("error");
-      setError(
-        `${err.message} — online payment isn't connected yet. Please message us and we'll arrange your donation directly.`
-      );
-    }
-  };
 
   return (
     <Reveal className="bg-cream pb-16 pt-20 lg:pb-20 lg:pt-24">
@@ -3431,57 +3397,54 @@ function CheckoutPage({ kit, onNavigate }) {
             </div>
           </div>
 
-          {/* Payment details */}
-          <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
-            <h3 className="mb-6 text-[1.35rem] font-bold text-navy">Payment details</h3>
-
-            {/* No method picker — PayMongo's hosted checkout collects that itself */}
-            <form onSubmit={handleProceed} className="space-y-4">
-              <Field
-                id="donate-name"
-                label="Full Name"
-                placeholder="Juan Dela Cruz"
-                autoComplete="name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <Field
-                id="donate-email"
-                label="Email Address (for receipt)"
-                type="email"
-                placeholder="juan@gmail.com"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-
-              <Btn
-                type="submit"
-                variant="dark"
-                className="mt-6 w-full py-3"
-                disabled={status === "loading"}
-              >
-                {status === "loading" ? (
-                  "Redirecting…"
-                ) : (
-                  <>
-                    <Lock className="h-3.5 w-3.5" aria-hidden="true" /> Proceed to Payment
-                  </>
-                )}
-              </Btn>
-            </form>
-
-            {status === "error" && (
-              <p role="alert" className="mt-4 rounded-xl bg-crimson-soft px-4 py-3 text-[0.8rem] leading-relaxed text-crimson">
-                {error}
+          {/* How to sponsor */}
+          <div className="flex flex-col gap-6">
+            {/* Step 1: pay via QR */}
+            <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
+              <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 1 — Scan to Pay</h3>
+              <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
+                Send {formatPeso(total)} via GCash or bank transfer using the QR code below.
               </p>
-            )}
 
-            <p className="mt-4 text-center text-[0.78rem] font-medium leading-relaxed text-navy/70">
-              🔒 <strong>PCI DSS Compliant Checkout:</strong> Payment choice (GCash, Maya, card, bank transfer) happens securely on PayMongo's PCI DSS certified portal. Síkat-Aurora Inc. never touches or stores your card or banking credentials.
-            </p>
+              {QR_CODE_IMAGE ? (
+                <img
+                  src={QR_CODE_IMAGE}
+                  alt="Síkat-Aurora Inc. GCash / bank transfer QR code"
+                  className="mx-auto h-52 w-52 rounded-xl border border-navy/10 object-contain"
+                />
+              ) : (
+                <div className="mx-auto flex h-52 w-52 flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-navy/20 bg-cream text-center">
+                  <QrCode className="h-8 w-8 text-navy/30" aria-hidden="true" />
+                  <p className="px-4 text-[0.75rem] font-medium leading-snug text-navy/50">
+                    QR code coming soon
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Step 2: confirm sponsorship via embedded form */}
+            <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-card sm:p-8">
+              <h3 className="mb-1 text-[1.05rem] font-bold text-navy">Step 2 — Tell Us About It</h3>
+              <p className="mb-5 text-[0.85rem] leading-relaxed text-navy/70">
+                Share your name, email, and a screenshot of your payment so we can confirm your sponsorship.
+              </p>
+
+              {SPONSORSHIP_FORM_EMBED_URL ? (
+                <iframe
+                  src={SPONSORSHIP_FORM_EMBED_URL}
+                  title="Sponsorship confirmation form"
+                  className="h-[640px] w-full rounded-xl border border-navy/10"
+                >
+                  Loading…
+                </iframe>
+              ) : (
+                <div className="flex flex-col items-center gap-2 rounded-xl border-2 border-dashed border-navy/20 bg-cream px-6 py-10 text-center">
+                  <p className="text-[0.85rem] font-medium leading-relaxed text-navy/50">
+                    Sponsorship form coming soon
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
