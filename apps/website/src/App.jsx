@@ -186,7 +186,7 @@ function Eyebrow({ className, align = "left", dark = false, children }) {
   );
 }
 
-function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className, titleClassName }) {
+function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, className, titleClassName, leadClassName }) {
   return (
     <div className={cn(align === "center" && "text-center", className)}>
       {eyebrow && <Eyebrow align={align} dark={dark}>{eyebrow}</Eyebrow>}
@@ -205,7 +205,8 @@ function SectionHeading({ eyebrow, title, lead, align = "left", dark = false, cl
           className={cn(
             "mt-4 max-w-[54ch] text-[0.95rem] leading-[1.7]",
             dark ? "text-white/75" : "text-navy/75",
-            align === "center" && "mx-auto"
+            align === "center" && "mx-auto",
+            leadClassName
           )}
         >
           {lead}
@@ -1505,6 +1506,7 @@ function AboutPage({ onNavigate, onOpenModal }) {
             title="Three centers of participation"
             lead="Every program is volunteer-driven and free for the learners it serves."
             className="mb-12"
+            leadClassName="max-w-none"
           />
           <StaggerContainer as="ul" className="border-t border-navy/15">
             {[
